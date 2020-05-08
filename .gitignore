@@ -1,0 +1,16 @@
+.idea/
+*.pyc
+.deploy_git/
+db.json
+public/
+.DS_Store
+source/.DS_Store
+node_modules/
+temp/
+notebook/MNIST_data/
+notebook/.ipynb_checkpoints/
+bin/
+lib/
+local/
+pip-selfcheck.json
+package-lock.json
