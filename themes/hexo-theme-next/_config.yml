@@ -122,10 +122,6 @@ menu:
   archives: /archives/ || archive
   about: /about/ || user
   tags: /tags/ || tags
-  # categories: /categories/ || th
-  # schedule: /schedule/ || calendar
-  # sitemap: /sitemap.xml || sitemap
-  # commonweal: /404/ || heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
