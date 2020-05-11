@@ -1,0 +1,7 @@
+{
+    "pasteImage.path": "${projectRoot}/source/resource/img",
+    "pasteImage.basePath": "${projectRoot}/source",
+    "pasteImage.forceUnixStyleSeparator": true,
+    "pasteImage.prefix": "/",
+    "python.pythonPath": "/home/xyz/.local/share/virtualenvs/noogel.github.io-NUnoTTh1/bin/python"
+}
