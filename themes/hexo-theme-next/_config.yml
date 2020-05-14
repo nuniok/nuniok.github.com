@@ -40,10 +40,10 @@ custom_file_path:
 # ---------------------------------------------------------------
 
 favicon:
-  small: /resource/img/favicon2018.png
-  medium: /resource/img/favicon2018.png
-  apple_touch_icon: /resource/img/favicon2018.png
-  safari_pinned_tab: /resource/img/favicon2018.png
+  small: /resource/img/65028384.jpg
+  medium: /resource/img/65028384.jpg
+  apple_touch_icon: /resource/img/65028384.jpg
+  safari_pinned_tab: /resource/img/65028384.jpg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -161,7 +161,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /resource/img/favicon2018.png #/images/avatar.gif
+  url: /resource/img/65028384.jpg #/images/avatar.gif
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
@@ -175,9 +175,9 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/noogel || github
+  GitHub: https://github.com/nuniok || github
   # ZhiHu: https://www.zhihu.com/people/xyz5011/activities || envelope
-  E-Mail: mailto:noogel@163.com || envelope
+  E-Mail: mailto:nuniok@163.com || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -389,7 +389,7 @@ bookmark:
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
   enable: true
-  permalink: https://github.com/noogel
+  permalink: https://github.com/nuniok
   title: Follow me on GitHub
 
 
