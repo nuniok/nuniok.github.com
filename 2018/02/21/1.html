@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/65028384.jpg">
+  <link rel="mask-icon" href="/resource/img/65028384.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nuniok.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="零散整理，复习知识点。 HashMap 实现原理 Java 8 中，HashMap 是由哈希数组+链表+红黑树组成的，也就是哈希数组、哈希表、链表散列，意思就是数组不是紧密排列的。每个数组元素对应一种不同的hash值，但是不同的hash值可能会映射到数组的同一下标（即哈希冲突）。因为 12n &#x3D; tab.lengthtab[i &#x3D; (n - 1) &amp; hash] put">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 零散知识">
+<meta property="og:url" content="https://nuniok.github.io/2018/02/21/1.html">
+<meta property="og:site_name" content="nuniok">
+<meta property="og:description" content="零散整理，复习知识点。 HashMap 实现原理 Java 8 中，HashMap 是由哈希数组+链表+红黑树组成的，也就是哈希数组、哈希表、链表散列，意思就是数组不是紧密排列的。每个数组元素对应一种不同的hash值，但是不同的hash值可能会映射到数组的同一下标（即哈希冲突）。因为 12n &#x3D; tab.lengthtab[i &#x3D; (n - 1) &amp; hash] put">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15618701610818.jpg">
+<meta property="article:published_time" content="2018-02-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-10T15:14:32.260Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nuniok.github.io/resource/img/15618701610818.jpg">
+
+<link rel="canonical" href="https://nuniok.github.io/2018/02/21/1.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java 零散知识 | nuniok</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">nuniok</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-stack">
+
+    <a href="/stack/" rel="section"><i class="fa fa-fw fa-sitemap"></i>图谱</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/nuniok" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2018/02/21/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resource/img/65028384.jpg">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nuniok">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 零散知识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-21T00:00:00+08:00">2018-02-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>零散整理，复习知识点。</p>
+<h2 id="HashMap-实现原理"><a href="#HashMap-实现原理" class="headerlink" title="HashMap 实现原理"></a>HashMap 实现原理</h2><p><img src="/resource/img/15618701610818.jpg" alt=""></p>
+<p>Java 8 中，HashMap 是由哈希数组+链表+红黑树组成的，也就是哈希数组、哈希表、链表散列，意思就是数组不是紧密排列的。每个数组元素对应一种不同的hash值，但是不同的hash值可能会映射到数组的同一下标（即哈希冲突）。因为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n &#x3D; tab.length</span><br><span class="line">tab[i &#x3D; (n - 1) &amp; hash]</span><br></pre></td></tr></table></figure>
+<p>put(K key,V value)方法：添加键值对key-value，如果存在键key，则value覆盖oldValue，并返回oldValue。先通过键key，利用哈希函数hashCode()等操作，获取hash值，然后根据hash值得到映射到数组的下标，再判断key键是不是存在此下标中。<br>两个对象的hashCode相同，equals不一定相同;两个对象equals相同，hashCode一定相同。所以，重写equals()方法，一定要重写hashCode()方法。</p>
+<p>get(Object key)方法：返回键key对应的value值，如果不存在键key，返回null。<br>以上两个方法都是找key，然后就直接获得附加的value值了。</p>
+<p><a href="https://blog.csdn.net/laoxingyao/article/details/81252977" target="_blank" rel="noopener">https://blog.csdn.net/laoxingyao/article/details/81252977</a></p>
+<h2 id="Java-clone"><a href="#Java-clone" class="headerlink" title="Java clone"></a>Java clone</h2><p><a href="https://blog.csdn.net/zhangjg_blog/article/details/18369201" target="_blank" rel="noopener">https://blog.csdn.net/zhangjg_blog/article/details/18369201</a></p>
+<h2 id="抽象类-抽象方法"><a href="#抽象类-抽象方法" class="headerlink" title="抽象类\抽象方法"></a>抽象类\抽象方法</h2><p><a href="https://blog.csdn.net/qq_33567641/article/details/80986235" target="_blank" rel="noopener">https://blog.csdn.net/qq_33567641/article/details/80986235</a></p>
+<h2 id="Optional-使用"><a href="#Optional-使用" class="headerlink" title="Optional 使用"></a>Optional 使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(entities)</span><br><span class="line">                .orElse(Collections.emptyList())</span><br><span class="line">                .stream()</span><br><span class="line">                .map(this::copyValueFromEntity2Dto)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>##IntStream迭代索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Boolean&gt; retMap &#x3D; IntStream.range(0, skuList.size())</span><br><span class="line">               .mapToObj(i -&gt; Pair.of(skuList.get(i).getSkuId(), purchased.get(i)))</span><br><span class="line">               .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));</span><br></pre></td></tr></table></figure>
+
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><p>POJO（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。使用POJO名称是为了避免和EJB混淆起来, 而且简称比较直接. 其中有一些属性及其getter setter方法的类,没有业务逻辑，有时可以作为VO(value -object)或dto(Data Transform Object)来使用.当然,如果你有一个简单的运算属性也是可以的,但不允许有业务方法,也不能携带有connection之类的方法。</p>
+<h2 id="函数接口"><a href="#函数接口" class="headerlink" title="函数接口"></a>函数接口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.util.function.*;</span><br><span class="line">BiConsumer&lt;T, U&gt;</span><br><span class="line">Function&lt;T, R&gt;</span><br><span class="line">BiFunctionM&lt;T, R, U&gt;</span><br><span class="line">@FunctionalInterface</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html</a></p>
+<p>Supplier<T> 接收一个函数，返回值类型为 T</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void abc(Supplier&lt;T&gt; fun)&#123;</span><br><span class="line">    fun.get();</span><br><span class="line">&#125;</span><br><span class="line">abc(Class1::func1);</span><br></pre></td></tr></table></figure>
+
+<p>##Jackson - Annotations</p>
+<p>@JsonIgnore 注解用来忽略某些字段，可以用在Field或者Getter方法上，用在Setter方法时，和Filed效果一样。这个注解只能用在POJO存在的字段要忽略的情况，不能满足现在需要的情况。<br>@JsonIgnoreProperties(ignoreUnknown = true)，将这个注解写在类上之后，就会忽略类中不存在的字段，可以满足当前的需要。这个注解还可以指定要忽略的字段。<br>@JsonInclude 该注解也是放在类名上面，作用是忽略类中字段值为null的当接收的时候。</p>
+<h2 id="Mock-Stub"><a href="#Mock-Stub" class="headerlink" title="Mock\Stub"></a>Mock\Stub</h2><p>Mock 测试就是在测试过程中，对于某些不容易构造或者不容易获取比较复杂的对象，用一个虚拟的对象来创建以便测试的测试方法。<br>Mock 与 Stub 的区别?<br><a href="https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748" target="_blank" rel="noopener">https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748</a></p>
+<h2 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h2><p>EventBus 是Google.Guava提供的消息发布-订阅类库，它实现了观察者设计模式，消息通知负责人通过EventBus去注册/注销观察者，最后由消息通知负责人给观察者发布消息。由于EventBus是将消息队列放入到内存中的，listener消费这个消息队列，故系统重启之后，保存或者堆积在队列中的消息丢失。</p>
+<h2 id="lombok"><a href="#lombok" class="headerlink" title="lombok"></a>lombok</h2><p>@Data ：注解在类上；提供类所有属性的 getting 和 setting 方法，此外还提供了equals、canEqual、hashCode、toString 方法。<br>@Setter：注解在属性上；为属性提供 setting 方法。<br>@Getter：注解在属性上；为属性提供 getting 方法。<br>@Builder：构造一个实例，属性不需要单独 Set。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Data;</span><br><span class="line">import lombok.Builder;</span><br><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">public class ReportReqDto &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    private Integer age;</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br><span class="line">ReportReqDto.builder().id(&quot;1234312312313&quot;).age(12).name(&quot;test&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class AbelDeliveryRequestDto &#123;</span><br><span class="line">    private long memberId;</span><br><span class="line">    private String skuId;</span><br><span class="line">    private int quantity;</span><br><span class="line">    private String extra;</span><br><span class="line">    private boolean anonymous;</span><br><span class="line">    private Map&lt;String, String&gt; params &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Maven 配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.16.10&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/02/06/2.html" rel="prev" title="Python时间处理函数">
+      <i class="fa fa-chevron-left"></i> Python时间处理函数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/04/1.html" rel="next" title="Git操作场景化实践">
+      Git操作场景化实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzOS82ODky"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-实现原理"><span class="nav-number">1.</span> <span class="nav-text">HashMap 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-clone"><span class="nav-number">2.</span> <span class="nav-text">Java clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象类-抽象方法"><span class="nav-number">3.</span> <span class="nav-text">抽象类\抽象方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional-使用"><span class="nav-number">4.</span> <span class="nav-text">Optional 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POJO"><span class="nav-number">5.</span> <span class="nav-text">POJO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数接口"><span class="nav-number">6.</span> <span class="nav-text">函数接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock-Stub"><span class="nav-number">7.</span> <span class="nav-text">Mock\Stub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-number">8.</span> <span class="nav-text">EventBus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lombok"><span class="nav-number">9.</span> <span class="nav-text">lombok</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nuniok"
+      src="/resource/img/65028384.jpg">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nuniok" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nuniok" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nuniok@163.com" title="E-Mail → mailto:nuniok@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1261171488&web_id=1261171488"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

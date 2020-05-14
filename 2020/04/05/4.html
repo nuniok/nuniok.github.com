@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/65028384.jpg">
+  <link rel="mask-icon" href="/resource/img/65028384.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nuniok.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="GC 引用计数算法，记录对象被引用的次数。 可达性分析算法，通过一系列的“GC Roots” 根对象作为开始节点集，根据引用关系向下搜索，如果某个对象到 GC Roots 间没有任何引用链相连，表明对象不可达。  引用的概念  强引用，普遍的引用赋值。 软引用，在程序将要内存溢出的时候可以进行回收，回收后内存依然不够时则抛出异常。 弱引用，生存周期为下一次垃圾回收为止。 虚引用，被垃圾回收时触发一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM GC">
+<meta property="og:url" content="https://nuniok.github.io/2020/04/05/4.html">
+<meta property="og:site_name" content="nuniok">
+<meta property="og:description" content="GC 引用计数算法，记录对象被引用的次数。 可达性分析算法，通过一系列的“GC Roots” 根对象作为开始节点集，根据引用关系向下搜索，如果某个对象到 GC Roots 间没有任何引用链相连，表明对象不可达。  引用的概念  强引用，普遍的引用赋值。 软引用，在程序将要内存溢出的时候可以进行回收，回收后内存依然不够时则抛出异常。 弱引用，生存周期为下一次垃圾回收为止。 虚引用，被垃圾回收时触发一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860681718965.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860666420812.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860668066361.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860668161669.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860671536079.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15860681523977.jpg">
+<meta property="article:published_time" content="2020-04-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-10T15:14:32.260Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nuniok.github.io/resource/img/15860681718965.jpg">
+
+<link rel="canonical" href="https://nuniok.github.io/2020/04/05/4.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM GC | nuniok</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">nuniok</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-stack">
+
+    <a href="/stack/" rel="section"><i class="fa fa-fw fa-sitemap"></i>图谱</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/nuniok" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2020/04/05/4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resource/img/65028384.jpg">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nuniok">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM GC
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00+08:00">2020-04-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><ul>
+<li>引用计数算法，记录对象被引用的次数。</li>
+<li>可达性分析算法，通过一系列的“GC Roots” 根对象作为开始节点集，根据引用关系向下搜索，如果某个对象到 GC Roots 间没有任何引用链相连，表明对象不可达。</li>
+</ul>
+<p>引用的概念</p>
+<ul>
+<li>强引用，普遍的引用赋值。</li>
+<li>软引用，在程序将要内存溢出的时候可以进行回收，回收后内存依然不够时则抛出异常。</li>
+<li>弱引用，生存周期为下一次垃圾回收为止。</li>
+<li>虚引用，被垃圾回收时触发一次系统通知。</li>
+</ul>
+<p>垃圾收集算法 - 分代收集理论</p>
+<ul>
+<li>内存区域<ul>
+<li>新生代</li>
+<li>老年代</li>
+<li>永久代（元空间、方法区）</li>
+</ul>
+</li>
+<li>回收类型<ul>
+<li>新生代收集</li>
+<li>老年代收集</li>
+<li>整堆收集</li>
+</ul>
+</li>
+<li>回收算法<ul>
+<li>标记 - 清除算法：将垃圾对象标记清除。容易造成内存空间碎片化，大对象申请问题，可能触发下一次垃圾收集动作。</li>
+<li>标记 - 复制算法：半区复制，浪费空间。新生代 eden 空间、两块 survivor 空间，比例是 8:1，每次只使用 Eden空间和一块survivor空间，进行垃圾回收时会将存活对象复制到另一块 survivor 空间，然后清理掉已经用过的 Eden 空间和 survivor 空间，这样整个新生代利用了 90% 的空间。当一次垃圾回收的存活对象超过一个surivor空间时会通过分配担保机制使用老年代空间。</li>
+<li>标记 - 整理算法：清除后将所有存活对象向内存空间一端移动。</li>
+</ul>
+</li>
+</ul>
+<h3 id="经典垃圾收集器"><a href="#经典垃圾收集器" class="headerlink" title="经典垃圾收集器"></a>经典垃圾收集器</h3><p><a href="https://juejin.im/post/5e197cc0e51d451c774dc56f" target="_blank" rel="noopener">https://juejin.im/post/5e197cc0e51d451c774dc56f</a></p>
+<p><img src="/resource/img/15860681718965.jpg" alt=""></p>
+<p><img src="/resource/img/15860666420812.jpg" alt=""></p>
+<p>Java8 GC 默认使用的是 Parallel Scavenge (新生代) 和 Parallel Old (老年代)。</p>
+<h3 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h3><p>在启动命令中增加 <code>-XX:+PrintGCDetails</code> 输出详细GC日志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * VM Args: -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio&#x3D;8</span><br><span class="line"> * 堆内存溢出</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class JvmDemo1 &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Random random &#x3D; new Random();</span><br><span class="line">        List&lt;Long&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            list.add(random.nextLong());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[GC (Allocation Failure) [PSYoungGen: 8097K-&gt;1008K(9216K)] 11954K-&gt;10351K(19456K), 0.0091685 secs] [Times: user&#x3D;0.02 sys&#x3D;0.01, real&#x3D;0.01 secs] </span><br><span class="line"></span><br><span class="line">[Full GC (Ergonomics) [PSYoungGen: 1008K-&gt;495K(9216K)] [ParOldGen: 9343K-&gt;9793K(10240K)] 10351K-&gt;10288K(19456K), [Metaspace: 3224K-&gt;3224K(1056768K)], 0.1013312 secs] [Times: user&#x3D;0.16 sys&#x3D;0.00, real&#x3D;0.10 secs]</span><br></pre></td></tr></table></figure>
+
+<p>GC：表明进行了一次垃圾回收，前面没有Full修饰，表明这是一次Minor GC ,注意它不表示只GC新生代，并且现有的不管是新生代还是老年代都会STW。 Allocation Failure：表明本次引起GC的原因是因为在年轻代中没有足够的空间能够存储新的数据了。</p>
+<p><img src="/resource/img/15860668066361.jpg" alt=""></p>
+<p><img src="/resource/img/15860668161669.jpg" alt=""></p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="JVM-堆栈配置参数"><a href="#JVM-堆栈配置参数" class="headerlink" title="JVM 堆栈配置参数"></a>JVM 堆栈配置参数</h3><p><img src="/resource/img/15860671536079.jpg" alt=""></p>
+<h3 id="jps-查看-JVM-进程启动参数"><a href="#jps-查看-JVM-进程启动参数" class="headerlink" title="jps 查看 JVM 进程启动参数"></a>jps 查看 JVM 进程启动参数</h3><p>默认元空间大小128M，最大元空间大小256M，初始化堆大小2G，最大堆大小5G，新生代512M，每个线程分配内存大小1M。eden空间和survivor空间的分配比率8:2，使用标记复制算法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-8-oracle&#x2F;bin# .&#x2F;jps -v</span><br><span class="line">1 xxx.jar -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;256m -Xms2048m -Xmx5048m -Xmn512m -Xss1024k -XX:SurvivorRatio&#x3D;8 -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails</span><br></pre></td></tr></table></figure>
+
+<h3 id="jmap-生成堆快照"><a href="#jmap-生成堆快照" class="headerlink" title="jmap 生成堆快照"></a>jmap 生成堆快照</h3><p>format 指定输出格式，live 指明是活着的对象，file 指定文件名。方便后面通过分析工具分析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -dump:live,format&#x3D;b,file&#x3D;dump.hprof pid</span><br></pre></td></tr></table></figure>
+
+<h3 id="jstat-查看-JVM-进程已使用空间百分比"><a href="#jstat-查看-JVM-进程已使用空间百分比" class="headerlink" title="jstat 查看 JVM 进程已使用空间百分比"></a>jstat 查看 JVM 进程已使用空间百分比</h3><p><img src="/resource/img/15860681523977.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-8-oracle&#x2F;bin# .&#x2F;jstat -gcutil 1</span><br><span class="line">  S0 S1 E O M CCS YGC YGCT FGC FGCT GCT</span><br><span class="line">  0.00 72.37 40.12 3.59 96.52 94.68 113 4.433 0 0.000 4.433</span><br></pre></td></tr></table></figure>
+
+<p>S0 survivo0<br>S1 survivo1<br>E Eden空间<br>O 老年代<br>M 元空间使用率<br>CCS 压缩使用比例<br>YGC 新生代 GC 次数<br>YGCT 新生代 GC 耗时<br>FGC Full GC 次数<br>FGCT Full GC 耗时<br>GCT GC 耗时</p>
+<h3 id="jmap-查看进程堆的详细信息"><a href="#jmap-查看进程堆的详细信息" class="headerlink" title="jmap 查看进程堆的详细信息"></a>jmap 查看进程堆的详细信息</h3><p><code>jmap -heap pid</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">Attaching to process ID 3764, please wait...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.171-b11</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Parallel GC with 8 thread(s) &#x2F;&#x2F;采用Parallel GC </span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   MinHeapFreeRatio &#x3D; 0 &#x2F;&#x2F;JVM最小空闲比率 可由-XX:MinHeapFreeRatio&#x3D;&lt;n&gt;参数设置， jvm heap 在使用率小于 n 时 ,heap 进行收缩</span><br><span class="line">   MaxHeapFreeRatio &#x3D; 100 &#x2F;&#x2F;JVM最大空闲比率 可由-XX:MaxHeapFreeRatio&#x3D;&lt;n&gt;参数设置， jvm heap 在使用率大于 n 时 ,heap 进行扩张 </span><br><span class="line">   MaxHeapSize &#x3D; 2095054848 (1998.0MB) &#x2F;&#x2F;JVM堆的最大大小 可由-XX:MaxHeapSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   NewSize &#x3D; 44040192 (42.0MB) &#x2F;&#x2F;JVM新生代的默认大小 可由-XX:NewSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   MaxNewSize &#x3D; 698351616 (666.0MB) &#x2F;&#x2F;JVM新生代的最大大小 可由-XX:MaxNewSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   OldSize &#x3D; 88080384 (84.0MB) &#x2F;&#x2F;JVM老生代的默认大小 可由-XX:OldSize&#x3D;&lt;n&gt;参数设置 </span><br><span class="line">   NewRatio &#x3D; 2 &#x2F;&#x2F;新生代：老生代（的大小）&#x3D;1:2 可由-XX:NewRatio&#x3D;&lt;n&gt;参数指定New Generation与Old Generation heap size的比例。</span><br><span class="line">   SurvivorRatio &#x3D; 8 &#x2F;&#x2F;survivor:eden &#x3D; 1:8,即survivor space是新生代大小的1&#x2F;(8+2)[因为有两个survivor区域] 可由-XX:SurvivorRatio&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   MetaspaceSize &#x3D; 21807104 (20.796875MB) &#x2F;&#x2F;元空间的默认大小，超过此值就会触发Full GC 可由-XX:MetaspaceSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   CompressedClassSpaceSize &#x3D; 1073741824 (1024.0MB) &#x2F;&#x2F;类指针压缩空间的默认大小 可由-XX:CompressedClassSpaceSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   MaxMetaspaceSize &#x3D; 17592186044415 MB &#x2F;&#x2F;元空间的最大大小 可由-XX:MaxMetaspaceSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line">   G1HeapRegionSize &#x3D; 0 (0.0MB) &#x2F;&#x2F;使用G1垃圾收集器的时候，堆被分割的大小 可由-XX:G1HeapRegionSize&#x3D;&lt;n&gt;参数设置</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">PS Young Generation &#x2F;&#x2F;新生代区域分配情况</span><br><span class="line">Eden Space: &#x2F;&#x2F;Eden区域分配情况</span><br><span class="line">   capacity &#x3D; 89653248 (85.5MB)</span><br><span class="line">   used &#x3D; 8946488 (8.532035827636719MB)</span><br><span class="line">   free &#x3D; 80706760 (76.96796417236328MB)</span><br><span class="line">   9.978989272089729% used</span><br><span class="line">From Space: &#x2F;&#x2F;其中一个Survivor区域分配情况</span><br><span class="line">   capacity &#x3D; 42467328 (40.5MB)</span><br><span class="line">   used &#x3D; 15497496 (14.779563903808594MB)</span><br><span class="line">   free &#x3D; 26969832 (25.720436096191406MB)</span><br><span class="line">   36.49275037977431% used</span><br><span class="line">To Space: &#x2F;&#x2F;另一个Survivor区域分配情况</span><br><span class="line">   capacity &#x3D; 42991616 (41.0MB)</span><br><span class="line">   used &#x3D; 0 (0.0MB)</span><br><span class="line">   free &#x3D; 42991616 (41.0MB)</span><br><span class="line">   0.0% used</span><br><span class="line">PS Old Generation &#x2F;&#x2F;老生代区域分配情况</span><br><span class="line">   capacity &#x3D; 154664960 (147.5MB)</span><br><span class="line">   used &#x3D; 98556712 (93.99100494384766MB)</span><br><span class="line">   free &#x3D; 56108248 (53.508995056152344MB)</span><br><span class="line">   63.722715216167906% used</span><br><span class="line"></span><br><span class="line">1819 interned Strings occupying 163384 bytes.</span><br></pre></td></tr></table></figure>
+
+<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>目的：对JVM内存的系统级的调优主要的目的是减少GC的频率和Full GC的次数，减少系统停顿时间。</p>
+<p>步骤：</p>
+<ol>
+<li>监控GC状态</li>
+<li>生成 dump 文件</li>
+<li>分析dump 文件（MAT 工具）</li>
+<li>分析判断是否需要进行优化<ul>
+<li>Minor GC执行时间超过50ms；</li>
+<li>Minor GC执行频繁，约10秒内一次；</li>
+<li>Full GC执行时间超过1s；</li>
+<li>Full GC执行频繁，高于10分钟1次；</li>
+</ul>
+</li>
+<li>调整GC类型和内存分配</li>
+<li>不断分析调整</li>
+</ol>
+<h2 id="可视化分析工具-MAT"><a href="#可视化分析工具-MAT" class="headerlink" title="可视化分析工具 MAT"></a>可视化分析工具 MAT</h2><blockquote>
+<p><a href="https://blog.csdn.net/wwlwwy89/article/details/74330544" target="_blank" rel="noopener">https://blog.csdn.net/wwlwwy89/article/details/74330544</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/05/1.html" rel="prev" title="设计模式与设计原则">
+      <i class="fa fa-chevron-left"></i> 设计模式与设计原则
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/05/2.html" rel="next" title="JVM 运行时数据区">
+      JVM 运行时数据区 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzOS82ODky"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC"><span class="nav-number">1.</span> <span class="nav-text">GC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#经典垃圾收集器"><span class="nav-number">1.1.</span> <span class="nav-text">经典垃圾收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GC-日志"><span class="nav-number">1.2.</span> <span class="nav-text">GC 日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">2.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-堆栈配置参数"><span class="nav-number">2.1.</span> <span class="nav-text">JVM 堆栈配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jps-查看-JVM-进程启动参数"><span class="nav-number">2.2.</span> <span class="nav-text">jps 查看 JVM 进程启动参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jmap-生成堆快照"><span class="nav-number">2.3.</span> <span class="nav-text">jmap 生成堆快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jstat-查看-JVM-进程已使用空间百分比"><span class="nav-number">2.4.</span> <span class="nav-text">jstat 查看 JVM 进程已使用空间百分比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jmap-查看进程堆的详细信息"><span class="nav-number">2.5.</span> <span class="nav-text">jmap 查看进程堆的详细信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM调优"><span class="nav-number">2.6.</span> <span class="nav-text">JVM调优</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化分析工具-MAT"><span class="nav-number">3.</span> <span class="nav-text">可视化分析工具 MAT</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nuniok"
+      src="/resource/img/65028384.jpg">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nuniok" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nuniok" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nuniok@163.com" title="E-Mail → mailto:nuniok@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1261171488&web_id=1261171488"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

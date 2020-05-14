@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/65028384.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/65028384.jpg">
+  <link rel="mask-icon" href="/resource/img/65028384.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"nuniok.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="背景介绍 近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语言栈转型经验谈">
+<meta property="og:url" content="https://nuniok.github.io/2019/12/01/1.html">
+<meta property="og:site_name" content="nuniok">
+<meta property="og:description" content="背景介绍 近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15751828389282.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15751818260554.jpg">
+<meta property="og:image" content="https://nuniok.github.io/resource/img/15751828229085.jpg">
+<meta property="article:published_time" content="2019-11-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-10T15:14:32.264Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="经验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nuniok.github.io/resource/img/15751828389282.jpg">
+
+<link rel="canonical" href="https://nuniok.github.io/2019/12/01/1.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>语言栈转型经验谈 | nuniok</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">nuniok</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-stack">
+
+    <a href="/stack/" rel="section"><i class="fa fa-fw fa-sitemap"></i>图谱</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/nuniok" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2019/12/01/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resource/img/65028384.jpg">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nuniok">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          语言栈转型经验谈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-01T00:00:00+08:00">2019-12-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p><img src="/resource/img/15751828389282.jpg" alt=""></p>
+<p>近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛的。Go 可能还是因为它能承载的并发更高，性能更好而逐渐流行起来。在并发模型上 Java 原生 API 使用上确实做得不好驾驭，Go 则要相对好用很多。还有在某些垂直领域上，Java 的生态已经很成熟，其它语言栈上则需要自己造轮子，相应对于开发人员的水平要求就会低很多了。</p>
+<p>在当前互联网领域，后端研发做 web 主要谈的还是通过抽象和建模来提高项目的可迭代性与可维护性，另一方面谈的是工程实现上的优化和性能上的优化。在这些后面依赖的则是中台来保证的基础服务综合稳定性。</p>
+<p>在语言栈转型中也踩过一些坑，遇到过一些小问题，当然这些也得益于一个相对靠谱的方案来保证迁移的安全，基于这些经验总结一下，在以后的迁移中使问题可预见和避免采坑。</p>
+<h2 id="转型流程"><a href="#转型流程" class="headerlink" title="转型流程"></a>转型流程</h2><p>首先要明确转型的三个开发流程 MRO (Migration, Reconstruction, Optimization)</p>
+<ul>
+<li>迁移 就是把原语言代码照着抄一遍到新语言项目上，按照新语言的工程实现风格来做就可以。</li>
+<li>重构 的目的是来提高项目代码的可维护性和可迭代性，让代码更加优雅和好读懂，可以放到迁移完成来做。</li>
+<li>优化 则可以是在模块依赖、调用关系、接口字段等方面调整来降低项目的复杂性和提高合理性。</li>
+</ul>
+<p>然后看我们人力和时间是否充足，我想大部分情况下是不充足的，按照最短时间交付的原则，我们应该只做迁移流程，也就是说先对原有代码进行语言上的迁移，这样我们可以快速实现交付。在人力充沛的情况下可以配备两个小组，一个维护现有系统，一个主力开发新系统，或者说锁定需求全力开发新系统。在对快速交付更看中的行业里前一个方案更合适一些。</p>
+<h2 id="交付流程"><a href="#交付流程" class="headerlink" title="交付流程"></a>交付流程</h2><p>在交付过程中的验证流程 <code>单测验证 -&gt; 测试环境功能验证 -&gt; QA生产回测 -&gt; 灰度验证 -&gt; 完全上线</code>。<br>只有功能和单测代码都迁移完才能算代码部分完成，需要优先保证单测行数覆盖率再去保证分支覆盖率，测试环境的功能验证需要覆盖所有 case 来保证大部分问题都被发现，然后进入小范围的灰度验证，之后逐步提高灰度比率直至完全上线。如果是纯读接口则可以直接进行异步校验，就是请求两遍，然后对比差异来不断的发现和修复 bug，直至问题收敛完全解决。<br>如果明确只做迁移，那么期间如果有发现旧逻辑的 bug 也不要管，这样才好去对比验证，验证通过上线后再去修复。只有通过明确目的和流程并且遵循这个流程做，才能更快的去交付。</p>
+<h2 id="验证方案"><a href="#验证方案" class="headerlink" title="验证方案"></a>验证方案</h2><p><img src="/resource/img/15751818260554.jpg" alt=""></p>
+<p>针对新代码的验证方案分为别为读写接口做不同的验证方案：</p>
+<ul>
+<li>读接口：异步请求到新接口做接口响应值校验，打印出差异数据，然后不断修正逻辑。这样可以避免在线上灰度造成数据的不一致。</li>
+<li>写接口：测试用例覆盖，然后测试环境验证，灰度回测，灰度验证，修复问题，继续灰度验证。</li>
+</ul>
+<h3 id="平稳交付"><a href="#平稳交付" class="headerlink" title="平稳交付"></a>平稳交付</h3><p>在整个交付的过程中，转型前后对 SLA 要提供一致的保证，可以看看下面的几个衡量标准：</p>
+<table>
+<thead>
+<tr>
+<th>服务可用性级别</th>
+<th>服务正常运行时间</th>
+<th>年宕机时间</th>
+<th>日宕机时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>90%</td>
+<td>36.5day</td>
+<td>2.4hour</td>
+</tr>
+<tr>
+<td>2</td>
+<td>99%</td>
+<td>3.65day</td>
+<td>14min</td>
+</tr>
+<tr>
+<td>3</td>
+<td>99.9%</td>
+<td>8.76hour</td>
+<td>86sec</td>
+</tr>
+<tr>
+<td>4</td>
+<td>99.99%</td>
+<td>52.6min</td>
+<td>8.6sec</td>
+</tr>
+<tr>
+<td>5</td>
+<td>99.999%</td>
+<td>5.26min</td>
+<td>0.86sec</td>
+</tr>
+<tr>
+<td>6</td>
+<td>99.9999%</td>
+<td>31.5sec</td>
+<td>8.6msec</td>
+</tr>
+</tbody></table>
+<p><a href="https://tool.lu/tables/" target="_blank" rel="noopener">在线 MD 表格生成</a></p>
+<p>一般 3 个 9 的可用性全年宕机时间约为 8.76 小时，针对不同系统不同用户规模对于系统可用性的要求不一样，边缘业务的要求可能会低一些，但是对于核心支付链路场景 TPS 可能不高，但是必须要求保证高可用级别。如何保证或者提升服务的 SLA 是我们接下来要探讨的目标，一般有下面两个影响因素：</p>
+<ul>
+<li>MTBF (Mean Time Between Failures) 系统服务平均故障时间间隔</li>
+<li>MTTR (Mean Time To Recover) 系统服务平均故障恢复时长</li>
+</ul>
+<p>也就是说我们系统要尽可能的降低故障频率以及出现故障时能尽快的恢复。基于这两点我们在做系统平稳过渡时，要充分测试所有 case ，并且进行内部灰度方案和异步重试对比，发现异常立即回滚查找结局问题后再重新灰度。这里需要做到一键开关，数据可监控和追溯。</p>
+<p>持续监控，感知系统稳定性的第一步就是监控，通过监控和系统日志来排查问题和及时响应处理。监控有两个层面，一个是基础设施提供的机器监控以及接口级别的响应稳定性监控，另一个是业务数据层面的多维度监控。系统日志按照等级大致分为 INFO 日志以及 ERROR 日志。</p>
+<h3 id="快速交付"><a href="#快速交付" class="headerlink" title="快速交付"></a>快速交付</h3><p>关于快速交付，可以了解 下敏捷开发，及早和持续不断的交付有价值的软件。关于 Scrum 开发的介绍可以看： <a href="http://www.scrumcn.com/agile/scrum-knowledge-library/agile101.html" target="_blank" rel="noopener">什么是敏捷</a></p>
+<h2 id="现状及未来"><a href="#现状及未来" class="headerlink" title="现状及未来"></a>现状及未来</h2><p><img src="/resource/img/15751828229085.jpg" alt=""></p>
+<p>基于公司现状考虑 nginx 不支持长时间和自定义灰度，所以 http 接口层没做改动，只是在内部逻辑上通过 rpc 服务转到新的系统中。基于以上要点可以做到功能的快速交付。截止此文撰写时间，语言栈转型已经将系统核心接口逻辑 100% 迁移到新的系统上，对于日常系统需求已经可以做到在新系统开发和接入了。后面要做的有以下几点：</p>
+<ol>
+<li>将系统外围逻辑迁移到新系统；</li>
+<li>不断监控降噪，细化监控粒度，继续提高服务的稳定性；</li>
+<li>当前对于Python的花式“魔法” 硬翻译还需要不断重构和优化。</li>
+<li>完善监控大盘，通过数据驱动来运营优化我们的流程；</li>
+<li>项目复盘总结以及业务普及宣讲，提升人员对于业务细节的认知。</li>
+</ol>
+<h3 id="转型痛点"><a href="#转型痛点" class="headerlink" title="转型痛点"></a>转型痛点</h3><p>迁移后再做重构和优化过程。在迁移过程中有一个痛点是新需求过来了，要么锁定需求只做迁移，要么写两遍。基于人力情况可以选择一个小组同时写新旧系统或者一个小组维护新的一个小组维护旧的。<br>在转型过程中新需求过来有时要写两边，或者要把旧系统流量打到新系统接口上，常常在排查问题时遇到流量忘记转移的情况，所以在迁移过程要尽可能的快速交付上线。</p>
+<h3 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h3><ol>
+<li>对于每一位工程师来说语言栈的转型既是挑战也是机遇，只有保持开放学习心态，及时调整和提升才能更好应对，同时增强自身软素质。</li>
+<li>当前互联网环境下分布式是必经之地，而系统绝非 100% 可靠，每一个环节可能的异常在上线后必定遇到，所以针对不同场景我们要在 AP 与 CP 之间做出选择。</li>
+<li>对于支付交易核心链路，一条柱子肯定是不稳的，双链路也未必可靠，但至少更稳一些。曾经遇到过相隔几公里的两条光纤被施工队挖断的情况，双机房访问直接 gg 了，但总归是少见的。</li>
+<li>提系统可用性要避免出问题，除了问题要快快快速响应恢复，有问题先回滚。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/" rel="tag"># 经验</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/30/1.html" rel="prev" title="云南之旅">
+      <i class="fa fa-chevron-left"></i> 云南之旅
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/01/2.html" rel="next" title="第一个半马">
+      第一个半马 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzOS82ODky"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转型流程"><span class="nav-number">2.</span> <span class="nav-text">转型流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交付流程"><span class="nav-number">3.</span> <span class="nav-text">交付流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证方案"><span class="nav-number">4.</span> <span class="nav-text">验证方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#平稳交付"><span class="nav-number">4.1.</span> <span class="nav-text">平稳交付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速交付"><span class="nav-number">4.2.</span> <span class="nav-text">快速交付</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现状及未来"><span class="nav-number">5.</span> <span class="nav-text">现状及未来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转型痛点"><span class="nav-number">5.1.</span> <span class="nav-text">转型痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反思"><span class="nav-number">5.2.</span> <span class="nav-text">反思</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nuniok"
+      src="/resource/img/65028384.jpg">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nuniok" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nuniok" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nuniok@163.com" title="E-Mail → mailto:nuniok@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1261171488&web_id=1261171488"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
