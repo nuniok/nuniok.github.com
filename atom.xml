@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nuniok.github.io/"/>
-  <updated>2020-06-25T06:24:07.487Z</updated>
+  <updated>2020-06-25T06:25:02.971Z</updated>
   <id>https://nuniok.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://nuniok.github.io/2020/06/25/1.html"/>
     <id>https://nuniok.github.io/2020/06/25/1.html</id>
     <published>2020-06-24T16:00:00.000Z</published>
-    <updated>2020-06-25T06:24:07.487Z</updated>
+    <updated>2020-06-25T06:25:02.971Z</updated>
     
-    <content type="html"><![CDATA[<p>这边文章是想总结一下软件系统的设计表达方式，通过什么样的方式可以让你更有效的表达你的系统设计，如何让别人更清晰的去理解你的系统，以及在多人协作开发的时候如何让别人理解不同模块间的职责，明确每个人要做的事情。旨在提高协作效率，让你的系统不再沉默。在软件开发的各层次设计中最主要的是也是开发人员最不喜欢的是写文档，而文档中的图表也是你表达的一个关键点，接下来是要总结下不同表达层次的图表使用示例。总结下平时用到的一些图表以及使用场景。</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="/resource/img/2020-06-25-13-06-44.png" alt=""></p><h2 id="泳道图"><a href="#泳道图" class="headerlink" title="泳道图"></a>泳道图</h2><p><img src="/resource/img/2020-06-25-14-03-32.png" alt=""></p><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="/resource/img/2020-06-25-14-14-27.png" alt=""></p><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2><p><img src="/resource/img/2020-06-25-14-06-41.png" alt=""></p><h2 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h2><p><img src="/resource/img/2020-06-25-14-08-41.png" alt=""></p><h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="/resource/img/2020-06-25-14-00-13.png" alt=""></p><h2 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h2><p><img src="/resource/img/2020-06-25-14-12-46.png" alt=""></p><h2 id="甘特图"><a href="#甘特图" class="headerlink" title="甘特图"></a>甘特图</h2><p><img src="/resource/img/2020-06-25-14-18-22.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<p>这边文章是想总结一下软件系统的设计表达方式，通过什么样的方式可以让你更有效的表达你的系统设计，如何让别人更清晰的去理解你的系统，以及在多人协作开发的时候如何让别人理解不同模块间的职责，明确每个人要做的事情。旨在提高协作效率，让你的系统不再沉默。在软件开发的各层次设计中最主要的是也是开发人员最不喜欢的是写文档，而文档中的图表也是你表达的一个关键点，接下来是要总结下不同表达层次的图表使用示例。总结下平时用到的一些图表以及使用场景。</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="/resource/img/2020-06-25-13-06-44.png" alt=""></p><h2 id="泳道图"><a href="#泳道图" class="headerlink" title="泳道图"></a>泳道图</h2><p><img src="/resource/img/2020-06-25-14-03-32.png" alt=""></p><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="/resource/img/2020-06-25-14-14-27.png" alt=""></p><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2><p><img src="/resource/img/2020-06-25-14-06-41.png" alt=""></p><h2 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h2><p><img src="/resource/img/2020-06-25-14-08-41.png" alt=""></p><h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="/resource/img/2020-06-25-14-00-13.png" alt=""></p><h2 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h2><p><img src="/resource/img/2020-06-25-14-12-46.png" alt=""></p><h2 id="甘特图"><a href="#甘特图" class="headerlink" title="甘特图"></a>甘特图</h2><p><img src="/resource/img/2020-06-25-14-18-22.png" alt=""></p><p>模板来源： <a href="https://v3.processon.com/popular" target="_blank" rel="noopener">https://v3.processon.com/popular</a></p>]]></content>
     
     <summary type="html">
     
