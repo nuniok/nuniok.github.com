@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nuniok.github.io/"/>
-  <updated>2020-05-11T15:49:11.065Z</updated>
+  <updated>2020-06-25T06:24:07.487Z</updated>
   <id>https://nuniok.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>软件系统表达方式</title>
+    <link href="https://nuniok.github.io/2020/06/25/1.html"/>
+    <id>https://nuniok.github.io/2020/06/25/1.html</id>
+    <published>2020-06-24T16:00:00.000Z</published>
+    <updated>2020-06-25T06:24:07.487Z</updated>
+    
+    <content type="html"><![CDATA[<p>这边文章是想总结一下软件系统的设计表达方式，通过什么样的方式可以让你更有效的表达你的系统设计，如何让别人更清晰的去理解你的系统，以及在多人协作开发的时候如何让别人理解不同模块间的职责，明确每个人要做的事情。旨在提高协作效率，让你的系统不再沉默。在软件开发的各层次设计中最主要的是也是开发人员最不喜欢的是写文档，而文档中的图表也是你表达的一个关键点，接下来是要总结下不同表达层次的图表使用示例。总结下平时用到的一些图表以及使用场景。</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="/resource/img/2020-06-25-13-06-44.png" alt=""></p><h2 id="泳道图"><a href="#泳道图" class="headerlink" title="泳道图"></a>泳道图</h2><p><img src="/resource/img/2020-06-25-14-03-32.png" alt=""></p><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="/resource/img/2020-06-25-14-14-27.png" alt=""></p><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2><p><img src="/resource/img/2020-06-25-14-06-41.png" alt=""></p><h2 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h2><p><img src="/resource/img/2020-06-25-14-08-41.png" alt=""></p><h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="/resource/img/2020-06-25-14-00-13.png" alt=""></p><h2 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h2><p><img src="/resource/img/2020-06-25-14-12-46.png" alt=""></p><h2 id="甘特图"><a href="#甘特图" class="headerlink" title="甘特图"></a>甘特图</h2><p><img src="/resource/img/2020-06-25-14-18-22.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这边文章是想总结一下软件系统的设计表达方式，通过什么样的方式可以让你更有效的表达你的系统设计，如何让别人更清晰的去理解你的系统，以及在多人协作开发的时候如何让别人理解不同模块间的职责，明确每个人要做的事情。旨在提高协作效率，让你的系统不再沉默。在软件开发的各层次设计中最主要
+      
+    
+    </summary>
+    
+    
+    
+      <category term="架构" scheme="https://nuniok.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>迈向优秀程序员的必经之路</title>
@@ -504,32 +528,6 @@
     
     
       <category term="算法" scheme="https://nuniok.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis IO模型</title>
-    <link href="https://nuniok.github.io/2019/08/22/1.html"/>
-    <id>https://nuniok.github.io/2019/08/22/1.html</id>
-    <published>2019-08-21T16:00:00.000Z</published>
-    <updated>2020-05-10T15:14:32.248Z</updated>
-    
-    <content type="html"><![CDATA[<p>通俗的理解 Redis 是一个单进程单线程模型的 KV 内存数据库，截止到目前官方会在年底发布多线程版本，并且 Redis 也有自己的持久化方案。采用 I/O 复用模型和非阻塞 IO 技术，被广泛应用在高并发场景中。</p><p>Redis 高性能的几个关键点：</p><ul><li>完全基于内存操作，数据也是存储在内存中。</li><li>数据结构简单，很多查找和操作的时间复杂度在 O(1)。</li><li>单线程模式，避免了上下文的切换和锁竞争。</li><li>使用了 I/O 多路复用模型和非阻塞 IO。</li></ul><p>Redis 同时支持多个客户端连接，采用 I/O 多路复用模型（select\poll\epoll）可以同时监听多个 IO 流事件。</p><blockquote><p>多路指的是多个网络连接，复用指的是复用同一个线程。<br>采用多路IO复用技术可以让单个线程高效的处理多个连接请求(尽量减少网络IO的时间消耗)，且Redis在内存中操作数据的速度非常快(内存内的操作不会成为这里的性能瓶颈)，主要以上两点造就了Redis具有很高的吞吐量。</p></blockquote><p>TODO I/O 多路复用</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote><p><a href="http://researchlab.github.io/2018/10/08/redis-11-redisio/" target="_blank" rel="noopener">http://researchlab.github.io/2018/10/08/redis-11-redisio/</a></p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;通俗的理解 Redis 是一个单进程单线程模型的 KV 内存数据库，截止到目前官方会在年底发布多线程版本，并且 Redis 也有自己的持久化方案。采用 I/O 复用模型和非阻塞 IO 技术，被广泛应用在高并发场景中。&lt;/p&gt;
-&lt;p&gt;Redis 高性能的几个关键点：&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-      <category term="Redis" scheme="https://nuniok.github.io/tags/Redis/"/>
     
   </entry>
   

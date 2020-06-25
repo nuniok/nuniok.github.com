@@ -192,6 +192,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2019/05/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resource/img/65028384.jpg">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nuniok">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/22/1.html" class="post-title-link" itemprop="url">数据库事务隔离级别与 InnoDB</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+08:00">2019-05-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ACID特性"><a href="#ACID特性" class="headerlink" title="ACID特性"></a>ACID特性</h2><ul>
+<li>atomicity 原子性，一个事务中的所有操作要么全部成功，要么全部失败，不能只成功一部分。</li>
+<li>consistency 一致性，从一个一致性状态到另一个一致性状态的转换。（一致性和隔离性保证了数据的一致性）</li>
+<li>isolation 隔离性，一个事务在提交之前对其它事务是不可见的。</li>
+<li>durability 持久性，一个事务一旦被提交就会永久的保存到数据库中。</li>
+</ul>
+<h2 id="概念澄清"><a href="#概念澄清" class="headerlink" title="概念澄清"></a>概念澄清</h2><p>一个事务在进行数据变更时对另一个事务产生的可见性影响描述，表达为 脏读、幻读、不可重复读三个概念。下面具体解释下对应概念。</p>
+<ul>
+<li>脏读：当前事务能够读取其它事务未提交的数据。</li>
+<li>幻读：当前事务中在前后两次相同查询中读取的数据不一致，原因在第一次查询后第二次查询前提交了数据产生的。（侧重于插入了新的数据）</li>
+<li>不可重复读：当前事务中查询相同的范围数据，同一数据的内容发生了变化。（侧重于数据的更新）<br>基于这三个现象描述，主要因为 MySQL 设置的隔离级别不同导致的。</li>
+</ul>
+<h2 id="InnoDB-事务隔离级别"><a href="#InnoDB-事务隔离级别" class="headerlink" title="InnoDB 事务隔离级别"></a>InnoDB 事务隔离级别</h2><ul>
+<li>Read Uncommitted（读取未提交内容）</li>
+<li>Read Committed（读取提交内容）</li>
+<li>Repeatable Read（可重读）</li>
+<li>Serializable（可串行化）</li>
+</ul>
+<p>这四种隔离级别可能产生的问题关系表：<br><img src="/resource/img/15588467810805.jpg" alt=""></p>
+<p>查询 MySQL 当前事务隔离级别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@tx_isolation;</span><br></pre></td></tr></table></figure>
+<p><img src="/resource/img/15588467880791.jpg" alt=""></p>
+<p>查询 InnoDB 的默认隔离级别是 RR，按照四种隔离级别的关系来看是会出现幻读情况，但实际上 InnoDB 引擎下的两次查询是一致的，那么它是帮我们解决幻读了吗？</p>
+<h2 id="解决幻读"><a href="#解决幻读" class="headerlink" title="解决幻读"></a>解决幻读</h2><p><img src="/resource/img/15588467956986.jpg" alt=""></p>
+<p>根据维基幻读定义，当我们两次 SELECT 期间，另个一事务提交了一条插入语句正好命中查询结果，如果两次结果不一致则出现了幻读。所以可以明确的是 innoDB 帮我们在 RR 界别解决了部分幻读问题，默认情况下并没有在查询中加锁，导致另一事务可以插入数据，原来事务在做数据插入时可能出现 duplicate key error 。需要我们配合使用 SELECT … FOR UPDATE 加锁来保证不会出现幻读。InnoDB 这样做的一个原因猜测是考虑性能问题，如果每个查询都增加锁，性能上会打折扣。</p>
+<p>参考：</p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/likui360/p/9632641.html" target="_blank" rel="noopener">https://www.cnblogs.com/likui360/p/9632641.html</a><br><a href="https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2019/05/19/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -858,75 +944,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2018/04/20/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/resource/img/65028384.jpg">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nuniok">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/04/20/1.html" class="post-title-link" itemprop="url">Spring 随手记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">2018-04-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>基本记录，没有系统性整理，只是作为一个重温知识点用，不具有阅读参考价值。</p>
-<p><img src="/resource/img/15618712316175.jpg" alt=""></p>
-<h3 id="注解（Inherited）"><a href="#注解（Inherited）" class="headerlink" title="注解（Inherited）"></a>注解（Inherited）</h3><p>Spring注解方式减少了配置文件内容，更加便于管理。</p>
-<h3 id="MVC模块注解"><a href="#MVC模块注解" class="headerlink" title="MVC模块注解"></a>MVC模块注解</h3><p>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<br>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required=true。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required=true。<br>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。<br>@RestController ：控制器实现了REST的API，只为服务于JSON，XML或其它自定义的类型内容，@RestController用来创建REST类型的控制器，与@Controller类型。</p>
-<h3 id="组件类注解"><a href="#组件类注解" class="headerlink" title="组件类注解"></a>组件类注解</h3><p>@Component ：表示一个带注释的类是一个“组件”，成为Spring管理的Bean。当使用基于注解的配置和类路径扫描时，这些类被视为自动检测的候选对象。同时@Component还是一个元注解。<br>@ComponentScan：自动扫描指定包下所有使用@Service,@Component,@Controller,@Repository的类并注册。<br>@Repository：标注一个DAO组件类。<br>@Service：标注一个业务逻辑组件类。<br>@Controller：标注一个控制器组件类。<br>@Component 可以代替 @Repository、@Service、@Controller，因为这三个注解是被 @Component 标注的。</p>
-<h3 id="装配-Bean-时常用注解"><a href="#装配-Bean-时常用注解" class="headerlink" title="装配 Bean 时常用注解"></a>装配 Bean 时常用注解</h3><p>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。<br>@Resource：不属于spring的注解，而是来自于JSR-250位于java.annotation包下，使用该annotation为目标bean指定协作者Bean。<br>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作。</p>
-<h3 id="Configuration-and-Bean"><a href="#Configuration-and-Bean" class="headerlink" title="Configuration and @Bean"></a>Configuration and @Bean</h3><p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
-<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。<br><a href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC</a></p>
-<h2 id="Spring-通过-calss-直接获取-Bean"><a href="#Spring-通过-calss-直接获取-Bean" class="headerlink" title="Spring 通过 calss 直接获取 Bean"></a>Spring 通过 calss 直接获取 Bean</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SpringApplication app &#x3D; new SpringApplication(THTTPMain.class);</span><br><span class="line">ApplicationContext ctx &#x3D; app.run(args);</span><br><span class="line">ReportManager manager &#x3D; ctx.getBean(ReportManager.class);</span><br><span class="line">manager.run();</span><br></pre></td></tr></table></figure>
-
-<h2 id="Spring-标签管理"><a href="#Spring-标签管理" class="headerlink" title="Spring 标签管理"></a>Spring 标签管理</h2><p><a href="https://www.cnblogs.com/wuchanming/p/5426746.html" target="_blank" rel="noopener">https://www.cnblogs.com/wuchanming/p/5426746.html</a><br><img src="/resource/img/15618712485957.jpg" alt=""></p>
-<h2 id="AOP-面向切面编程"><a href="#AOP-面向切面编程" class="headerlink" title="AOP 面向切面编程"></a>AOP 面向切面编程</h2><p><img src="/resource/img/15618712585422.jpg" alt=""></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -998,7 +1015,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -192,6 +192,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2018/02/06/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resource/img/65028384.jpg">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nuniok">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/02/06/2.html" class="post-title-link" itemprop="url">Python时间处理函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+08:00">2018-02-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="常用时间表示方法"><a href="#常用时间表示方法" class="headerlink" title="常用时间表示方法"></a>常用时间表示方法</h2><p>时间处理看似简单，不熟悉的话实则也有很多坑在里面，下面先介绍一下常用的时间系统。</p>
+<h3 id="格林尼治时间-GMT"><a href="#格林尼治时间-GMT" class="headerlink" title="格林尼治时间 GMT"></a>格林尼治时间 GMT</h3><p>格林尼治时间是指位于英国伦敦郊区的皇家格林尼治天文台当地的标准时间，因为本初子午线被定义为通过那里的经线。由于地球每天的自转是有些不规则的，而且正在缓慢减速，因此格林尼治时间基于天文观测本身的缺陷，已经不再被作为标准时间使用。现在的标准时间，是由原子钟报时的协调世界时（UTC）来决定。</p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93" target="_blank" rel="noopener">格林尼治标准时间-维基百科</a></p>
+</blockquote>
+<h3 id="协调世界时-UTC"><a href="#协调世界时-UTC" class="headerlink" title="协调世界时 UTC"></a>协调世界时 UTC</h3><p>协调世界时是最主要的世界时间标准，其以原子时秒长为基础。它与0度经线的平太阳时相差不超过1秒，并不遵守夏令时。协调世界时是最接近格林威治标准时间的几个替代时间系统之一，也是我们系统中主要使用的一个时间系统。<br>理论时区上以被15整除的子午线为中心，向东西两侧延伸7.5°，每15°为一个时区，这是理论时区。所以每差一个时区理论相差一个小时。东边的时区比西边的时区早，所以引入了<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E6%97%A5%E6%9C%9F%E5%8F%98%E6%9B%B4%E7%BA%BF" target="_blank" rel="noopener">国际日期变更线</a>的概念。实际上为了避开国界线，时区的形状并不规则，又会以国家内部行政分界线划分，这是实际时区。在我国横跨四个理论时区，实际统一使用东八区（UTC+8）为实际时区。<br><img src="/resource/img/15143912170273.jpg" alt=""><br>时区的具体表示方式请移步 <a href="https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA" target="_blank" rel="noopener">时区-维基百科</a></p>
+<h3 id="UNIX时间"><a href="#UNIX时间" class="headerlink" title="UNIX时间"></a>UNIX时间</h3><p>UNIX时间或称POSIX时间，是UNIX或类UNIX系统使用的时间表示方式：从协调世界时1970年1月1日0时0分0秒起至现在的总秒数，不考虑闰秒。<br>UNIX时间也就是我们常说的时间戳，也是系统中常用的一种时间表示方式。它全球唯一，当我们将时间戳转换成协调世界时的时候是零时区的时间加上对应时区的时差得出的协调世界时。</p>
+<h3 id="夏令时"><a href="#夏令时" class="headerlink" title="夏令时"></a>夏令时</h3><p>先放维基百科解释 <a href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E6%97%B6%E5%88%B6" target="_blank" rel="noopener">夏时制-维基百科</a><br>是一种为了节约能源而认为规定的地方时间制度。</p>
+<h2 id="Python-处理时间"><a href="#Python-处理时间" class="headerlink" title="Python 处理时间"></a>Python 处理时间</h2><p>说完了时间的一些表示方法，下面来说说 Python 有哪些处理时间的模块，以及整理了一些各异的时间处理函数。</p>
+<h3 id="time-模块"><a href="#time-模块" class="headerlink" title="time 模块"></a>time 模块</h3><h3 id="datetime-模块"><a href="#datetime-模块" class="headerlink" title="datetime 模块"></a>datetime 模块</h3><h3 id="calendar-模块"><a href="#calendar-模块" class="headerlink" title="calendar 模块"></a>calendar 模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"></span><br><span class="line">#返回指定年的某月</span><br><span class="line">def get_month(year, month):</span><br><span class="line">    return calendar.month(year, month)</span><br><span class="line"></span><br><span class="line">#返回指定年的日历</span><br><span class="line">def get_calendar(year):</span><br><span class="line">    return calendar.calendar(year)</span><br><span class="line"></span><br><span class="line">#判断某一年是否为闰年，如果是，返回True，如果不是，则返回False</span><br><span class="line">def is_leap(year):</span><br><span class="line">    return calendar.isleap(year)</span><br><span class="line"></span><br><span class="line">#返回某个月的weekday的第一天和这个月的所有天数</span><br><span class="line">def get_month_range(year, month):</span><br><span class="line">    return calendar.monthrange(year, month)</span><br><span class="line"></span><br><span class="line">#返回某个月以每一周为元素的序列</span><br><span class="line">def get_month_calendar(year, month):</span><br><span class="line">    return calendar.monthcalendar(year, month)</span><br></pre></td></tr></table></figure>
+
+<h3 id="arrow-库"><a href="#arrow-库" class="headerlink" title="arrow 库"></a>arrow 库</h3><p>pip 安装就好了，Python中最好用的时间处理库了。</p>
+<p><a href="http://arrow.readthedocs.io/en/latest/" target="_blank" rel="noopener">官方文档</a></p>
+<p><a href="https://github.com/crsmithdev/arrow/" target="_blank" rel="noopener">crsmithdev_arrow_ Better dates &amp; times for Python - github</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2018/02/06/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -914,90 +985,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://nuniok.github.io/2017/12/27/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/resource/img/65028384.jpg">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nuniok">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/27/2.html" class="post-title-link" itemprop="url">PyCharm越用越好用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-12-27 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-27T00:00:00+08:00">2017-12-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="调试面板"><a href="#调试面板" class="headerlink" title="调试面板"></a>调试面板</h2><p><img src="/resource/img/15143878443336.jpg" alt=""></p>
-<h2 id="设置文件和代码模板"><a href="#设置文件和代码模板" class="headerlink" title="设置文件和代码模板"></a>设置文件和代码模板</h2><p><img src="/resource/img/15143878611785.jpg" alt=""></p>
-<p>PyCharm comes with a set of predefined template variables.</p>
-<p>The available predefined file template variables are:</p>
-<p>${PROJECT_NAME} - the name of the current project.<br>${NAME} - the name of the new file which you specify in the New File dialog box during the file creation.<br>${USER} - the login name of the current user.<br>${DATE} - the current system date.<br>${TIME} - the current system time.<br>${YEAR} - the current year.<br>${MONTH} - the current month.<br>${DAY} - the current day of the month.<br>${HOUR} - the current hour.<br>${MINUTE} - the current minute.<br>${PRODUCT_NAME} - the name of the IDE in which the file will be created.<br>${MONTH_NAME_SHORT} - the first 3 letters of the month name. Example: Jan, Feb, etc.<br>${MONTH_NAME_FULL} - full name of a month. Example: January, February, etc.</p>
-<blockquote>
-<p>官方文档 <a href="http://www.jetbrains.com/pycharm/help/creating-and-editing-file-templates.html" target="_blank" rel="noopener">http://www.jetbrains.com/pycharm/help/creating-and-editing-file-templates.html</a></p>
-</blockquote>
-<h2 id="设置字体、字号"><a href="#设置字体、字号" class="headerlink" title="设置字体、字号"></a>设置字体、字号</h2><p><img src="/resource/img/15143879090652.jpg" alt=""></p>
-<h2 id="设置行号"><a href="#设置行号" class="headerlink" title="设置行号"></a>设置行号</h2><ol>
-<li><p>临时设置。右键单击行号处，选择 Show Line Numbers。但是这种方法，只对一个文件有效，并且，重启PyCharm 后消失。<br><img src="/resource/img/15143879346256.jpg" alt=""></p>
-</li>
-<li><p>永久设置。File –&gt; Settings –&gt;Editor –&gt;Appearance , 之后勾选Show Line Numbers。<br><img src="/resource/img/15143879759193.jpg" alt=""></p>
-</li>
-</ol>
-<h2 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h2><ol>
-<li><p>配置远程编译器，输入地址、用户名、密码、远程编译器路径，SSH方式连接。<br><img src="/resource/img/15143880088991.jpg" alt=""></p>
-</li>
-<li><p>调试配置。<br><img src="/resource/img/15143880281617.jpg" alt=""></p>
-</li>
-<li><p>配置远程开发环境项目目录。<br><img src="/resource/img/15143880522143.jpg" alt=""></p>
-</li>
-</ol>
-<p><img src="/resource/img/15143880587039.jpg" alt=""></p>
-<ol start="4">
-<li>设置自动上传<br><img src="/resource/img/15143880744831.jpg" alt=""></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1069,7 +1056,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
