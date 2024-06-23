@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="拿三台机器举例打洞配置讲解    机器 网络环境 用途 SSH服务    A机器 公网IP固定 中转机器 需要   B机器 NAT网络 被访问机器 需要   C机器 任意网络环境 需要访问B机器 不需要   自动连接重试需要B机器向A机器建立 SSH 反向隧道，命令如下： autossh -p 22 -M 6777 -NR &#39;*:6766:127.0.0.1:22&#39; usera@a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SHH打洞配置">
+<meta property="og:url" content="https://noge.top/2018/01/07/2.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="拿三台机器举例打洞配置讲解    机器 网络环境 用途 SSH服务    A机器 公网IP固定 中转机器 需要   B机器 NAT网络 被访问机器 需要   C机器 任意网络环境 需要访问B机器 不需要   自动连接重试需要B机器向A机器建立 SSH 反向隧道，命令如下： autossh -p 22 -M 6777 -NR &#39;*:6766:127.0.0.1:22&#39; usera@a">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-07T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.021Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Ubuntu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://noge.top/2018/01/07/2.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2018/01/07/2.html","path":"2018/01/07/2.html","title":"SHH打洞配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SHH打洞配置 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%BF%9E%E6%8E%A5%E9%87%8D%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">自动连接重试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E6%B4%9E"><span class="nav-number">2.</span> <span class="nav-text">打洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">另一台机器连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E7%A7%81%E9%92%A5%E8%AE%A4%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">SSH 私钥认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%9B%BA%E5%AE%9A%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%BA%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">有固定公网IP的机器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/07/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SHH打洞配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-07T00:00:00+00:00">2018-01-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>拿三台机器举例打洞配置讲解</p>
+<table>
+<thead>
+<tr>
+<th>机器</th>
+<th>网络环境</th>
+<th>用途</th>
+<th>SSH服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A机器</td>
+<td>公网IP固定</td>
+<td>中转机器</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>B机器</td>
+<td>NAT网络</td>
+<td>被访问机器</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>C机器</td>
+<td>任意网络环境</td>
+<td>需要访问B机器</td>
+<td>不需要</td>
+</tr>
+</tbody></table>
+<h2 id="自动连接重试"><a href="#自动连接重试" class="headerlink" title="自动连接重试"></a>自动连接重试</h2><p>需要B机器向A机器建立 SSH 反向隧道，命令如下：</p>
+<p><code>autossh -p 22 -M 6777 -NR &#39;*:6766:127.0.0.1:22&#39; usera@a.site</code></p>
+<p>通过 <code>autossh</code> 可以实现连接失败自动重连，<code>*:6766:127.0.0.1:22</code> 是将A机器的6766端口转发到B机器的22端口，<code>usera@a.site</code> 是请求B机器的用户名和地址。</p>
+<h2 id="打洞"><a href="#打洞" class="headerlink" title="打洞"></a>打洞</h2><p>开启端口转发功能，编辑 sshd 的配置文件 &#x2F;etc&#x2F;ssh&#x2F;sshd_config，增加配置：<br><code>GatewayPorts yes</code></p>
+<h2 id="另一台机器连接"><a href="#另一台机器连接" class="headerlink" title="另一台机器连接"></a>另一台机器连接</h2><p>通过C机器对A机器的6766端口发起连接就会自动被转发到B机器。</p>
+<p><code>ssh -p 6766 userb@a.site</code></p>
+<h2 id="SSH-私钥认证"><a href="#SSH-私钥认证" class="headerlink" title="SSH 私钥认证"></a>SSH 私钥认证</h2><p>把请求机器的 ~&#x2F;.ssh&#x2F;id_rsa.pub 添加到被请求机器的 ~&#x2F;.ssh&#x2F;authorzied_keys 文件中</p>
+<p>同时设置文件权限为 <code>chmod 600 ~/.ssh/authorzied_keys</code></p>
+<p>设置后在连接机器的时候就不需要密码了，可以走私钥认证。</p>
+<h2 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h2><p>这里通过 supervisord 配置保证B机器重启后 autossh 能启动。</p>
+<h2 id="有固定公网IP的机器"><a href="#有固定公网IP的机器" class="headerlink" title="有固定公网IP的机器"></a>有固定公网IP的机器</h2><p>这里我选用的是阿里云的机器，因为平时用的量不大，所以选择按量付费就可以了，看了下费用大概 80RMB&#x2F;月。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/lidongshengajz/article/details/73482908">http://blog.csdn.net/lidongshengajz/article/details/73482908</a><br><a target="_blank" rel="noopener" href="https://linux.cn/article-5975-1.html">https://linux.cn/article-5975-1.html</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/07/1.html" rel="prev" title="Jupyter Notebook配置">
+                  <i class="fa fa-chevron-left"></i> Jupyter Notebook配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/12/1.html" rel="next" title="Python的mixin模式">
+                  Python的mixin模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"7a4bcfb099efd44e73709bc38d6958dd"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

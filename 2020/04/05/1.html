@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="在 Chrome 上有个很好用的插件 FeHelper，应该是每个开发人员都在使用的，功能很全面。想着能不能搞个桌面版的，这样多屏环境下可以不用在众多 tab 页中找功能了。  桌面版实现，界面比较丑陋，不过用起来方便就行。这样可以在多屏环境下一个屏用来开啊，另一个屏可以观察辅助信息和使用小工具。 了解到 electron 是一个开源跨平台框架，可以使用 nodejs 做后端和 chromium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发工具箱 —— 基于 electron 和 FeHelper 的桌面 APP">
+<meta property="og:url" content="https://noge.top/2020/04/05/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="在 Chrome 上有个很好用的插件 FeHelper，应该是每个开发人员都在使用的，功能很全面。想着能不能搞个桌面版的，这样多屏环境下可以不用在众多 tab 页中找功能了。  桌面版实现，界面比较丑陋，不过用起来方便就行。这样可以在多屏环境下一个屏用来开啊，另一个屏可以观察辅助信息和使用小工具。 了解到 electron 是一个开源跨平台框架，可以使用 nodejs 做后端和 chromium">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15860649053518.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15860653415972.jpg">
+<meta property="article:published_time" content="2020-04-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="效率">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15860649053518.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2020/04/05/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2020/04/05/1.html","path":"2020/04/05/1.html","title":"开发工具箱 —— 基于 electron 和 FeHelper 的桌面 APP"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>开发工具箱 —— 基于 electron 和 FeHelper 的桌面 APP | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/04/05/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开发工具箱 —— 基于 electron 和 FeHelper 的桌面 APP
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00+00:00">2020-04-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在 Chrome 上有个很好用的插件 FeHelper，应该是每个开发人员都在使用的，功能很全面。想着能不能搞个桌面版的，这样多屏环境下可以不用在众多 tab 页中找功能了。</p>
+<p><img src="/resource/img/15860649053518.jpg"></p>
+<p>桌面版实现，界面比较丑陋，不过用起来方便就行。这样可以在多屏环境下一个屏用来开啊，另一个屏可以观察辅助信息和使用小工具。<br><img src="/resource/img/15860653415972.jpg"></p>
+<p>了解到 electron 是一个开源跨平台框架，可以使用 nodejs 做后端和 chromium 做前端开发。像 atom 和 vs code 使用这个框架开发的。觉得还是和方便的，主要是跨平台。而这个插件也是基于 nodejs 开发的，应该可以迁移过来。然后按照官方文档开发，通过 iframe load 不同页面。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/noogel/xyzToolbox">https://github.com/noogel/xyzToolbox</a></p>
+<p>Mac 安装包下载地址:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1SYjVX2Dhz6TTbaif1Bk8RA">https://pan.baidu.com/s/1SYjVX2Dhz6TTbaif1Bk8RA</a> 密码:64oo</p>
+<p>拉取项目和子模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://xxx.git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+
+<p>打包命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">环境安装</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"># Linux打包成AppImage文件</span><br><span class="line"># 在Linux环境上执行</span><br><span class="line">node_modules/.bin/electron-builder -l AppImage</span><br><span class="line"></span><br><span class="line"># Windows打包成exe安装文件</span><br><span class="line"># 在Windows环境下执行</span><br><span class="line">node_modules/.bin/electron-builder -w nsis</span><br><span class="line">node_modules/.bin/electron-builder -w --ia32 nsis</span><br><span class="line"></span><br><span class="line"># 如果在非Windows上打包win程序，也可以借助docker 如下</span><br><span class="line"># docker run --rm -it -v $&#123;PWD&#125;:/project electronuserland/builder:wine sh -c &quot;node_modules/.bin/electron-builder -w nsis&quot;</span><br><span class="line"></span><br><span class="line"># Mac打包成dmg文件</span><br><span class="line"># 在Mac环境下执行</span><br><span class="line">node_modules/.bin/electron-builder -m dmg</span><br></pre></td></tr></table></figure>
+
+<p>打包参考链接</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://qii404.me/2019/07/10/electron.html">https://qii404.me/2019/07/10/electron.html</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%88%E7%8E%87/" rel="tag"># 效率</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/05/2.html" rel="prev" title="JVM 运行时数据区">
+                  <i class="fa fa-chevron-left"></i> JVM 运行时数据区
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/04/05/3.html" rel="next" title="VS Code 与 HEXO 结合写博客">
+                  VS Code 与 HEXO 结合写博客 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c2a8ef63a859b76c2631a394ac0ce8b5"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

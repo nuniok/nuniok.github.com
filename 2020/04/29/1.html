@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="ORM（Object&#x2F;Relational Mapper），即“对象-关系型数据映射组件”。对于O&#x2F;R，即 Object（对象）和Relational（关系型数据），表示必须同时使用面向对象和关系型数据进行开发。本文简述通过 Java 动态代理机制实现关系数据与 POJO 对象的映射。 代理静态代理静态代理其实就是指设计模式中的代理模式。代理模式为其他对象提供一种代理以控制对这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态代理实现 ORM">
+<meta property="og:url" content="https://noge.top/2020/04/29/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="ORM（Object&#x2F;Relational Mapper），即“对象-关系型数据映射组件”。对于O&#x2F;R，即 Object（对象）和Relational（关系型数据），表示必须同时使用面向对象和关系型数据进行开发。本文简述通过 Java 动态代理机制实现关系数据与 POJO 对象的映射。 代理静态代理静态代理其实就是指设计模式中的代理模式。代理模式为其他对象提供一种代理以控制对这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/2020-04-29-23-12-29.png">
+<meta property="og:image" content="https://noge.top/resource/img/2020-04-29-23-17-27.png">
+<meta property="article:published_time" content="2020-04-29T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/2020-04-29-23-12-29.png">
+
+
+<link rel="canonical" href="https://noge.top/2020/04/29/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2020/04/29/1.html","path":"2020/04/29/1.html","title":"动态代理实现 ORM"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>动态代理实现 ORM | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">静态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#InvocationHandler"><span class="nav-number">1.2.1.</span> <span class="nav-text">InvocationHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy"><span class="nav-number">1.2.2.</span> <span class="nav-text">Proxy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC-OP"><span class="nav-number">2.2.</span> <span class="nav-text">JDBC OP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E9%83%A8%E5%88%86"><span class="nav-number">2.3.</span> <span class="nav-text">动态代理部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">3.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/04/29/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          动态代理实现 ORM
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-04-29 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-29T00:00:00+00:00">2020-04-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>ORM（Object&#x2F;Relational Mapper），即“对象-关系型数据映射组件”。对于O&#x2F;R，即 Object（对象）和Relational（关系型数据），表示必须同时使用面向对象和关系型数据进行开发。本文简述通过 Java 动态代理机制实现关系数据与 POJO 对象的映射。</p>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p>静态代理其实就是指设计模式中的代理模式。<br>代理模式为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><img src="/resource/img/2020-04-29-23-12-29.png"></p>
+<p>静态代理模式在增强现有的接口业务功能方面有很大的优点，但是大量使用这种静态代理，会使我们系统内的类的规模增大，并且不易维护。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>为了解决静态代理的问题，引入动态代理的概念，在编译时或者运行时，可以在需要代理的地方动态生成代理，减轻代理类和类在系统中冗余的问题。</p>
+<p><img src="/resource/img/2020-04-29-23-17-27.png"></p>
+<p>Java 动态代理基于经典代理模式，引入了一个 InvocationHandler，InvocationHandler 负责统一管理所有的方法调用。</p>
+<h4 id="InvocationHandler"><a href="#InvocationHandler" class="headerlink" title="InvocationHandler"></a>InvocationHandler</h4><p>InvocationHandler 接口定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface InvocationHandler &#123;</span><br><span class="line">	public Object invoke(Object proxy, Method method, Object[] args)</span><br><span class="line">	        throws Throwable;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每一个动态代理类都必须要实现 InvocationHandler 这个接口，通过代理类的实例调用一个方法时，这个方法的调用就会被转发为由 InvocationHandler 这个接口的 invoke 方法来进行调用。</p>
+<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><p>Proxy 这个类的作用就是用来动态创建一个代理对象的类，它提供了许多的方法，但是我们用的最多的就是 newProxyInstance 这个方法，可以获得一个动态的代理对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces,  InvocationHandler h)  throws IllegalArgumentException</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>参照 mybaits 的用法实现基本的映射能力。</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>首先定义了三个注解，一个作用在类上 <code>DaoMapper</code> 作用在类上标记这是一个映射类，然后定义注解 <code>Selector</code> 作用在方法上标记查询作用，定义注解 <code>Param</code> 作用在参数上为预编译位的映射。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Documented</span><br><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface DaoMapper &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Documented</span><br><span class="line">@Target(ElementType.METHOD)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface Selector &#123;</span><br><span class="line">    String value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Documented</span><br><span class="line">@Target(ElementType.PARAMETER)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface Param &#123;</span><br><span class="line">    String value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>定义一个实体类，与数据库的表字段映射上。增强 feature 可以自动做驼峰转换，这里没有实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class BaseLineModel &#123;</span><br><span class="line">    public static final String TABLE = &quot;baseline&quot;;</span><br><span class="line"></span><br><span class="line">    private Integer id;</span><br><span class="line">    private String report_name;</span><br><span class="line">    private Integer report_period;</span><br><span class="line">    private LocalDateTime creation_date;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义dao层接口，加上注解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@DaoMapper</span><br><span class="line">public interface BaseLineDao &#123;</span><br><span class="line"></span><br><span class="line">    @Selector(&quot;select * from &quot;+ BaseLineModel.TABLE +&quot; where report_name = #&#123;reportName&#125;&quot;)</span><br><span class="line">    BaseLineModel select(@Param(&quot;reportName&quot;) String report_name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBC-OP"><a href="#JDBC-OP" class="headerlink" title="JDBC OP"></a>JDBC OP</h3><p>做到一个很简单的 JDBC 操作工具类，字段映射处理也写到了这里。实现了查询操作，将入参 sql template 以及参数按顺序传入，生成 <code>prepareStatement</code> 后执行，再将返回结果映射到 model 对象。这里的连接池管理、自动重连、配置管理等增强 features 非重点，不做实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 查询</span><br><span class="line">    * @param clazz model类</span><br><span class="line">    * @param sql</span><br><span class="line">    * @param params</span><br><span class="line">    * @param &lt;T&gt;</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">public &lt;T&gt; T query(Class&lt;T&gt; clazz, String sql, Object... params) throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line">    Object model =  clazz.newInstance();</span><br><span class="line">    try (Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/cat&quot;, &quot;root&quot;, &quot;123456&quot;)) &#123;</span><br><span class="line">        PreparedStatement statement = conn.prepareStatement(sql);</span><br><span class="line">        int flag = 1;</span><br><span class="line">        for (Object obj : params) &#123;</span><br><span class="line">            setValue(statement, flag, obj);</span><br><span class="line">            flag++;</span><br><span class="line">        &#125;</span><br><span class="line">        ResultSet resultSet = statement.executeQuery();</span><br><span class="line">        resultSet.afterLast();</span><br><span class="line">        resultSet.previous();</span><br><span class="line">        fullRes(resultSet, model);</span><br><span class="line">    &#125;</span><br><span class="line">    return (T) model;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>映射函数，通过自动寻找 setter 方法填充结果，这里只实现了三种字段。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">private static void fullRes(ResultSet resultSet, Object model) throws SQLException, InvocationTargetException, IllegalAccessException, NoSuchMethodException &#123;</span><br><span class="line">    Field[] declaredFields = model.getClass().getDeclaredFields();</span><br><span class="line">    for (Field field : declaredFields) &#123;</span><br><span class="line">        String fieldName = field.getName();</span><br><span class="line">        if (fieldName.toUpperCase().equals(fieldName)) &#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        String setFuncName = &quot;set&quot; + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);</span><br><span class="line">        String fieldType = field.getGenericType().toString();</span><br><span class="line"></span><br><span class="line">        Object object = resultSet.getObject(fieldName);</span><br><span class="line">        if (fieldType.equals(&quot;class java.lang.String&quot;)) &#123;</span><br><span class="line">            Method m = model.getClass().getMethod(setFuncName, String.class);</span><br><span class="line">            m.invoke(model, object);</span><br><span class="line">        &#125; else if (fieldType.equals(&quot;class java.lang.Integer&quot;)) &#123;</span><br><span class="line">            Method m = model.getClass().getMethod(setFuncName, Integer.class);</span><br><span class="line">            m.invoke(model, object);</span><br><span class="line">        &#125; else if (fieldType.equals(&quot;class java.time.LocalDateTime&quot;)) &#123;</span><br><span class="line">            Method m = model.getClass().getMethod(setFuncName, LocalDateTime.class);</span><br><span class="line">            if (object instanceof Timestamp) &#123;</span><br><span class="line">                object = ((Timestamp) object).toLocalDateTime();</span><br><span class="line">            &#125;</span><br><span class="line">            m.invoke(model, object);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态代理部分"><a href="#动态代理部分" class="headerlink" title="动态代理部分"></a>动态代理部分</h3><p>定义一个 <code>MapperMethod</code> 类，实例化的时候提取接口方法的注解信息解析成 JDBC 需要的参数以及记录接口方法的返回对象， <code>execute</code> 执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MapperMethod&lt;T&gt; &#123;</span><br><span class="line">    private String sql;</span><br><span class="line">    private Class&lt;?&gt; resType;</span><br><span class="line">    private int[] paramsIndex;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public MapperMethod(Method method) &#123;</span><br><span class="line">        this.resType = method.getReturnType();</span><br><span class="line">        String sourceSql = method.getAnnotation(Selector.class).value();</span><br><span class="line">        Parameter[] parameters = method.getParameters();</span><br><span class="line">        int flag = 0;</span><br><span class="line">        this.paramsIndex = new int[parameters.length];</span><br><span class="line">        for (Parameter parameter: parameters) &#123;</span><br><span class="line">            String paramName = parameter.getAnnotation(Param.class).value();</span><br><span class="line">            String paramFullName = String.format(&quot;#&#123;%s&#125;&quot;, paramName);</span><br><span class="line">            int indexOf = sourceSql.indexOf(paramFullName);</span><br><span class="line">            this.paramsIndex[flag] = indexOf;</span><br><span class="line">            flag++;</span><br><span class="line">            this.sql = sourceSql.replace(paramFullName, &quot;?&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Object execute(Object[] objects) &#123;</span><br><span class="line">        JdbcUtil jdbcUtil = new JdbcUtil();</span><br><span class="line">        try &#123;</span><br><span class="line">            return jdbcUtil.query(this.resType, this.sql, objects);</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义动态代理类，在实例化的时候记录代理接口，以及代理方法类缓存，调用接口的时候会被动态代理到 <code>invoke</code> 函数执行，然后交由 <code>MapperMethod</code> 代理方法实例执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Objects;</span><br><span class="line"></span><br><span class="line">public class MapperProxy&lt;T&gt; implements InvocationHandler &#123;</span><br><span class="line"></span><br><span class="line">    private final Class&lt;T&gt; mapperInterface;</span><br><span class="line"></span><br><span class="line">    private final Map&lt;Method, MapperMethod&gt; methodCache;</span><br><span class="line"></span><br><span class="line">    public MapperProxy(Class&lt;T&gt; mapperInterface, Map&lt;Method, MapperMethod&gt; methodCache) &#123;</span><br><span class="line">        this.mapperInterface = mapperInterface;</span><br><span class="line">        this.methodCache = methodCache;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object o, Method method, Object[] objects) throws Throwable &#123;</span><br><span class="line">        MapperMethod mapperMethod = cachedMapperMethod(method);</span><br><span class="line">        return mapperMethod.execute(objects);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private MapperMethod cachedMapperMethod(Method method) &#123;</span><br><span class="line">        MapperMethod mapperMethod = methodCache.get(method);</span><br><span class="line">        if (Objects.isNull(mapperMethod)) &#123;</span><br><span class="line">            mapperMethod = new MapperMethod(method);</span><br><span class="line">            methodCache.put(method, mapperMethod);</span><br><span class="line">        &#125;</span><br><span class="line">        return mapperMethod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后代理工厂类，接收被 <code>DaoMapper</code> 作用的接口，并通过 <code>newInstance</code> 方法创建代理类实例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class MapperProxyFactory&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private final Class&lt;T&gt; mapperInterface;</span><br><span class="line"></span><br><span class="line">    private Map&lt;Method, MapperMethod&gt; methodCache = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public MapperProxyFactory(Class&lt;T&gt; mapperInterface) &#123;</span><br><span class="line">        if (Objects.isNull(mapperInterface.getAnnotation(DaoMapper.class))) &#123;</span><br><span class="line">            throw new RuntimeException(&quot;缺少注解 DaoMapper&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        this.mapperInterface = mapperInterface;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public T newInstance() &#123;</span><br><span class="line">        final MapperProxy&lt;T&gt; mapperProxy = new MapperProxy&lt;&gt;(mapperInterface, methodCache);</span><br><span class="line">        return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[]&#123;mapperInterface&#125;, mapperProxy);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行，创建一个代理工厂，然后创建 <code>BaseLineDao</code> 的代理对象， 调用 <code>select</code> 方法，实际上调用到代理对象的 <code>invoke</code> 方法，然后交由 <code> mapperMethod.execute</code> 方法执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    MapperProxyFactory mapperProxyFactory = new MapperProxyFactory(BaseLineDao.class);</span><br><span class="line">    BaseLineDao baseLineDao = (BaseLineDao) mapperProxyFactory.newInstance();</span><br><span class="line">    BaseLineModel test1 = baseLineDao.select(&quot;TEST1&quot;);</span><br><span class="line">    System.out.println(test1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>TODO：</p>
+<ol>
+<li>Java动态代理与 cglib 动态代理的异同点。</li>
+<li>动态代理的实现原理。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个个简单的实践，了解了 Java 动态代理的使用方法以及对象关系数据的映射处理。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/60805342">https://zhuanlan.zhihu.com/p/60805342</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20794107/answer/658139129">https://www.zhihu.com/question/20794107/answer/658139129</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/26/1.html" rel="prev" title="Java 锁相关">
+                  <i class="fa fa-chevron-left"></i> Java 锁相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/11/1.html" rel="next" title="迈向优秀程序员的必经之路">
+                  迈向优秀程序员的必经之路 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3c0a8c4e60984bac6d6f5e5ea2a88b5d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

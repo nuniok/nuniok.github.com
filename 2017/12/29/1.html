@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="交易系统设计与原则墨菲定律  任何事都没有表面看起来那么简单。 所有的事都会比你预计的时间长。 会出错的事总会出错。 如果你担心某种情况发生，那么它就更有可能发生。  康威定律  组织沟通方式会通过系统设计表达出来。 时间再多一件事情也不可能做的完美，但总有时间做完一件事情。 线型系统和线型组织架构间有潜在的异质同态特性。 大的系统组织总是比小系统更倾向于分解。  https:&#x2F;&#x2F;yq.aliyu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《亿级流量网站架构核心技术》读书笔记">
+<meta property="og:url" content="https://noge.top/2017/12/29/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="交易系统设计与原则墨菲定律  任何事都没有表面看起来那么简单。 所有的事都会比你预计的时间长。 会出错的事总会出错。 如果你担心某种情况发生，那么它就更有可能发生。  康威定律  组织沟通方式会通过系统设计表达出来。 时间再多一件事情也不可能做的完美，但总有时间做完一件事情。 线型系统和线型组织架构间有潜在的异质同态特性。 大的系统组织总是比小系统更倾向于分解。  https:&#x2F;&#x2F;yq.aliyu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15145617696252.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15145639698521.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15145641673423.jpg">
+<meta property="article:published_time" content="2017-12-29T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.021Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="读书笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15145617696252.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2017/12/29/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/12/29/1.html","path":"2017/12/29/1.html","title":"《亿级流量网站架构核心技术》读书笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>《亿级流量网站架构核心技术》读书笔记 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">交易系统设计与原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">高并发原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">高可用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">业务设计原则</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/29/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《亿级流量网站架构核心技术》读书笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-29 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-29T00:00:00+00:00">2017-12-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="交易系统设计与原则"><a href="#交易系统设计与原则" class="headerlink" title="交易系统设计与原则"></a>交易系统设计与原则</h2><p><strong>墨菲定律</strong></p>
+<ol>
+<li>任何事都没有表面看起来那么简单。</li>
+<li>所有的事都会比你预计的时间长。</li>
+<li>会出错的事总会出错。</li>
+<li>如果你担心某种情况发生，那么它就更有可能发生。</li>
+</ol>
+<p><strong>康威定律</strong></p>
+<ol>
+<li>组织沟通方式会通过系统设计表达出来。</li>
+<li>时间再多一件事情也不可能做的完美，但总有时间做完一件事情。</li>
+<li>线型系统和线型组织架构间有潜在的异质同态特性。</li>
+<li>大的系统组织总是比小系统更倾向于分解。<br><img src="/resource/img/15145617696252.jpg"></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/8611">https://yq.aliyun.com/articles/8611</a></p>
+<h3 id="高并发原则"><a href="#高并发原则" class="headerlink" title="高并发原则"></a>高并发原则</h3><ul>
+<li><p><strong>无状态</strong> 应用无状态，配置文件有状态。</p>
+</li>
+<li><p><strong>拆分</strong> 一个大而全的系统是按照功能模块拆分系统。</p>
+<ul>
+<li>系统维度：按照系统功能&#x2F;业务拆分，比如商品系统、购物车、订单、支付、分账、结算等。</li>
+<li>功能维度：对一个系统进行功能拆分，优惠券创建系统、领券系统、用券系统。</li>
+<li>读写维度：使用读写分离，读服务考虑使用缓存提升性能，写服务量大可以考虑分库分表，聚合读取场景下考虑数据异构拆分系统然后将分散在多处的数据聚合到一处存储。</li>
+<li>AOP 维度：面向切面编程，根据访问特征按照 AOP 进行拆分。处理日志记录，性能统计，安全控制，事务处理，异常处理等等。</li>
+<li>模块维度：按照基础模块特征进行拆分，比如分库分表、数据库连接池；代码结构按照三层划分。</li>
+</ul>
+</li>
+<li><p><strong>服务化</strong> 进程内服务 → 单机远程服务 → 集群手动注册服务 → 自动注册和服务发现 → 服务的分组&#x2F;隔离&#x2F;路由 → 服务治理。</p>
+</li>
+<li><p><strong>消息队列</strong> 使用消息队列可以实现服务解耦、异步处理、流量削峰&#x2F;缓冲等。</p>
+<ol>
+<li><p>大流量缓冲<br>  <img src="/resource/img/15145639698521.jpg"><br><img src="/resource/img/15145641673423.jpg"></p>
+</li>
+<li><p>数据校对：使用异步机制会存在消息丢失的情况，需要考虑定期去扫描原始表，对数据进行校对和问题的补偿。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>数据异构</strong></p>
+<ul>
+<li>数据异构，比如订单分库分表，按照订单ID进行划分，对于异构意义不大不大的字段（库存价格）考虑异步加载，合并并发请求等。</li>
+<li>数据闭环，通过 MQ 机制接收数据变更，然后把原子化数据存储到合适的存储引擎，然后将数据聚合，把多个数据源拿过来，然后存储到KV存储中。如果一次需要多个数据，可以考虑使用 Hash Tag 机制将相关数据聚合到一个实例。</li>
+<li>前端展示，减少前端拿数据的数量。</li>
+</ul>
+</li>
+<li><p><strong>缓存银弹</strong></p>
+<ul>
+<li>浏览器端缓存，通过设计过期时间进行控制，适用于不太敏感的数据。</li>
+<li>APP 客户端缓存，为了防止瞬间流量冲击，把相关的静态文件下发到客户端缓存。</li>
+<li>CDN 缓存，将一些活动页、图片、视频等资源推送到离用户进的 CDN 节点。一般是通过推送机制和拉取机制。</li>
+<li>接入层缓存，例如 Nginx 层，通过 URL 重写、一致性哈希、代理缓存等机制实现。</li>
+<li>应用层缓存</li>
+<li>分布式缓存</li>
+</ul>
+</li>
+<li><p><strong>并发化</strong> 将串行获取的数据通过并发化获取。</p>
+</li>
+</ul>
+<h3 id="高可用原则"><a href="#高可用原则" class="headerlink" title="高可用原则"></a>高可用原则</h3><ul>
+<li><strong>降级</strong> 主要的是设计一个降级开关。<ul>
+<li>开关集中化管理，通过推送机制将开关推送到各个应用。</li>
+<li>可降级的多级读服务，按照读写维度进行调用降级。</li>
+<li>开关前置化，将开关前置到 Nginx 接入层，对流量请求拦截或一小部分放流。</li>
+<li>业务降级，把同步调用改成异步调用，或者优先处理高优先级数据或包含特征的数据，合理分配流量进入系统，以保障系统可用。</li>
+</ul>
+</li>
+<li><strong>限流</strong> 为了防止恶意请求流量、恶意攻击，防止流量超出系统峰值。<ul>
+<li>恶意请求只访问到 cache。</li>
+<li>穿透到后端的应用流量可以考虑使用 Nginx 层做处理。</li>
+<li>对于恶意 IP 使用 Nginx 层进行屏蔽。</li>
+<li><em>原则是限制流量穿透到后端薄弱的应用层。</em></li>
+</ul>
+</li>
+<li><strong>切流量</strong> 应对多机房环境某机房挂了或者机架挂了，或者不可抗拒的自然灾害，这时异地多活机房就很重要了。我们要做的就是能及时将异常的地方下线，流量切到正常的服务下。<ul>
+<li>DNS，切换机房入口。</li>
+<li>LVS&#x2F;HAProxy，切换故障的接入层。</li>
+<li>Nginx，切换故障的应用层。</li>
+</ul>
+</li>
+<li><strong>可回滚</strong> 当服务出错时，通过版本话机制回滚到最近的一个正确版本。</li>
+</ul>
+<h3 id="业务设计原则"><a href="#业务设计原则" class="headerlink" title="业务设计原则"></a>业务设计原则</h3><ul>
+<li>防重设计，比如结算页面防止重复提交。</li>
+<li>幂等设计，在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。</li>
+<li>流程可定义，两个流程彼此分离，在需要的时候进行关联，或者复用一些理赔流程。</li>
+<li>状态与状态机，在设计交易订单系统，会存在正向状态和逆向状态，需要记录订单的状态轨迹并记录相关日志。还需要考虑并发状态修改的问题。</li>
+<li>后台系统操作的反馈，对后台系统操作场景能及时预览最终效果。</li>
+<li>后台系统审批，对于一些敏感操作记录日志，设计审批流程，保证操作可追溯、可审计。</li>
+<li>文档和注释，无需多说。</li>
+<li>备份，代码仓库的备份和管理。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"># 读书笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/12/27/1.html" rel="prev" title="2018年1月计划">
+                  <i class="fa fa-chevron-left"></i> 2018年1月计划
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/06/1.html" rel="next" title="Ubuntu配置SMB服务">
+                  Ubuntu配置SMB服务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a4bd55b041dcc184c233b074a8aa0ad3"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

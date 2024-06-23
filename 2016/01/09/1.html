@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="正则表达式用来匹配和处理文本的字符串。基本用途是查找和替换。一种不完备的程序设计语言。  含义列表123456789101112131415161718.  # 英文句号，匹配任意单个字符包括自身，相当于DOS中的 ? ，SQL中的 _ 。\  # 反斜杠，元字符，转义用。转义自身用 \\ 。[]  # 中括号，元字符，定义一个字符集合。-  # 连字符，字符区间用，比如0-9、A-Z。只能用在字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="https://noge.top/2016/01/09/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="正则表达式用来匹配和处理文本的字符串。基本用途是查找和替换。一种不完备的程序设计语言。  含义列表123456789101112131415161718.  # 英文句号，匹配任意单个字符包括自身，相当于DOS中的 ? ，SQL中的 _ 。\  # 反斜杠，元字符，转义用。转义自身用 \\ 。[]  # 中括号，元字符，定义一个字符集合。-  # 连字符，字符区间用，比如0-9、A-Z。只能用在字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/0b845d60-f9f5-4240-8f55-24f8cea04953.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/a8a95f79-96ed-45db-8cb3-790a7ac6b64d.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/32cebbb3-461b-4259-b8a3-b83d0280b752.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/0b28d288-452d-4d9a-a416-0e98f80d8278.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/acbe623c-05c5-444f-b385-169b6adedadb.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/352f8f35-dcac-4440-a21f-4779a26ac743.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/00434677-3908-47ed-b192-1b337f8ea064.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/c44e81f9-acf5-4bb6-8f9a-e062724871bd.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/686133cb-f93b-4954-a17a-5aed01c0e0e8.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/3c36ee0a-819a-40ca-9dd5-150e0cb68beb.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/d5cb48c9-e648-4874-b24a-d950ffbd9868.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/64ddb1d1-bb13-476b-9fc4-ae4dc93e1c08.png">
+<meta property="og:image" content="https://noge.top/resource/img/zzbds/9bb21719-d586-4f77-98f7-8b0c37f16a0a.png">
+<meta property="article:published_time" content="2016-01-09T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="正则表达式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/zzbds/0b845d60-f9f5-4240-8f55-24f8cea04953.png">
+
+
+<link rel="canonical" href="https://noge.top/2016/01/09/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2016/01/09/1.html","path":"2016/01/09/1.html","title":"正则表达式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>正则表达式 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AB%E4%B9%89%E5%88%97%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">含义列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%83%B0%E5%9E%8B%E5%8C%B9%E9%85%8D%EF%BC%8C%E5%8C%B9%E9%85%8D%E6%9C%80%E5%B0%8F%E5%AD%90%E9%9B%86%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">懒惰型匹配，匹配最小子集。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D"><span class="nav-number">2.2.</span> <span class="nav-text">位置匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E5%BC%95%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">回溯引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">2.4.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E5%89%8D%E6%9F%A5%E6%89%BE%E3%80%81%E5%90%91%E5%90%8E%E6%9F%A5%E6%89%BE"><span class="nav-number">2.5.</span> <span class="nav-text">向前查找、向后查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.6.</span> <span class="nav-text">嵌入条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99%E5%8C%B9%E9%85%8D"><span class="nav-number">3.1.</span> <span class="nav-text">不区分大小写匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%8C%BA%E9%97%B4%E5%8C%B9%E9%85%8D"><span class="nav-number">3.2.</span> <span class="nav-text">字符区间匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E9%9D%9E%E5%8C%B9%E9%85%8D"><span class="nav-number">3.3.</span> <span class="nav-text">取非匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">3.4.</span> <span class="nav-text">匹配多个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">子表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E5%9B%9B%E4%BD%8D%E6%95%B0%E7%9A%84%E5%B9%B4%E4%BB%BD"><span class="nav-number">3.6.</span> <span class="nav-text">匹配四位数的年份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5%E6%9F%A5%E6%89%BE%E3%80%81%E5%90%91%E5%90%8E%E6%9F%A5%E6%89%BE%E7%BB%84%E5%90%88%E5%BA%94%E7%94%A8"><span class="nav-number">3.7.</span> <span class="nav-text">嵌入查找、向后查找组合应用</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2016/01/09/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-09T00:00:00+00:00">2016-01-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>用来匹配和处理文本的字符串。基本用途是查找和替换。一种不完备的程序设计语言。</p>
+<hr>
+<h2 id="含义列表"><a href="#含义列表" class="headerlink" title="含义列表"></a>含义列表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.  # 英文句号，匹配任意单个字符包括自身，相当于DOS中的 ? ，SQL中的 _ 。</span><br><span class="line">\  # 反斜杠，元字符，转义用。转义自身用 \\ 。</span><br><span class="line">[]  # 中括号，元字符，定义一个字符集合。</span><br><span class="line">-  # 连字符，字符区间用，比如0-9、A-Z。只能用在字符集合中。</span><br><span class="line">^  # 取非匹配，字符区间用。</span><br><span class="line">\d  # 任何一个数字字符。</span><br><span class="line">\D  # 任何一个非数字字符。</span><br><span class="line">\w  # 任何一个字母数字字符或下划线字符（[a-zA-Z0-9_]）</span><br><span class="line">\W  # 任何一个非字母数字或非下划线字符（[^a-zA-Z0-9_]）</span><br><span class="line">\s  # 任何一个空白字符（[\f\n\r\t\v]）</span><br><span class="line">\S # 任何一个非空白字符（[^\f\n\r\t\v]）</span><br><span class="line">+  # 匹配一个或多个字符，放在字符或字符集合后面。</span><br><span class="line">*  # 匹配零个或多个字符，放在字符或字符集合后面。</span><br><span class="line">?  # 匹配零个或一个字符，放在字符或字符集合后面。</span><br><span class="line">&#123;&#125;  # 指定匹配个数的区间或精确值。&#123;6&#125;、&#123;2,4&#125;。</span><br><span class="line"></span><br><span class="line">()  # 子表达式</span><br><span class="line">|  # 或操作符</span><br></pre></td></tr></table></figure>
+
+<h3 id="懒惰型匹配，匹配最小子集。"><a href="#懒惰型匹配，匹配最小子集。" class="headerlink" title="懒惰型匹配，匹配最小子集。"></a>懒惰型匹配，匹配最小子集。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+?</span><br><span class="line">*?</span><br><span class="line">&#123;n,&#125;?</span><br></pre></td></tr></table></figure>
+
+<h3 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\b  # 单词边界</span><br><span class="line">\B  # 不是单词边界</span><br><span class="line">^  # 字符串边界开始</span><br><span class="line">$  # 字符串边界结束</span><br><span class="line">(?m)  # 分行匹配模式， 使表达式引擎将分隔符当做一个字符串分隔符对待。</span><br></pre></td></tr></table></figure>
+
+<h3 id="回溯引用"><a href="#回溯引用" class="headerlink" title="回溯引用"></a>回溯引用</h3><p>下面例子匹配 <code>空格 字符 空格</code><br><img src="/resource/img/zzbds/0b845d60-f9f5-4240-8f55-24f8cea04953.png" alt="原始图片"><br>下面的例子使回溯引用<br><img src="/resource/img/zzbds/a8a95f79-96ed-45db-8cb3-790a7ac6b64d.png" alt="原始图片"><br>解释回溯引用，<code>\1</code>用来获取<code>(\w+)</code>中的字符串。第一个匹配上的<code>of</code>被<code>\1</code>引用，就变成表达式<code>[ ]+(\w+)[ ]+of</code>。<br>其中<code>\1</code>代表模式里的第一个子表达式，<code>\2</code>就会代表着第二个子表达式，以此递推。</p>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p><img src="/resource/img/zzbds/32cebbb3-461b-4259-b8a3-b83d0280b752.png" alt="原始图片"></p>
+<blockquote>
+<p>大小写转换测试工具不支持，待测试</p>
+</blockquote>
+<h3 id="向前查找、向后查找"><a href="#向前查找、向后查找" class="headerlink" title="向前查找、向后查找"></a>向前查找、向后查找</h3><p>必须要放到一个字表达式中，如下例子，根据<code>:</code>来匹配，但是不消费他。<br><code>(?=)</code> 向前查找</p>
+<p><img src="/resource/img/zzbds/0b28d288-452d-4d9a-a416-0e98f80d8278.png" alt="原始图片"></p>
+<p><code>(?&lt;=)</code> 向后查找<br><img src="/resource/img/zzbds/acbe623c-05c5-444f-b385-169b6adedadb.png" alt="原始图片"></p>
+<p><code>(?!)</code> 负向前查找<br><code>(?&lt;!)</code> 负向后查找</p>
+<h3 id="嵌入条件"><a href="#嵌入条件" class="headerlink" title="嵌入条件"></a>嵌入条件</h3><p><code>(?(brackreference)true-regex)</code>其中<code>?</code>表明这是一个条件，括号里的<code>brackreference</code>是一个回溯引用，<code>true-regex</code>是一个只在<code>backreference</code>存在时才会被执行的子表达式。<br><img src="/resource/img/zzbds/352f8f35-dcac-4440-a21f-4779a26ac743.png" alt="原始图片"></p>
+<hr>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="不区分大小写匹配"><a href="#不区分大小写匹配" class="headerlink" title="不区分大小写匹配"></a>不区分大小写匹配</h3><p><img src="/resource/img/zzbds/00434677-3908-47ed-b192-1b337f8ea064.png" alt="原始图片"></p>
+<h3 id="字符区间匹配"><a href="#字符区间匹配" class="headerlink" title="字符区间匹配"></a>字符区间匹配</h3><p><img src="/resource/img/zzbds/c44e81f9-acf5-4bb6-8f9a-e062724871bd.png" alt="原始图片"></p>
+<h3 id="取非匹配"><a href="#取非匹配" class="headerlink" title="取非匹配"></a>取非匹配</h3><p><img src="/resource/img/zzbds/686133cb-f93b-4954-a17a-5aed01c0e0e8.png" alt="原始图片"></p>
+<h3 id="匹配多个字符"><a href="#匹配多个字符" class="headerlink" title="匹配多个字符"></a>匹配多个字符</h3><p><img src="/resource/img/zzbds/3c36ee0a-819a-40ca-9dd5-150e0cb68beb.png" alt="原始图片"></p>
+<h3 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h3><p><img src="/resource/img/zzbds/d5cb48c9-e648-4874-b24a-d950ffbd9868.png" alt="原始图片"></p>
+<h3 id="匹配四位数的年份"><a href="#匹配四位数的年份" class="headerlink" title="匹配四位数的年份"></a>匹配四位数的年份</h3><p><img src="/resource/img/zzbds/64ddb1d1-bb13-476b-9fc4-ae4dc93e1c08.png" alt="原始图片"></p>
+<h3 id="嵌入查找、向后查找组合应用"><a href="#嵌入查找、向后查找组合应用" class="headerlink" title="嵌入查找、向后查找组合应用"></a>嵌入查找、向后查找组合应用</h3><p><img src="/resource/img/zzbds/9bb21719-d586-4f77-98f7-8b0c37f16a0a.png" alt="原始图片"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag"># 正则表达式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/09/19/1.html" rel="prev" title="Python 包管理">
+                  <i class="fa fa-chevron-left"></i> Python 包管理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/08/04/1.html" rel="next" title="Asynchronous and non-Blocking I/O 翻译">
+                  Asynchronous and non-Blocking I/O 翻译 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"66fef816b392b40aefdadfa66534a85d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

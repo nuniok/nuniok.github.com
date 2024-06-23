@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1%matplotlib inline   12import numpy as npimport matplotlib.pyplot as plt   1plt.figure(figsize&#x3D;(8,4))     &lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;     &lt;matplotlib.figure.Figure at 0x7f0c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matplotlib学习">
+<meta property="og:url" content="https://noge.top/2017/02/05/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="1%matplotlib inline   12import numpy as npimport matplotlib.pyplot as plt   1plt.figure(figsize&#x3D;(8,4))     &lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;     &lt;matplotlib.figure.Figure at 0x7f0c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_5_1.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_8_1.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_12_0.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_13_1.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_17_0.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_19_0.png">
+<meta property="og:image" content="https://noge.top/resource/img/matplotlib/output_21_1.png">
+<meta property="article:published_time" content="2017-02-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Matplotlib">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/matplotlib/output_5_1.png">
+
+
+<link rel="canonical" href="https://noge.top/2017/02/05/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/02/05/1.html","path":"2017/02/05/1.html","title":"Matplotlib学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Matplotlib学习 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">配置属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E5%A4%9A%E8%BD%B4%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">绘制多轴图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E6%95%A3%E5%88%97%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">绘制散列图</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/02/05/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Matplotlib学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-05T00:00:00+00:00">2017-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;
+</code></pre>
+<p>figure创建一个绘图对象,figsize参数可以指定绘图对象的宽度和高度，单位为英寸。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line">z = np.cos(x**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x,y,label=<span class="string">&quot;$sin(x)$&quot;</span>,color=<span class="string">&quot;red&quot;</span>,linewidth=<span class="number">2</span>)</span><br><span class="line">plt.plot(x,z,<span class="string">&quot;b--&quot;</span>,label=<span class="string">&quot;$cos(x^2)$&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f0c73e2ea90&gt;]
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_5_1.png" alt="png"></p>
+<p>plot函数的调用方式很灵活，第一句将x,y数组传递给plot之后，用关键字参数指定各种属性：</p>
+<ul>
+<li>label : 给所绘制的曲线一个名字，此名字在图示(legend)中显示。只要在字符串前后添加”$”符号，matplotlib就会使用其内嵌的latex引擎绘制的数学公式。</li>
+<li>color : 指定曲线的颜色</li>
+<li>linewidth : 指定曲线的宽度</li>
+</ul>
+<p>第二句直接通过第三个参数”b–”指定曲线的颜色和线型。其中b表示蓝色，”–”表示线型为虚线。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plt.plot?</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.xlabel(<span class="string">&quot;Time(s)&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Volt&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;PyPlot First Example&quot;</span>)</span><br><span class="line">plt.ylim(-<span class="number">1.2</span>,<span class="number">1.2</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
+
+<pre><code>/usr/lib/python2.7/dist-packages/matplotlib/axes/_axes.py:519: UserWarning: No labelled objects found. Use label=&#39;...&#39; kwarg on individual plots.
+  warnings.warn(&quot;No labelled objects found. &quot;
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_8_1.png" alt="png"></p>
+<ul>
+<li>xlabel : 设置X轴的文字</li>
+<li>ylabel : 设置Y轴的文字</li>
+<li>title : 设置图表的标题</li>
+<li>ylim : 设置Y轴的范围</li>
+<li>legend : 显示图示</li>
+</ul>
+<p>最后调用plt.show()显示出我们创建的所有绘图对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="配置属性"><a href="#配置属性" class="headerlink" title="配置属性"></a>配置属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">5</span>, <span class="number">0.1</span>)</span><br><span class="line">line, = plt.plot(x, x*x) <span class="comment"># plot返回一个列表，通过line,获取其第一个元素</span></span><br><span class="line"><span class="comment"># 调用Line2D对象的set_*方法设置属性值</span></span><br><span class="line">line.set_antialiased(<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/resource/img/matplotlib/output_12_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同时绘制sin和cos两条曲线，lines是一个有两个Line2D对象的列表</span></span><br><span class="line">lines = plt.plot(x, np.sin(x), x, np.cos(x))</span><br><span class="line"><span class="comment"># 调用setp函数同时配置多个Line2D对象的多个属性值</span></span><br><span class="line">plt.setp(lines, color=<span class="string">&quot;r&quot;</span>, linewidth=<span class="number">2.0</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[None, None, None, None]
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_13_1.png" alt="png"></p>
+<p>调用Line2D对象line的set_antialiased方法，关闭对象的反锯齿效果。或者通过调用plt.setp函数配置多个Line2D对象的颜色和线宽属性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">line.get_linewidth()</span><br><span class="line">plt.getp(lines[<span class="number">0</span>], <span class="string">&quot;color&quot;</span>) <span class="comment"># 返回color属性</span></span><br><span class="line">plt.getp(lines[<span class="number">1</span>]) <span class="comment"># 输出全部属性</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>    agg_filter = None
+    alpha = None
+    animated = False
+    antialiased or aa = True
+    axes = Axes(0.125,0.125;0.775x0.775)
+    children = []
+    clip_box = TransformedBbox(Bbox([[0.0, 0.0], [1.0, 1.0]]), Co...
+    clip_on = True
+    clip_path = None
+    color or c = r
+    contains = None
+    dash_capstyle = butt
+    dash_joinstyle = round
+    data = (array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6, ...
+    drawstyle = default
+    figure = Figure(432x288)
+    fillstyle = full
+    gid = None
+    label = _line1
+    linestyle or ls = -
+    linewidth or lw = 2.0
+    marker = None
+    markeredgecolor or mec = r
+    markeredgewidth or mew = 0.5
+    markerfacecolor or mfc = r
+    markerfacecoloralt or mfcalt = none
+    markersize or ms = 6.0
+    markevery = None
+    path = Path(array([[ 0.        ,  1.        ],        [ 0...
+    path_effects = []
+    picker = None
+    pickradius = 5
+    rasterized = None
+    sketch_params = None
+    snap = None
+    solid_capstyle = projecting
+    solid_joinstyle = round
+    transform = CompositeGenericTransform(TransformWrapper(Blended...
+    transformed_clip_path_and_affine = (None, None)
+    url = None
+    visible = True
+    xdata = [ 0.   0.1  0.2  0.3  0.4  0.5]...
+    xydata = [[ 0.          1.        ]  [ 0.1         0.995004...
+    ydata = [ 1.          0.99500417  0.98006658  0.95533649  ...
+    zorder = 2
+</code></pre>
+<hr>
+<h2 id="绘制多轴图"><a href="#绘制多轴图" class="headerlink" title="绘制多轴图"></a>绘制多轴图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> idx, color <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="string">&quot;rgbyck&quot;</span>):</span><br><span class="line">    plt.subplot(<span class="number">320</span>+idx+<span class="number">1</span>, axisbg=color)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/resource/img/matplotlib/output_17_0.png" alt="png"></p>
+<p>subplot将整个绘图区域等分为numRows行 * numCols列个子区域，然后按照从左到右，从上到下的顺序对每个子区域进行编号，左上的子区域的编号为1。如果numRows，numCols和plotNum这三个数都小于10的话，可以把它们缩写为一个整数，例如subplot(323)和subplot(3,2,3)是相同的。subplot在plotNum指定的区域中创建一个轴对象。如果新创建的轴和之前创建的轴重叠的话，之前的轴将被删除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">221</span>) <span class="comment"># 第一行的左图</span></span><br><span class="line">plt.subplot(<span class="number">222</span>) <span class="comment"># 第一行的右图</span></span><br><span class="line">plt.subplot(<span class="number">212</span>) <span class="comment"># 第二整行</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/resource/img/matplotlib/output_19_0.png" alt="png"></p>
+<hr>
+<h2 id="绘制散列图"><a href="#绘制散列图" class="headerlink" title="绘制散列图"></a>绘制散列图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">t = ax.scatter(np.random.rand(<span class="number">20</span>), np.random.rand(<span class="number">20</span>))</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>/usr/lib/python2.7/dist-packages/matplotlib/figure.py:397: UserWarning: matplotlib is currently using a non-GUI backend, so cannot show the figure
+  &quot;matplotlib is currently using a non-GUI backend, &quot;
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_21_1.png" alt="png"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://old.sebug.net/paper/books/scipydoc/index.html">http://old.sebug.net/paper/books/scipydoc/index.html</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Matplotlib/" rel="tag"># Matplotlib</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/01/31/1.html" rel="prev" title="Xpath总结">
+                  <i class="fa fa-chevron-left"></i> Xpath总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/02/05/2.html" rel="next" title="Peewee源码解读">
+                  Peewee源码解读 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"fe91bdc5e3b19b5fce07eccca5f125a9"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

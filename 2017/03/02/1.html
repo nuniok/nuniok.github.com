@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="坑1：浮点数不精确性 12In [1]: 0.1+0.1+0.1-0.3Out[1]: 5.551115123125783e-17 解决办法： 123In [2]: from decimal import DecimalIn [3]: Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) - D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结算开发中遇到的坑">
+<meta property="og:url" content="https://noge.top/2017/03/02/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="坑1：浮点数不精确性 12In [1]: 0.1+0.1+0.1-0.3Out[1]: 5.551115123125783e-17 解决办法： 123In [2]: from decimal import DecimalIn [3]: Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) - D">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="结算">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://noge.top/2017/03/02/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/03/02/1.html","path":"2017/03/02/1.html","title":"结算开发中遇到的坑"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>结算开发中遇到的坑 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/03/02/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          结算开发中遇到的坑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-02T00:00:00+00:00">2017-03-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>坑1：浮点数不精确性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [1]: 0.1+0.1+0.1-0.3</span><br><span class="line">Out[1]: 5.551115123125783e-17</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [2]: from decimal import Decimal</span><br><span class="line">In [3]: Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) - Decimal(&#x27;0.3&#x27;)</span><br><span class="line">Out[3]: Decimal(&#x27;0.0&#x27;)</span><br></pre></td></tr></table></figure>
+<p>坑2：Decimal使用问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [5]: Decimal(0.1) + Decimal(0.1) + Decimal(0.1) - Decimal(0.3)</span><br><span class="line">Out[5]: Decimal(&#x27;2.775557561565156540423631668E-17&#x27;)</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>参照坑1的解决办法，Decimal传入值需要str类型<br>更多用法查看：<a target="_blank" rel="noopener" href="https://docs.python.org/2/library/decimal.html">https://docs.python.org/2/library/decimal.html</a></p>
+<p>坑3：四舍五入不准确问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [3]: &#x27;&#123;:.2f&#125;&#x27;.format(Decimal(str(1001.8250)))</span><br><span class="line">Out[3]: &#x27;1001.82&#x27;</span><br><span class="line">In [2]: Decimal(&#x27;1001.8250&#x27;).quantize(Decimal(&#x27;0.01&#x27;))</span><br><span class="line">Out[2]: Decimal(&#x27;1001.82&#x27;)</span><br><span class="line">In [4]: round(2.55, 1)</span><br><span class="line">Out[4]: 2.5</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>发现问题原因为在不能正确四舍五入的float数值中都是因为数据存储末位的.5被存储为.4999999…的形式，解决办法是在.5上加.1的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def exact_round(num, exp=2):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    准确的四舍五入方法</span><br><span class="line">    :param num: 数值</span><br><span class="line">    :param exp: 保留精度</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    str_num = str(num)</span><br><span class="line">    dec_num = Decimal(str_num)</span><br><span class="line">    exp_unit = Decimal(&#x27;0.1&#x27;) ** exp</span><br><span class="line">    mini_unit = Decimal(&#x27;0.1&#x27;) ** (exp + 1)</span><br><span class="line">    if dec_num % exp_unit == (5 * mini_unit):</span><br><span class="line">        dec_num += mini_unit</span><br><span class="line">    return Decimal(dec_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br></pre></td></tr></table></figure>
+
+<p>为了验证这个方法写了个测试脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">摘    要: exact_round.py</span><br><span class="line">创 建 者: abc</span><br><span class="line">创建日期: 2017-01-05</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">__author__ = &quot;abc&quot;</span><br><span class="line"></span><br><span class="line">from decimal import Decimal, ROUND_HALF_EVEN</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def exact_round(num, exp=2):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    准确的四舍五入方法</span><br><span class="line">    :param num: 数值</span><br><span class="line">    :param exp: 保留精度</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    str_num = str(num)</span><br><span class="line">    dec_num = Decimal(str_num)</span><br><span class="line">    exp_unit = Decimal(&#x27;0.1&#x27;) ** exp</span><br><span class="line">    mini_unit = Decimal(&#x27;0.1&#x27;) ** (exp + 1)</span><br><span class="line">    raw_num = dec_num</span><br><span class="line">    if dec_num % exp_unit == (5 * mini_unit):</span><br><span class="line">        dec_num += mini_unit</span><br><span class="line">    raw_result = Decimal(raw_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br><span class="line">    result = Decimal(dec_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br><span class="line">    if result != raw_result:</span><br><span class="line">        print &quot;raw:round(&#123;&#125;, &#123;&#125;) = &gt; &#123;&#125;; fixed: round(&#123;&#125;, &#123;&#125;) =&gt; &#123;&#125;&quot;.format(</span><br><span class="line">            raw_num, exp, raw_result,</span><br><span class="line">            dec_num, exp, result</span><br><span class="line">        )</span><br><span class="line">    return result</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    val = 900.0000</span><br><span class="line">    while val &lt; 1001.8600:</span><br><span class="line">        for exp in range(0, 6):</span><br><span class="line">            exact_round(val, exp=exp)</span><br><span class="line">        val += 0.0005</span><br></pre></td></tr></table></figure>
+<p>脚本中我们将被修正过的数据打印出来，发现被打印出来的都是四舍五入不正确的数值，经过方法处理可以保证准确的输出。</p>
+<p>因为我们的测试只是覆盖了部分的数值，精度深度也只到到了6位，也不能保证说方法没有问题。<br>后来询问了在银行做开发的朋友，他们对于数据的计算都是在数据库的存储过程中运算的，并对上面坑中的数值放到数据库中做四舍五入发现确实没有问题。</p>
+<p>于是我将这个方法做的运算与数据库的运算结果做对比写了测试脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">摘    要: test_db_round.py</span><br><span class="line">创 建 者: abc</span><br><span class="line">创建日期: 2017-01-06</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">__author__ = &quot;abc&quot;</span><br><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">sys.path.append(os.path.dirname(os.path.split(os.path.realpath(__file__))[0]))</span><br><span class="line"></span><br><span class="line">from lib.utils import exact_round</span><br><span class="line">from model import Model</span><br><span class="line"> </span><br><span class="line">def test_db_round(val, exp):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    test_db_round</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    sql = &quot;SELECT round(&#123;&#125;, &#123;&#125;) as val&quot;.format(str(val), exp)</span><br><span class="line">    db_round = Model().raw(sql)[0][&quot;val&quot;]</span><br><span class="line">    exa_round = exact_round(val, exp)</span><br><span class="line">    if str(db_round) != str(exa_round):</span><br><span class="line">        print &quot;db:&#123;&#125;; ex:&#123;&#125;&quot;.format(str(db_round), str(exa_round))</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    val = 900.0000</span><br><span class="line">    while val &lt; 1001.8600:</span><br><span class="line">        for exp in range(0, 6):</span><br><span class="line">            test_db_round(val, exp=exp)</span><br><span class="line">        val += 0.0005</span><br></pre></td></tr></table></figure>
+<p>经过测试后发现没有数据被打印出，证明在测试范围内Python方法和数据库的运算结果没有差异。</p>
+<p>关于浮点数不精确性的事情相信学过计算机组成原理这门课程的都明白，这里不再赘述，放个链接：<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kubixuesheng/p/4107309.html">从如何判断浮点数是否等于0说起——浮点数的机器级表示</a></p>
+<p>话说为什么要在Python中做财务相关运算呢，可能最初开发这个系统的人缺乏这方面的经验，然后通过扩展精度保留位数来解决这个问题的，但终究在做四舍五入时可能产生1分的差异。<br>既然发现这个问题，本着眼里不揉沙子的态度，快速的解决方案是在Python中替换原来的四舍五入函数，长期策略是逐步将计算过程挪到数据库通过存储过程来实现。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%93%E7%AE%97/" rel="tag"># 结算</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/02/09/1.html" rel="prev" title="Tensorflow学习">
+                  <i class="fa fa-chevron-left"></i> Tensorflow学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/03/15/1.html" rel="next" title="关于Java的最初了解">
+                  关于Java的最初了解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"e6fc438b0e26ce068018fdfe87e0c2b9"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

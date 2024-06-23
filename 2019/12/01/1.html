@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="背景介绍 近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语言栈转型经验谈">
+<meta property="og:url" content="https://noge.top/2019/12/01/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="背景介绍 近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15751828389282.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15751818260554.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15751828229085.jpg">
+<meta property="article:published_time" content="2019-12-01T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.021Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="经验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15751828389282.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2019/12/01/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2019/12/01/1.html","path":"2019/12/01/1.html","title":"语言栈转型经验谈"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>语言栈转型经验谈 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E5%9E%8B%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">转型流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">交付流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">验证方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E7%A8%B3%E4%BA%A4%E4%BB%98"><span class="nav-number">4.1.</span> <span class="nav-text">平稳交付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%BA%A4%E4%BB%98"><span class="nav-number">4.2.</span> <span class="nav-text">快速交付</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E7%8A%B6%E5%8F%8A%E6%9C%AA%E6%9D%A5"><span class="nav-number">5.</span> <span class="nav-text">现状及未来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%9E%8B%E7%97%9B%E7%82%B9"><span class="nav-number">5.1.</span> <span class="nav-text">转型痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E6%80%9D"><span class="nav-number">5.2.</span> <span class="nav-text">反思</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/12/01/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          语言栈转型经验谈
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-01T00:00:00+00:00">2019-12-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p><img src="/resource/img/15751828389282.jpg"></p>
+<p>近一年都在做语言栈的转型，也注意到周围很多公司都在做相似的事情，大概的路径是 Python -&gt; Go -&gt; Java，转型的起因也是有诸多的因素，像 Python 这种开发速度快，执行相对慢的语言更适合中小型项目，加上国内语言生态不够成熟，项目做大了会发现大家一刀切的转到其它语言上，当然这些说的是在做 web 后端方向上，Python 在数据分析和人工智能方向上还是势头很猛的。Go 可能还是因为它能承载的并发更高，性能更好而逐渐流行起来。在并发模型上 Java 原生 API 使用上确实做得不好驾驭，Go 则要相对好用很多。还有在某些垂直领域上，Java 的生态已经很成熟，其它语言栈上则需要自己造轮子，相应对于开发人员的水平要求就会低很多了。</p>
+<p>在当前互联网领域，后端研发做 web 主要谈的还是通过抽象和建模来提高项目的可迭代性与可维护性，另一方面谈的是工程实现上的优化和性能上的优化。在这些后面依赖的则是中台来保证的基础服务综合稳定性。</p>
+<p>在语言栈转型中也踩过一些坑，遇到过一些小问题，当然这些也得益于一个相对靠谱的方案来保证迁移的安全，基于这些经验总结一下，在以后的迁移中使问题可预见和避免采坑。</p>
+<h2 id="转型流程"><a href="#转型流程" class="headerlink" title="转型流程"></a>转型流程</h2><p>首先要明确转型的三个开发流程 MRO (Migration, Reconstruction, Optimization)</p>
+<ul>
+<li>迁移 就是把原语言代码照着抄一遍到新语言项目上，按照新语言的工程实现风格来做就可以。</li>
+<li>重构 的目的是来提高项目代码的可维护性和可迭代性，让代码更加优雅和好读懂，可以放到迁移完成来做。</li>
+<li>优化 则可以是在模块依赖、调用关系、接口字段等方面调整来降低项目的复杂性和提高合理性。</li>
+</ul>
+<p>然后看我们人力和时间是否充足，我想大部分情况下是不充足的，按照最短时间交付的原则，我们应该只做迁移流程，也就是说先对原有代码进行语言上的迁移，这样我们可以快速实现交付。在人力充沛的情况下可以配备两个小组，一个维护现有系统，一个主力开发新系统，或者说锁定需求全力开发新系统。在对快速交付更看中的行业里前一个方案更合适一些。</p>
+<h2 id="交付流程"><a href="#交付流程" class="headerlink" title="交付流程"></a>交付流程</h2><p>在交付过程中的验证流程 <code>单测验证 -&gt; 测试环境功能验证 -&gt; QA生产回测 -&gt; 灰度验证 -&gt; 完全上线</code>。<br>只有功能和单测代码都迁移完才能算代码部分完成，需要优先保证单测行数覆盖率再去保证分支覆盖率，测试环境的功能验证需要覆盖所有 case 来保证大部分问题都被发现，然后进入小范围的灰度验证，之后逐步提高灰度比率直至完全上线。如果是纯读接口则可以直接进行异步校验，就是请求两遍，然后对比差异来不断的发现和修复 bug，直至问题收敛完全解决。<br>如果明确只做迁移，那么期间如果有发现旧逻辑的 bug 也不要管，这样才好去对比验证，验证通过上线后再去修复。只有通过明确目的和流程并且遵循这个流程做，才能更快的去交付。</p>
+<h2 id="验证方案"><a href="#验证方案" class="headerlink" title="验证方案"></a>验证方案</h2><p><img src="/resource/img/15751818260554.jpg"></p>
+<p>针对新代码的验证方案分为别为读写接口做不同的验证方案：</p>
+<ul>
+<li>读接口：异步请求到新接口做接口响应值校验，打印出差异数据，然后不断修正逻辑。这样可以避免在线上灰度造成数据的不一致。</li>
+<li>写接口：测试用例覆盖，然后测试环境验证，灰度回测，灰度验证，修复问题，继续灰度验证。</li>
+</ul>
+<h3 id="平稳交付"><a href="#平稳交付" class="headerlink" title="平稳交付"></a>平稳交付</h3><p>在整个交付的过程中，转型前后对 SLA 要提供一致的保证，可以看看下面的几个衡量标准：</p>
+<table>
+<thead>
+<tr>
+<th>服务可用性级别</th>
+<th>服务正常运行时间</th>
+<th>年宕机时间</th>
+<th>日宕机时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>90%</td>
+<td>36.5day</td>
+<td>2.4hour</td>
+</tr>
+<tr>
+<td>2</td>
+<td>99%</td>
+<td>3.65day</td>
+<td>14min</td>
+</tr>
+<tr>
+<td>3</td>
+<td>99.9%</td>
+<td>8.76hour</td>
+<td>86sec</td>
+</tr>
+<tr>
+<td>4</td>
+<td>99.99%</td>
+<td>52.6min</td>
+<td>8.6sec</td>
+</tr>
+<tr>
+<td>5</td>
+<td>99.999%</td>
+<td>5.26min</td>
+<td>0.86sec</td>
+</tr>
+<tr>
+<td>6</td>
+<td>99.9999%</td>
+<td>31.5sec</td>
+<td>8.6msec</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://tool.lu/tables/">在线 MD 表格生成</a></p>
+<p>一般 3 个 9 的可用性全年宕机时间约为 8.76 小时，针对不同系统不同用户规模对于系统可用性的要求不一样，边缘业务的要求可能会低一些，但是对于核心支付链路场景 TPS 可能不高，但是必须要求保证高可用级别。如何保证或者提升服务的 SLA 是我们接下来要探讨的目标，一般有下面两个影响因素：</p>
+<ul>
+<li>MTBF (Mean Time Between Failures) 系统服务平均故障时间间隔</li>
+<li>MTTR (Mean Time To Recover) 系统服务平均故障恢复时长</li>
+</ul>
+<p>也就是说我们系统要尽可能的降低故障频率以及出现故障时能尽快的恢复。基于这两点我们在做系统平稳过渡时，要充分测试所有 case ，并且进行内部灰度方案和异步重试对比，发现异常立即回滚查找结局问题后再重新灰度。这里需要做到一键开关，数据可监控和追溯。</p>
+<p>持续监控，感知系统稳定性的第一步就是监控，通过监控和系统日志来排查问题和及时响应处理。监控有两个层面，一个是基础设施提供的机器监控以及接口级别的响应稳定性监控，另一个是业务数据层面的多维度监控。系统日志按照等级大致分为 INFO 日志以及 ERROR 日志。</p>
+<h3 id="快速交付"><a href="#快速交付" class="headerlink" title="快速交付"></a>快速交付</h3><p>关于快速交付，可以了解 下敏捷开发，及早和持续不断的交付有价值的软件。关于 Scrum 开发的介绍可以看： <a target="_blank" rel="noopener" href="http://www.scrumcn.com/agile/scrum-knowledge-library/agile101.html">什么是敏捷</a></p>
+<h2 id="现状及未来"><a href="#现状及未来" class="headerlink" title="现状及未来"></a>现状及未来</h2><p><img src="/resource/img/15751828229085.jpg"></p>
+<p>基于公司现状考虑 nginx 不支持长时间和自定义灰度，所以 http 接口层没做改动，只是在内部逻辑上通过 rpc 服务转到新的系统中。基于以上要点可以做到功能的快速交付。截止此文撰写时间，语言栈转型已经将系统核心接口逻辑 100% 迁移到新的系统上，对于日常系统需求已经可以做到在新系统开发和接入了。后面要做的有以下几点：</p>
+<ol>
+<li>将系统外围逻辑迁移到新系统；</li>
+<li>不断监控降噪，细化监控粒度，继续提高服务的稳定性；</li>
+<li>当前对于Python的花式“魔法” 硬翻译还需要不断重构和优化。</li>
+<li>完善监控大盘，通过数据驱动来运营优化我们的流程；</li>
+<li>项目复盘总结以及业务普及宣讲，提升人员对于业务细节的认知。</li>
+</ol>
+<h3 id="转型痛点"><a href="#转型痛点" class="headerlink" title="转型痛点"></a>转型痛点</h3><p>迁移后再做重构和优化过程。在迁移过程中有一个痛点是新需求过来了，要么锁定需求只做迁移，要么写两遍。基于人力情况可以选择一个小组同时写新旧系统或者一个小组维护新的一个小组维护旧的。<br>在转型过程中新需求过来有时要写两边，或者要把旧系统流量打到新系统接口上，常常在排查问题时遇到流量忘记转移的情况，所以在迁移过程要尽可能的快速交付上线。</p>
+<h3 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h3><ol>
+<li>对于每一位工程师来说语言栈的转型既是挑战也是机遇，只有保持开放学习心态，及时调整和提升才能更好应对，同时增强自身软素质。</li>
+<li>当前互联网环境下分布式是必经之地，而系统绝非 100% 可靠，每一个环节可能的异常在上线后必定遇到，所以针对不同场景我们要在 AP 与 CP 之间做出选择。</li>
+<li>对于支付交易核心链路，一条柱子肯定是不稳的，双链路也未必可靠，但至少更稳一些。曾经遇到过相隔几公里的两条光纤被施工队挖断的情况，双机房访问直接 gg 了，但总归是少见的。</li>
+<li>提系统可用性要避免出问题，除了问题要快快快速响应恢复，有问题先回滚。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/" rel="tag"># 经验</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/30/1.html" rel="prev" title="云南之旅">
+                  <i class="fa fa-chevron-left"></i> 云南之旅
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/01/2.html" rel="next" title="第一个半马">
+                  第一个半马 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"b6831e7f975afb4c550e853afa55e8cf"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

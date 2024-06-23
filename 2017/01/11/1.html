@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Kaggle Titanic问题[技能get点]  Pandas基本操作 [√] 随机森林算法 ——&gt; 数学原理、算法思想 [√] kaggle竞赛的一个项目完成参与流程 [√] 特征功能 ——&gt; 特征提取  随机森林算法kaggle竞赛参与流程特征提取1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle Titanic问题">
+<meta property="og:url" content="https://noge.top/2017/01/11/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="Kaggle Titanic问题[技能get点]  Pandas基本操作 [√] 随机森林算法 ——&gt; 数学原理、算法思想 [√] kaggle竞赛的一个项目完成参与流程 [√] 特征功能 ——&gt; 特征提取  随机森林算法kaggle竞赛参与流程特征提取1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="分类算法">
+<meta property="article:tag" content="随机森林">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://noge.top/2017/01/11/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/01/11/1.html","path":"2017/01/11/1.html","title":"Kaggle Titanic问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kaggle Titanic问题 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kaggle-Titanic%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">Kaggle Titanic问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%80%E8%83%BDget%E7%82%B9"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">[技能get点]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">随机森林算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kaggle%E7%AB%9E%E8%B5%9B%E5%8F%82%E4%B8%8E%E6%B5%81%E7%A8%8B"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">kaggle竞赛参与流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/11/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kaggle Titanic问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-01-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-11T00:00:00+00:00">2017-01-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Kaggle-Titanic问题"><a href="#Kaggle-Titanic问题" class="headerlink" title="Kaggle Titanic问题"></a>Kaggle Titanic问题</h1><h4 id="技能get点"><a href="#技能get点" class="headerlink" title="[技能get点]"></a>[技能get点]</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> Pandas基本操作</li>
+<li>[√] 随机森林算法 ——&gt; 数学原理、算法思想</li>
+<li>[√] kaggle竞赛的一个项目完成参与流程</li>
+<li>[√] 特征功能 ——&gt; 特征提取</li>
+</ul>
+<h4 id="随机森林算法"><a href="#随机森林算法" class="headerlink" title="随机森林算法"></a>随机森林算法</h4><h4 id="kaggle竞赛参与流程"><a href="#kaggle竞赛参与流程" class="headerlink" title="kaggle竞赛参与流程"></a>kaggle竞赛参与流程</h4><h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: abc</span></span><br><span class="line"><span class="string">@file: xyzforest.py</span></span><br><span class="line"><span class="string">@date: 2017-01-06</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Titanic</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Titanic</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        __init__</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.train_path = <span class="string">&quot;/home/abc/Projects/kaggle/Titanic/train.csv&quot;</span></span><br><span class="line">        self.test_path = <span class="string">&quot;/home/abc/Projects/kaggle/Titanic/test.csv&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_data</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        加载数据</span></span><br><span class="line"><span class="string">        :param path:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> pd.read_csv(path, header=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wash_train_data</span>(<span class="params">self, train_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        清洗训练数据</span></span><br><span class="line"><span class="string">        :param train_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked</span></span><br><span class="line">        <span class="comment"># 性别数值化</span></span><br><span class="line">        train_data.Sex = train_data.Sex.<span class="built_in">map</span>(&#123;<span class="string">&#x27;female&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;male&#x27;</span>: <span class="number">1</span>&#125;).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Embarked 数值化, 补充众数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(train_data.Embarked[train_data.Embarked.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            train_data.Embarked[train_data.Embarked.isnull()] = train_data.Embarked.dropna().mode().values</span><br><span class="line">        ports_dict = &#123;name: index <span class="keyword">for</span> index, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">set</span>(train_data.Embarked))&#125;</span><br><span class="line">        train_data.Embarked = train_data.Embarked.<span class="built_in">map</span>(ports_dict).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 年龄补充平均数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(train_data.Age[train_data.Age.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            train_data.Age[train_data.Age.isnull()] = train_data.Age.dropna().median()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 删除多余字段</span></span><br><span class="line">        train_data = train_data.drop(self.drop_label(), axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.data_concat(train_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> train_data.values</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wash_test_data</span>(<span class="params">self, test_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        清洗测试数据</span></span><br><span class="line"><span class="string">        :param test_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># PassengerId,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked</span></span><br><span class="line">        test_data.Sex = test_data.Sex.<span class="built_in">map</span>(&#123;<span class="string">&#x27;female&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;male&#x27;</span>: <span class="number">1</span>&#125;).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Embarked[test_data.Embarked.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            test_data.Embarked[test_data.Embarked.isnull()] = test_data.Embarked.dropna().mode().values</span><br><span class="line">        ports_dict = &#123;name: index <span class="keyword">for</span> index, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(test_data.Embarked))&#125;</span><br><span class="line">        test_data.Embarked = test_data.Embarked.<span class="built_in">map</span>(ports_dict).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Age[test_data.Age.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            test_data.Age[test_data.Age.isnull()] = test_data.Age.dropna().median()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Fare[test_data.Fare.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            median_fare = np.zeros(<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):  <span class="comment"># loop 0 to 2</span></span><br><span class="line">                median_fare[f] = test_data[test_data.Pclass == f + <span class="number">1</span>][<span class="string">&#x27;Fare&#x27;</span>].dropna().median()</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):  <span class="comment"># loop 0 to 2</span></span><br><span class="line">                test_data.loc[(test_data.Fare.isnull()) &amp; (test_data.Pclass == f + <span class="number">1</span>), <span class="string">&#x27;Fare&#x27;</span>] = median_fare[f]</span><br><span class="line"></span><br><span class="line">        test_data = test_data.drop(self.drop_label(), axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.data_concat(test_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> test_data.values</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">drop_label</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        drop_label</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;PassengerId&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">data_concat</span>(<span class="params">self, raw_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        data_concat</span></span><br><span class="line"><span class="string">        :param raw_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 根据年龄优化</span></span><br><span class="line">        raw_data.loc[raw_data.Age &lt; <span class="number">18</span>, <span class="string">&quot;Age&quot;</span>] = <span class="number">0</span></span><br><span class="line">        raw_data.loc[raw_data.Age &gt;= <span class="number">18</span>, <span class="string">&quot;Age&quot;</span>][raw_data.Age &lt; <span class="number">45</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Age &gt;= <span class="number">45</span>, <span class="string">&quot;Age&quot;</span>] = <span class="number">2</span></span><br><span class="line">        <span class="comment"># 根据父母孩子数量优化</span></span><br><span class="line">        raw_data.loc[raw_data.Parch &gt; <span class="number">0</span>, <span class="string">&quot;Parch&quot;</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Cabin.isnull(), <span class="string">&quot;Cabin&quot;</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Cabin.notnull(), <span class="string">&quot;Cabin&quot;</span>] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rediction_model</span>(<span class="params">self, train_data, label_data, test_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        预测模型</span></span><br><span class="line"><span class="string">        :param train_data:</span></span><br><span class="line"><span class="string">        :param test_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        forest = RandomForestClassifier(n_estimators=<span class="number">2000</span>)</span><br><span class="line">        forest = forest.fit(train_data, label_data)</span><br><span class="line">        <span class="keyword">return</span> forest.predict(test_data).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_result</span>(<span class="params">self, path, head, data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        save_result</span></span><br><span class="line"><span class="string">        :param path:</span></span><br><span class="line"><span class="string">        :param head:</span></span><br><span class="line"><span class="string">        :param data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> wbf:</span><br><span class="line">            csv_obj = csv.writer(wbf)</span><br><span class="line">            csv_obj.writerow(head)</span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">                csv_obj.writerow(<span class="built_in">list</span>(item))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        运行</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 加载数据</span></span><br><span class="line">        train_data = self.load_data(self.train_path)</span><br><span class="line">        test_data = self.load_data(self.test_path)</span><br><span class="line">        passenger_id = test_data.PassengerId.values</span><br><span class="line">        <span class="comment"># 清洗数据</span></span><br><span class="line">        train_data = self.wash_train_data(train_data)</span><br><span class="line">        test_data = self.wash_test_data(test_data)</span><br><span class="line">        train_data, label_data = train_data[<span class="number">0</span>::, <span class="number">1</span>::], [val <span class="keyword">for</span> val <span class="keyword">in</span> train_data[<span class="number">0</span>::, <span class="number">0</span>]]</span><br><span class="line">        head = [<span class="string">&quot;PassengerId&quot;</span>, <span class="string">&quot;Survived&quot;</span>]</span><br><span class="line">        data = <span class="built_in">zip</span>(passenger_id, self.rediction_model(train_data, label_data, test_data))</span><br><span class="line">        self.save_result(<span class="string">&quot;xyzforest.csv&quot;</span>, head, data)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    tt = Titanic()</span><br><span class="line">    <span class="built_in">print</span> tt.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/index.html">pandas documentation</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/chaosimple/p/4153083.html">【原】十分钟搞定pandas</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhizhan/p/5238908.html">机器学习系列(3)_逻辑回归应用之Kaggle泰坦尼克之灾</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/yobobobo/article/details/48194021">Kaggle系列——Titanic 80%＋精确度纪录</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" rel="tag"># 分类算法</a>
+              <a href="/tags/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" rel="tag"># 随机森林</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/12/28/1.html" rel="prev" title="k近邻法">
+                  <i class="fa fa-chevron-left"></i> k近邻法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/01/24/1.html" rel="next" title="Hexo用法汇总">
+                  Hexo用法汇总 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"bbbf4fbffee74307689f2f09bf1f5bdb"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

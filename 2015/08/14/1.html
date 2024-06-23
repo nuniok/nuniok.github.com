@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="git fetch merge1234git remote -vvgit remote add base git@git.in.xxx.com:sss&#x2F;xxx.gitgit fetch basegit merge base&#x2F;master  git切换远程仓库地址1git remote set-url origin [url]  使用git在本地创建一个项目的过程12345678$ makdir ~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git使用一年总结">
+<meta property="og:url" content="https://noge.top/2015/08/14/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="git fetch merge1234git remote -vvgit remote add base git@git.in.xxx.com:sss&#x2F;xxx.gitgit fetch basegit merge base&#x2F;master  git切换远程仓库地址1git remote set-url origin [url]  使用git在本地创建一个项目的过程12345678$ makdir ~">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-08-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://noge.top/2015/08/14/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2015/08/14/1.html","path":"2015/08/14/1.html","title":"Git使用一年总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git使用一年总结 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-fetch-merge"><span class="nav-number">1.</span> <span class="nav-text">git fetch merge</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E5%88%87%E6%8D%A2%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="nav-number">2.</span> <span class="nav-text">git切换远程仓库地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8git%E5%9C%A8%E6%9C%AC%E5%9C%B0%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">使用git在本地创建一个项目的过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E8%AE%BE%E7%BD%AE%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">git设置关闭自动换行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-tag-%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">git tag 使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-pull%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">git pull问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%8E%E6%A0%B7%E9%81%8D%E5%8E%86%E7%A7%BB%E9%99%A4%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89-pyc-%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">怎样遍历移除项目中的所有 .pyc 文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E5%8F%98%E6%9B%B4%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">8.</span> <span class="nav-text">git变更项目地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9%E5%8E%86%E5%8F%B2"><span class="nav-number">9.</span> <span class="nav-text">查看某个文件的修改历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-push-%E6%97%B6%E6%8A%A5%E9%94%99-warning-push-default-is-unset"><span class="nav-number">10.</span> <span class="nav-text">git push 时报错 warning: push.default is unset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-submodule%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8B%89%E5%AD%90%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">11.</span> <span class="nav-text">git submodule的使用拉子项目代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF"><span class="nav-number">12.</span> <span class="nav-text">一些错误</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E2%80%9Cpathspec-%E2%80%98branch%E2%80%99-did-not-match-any-file-s-known-to-git-%E2%80%9D%E9%94%99%E8%AF%AF"><span class="nav-number">12.1.</span> <span class="nav-text">“pathspec ‘branch’ did not match any file(s) known to git.”错误</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8git%E6%8F%90%E4%BA%A4%E6%AF%94%E8%BE%83%E5%A4%A7%E7%9A%84%E6%96%87%E4%BB%B6%E7%9A%84%E6%97%B6%E5%80%99%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%87%BA%E7%8E%B0%E8%BF%99%E4%B8%AA%E9%94%99%E8%AF%AF"><span class="nav-number">12.2.</span> <span class="nav-text">使用git提交比较大的文件的时候可能会出现这个错误</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-add%E6%96%87%E4%BB%B6%E5%8F%96%E6%B6%88"><span class="nav-number">13.</span> <span class="nav-text">git add文件取消</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">14.</span> <span class="nav-text">git删除文件：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="nav-number">15.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E5%AF%B9%E6%AF%94"><span class="nav-number">16.</span> <span class="nav-text">历史版本对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E6%84%8F%E4%B9%89%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">17.</span> <span class="nav-text">分支的意义与管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E5%86%B2%E7%AA%81%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91"><span class="nav-number">18.</span> <span class="nav-text">git冲突文件编辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E9%A1%BA%E5%88%A9%E7%9A%84%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B"><span class="nav-number">19.</span> <span class="nav-text">不顺利的代码提交流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git%E9%A1%BA%E5%88%A9%E7%9A%84%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E6%B5%81%E7%A8%8B"><span class="nav-number">20.</span> <span class="nav-text">git顺利的提交代码流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%90%86%E8%A7%A3github%E7%9A%84pull-request"><span class="nav-number">21.</span> <span class="nav-text">理解github的pull request</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%8F%ABRepo-A%E3%80%82%E4%BD%A0%E5%A6%82%E6%9E%9C%E8%A6%81%E5%BE%80%E9%87%8C%E8%B4%A1%E7%8C%AE%E4%BB%A3%E7%A0%81%EF%BC%8C%E9%A6%96%E5%85%88%E8%A6%81Fork%E8%BF%99%E4%B8%AARepo%EF%BC%8C%E4%BA%8E%E6%98%AF%E5%9C%A8%E4%BD%A0%E7%9A%84Github%E8%B4%A6%E5%8F%B7%E4%B8%8B%E6%9C%89%E4%BA%86%E4%B8%80%E4%B8%AARepo-A2-%E3%80%82%E7%84%B6%E5%90%8E%E4%BD%A0%E5%9C%A8%E8%BF%99%E4%B8%AAA2%E4%B8%8B%E5%B7%A5%E4%BD%9C%EF%BC%8CCommit%EF%BC%8Cpush%E7%AD%89%E3%80%82%E7%84%B6%E5%90%8E%E4%BD%A0%E5%B8%8C%E6%9C%9B%E5%8E%9F%E5%A7%8B%E4%BB%93%E5%BA%93Repo-A%E5%90%88%E5%B9%B6%E4%BD%A0%E7%9A%84%E5%B7%A5%E4%BD%9C%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%9C%A8Github%E4%B8%8A%E5%8F%91%E8%B5%B7%E4%B8%80%E4%B8%AAPull-Request%EF%BC%8C%E6%84%8F%E6%80%9D%E6%98%AF%E8%AF%B7%E6%B1%82Repo-A%E7%9A%84%E6%89%80%E6%9C%89%E8%80%85%E4%BB%8E%E4%BD%A0%E7%9A%84A2%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E3%80%82%E5%A6%82%E6%9E%9C%E8%A2%AB%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87%E5%B9%B6%E6%AD%A3%E5%BC%8F%E5%90%88%E5%B9%B6%EF%BC%8C%E8%BF%99%E6%A0%B7%E4%BD%A0%E5%B0%B1%E4%B8%BA%E9%A1%B9%E7%9B%AEA%E5%81%9A%E8%B4%A1%E7%8C%AE%E4%BA%86%E3%80%82"><span class="nav-number">21.1.</span> <span class="nav-text">有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8git-ssh-key"><span class="nav-number">22.</span> <span class="nav-text">创建和使用git ssh key</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E7%94%9F%E6%88%90SHH%E5%AF%86%E5%8C%99%EF%BC%9A"><span class="nav-number">22.1.</span> <span class="nav-text">然后生成SHH密匙：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E4%B8%8A%E6%94%B6%E9%9B%86"><span class="nav-number">22.2.</span> <span class="nav-text">网络上收集</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/08/14/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git使用一年总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-08-14 00:00:00" itemprop="dateCreated datePublished" datetime="2015-08-14T00:00:00+00:00">2015-08-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h5 id="git-fetch-merge"><a href="#git-fetch-merge" class="headerlink" title="git fetch merge"></a>git fetch merge</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -vv</span><br><span class="line">git remote add base git@git.in.xxx.com:sss/xxx.git</span><br><span class="line">git fetch base</span><br><span class="line">git merge base/master</span><br></pre></td></tr></table></figure>
+
+<h5 id="git切换远程仓库地址"><a href="#git切换远程仓库地址" class="headerlink" title="git切换远程仓库地址"></a>git切换远程仓库地址</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin [url]</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用git在本地创建一个项目的过程"><a href="#使用git在本地创建一个项目的过程" class="headerlink" title="使用git在本地创建一个项目的过程"></a>使用git在本地创建一个项目的过程</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ makdir ~/hello-world    //创建一个项目hello-world</span><br><span class="line">$ cd ~/hello-world       //打开这个项目</span><br><span class="line">$ git init             //初始化</span><br><span class="line">$ touch README</span><br><span class="line">$ git add README        //更新README文件</span><br><span class="line">$ git commit -m &#x27;first commit&#x27;     //提交更新，并注释信息“first commit”</span><br><span class="line">$ git remote add origin git@github.test/hellotest.git     //连接远程github项目</span><br><span class="line">$ git push -u origin master     //将本地项目更新到github项目上去</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="git设置关闭自动换行"><a href="#git设置关闭自动换行" class="headerlink" title="git设置关闭自动换行"></a>git设置关闭自动换行</h5><p><code>git config --global core.autocrlf false</code><br>为了保证文件的换行符是以安全的方法，避免windows与unix的换行符混用的情况，最好也加上这么一句<br><code>git config --global core.safecrlf true</code></p>
+<hr>
+<h5 id="git-tag-使用"><a href="#git-tag-使用" class="headerlink" title="git tag 使用"></a>git tag 使用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git tag  # 列出当前仓库的所有标签</span><br><span class="line">git tag -l &#x27;v0.1.*&#x27;  # 搜索符合当前模式的标签</span><br><span class="line"></span><br><span class="line">git tag v0.2.1-light  # 创建轻量标签</span><br><span class="line">git tag -a v0.2.1 -m &#x27;0.2.1版本&#x27;  # 创建附注标签</span><br><span class="line"></span><br><span class="line">git checkout [tagname]  # 切换到标签</span><br><span class="line">git show v0.2.1  # 查看标签版本信息</span><br><span class="line"></span><br><span class="line">git tag -d v0.2.1  # 删除标签</span><br><span class="line">git tag -a v0.2.1 9fbc3d0  # 补打标签</span><br><span class="line"></span><br><span class="line">git push origin v0.1.2  # 将v0.1.2标签提交到git服务器</span><br><span class="line">git push origin –tags  # 将本地所有标签一次性提交到git服务器</span><br><span class="line">git tag  # 查看当前分支下的标签</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h5 id="git-pull问题"><a href="#git-pull问题" class="headerlink" title="git pull问题"></a>git pull问题</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">You asked me to pull without telling me which branch you</span><br><span class="line">want to merge with, and &#x27;branch.content_api_zhangxu.merge&#x27; in</span><br><span class="line">your configuration file does not tell me, either. Please</span><br><span class="line">specify which branch you want to use on the command line and</span><br><span class="line">try again (e.g. &#x27;git pull &lt;repository&gt; &lt;refspec&gt;&#x27;).</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">If you often merge with the same branch, you may want to</span><br><span class="line">use something like the following in your configuration file:</span><br><span class="line"></span><br><span class="line">    [branch &quot;content_api_zhangxu&quot;]</span><br><span class="line">    remote = &lt;nickname&gt;</span><br><span class="line">    merge = &lt;remote-ref&gt;</span><br><span class="line"></span><br><span class="line">    [remote &quot;&lt;nickname&gt;&quot;]</span><br><span class="line">    url = &lt;url&gt;</span><br><span class="line">    fetch = &lt;refspec&gt;</span><br><span class="line"></span><br><span class="line">See git-config(1) for details.</span><br></pre></td></tr></table></figure>
+<p><code>git pull origin new_branch</code></p>
+<hr>
+<h5 id="怎样遍历移除项目中的所有-pyc-文件"><a href="#怎样遍历移除项目中的所有-pyc-文件" class="headerlink" title="怎样遍历移除项目中的所有 .pyc 文件"></a>怎样遍历移除项目中的所有 .pyc 文件</h5><p><code>sudo find /tmp -name &quot;*.pyc&quot; | xargs rm -rf</code>替换<code>/tmp</code>目录为工作目录<br><code>git rm *.pyc</code>这个用着也可以</p>
+<p>避免再次误提交，在项目新建<code>.gitignore</code>文件，输入<code>*.pyc</code>过滤文件</p>
+<hr>
+<h5 id="git变更项目地址"><a href="#git变更项目地址" class="headerlink" title="git变更项目地址"></a>git变更项目地址</h5><p><code>git remote set-url origin git@192.168.6.70:res_dev_group/test.git</code><br><code>git remote -v</code></p>
+<hr>
+<h5 id="查看某个文件的修改历史"><a href="#查看某个文件的修改历史" class="headerlink" title="查看某个文件的修改历史"></a>查看某个文件的修改历史</h5><p><code>git log --pretty=oneline 文件名   # 显示修改历史</code><br><code>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e  # 查看更改</code></p>
+<hr>
+<h5 id="git-push-时报错-warning-push-default-is-unset"><a href="#git-push-时报错-warning-push-default-is-unset" class="headerlink" title="git push 时报错 warning: push.default is unset"></a>git push 时报错 warning: push.default is unset</h5><p>git_push.jpg<br>‘matching’ 参数是 Git 1.x 的默认行为，其意是如果你执行 git push 但没有指定分支，它将 push 所有你本地的分支到远程仓库中对应匹配的分支。而 Git 2.x 默认的是 simple，意味着执行 git push 没有指定分支时，只有当前分支会被 push 到你使用 git pull 获取的代码。<br>根据提示，修改git push的行为:<br>git config –global push.default matching<br>再次执行git push 得到解决。</p>
+<hr>
+<h5 id="git-submodule的使用拉子项目代码"><a href="#git-submodule的使用拉子项目代码" class="headerlink" title="git submodule的使用拉子项目代码"></a>git submodule的使用拉子项目代码</h5><p>开发过程中，经常会有一些通用的部分希望抽取出来做成一个公共库来提供给别的工程来使用，而公共代码库的版本管理是个麻烦的事情。今天无意中发现了git的<code>git submodule</code>命令，之前的问题迎刃而解了。<br>添加</p>
+<p>为当前工程添加submodule，命令如下：</p>
+<p><code>git submodule add 仓库地址 路径</code></p>
+<p>其中，仓库地址是指子模块仓库地址，路径指将子模块放置在当前工程下的路径。<br>注意：路径不能以 &#x2F; 结尾（会造成修改不生效）、不能是现有工程已有的目录（不能順利 Clone）</p>
+<p>命令执行完成，会在当前工程根路径下生成一个名为“.gitmodules”的文件，其中记录了子模块的信息。添加完成以后，再将子模块所在的文件夹添加到工程中即可。<br>删除</p>
+<p>submodule的删除稍微麻烦点：首先，要在“.gitmodules”文件中删除相应配置信息。然后，执行<code>git rm –cached</code>命令将子模块所在的文件从git中删除。<br>下载的工程带有submodule</p>
+<p>当使用<code>git clone</code>下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
+<p><code>git submodule update --init --recursive</code></p>
+<p>即可将子模块内容下载下来后工程才不会缺少相应的文件。</p>
+<hr>
+<h5 id="一些错误"><a href="#一些错误" class="headerlink" title="一些错误"></a>一些错误</h5><h6 id="“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误"><a href="#“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误" class="headerlink" title="“pathspec ‘branch’ did not match any file(s) known to git.”错误"></a>“pathspec ‘branch’ did not match any file(s) known to git.”错误</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
+
+<h6 id="使用git提交比较大的文件的时候可能会出现这个错误"><a href="#使用git提交比较大的文件的时候可能会出现这个错误" class="headerlink" title="使用git提交比较大的文件的时候可能会出现这个错误"></a>使用git提交比较大的文件的时候可能会出现这个错误</h6><p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 411<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
+<p>这样的话首先改一下git的传输字节限制</p>
+<p>git config http.postBuffer  524288000<br>然后这时候在传输或许会出现另一个错误</p>
+<p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 413<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
+<p>这两个错误看上去相似，一个是411，一个是413</p>
+<p>下面这个错误添加一下密钥就可以了</p>
+<p>首先key-keygen 生成密钥</p>
+<p>然后把生成的密钥复制到git中自己的账号下的相应位置</p>
+<p>git push ssh:&#x2F;&#x2F;192.168.64.250&#x2F;eccp.git  branch</p>
+<blockquote>
+<p>等待收集</p>
+</blockquote>
+<hr>
+<h5 id="git-add文件取消"><a href="#git-add文件取消" class="headerlink" title="git add文件取消"></a>git add文件取消</h5><p>在git的一般使用中，如果发现错误的将不想提交的文件add进入index之后，想回退取消，则可以使用命令：<code>git reset HEAD &lt;file&gt;...</code>，同时git add完毕之后，git也会做相应的提示。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/yaoming168/article/details/38777763">http://blog.csdn.net/yaoming168/article/details/38777763</a></p>
+</blockquote>
+<hr>
+<h5 id="git删除文件："><a href="#git删除文件：" class="headerlink" title="git删除文件："></a>git删除文件：</h5><p>删除文件跟踪并且删除文件系统中的文件file1<code>git rm file1</code><br>提交刚才的删除动作，之后git不再管理该文件<code>git commit</code></p>
+<p>删除文件跟踪但不删除文件系统中的文件file1<code>git rm --cached file1</code><br>提交刚才的删除动作，之后git不再管理该文件。但是文件系统中还是有file1。<code>git commit</code></p>
+<hr>
+<h5 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h5><p>版本回退用于线上系统出现问题后恢复旧版本的操作。<br>回退到的版本<code>git reset --hard 248cba8e77231601d1189e3576dc096c8986ae51</code><br>回退的是所有文件，如果后悔回退可以git pull就可以了。</p>
+<hr>
+<h5 id="历史版本对比"><a href="#历史版本对比" class="headerlink" title="历史版本对比"></a>历史版本对比</h5><p>查看日志<code>git log</code><br>查看某一历史版本的提交内容<code>git show  4ebd4bbc3ed321d01484a4ed206f18ce2ebde5ca</code>，这里能看到版本的详细修改代码。<br>对比不同版本<code>git diff c0f28a2ec490236caa13dec0e8ea826583b49b7a  2e476412c34a63b213b735e5a6d90cd05b014c33</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/lxlzhn/article/details/9356473">http://blog.csdn.net/lxlzhn/article/details/9356473</a></p>
+</blockquote>
+<hr>
+<h5 id="分支的意义与管理"><a href="#分支的意义与管理" class="headerlink" title="分支的意义与管理"></a>分支的意义与管理</h5><p>创建分支可以避免提交代码后对主分支的影响，同时也使你有了相对独立的开发环境。分支具有很重要的意义。<br>创建并切换分支，提交代码后才能在其它机器拉分支代码<code>git checkout -b new_branch</code><br>查看当前分支<code>git branch</code><br>切换到master分支<code>git checkout master</code><br>合并分支到当前分支<code>git merge new_branch</code>，合并分支的操作是从new_branch合并到master分支，当前环境在master分支。<br>删除分支<code>git branch -d new_branch</code></p>
+<hr>
+<h5 id="git冲突文件编辑"><a href="#git冲突文件编辑" class="headerlink" title="git冲突文件编辑"></a>git冲突文件编辑</h5><p>冲突文件冲突的地方如下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a123</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">b789</span><br><span class="line">=======</span><br><span class="line">b45678910</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<p>冲突标记&lt;&lt;&lt;&lt;&lt;&lt;&lt; （7个&lt;）与&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;之间的内容是我的修改，&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;与&gt;&gt;&gt;&gt;&gt;&gt;&gt;之间的内容是别人的修改。<br>此时，还没有任何其它垃圾文件产生。<br>你需要把代码合并好后重新走一遍代码提交流程就好了。</p>
+<hr>
+<h5 id="不顺利的代码提交流程"><a href="#不顺利的代码提交流程" class="headerlink" title="不顺利的代码提交流程"></a>不顺利的代码提交流程</h5><p>在<code>git push</code>后出现错误可能是因为其他人提交了代码，而使你的本地代码库版本不是最新。<br>这时你需要先<code>git pull</code>代码后，检查是否有文件冲突。<br>没有文件冲突的话需要重新走一遍代码提交流程<code>add —&gt; commit —&gt; push</code>。<br>解决文件冲突在后面说。</p>
+<hr>
+<h5 id="git顺利的提交代码流程"><a href="#git顺利的提交代码流程" class="headerlink" title="git顺利的提交代码流程"></a>git顺利的提交代码流程</h5><p>查看修改的文件<code>git status</code>；<br>为了谨慎检查一下代码<code>git diff</code>；<br>添加修改的文件<code>git add dirname1/filename1.py dirname2/filenam2.py</code>，新加的文件也是直接add就好了；<br>添加修改的日志<code>git commit -m &quot;fixed:修改了上传文件的逻辑&quot;</code>；<br>提交代码<code>git push</code>，如果提交失败的可能原因是本地代码库版本不是最新。</p>
+<hr>
+<h5 id="理解github的pull-request"><a href="#理解github的pull-request" class="headerlink" title="理解github的pull request"></a>理解github的pull request</h5><h6 id="有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"><a href="#有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。" class="headerlink" title="有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"></a>有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。</h6><blockquote>
+<p><a target="_blank" rel="noopener" href="http://zhidao.baidu.com/question/1669154493305991627.html">http://zhidao.baidu.com/question/1669154493305991627.html</a></p>
+</blockquote>
+<hr>
+<h5 id="创建和使用git-ssh-key"><a href="#创建和使用git-ssh-key" class="headerlink" title="创建和使用git ssh key"></a>创建和使用git ssh key</h5><p>首先设置git的user name和email：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxx&quot;</span><br><span class="line">git config --global user.email &quot;xxx@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+<p>查看git配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<h6 id="然后生成SHH密匙："><a href="#然后生成SHH密匙：" class="headerlink" title="然后生成SHH密匙："></a>然后生成SHH密匙：</h6><p>查看是否已经有了ssh密钥：<code>cd ~/.ssh</code><br>如果没有密钥则不会有此文件夹，有则备份删除<br>生存密钥：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;gudujianjsk@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+<p>按3个回车，密码为空这里一般不使用密钥。<br>最后得到了两个文件：id_rsa和id_rsa.pub<br>注意：密匙生成就不要改了，如果已经生成到<code>~/.ssh</code>文件夹下去找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 暂时无用</span><br><span class="line">添加 私密钥 到ssh：ssh-add id_rsa</span><br><span class="line">需要之前输入密码（如果有）。</span><br><span class="line"></span><br><span class="line">在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。</span><br><span class="line">打开 http://github.com,登陆xushichao，然后添加ssh。</span><br><span class="line">注意在这里由于直接复制粘帖公钥，可能会导致增加一些字符或者减少些字符，最好用系统工具xclip来做这些事情。</span><br><span class="line">xclip -selection c  id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>应用流程未整理</p>
+</blockquote>
+<hr>
+<h6 id="网络上收集"><a href="#网络上收集" class="headerlink" title="网络上收集"></a>网络上收集</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">master : 默认开发分支； origin : 默认远程版本库</span><br><span class="line"></span><br><span class="line">初始化操作</span><br><span class="line">    $ git config -global user.name &lt;name&gt;  #设置提交者名字</span><br><span class="line">    $ git config -global user.email &lt;email&gt;  #设置提交者邮箱</span><br><span class="line">    $ git config -global core.editor &lt;editor&gt;  #设置默认文本编辑器</span><br><span class="line">    $ git config -global merge.tool &lt;tool&gt;  #设置解决合并冲突时差异分析工具</span><br><span class="line">    $ git config -list  #检查已有的配置信息</span><br><span class="line"></span><br><span class="line">创建新版本库</span><br><span class="line">    $ git clone &lt;url&gt;  #克隆远程版本库</span><br><span class="line">    $ git init  #初始化本地版本库</span><br><span class="line"></span><br><span class="line">修改和提交</span><br><span class="line">    $ git add .  #添加所有改动过的文件</span><br><span class="line">    $ git add &lt;file&gt;  #添加指定的文件</span><br><span class="line">    $ git mv &lt;old&gt; &lt;new&gt; #文件重命名</span><br><span class="line">    $ git rm &lt;file&gt;  #删除文件</span><br><span class="line">    $ git rm -cached &lt;file&gt;  #停止跟踪文件但不删除</span><br><span class="line">    $ git commit -m &lt;file&gt; #提交指定文件</span><br><span class="line">    $ git commit -m “commit message”  #提交所有更新过的文件</span><br><span class="line">    $ git commit -amend  #修改最后一次提交</span><br><span class="line">    $ git commit -C HEAD -a -amend  #增补提交（不会产生新的提交历史纪录）</span><br><span class="line"></span><br><span class="line">查看提交历史</span><br><span class="line">    $ git log  #查看提交历史</span><br><span class="line">    $ git log -p &lt;file&gt;  #查看指定文件的提交历史</span><br><span class="line">    $ git blame &lt;file&gt;  #以列表方式查看指定文件的提交历史</span><br><span class="line">    $ gitk  #查看当前分支历史纪录</span><br><span class="line">    $ gitk &lt;branch&gt; #查看某分支历史纪录</span><br><span class="line">    $ gitk --all  #查看所有分支历史纪录</span><br><span class="line">    $ git branch -v  #每个分支最后的提交</span><br><span class="line">    $ git status  #查看当前状态</span><br><span class="line">    $ git diff  #查看变更内容</span><br><span class="line"></span><br><span class="line">撤消操作</span><br><span class="line">    $ git reset -hard HEAD  #撤消工作目录中所有未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD &lt;file1&gt; &lt;file2&gt;  #撤消指定的未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD. #撤消所有文件</span><br><span class="line">    $ git revert &lt;commit&gt;  #撤消指定的提交</span><br><span class="line"></span><br><span class="line">分支与标签</span><br><span class="line">    $ git branch  #显示所有本地分支</span><br><span class="line">    $ git checkout &lt;branch/tagname&gt;  #切换到指定分支或标签</span><br><span class="line">    $ git branch &lt;new-branch&gt;  #创建新分支</span><br><span class="line">    $ git branch -d &lt;branch&gt;  #删除本地分支</span><br><span class="line">    $ git tag  #列出所有本地标签</span><br><span class="line">    $ git tag &lt;tagname&gt;  #基于最新提交创建标签</span><br><span class="line">    $ git tag -d &lt;tagname&gt;  #删除标签</span><br><span class="line"></span><br><span class="line">合并与衍合</span><br><span class="line">    $ git merge &lt;branch&gt;  #合并指定分支到当前分支</span><br><span class="line">    $ git rebase &lt;branch&gt;  #衍合指定分支到当前分支</span><br><span class="line"></span><br><span class="line">远程操作</span><br><span class="line">    $ git remote -v  #查看远程版本库信息</span><br><span class="line">    $ git remote show &lt;remote&gt;  #查看指定远程版本库信息</span><br><span class="line">    $ git remote add &lt;remote&gt; &lt;url&gt;  #添加远程版本库</span><br><span class="line">    $ git fetch &lt;remote&gt;  #从远程库获取代码</span><br><span class="line">    $ git pull &lt;remote&gt; &lt;branch&gt;  #下载代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; &lt;branch&gt;  #上传代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; : &lt;branch&gt;/&lt;tagname&gt;  #删除远程分支或标签</span><br><span class="line">    $ git push -tags  #上传所有标签</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/08/07/1.html" rel="prev" title="Supervisord总结">
+                  <i class="fa fa-chevron-left"></i> Supervisord总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/09/19/1.html" rel="next" title="Python 包管理">
+                  Python 包管理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"ebfa99abd3debccc00a16ab7d89127ae"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

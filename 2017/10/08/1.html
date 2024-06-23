@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="这篇文章主要介绍Mac下常用的效率工具，也许正是你所需要的或者使用后对你的工作有很大的效率提升，废话不多说，看下面介绍的五款常用效率工具。 Alfred  Alfred 作为神器的霸主地位可谓实至名归，它不仅可以帮我们快速打开切换应用、打开网址，使用计算器、词典、剪贴板增强等功能，还可以通过Workflow模块实现功能的扩展，下面详细介绍一下此神器的一些功能。 首先我们定义调出 Alfred 的快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="这些Mac神器也许你正需要">
+<meta property="og:url" content="https://noge.top/2017/10/08/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="这篇文章主要介绍Mac下常用的效率工具，也许正是你所需要的或者使用后对你的工作有很大的效率提升，废话不多说，看下面介绍的五款常用效率工具。 Alfred  Alfred 作为神器的霸主地位可谓实至名归，它不仅可以帮我们快速打开切换应用、打开网址，使用计算器、词典、剪贴板增强等功能，还可以通过Workflow模块实现功能的扩展，下面详细介绍一下此神器的一些功能。 首先我们定义调出 Alfred 的快">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a1.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a2.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a3.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a4.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a5.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a6.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a7.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a8.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a9.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/a10.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/j1.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/j2.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/j3.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/h1.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/h2.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/t1.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/t2.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/r1.png">
+<meta property="og:image" content="https://noge.top/resource/img/efficiency/r2.png">
+<meta property="article:published_time" content="2017-10-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Mac">
+<meta property="article:tag" content="Workflow">
+<meta property="article:tag" content="Alfred">
+<meta property="article:tag" content="Hammerspoon">
+<meta property="article:tag" content="Jietu">
+<meta property="article:tag" content="Reeder">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/efficiency/a1.png">
+
+
+<link rel="canonical" href="https://noge.top/2017/10/08/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/10/08/1.html","path":"2017/10/08/1.html","title":"这些Mac神器也许你正需要"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>这些Mac神器也许你正需要 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Alfred"><span class="nav-number">1.</span> <span class="nav-text">Alfred</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jietu"><span class="nav-number">2.</span> <span class="nav-text">Jietu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hammerspoon"><span class="nav-number">3.</span> <span class="nav-text">Hammerspoon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Time-Out"><span class="nav-number">4.</span> <span class="nav-text">Time Out</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reeder"><span class="nav-number">5.</span> <span class="nav-text">Reeder</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/10/08/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          这些Mac神器也许你正需要
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-08 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-08T00:00:00+00:00">2017-10-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这篇文章主要介绍Mac下常用的效率工具，也许正是你所需要的或者使用后对你的工作有很大的效率提升，废话不多说，看下面介绍的五款常用效率工具。</p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p> <br><img src="/resource/img/efficiency/a1.png" alt="Alfred"></p>
+<p>Alfred 作为神器的霸主地位可谓实至名归，它不仅可以帮我们快速打开切换应用、打开网址，使用计算器、词典、剪贴板增强等功能，还可以通过Workflow模块实现功能的扩展，下面详细介绍一下此神器的一些功能。</p>
+<p>首先我们定义调出 Alfred 的快捷键，这里我设置的是 Command + Space ，可以启动输入框。</p>
+<p><img src="/resource/img/efficiency/a2.png" alt="Alfred"></p>
+<p>在输入框中我们可以输入想要打开或切换的应用：</p>
+<p><img src="/resource/img/efficiency/a3.png" alt="Alfred"></p>
+<p>也可以输入基本的数学公式，计算结果：</p>
+<p><img src="/resource/img/efficiency/a4.png" alt="Alfred"></p>
+<p>或者去 Google 搜索：</p>
+<p><img src="/resource/img/efficiency/a5.png" alt="Alfred"></p>
+<p>打开 Terminal 执行命令：</p>
+<p><img src="/resource/img/efficiency/a6.png" alt="Alfred"></p>
+<p>在 Web Search 中配置自定义打开的网址：</p>
+<p><img src="/resource/img/efficiency/a7.png" alt="Alfred"></p>
+<p>调出剪贴板历史，我设置的快捷键是 Option + Command + C：</p>
+<p><img src="/resource/img/efficiency/a8.png" alt="Alfred"></p>
+<p>默认回车会执行第一个结果，或打开网址，或将结果复制到剪贴板，这样可以极大地提高我们操作的效率。<br> <br>当然这些默认的功能是不能够满足我们的，还可以通过 Worklow 去扩展效率工具，这里是自己做的一个效率工具箱 xyzUtils ：</p>
+<p><img src="/resource/img/efficiency/a9.png" alt="Alfred"></p>
+<p>Github 地址： <a target="_blank" rel="noopener" href="https://github.com/noogel/Alfred-Workflow">https://github.com/noogel/Alfred-Workflow</a></p>
+<p>这里我做了一些开发中常用的数据转换功能，时间戳与时间的互相转换、Unicode码中文转换、随机字符串生成、IP查询、base64编码解码、MD5生成等，回车复制结果到剪贴板，举例如下：</p>
+<p><img src="/resource/img/efficiency/a10.png" alt="Alfred"></p>
+<p>网友们还提供了更多的 自定义功能，可自行知乎。</p>
+<h2 id="Jietu"><a href="#Jietu" class="headerlink" title="Jietu"></a>Jietu</h2><p><img src="/resource/img/efficiency/j1.png" alt="Jietu"></p>
+<p>这个是腾讯提供的免费截图工具，可进行区域截图或者屏幕录制功能，可以快捷编辑截图，也是我常用的一个神器。配置信息如下图：</p>
+<p><img src="/resource/img/efficiency/j2.png" alt="Jietu"></p>
+<p>截好图后可以按 空格键 进行快速编辑，很是方便，截图后会自动放到剪贴板，可直接粘贴到微信、QQ、Slack等应用的对话框中。</p>
+<p><img src="/resource/img/efficiency/j3.png" alt="Jietu"></p>
+<p> </p>
+<h2 id="Hammerspoon"><a href="#Hammerspoon" class="headerlink" title="Hammerspoon"></a>Hammerspoon</h2><p><img src="/resource/img/efficiency/h1.png" alt="Hammerspoon"></p>
+<p>这款神器和上面的 Alfred 功能点有些重合，可以提供快速启动应用、调整窗口大小等功能。通过自定义 Lua 脚本实现所需的功能，这些功能主要通过绑定快捷键实现功能出发，当然也会绑定一些系统事件触发脚本功能。</p>
+<p>目前在网上搜集了一些基本功能，调整窗口比例，连接到办公区网络自动静音等功能。</p>
+<p><img src="/resource/img/efficiency/h2.png" alt="Hammerspoon"></p>
+<p> </p>
+<h2 id="Time-Out"><a href="#Time-Out" class="headerlink" title="Time Out"></a>Time Out</h2><p><img src="/resource/img/efficiency/t1.png" alt="Time Out"></p>
+<p>这款工具主要是可以帮助久用电脑的人每隔一段时间暂停一下，我这里设置的每隔 50分钟暂停 3分钟，就是在这 3分钟时间这个软件会弹出屏保提醒你稍事休息一下再工作，当然暂停期间是可以随之取消的，暂停的时候就是这个样子的。</p>
+<p><img src="/resource/img/efficiency/t2.png" alt="Time Out"></p>
+<h2 id="Reeder"><a href="#Reeder" class="headerlink" title="Reeder"></a>Reeder</h2><p>这是一款 Mac 上知名度很高的 RSS 阅读器，简洁的外观与便捷的操作方式可以省去了去个站点看文章。结合Mac 触控板的左右滑动操作还是很方便的。</p>
+<p><img src="/resource/img/efficiency/r1.png" alt="Reeder"></p>
+<p><img src="/resource/img/efficiency/r2.png" alt="Reeder"></p>
+<p>最后，来还有一些常用效率工具会在在后面的文章继续介绍，或许正是你所需要的，敬请期待！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Mac/" rel="tag"># Mac</a>
+              <a href="/tags/Workflow/" rel="tag"># Workflow</a>
+              <a href="/tags/Alfred/" rel="tag"># Alfred</a>
+              <a href="/tags/Hammerspoon/" rel="tag"># Hammerspoon</a>
+              <a href="/tags/Jietu/" rel="tag"># Jietu</a>
+              <a href="/tags/Reeder/" rel="tag"># Reeder</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/09/28/1.html" rel="prev" title="深度学习系列第三篇 — MNIST数字识别">
+                  <i class="fa fa-chevron-left"></i> 深度学习系列第三篇 — MNIST数字识别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/11/17/1.html" rel="next" title="Tornado 异步非阻塞浅析">
+                  Tornado 异步非阻塞浅析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"4b088b2f87f5494015371fb4c41d8455"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="首先这篇文章是建立在有一些编程基础之上来展开的，做为一种效率学习编程语言的自我总结输出。把编程语言当做一个工具，而这些不同种类的工具有很多的共通之处，抓住其中的关键之处可以大大提升学习效率，也是一篇自我总结的学习方法论，里面有的方法可能不适合我，但也会讲讲。如果要学习一门编程语言，先要问一下为什么要学？学会了能做什么？要达到什么样的目标？只有把这些问题想清楚了再去做，不然稀里糊涂不知所以，很可能半">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何高效学习一门编程语言">
+<meta property="og:url" content="https://noge.top/2019/05/26/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="首先这篇文章是建立在有一些编程基础之上来展开的，做为一种效率学习编程语言的自我总结输出。把编程语言当做一个工具，而这些不同种类的工具有很多的共通之处，抓住其中的关键之处可以大大提升学习效率，也是一篇自我总结的学习方法论，里面有的方法可能不适合我，但也会讲讲。如果要学习一门编程语言，先要问一下为什么要学？学会了能做什么？要达到什么样的目标？只有把这些问题想清楚了再去做，不然稀里糊涂不知所以，很可能半">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15588908893715.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15588909267843.jpg">
+<meta property="article:published_time" content="2019-05-26T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="效率">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15588908893715.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2019/05/26/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2019/05/26/1.html","path":"2019/05/26/1.html","title":"如何高效学习一门编程语言"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>如何高效学习一门编程语言 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E9%80%94%E5%BE%84%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">学习途径分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%AE%A1%E5%88%92"><span class="nav-number">2.</span> <span class="nav-text">指定计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E9%97%AE%E9%A2%98%E7%9A%84%E5%8A%9E%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">查问题的办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%BC%9A%E5%A6%82%E4%BD%95%E7%9C%8B%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">学会如何看异常信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8IDE%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="nav-number">3.2.</span> <span class="nav-text">使用IDE断点调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E9%97%AE%E9%A2%98%E6%89%93%E6%97%A5%E5%BF%97"><span class="nav-number">3.3.</span> <span class="nav-text">查问题打日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E6%9C%89%E7%BB%8F%E9%AA%8C%E7%9A%84%E4%BA%BA%E8%AF%B7%E6%95%99"><span class="nav-number">3.4.</span> <span class="nav-text">向有经验的人请教</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E6%A1%86%E6%9E%B6%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">3.5.</span> <span class="nav-text">了解框架的运行机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">实践一个项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E8%AF%AD%E8%A8%80%E7%9A%84%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="nav-number">5.</span> <span class="nav-text">了解语言的技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E8%AF%AD%E8%A8%80%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">6.</span> <span class="nav-text">了解语言的运行机制</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/05/26/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何高效学习一门编程语言
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-26T00:00:00+00:00">2019-05-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>首先这篇文章是建立在有一些编程基础之上来展开的，做为一种效率学习编程语言的自我总结输出。把编程语言当做一个工具，而这些不同种类的工具有很多的共通之处，抓住其中的关键之处可以大大提升学习效率，也是一篇自我总结的学习方法论，里面有的方法可能不适合我，但也会讲讲。如果要学习一门编程语言，先要问一下为什么要学？学会了能做什么？要达到什么样的目标？只有把这些问题想清楚了再去做，不然稀里糊涂不知所以，很可能半途而废。想明白了就要坚持去做，不要再东望望西看看，想、做、坚持三位一体是学到的基本三要素。</p>
+<h2 id="学习途径分析"><a href="#学习途径分析" class="headerlink" title="学习途径分析"></a>学习途径分析</h2><p>网上的学习资料纷繁复杂，各种培训课程满网都有，那么大致分为以下几种吧：<br><img src="/resource/img/15588908893715.jpg"></p>
+<p>总结来说学习路径是这样的。</p>
+<ul>
+<li>入门：适合通过看视频和培训来实现，然后通过搜索引擎和博客文章论坛协助解决遇到的各种问题。</li>
+<li>提高：通过看书和大佬的博客文章交流论坛等来加深理解。</li>
+<li>实践：实践也是提高的一种方式，可以通过学习别人项目来仿写实践。</li>
+</ul>
+<p>适合学习或交流的地方，Stack Overflow、博客园、简书、GitHub、官方论坛等等。关于搜索引擎，入门用百度就可以了，提高和实践建议用谷歌。</p>
+<h2 id="指定计划"><a href="#指定计划" class="headerlink" title="指定计划"></a>指定计划</h2><p>这个也挺关键的，我就没有做好，也不太好定。</p>
+<h2 id="查问题的办法"><a href="#查问题的办法" class="headerlink" title="查问题的办法"></a>查问题的办法</h2><p>学习过程中很关键的一点就是遇到问题如何解决问题，解决问题的速度和方法很大程度上决定我们后期学习的进度和自信心，那么我总结了几条比较关键的要素说明。</p>
+<h3 id="学会如何看异常信息"><a href="#学会如何看异常信息" class="headerlink" title="学会如何看异常信息"></a>学会如何看异常信息</h3><p>不论写 demo 还是实际项目开发中，肯定会遇到一堆异常情况，然后控制台打印一堆杂乱信息，首先要做的是理清楚其中的信息结构，其实就是日志啦，大致分为以下几种：</p>
+<ul>
+<li>DEBUG：一般在开发调试期间开启，可以比较清楚的了解程序在运行过程中的各种状态和传参等。</li>
+<li>INFO：正常运行日志信息，当程序访问量很大的情况下很多，会收集到日志系统。</li>
+<li>WARN：对于程序可能出现的潜在问题的地方记录信息，或者不再支持的方法或库等。</li>
+<li>ERROR：对于程序运行中的非预期异常访问、状态、请求需要记录错误信息和错误状态。</li>
+<li>TRACE：这个在不同语言表的可能不同，主要是概括为带有调用堆栈信息的异常日志。</li>
+</ul>
+<p>那么在测试过程中为了快速定位问题，还是要打印 TRACE 级别的异常日志，那么异常信息如何看呢？</p>
+<p>Python 的异常信息示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">xyz-macdeMacBook-Pro:dev-demo xyz$ python mixin_demo.py </span><br><span class="line">Init people.</span><br><span class="line">People can eat!</span><br><span class="line">People can drink!</span><br><span class="line">People can </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;mixin_demo.py&quot;, line 44, in &lt;module&gt;</span><br><span class="line">    people = People()</span><br><span class="line">  File &quot;mixin_demo.py&quot;, line 39, in __init__</span><br><span class="line">    print &quot;People can &quot;, self.sleep()</span><br><span class="line">  File &quot;mixin_demo.py&quot;, line 30, in sleep</span><br><span class="line">    raise NotImplementedError(u&quot;can&#x27;t sleep.&quot;)</span><br><span class="line">NotImplementedError: can&#x27;t sleep.</span><br></pre></td></tr></table></figure>
+
+<p>在执行 Python 脚本的时候执行异常报错，<code>Traceback</code> 是我们要看的异常堆栈信息，自顶向下从 <code>&quot;mixin_demo.py</code> 的 44 行开始执行，执行到 <code>mixin_demo.py</code> 第 30 行报错，异常类型 <code>NotImplementedError</code>，异常内容为 <code>can&#39;t sleep.</code>。也就说我们看到报错信息后，然后可以看到对应报错的位置以及调用链，方便快速定位到问题。</p>
+<p>Java 的异常结构展示顺序有点不同，它的信息最底部是调用入口，然后向上一直到报错点，还有报错信息也在上面。这里只是一个简单的示例，通常 Java 的异常堆栈信息很长，调用链很深，这就需要有一定的经验来判断问题实际产生的原因。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">objc[20307]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/bin/java (0x1077344c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10874d4e0). One of the two will be used. Which one is undefined.</span><br><span class="line">Exception in thread &quot;main&quot; org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named &#x27;teacher2&#x27; available</span><br><span class="line"> at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:775)</span><br><span class="line"> at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1221)</span><br><span class="line"> at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:294)</span><br><span class="line"> at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)</span><br><span class="line"> at org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy$LookupOverrideMethodInterceptor.intercept(CglibSubclassingInstantiationStrategy.java:290)</span><br><span class="line"> at com.noogel.xyz.lookup.GetBeanTest$$EnhancerBySpringCGLIB$$e79f57a6.getBean(&lt;generated&gt;)</span><br><span class="line"> at com.noogel.xyz.lookup.GetBeanTest.showMe(GetBeanTest.java:5)</span><br><span class="line"> at LookupTestMain.main(LookupTestMain.java:9)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="使用IDE断点调试"><a href="#使用IDE断点调试" class="headerlink" title="使用IDE断点调试"></a>使用IDE断点调试</h3><p><img src="/resource/img/15588909267843.jpg"></p>
+<p>IDE 可以帮我们做很多事，大大提高了我们的开发效率，那么如何用好这样一个工具也是很关键的，这里说一下利用 IDE 进行 debug 调试。</p>
+<p>通过上图我们可以看出 IDE 的调试功能很丰富，如果用好对于提高学习编程效率很有帮助。</p>
+<h3 id="查问题打日志"><a href="#查问题打日志" class="headerlink" title="查问题打日志"></a>查问题打日志</h3><p>在 Python 中有一个查问题很好的利器 iPython，可以很方便的直接传参执行函数，对于线上问题，这样虽然很方便但是不可取。像 Java8 这样版本下的语言又没有很好用的一个工具，那么可以通过打日志的方式来操作，需要对可能的问题点分析然后增加日志辅助判断，打日志是一个很合适的查线上问题的方式。</p>
+<h3 id="向有经验的人请教"><a href="#向有经验的人请教" class="headerlink" title="向有经验的人请教"></a>向有经验的人请教</h3><p>老师傅一出手就知有没有，如果遇到问题没有思路或者自己憋住了，需要及时向有经验的人请教，才是一个正确的选择。</p>
+<h3 id="了解框架的运行机制"><a href="#了解框架的运行机制" class="headerlink" title="了解框架的运行机制"></a>了解框架的运行机制</h3><p>俗话说『打铁还需自身硬』，遇到了问题总不能一直向别人请教吧，还是要自己去搞定的，上面的介绍的方法搞不定怎么办，那就要平时花心思在使用的框架上学习了，因为你不可能直接裸写代码的，一些轮子直接搬过来用固然高效，但是不懂构造轮子还是用不好的，容易出问题，所以要平时多去积累了。</p>
+<p>以上讲的都是一些可以提高学习效率的方法。先写这些，后续想到新的再继续更新。</p>
+<h2 id="实践一个项目"><a href="#实践一个项目" class="headerlink" title="实践一个项目"></a>实践一个项目</h2><p>一般视频和图书的最后一部分都会有初级的实践项目，可以用来综合练习一下所学到的知识。可以看完再自己提需求自己实现一遍。</p>
+<p>再有就是 GitHub 上有很多，不过要好好找找合适，可以拿来练手，最好是找一些多 star 的项目，对于技术提升很有帮助，发现问题还可以提 issue 交流，然后提 PR 解决。</p>
+<p>另外一个就是某某公司意外泄漏或者开源的项目源码，这些都是经历生产环境反复验证的代码，具有很高的参考性。</p>
+<p>举个例子就是在 Java 中 spring MVC 是一个很著名的项目，那么学习它，有的人就手敲 spring 项目，边学习边实现其中关键的代码。GitHub 地址：<a target="_blank" rel="noopener" href="https://github.com/code4craft/tiny-spring">https://github.com/code4craft/tiny-spring</a></p>
+<h2 id="了解语言的技术栈"><a href="#了解语言的技术栈" class="headerlink" title="了解语言的技术栈"></a>了解语言的技术栈</h2><p>学习一门编程语言肯定是用来解决实际问题或找一份工作的，那么你要知道并不仅仅是学习这门编程语言，而是整个技术栈。了解一个语言的技术栈可以去招聘网站上看，一般都会写至少需要精通一门编程语言，熟练使用 MySQL 解决并优化问题，熟练使用并了解各种 MQ 原理等等。那么这些都是需要去了解的，起初学习可以为了用而用的去实践一个更完整的需求。</p>
+<p>比如说我需要了解公司的微服务架构，那么我需要看它都用了哪些技术栈，然后自己再手敲一些项目，并且 docker 化，自动注册服务发现来管理多个 RPC 服务等等。。。</p>
+<p>总之，一个是多看多实践多思考，然后就是多交流，闭门造车是不行的。</p>
+<h2 id="了解语言的运行机制"><a href="#了解语言的运行机制" class="headerlink" title="了解语言的运行机制"></a>了解语言的运行机制</h2><p>语言的内存模型？<br>语言的并发模型？<br>语言的垃圾回收机制？</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%88%E7%8E%87/" rel="tag"># 效率</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/22/1.html" rel="prev" title="数据库事务隔离级别与 InnoDB">
+                  <i class="fa fa-chevron-left"></i> 数据库事务隔离级别与 InnoDB
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/26/1.html" rel="next" title="从小重构说起">
+                  从小重构说起 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"8ac4b92ada43f7ecaddea0192f677657"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="练习代码123456789101112131415161718192021222324252627282930313233343536373839404142# -*- coding:utf-8 -*-import tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_dataimport matplotlib.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习系列第六篇 — 卷基层和池化层展示">
+<meta property="og:url" content="https://noge.top/2017/11/22/2.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="练习代码123456789101112131415161718192021222324252627282930313233343536373839404142# -*- coding:utf-8 -*-import tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_dataimport matplotlib.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/output_2_1.png">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/output_2_3.png">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/output_2_5.png">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/output_2_7.png">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/output_2_9.png">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/convolution_schematic.gif">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/pooling_schematic.gif">
+<meta property="article:published_time" content="2017-11-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/deep_learning/output_2_1.png">
+
+
+<link rel="canonical" href="https://noge.top/2017/11/22/2.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/11/22/2.html","path":"2017/11/22/2.html","title":"深度学习系列第六篇 — 卷基层和池化层展示"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习系列第六篇 — 卷基层和池化层展示 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">练习代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">输出结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E5%9F%BA%E5%B1%82%E5%92%8C%E6%B1%A0%E5%8C%96%E5%B1%82%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">卷基层和池化层的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%B7%A5%E5%85%B7%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">其它工具用法总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/11/22/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习系列第六篇 — 卷基层和池化层展示
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-22 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-22T00:00:00+00:00">2017-11-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="练习代码"><a href="#练习代码" class="headerlink" title="练习代码"></a>练习代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载或加载数据</span></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">&quot;MNIST_data&quot;</span>, one_hot=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">weight_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    inital = tf.truncated_normal(shape, stddev=<span class="number">0.1</span>)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(inital)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bias_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    inital = tf.constant(<span class="number">0.1</span>, shape=shape)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(inital)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">conv2d</span>(<span class="params">x, w</span>):</span><br><span class="line">    <span class="keyword">return</span> tf.nn.conv2d(x, w, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">&#x27;SAME&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">max_pool_2x2</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> tf.nn.max_pool(x, ksize=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">&#x27;SAME&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">784</span>])  <span class="comment"># 28 * 28</span></span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">10</span>])</span><br><span class="line">x_image = tf.reshape(xs, [-<span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># conv1 layer #</span></span><br><span class="line">w_conv1 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">32</span>])  <span class="comment"># patch 5 x 5, in size 1, out size 32</span></span><br><span class="line">b_conv1 = bias_variable([<span class="number">32</span>])</span><br><span class="line">h_conv1 = tf.nn.relu(conv2d(x_image, w_conv1) + b_conv1)  <span class="comment"># output size 28 x 28 x 32</span></span><br><span class="line">h_pool1 = max_pool_2x2(h_conv1)  <span class="comment"># output size 14 x 14 x 32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># conv2 layer #</span></span><br><span class="line">w_conv2 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="number">64</span>])  <span class="comment"># patch 5 x 5, in size 32, out size 64</span></span><br><span class="line">b_conv2 = bias_variable([<span class="number">64</span>])</span><br><span class="line">h_conv2 = tf.nn.relu(conv2d(h_pool1, w_conv2) + b_conv2)  <span class="comment"># output size 14 x 14 x 64</span></span><br><span class="line">h_pool2 = max_pool_2x2(h_conv2)  <span class="comment"># output size 7 x 7 x 64</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Extracting MNIST_data/train-images-idx3-ubyte.gz
+Extracting MNIST_data/train-labels-idx1-ubyte.gz
+Extracting MNIST_data/t10k-images-idx3-ubyte.gz
+Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
+</code></pre>
+<h2 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h2><p>两层卷基层和两层池化层的处理结果展示出提取出的图像特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    batch_xs, batch_ys = mnist.train.next_batch(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    h_conv1_res, h_pool1_res, h_conv2_res, h_pool2_res = \</span><br><span class="line">        sess.run([h_conv1, h_pool1, h_conv2, h_pool2],</span><br><span class="line">                 feed_dict=&#123;xs: batch_xs, ys: batch_ys&#125;)</span><br><span class="line">    </span><br><span class="line">    input_x = batch_xs.reshape([<span class="number">28</span>, <span class="number">28</span>])</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Show input:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;input shape:&quot;</span>, input_x.shape</span><br><span class="line">    gs1 = gridspec.GridSpec(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    plt.imshow(input_x)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Show first conv2d result:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;conv2d shape:&quot;</span>, h_conv1_res.shape</span><br><span class="line">    gs1 = gridspec.GridSpec(<span class="number">4</span>, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            plt.subplot(gs1[x, y])</span><br><span class="line">            plt.imshow(h_conv1_res[<span class="number">0</span>, :, :, x * <span class="number">4</span> + y])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Show first max_pool result:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;max_pool shape:&quot;</span>, h_pool1_res.shape</span><br><span class="line">    gs1 = gridspec.GridSpec(<span class="number">4</span>, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            plt.subplot(gs1[x, y])</span><br><span class="line">            plt.imshow(h_pool1_res[<span class="number">0</span>, :, :, x * <span class="number">4</span> + y])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Show second conv2d result:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;conv2 shape:&quot;</span>, h_conv2_res.shape</span><br><span class="line">    gs1 = gridspec.GridSpec(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            plt.subplot(gs1[x, y])</span><br><span class="line">            plt.imshow(h_conv2_res[<span class="number">0</span>, :, :, x * <span class="number">8</span> + y])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Show second max_pool result:&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;max_pool shape:&quot;</span>, h_pool2_res.shape</span><br><span class="line">    gs1 = gridspec.GridSpec(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">            plt.subplot(gs1[x, y])</span><br><span class="line">            plt.imshow(h_pool2_res[<span class="number">0</span>, :, :, x * <span class="number">8</span> + y])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>Show input:
+input shape: (28, 28)
+</code></pre>
+<p><img src="/resource/img/deep_learning/output_2_1.png" alt="png"></p>
+<pre><code>Show first conv2d result:
+conv2d shape: (1, 28, 28, 32)
+</code></pre>
+<p><img src="/resource/img/deep_learning/output_2_3.png" alt="png"></p>
+<pre><code>Show first max_pool result:
+max_pool shape: (1, 14, 14, 32)
+</code></pre>
+<p><img src="/resource/img/deep_learning/output_2_5.png" alt="png"></p>
+<pre><code>Show second conv2d result:
+conv2 shape: (1, 14, 14, 64)
+</code></pre>
+<p><img src="/resource/img/deep_learning/output_2_7.png" alt="png"></p>
+<pre><code>Show second max_pool result:
+max_pool shape: (1, 7, 7, 64)
+</code></pre>
+<p><img src="/resource/img/deep_learning/output_2_9.png" alt="png"></p>
+<h2 id="卷基层和池化层的处理"><a href="#卷基层和池化层的处理" class="headerlink" title="卷基层和池化层的处理"></a>卷基层和池化层的处理</h2><p>卷积层部分被称之为过滤器（或者内核）</p>
+<p>单位节点矩阵指长和宽都为1，深度不限的节点矩阵。</p>
+<p>过滤器处理的矩阵深度和当前层神经网络节点矩阵的深度一致。</p>
+<p>过滤器的处理方式如下图：</p>
+<p><img src="/resource/img/deep_learning/convolution_schematic.gif" alt="convolution_schematic"></p>
+<p>卷基层的参数个数 &#x3D; 过滤器尺寸 × 输入矩阵深度 × 卷基层深度 + 卷基层深度（偏置个数）</p>
+<p>池化层处理可以非常有效的缩小矩阵的尺寸，同时可以防止过拟合的问题。池化层的计算通常有两种方式，一种是最大池化层，另一种是取平均值的平均池化层。</p>
+<p>池化层处理方式：</p>
+<p><img src="/resource/img/deep_learning/pooling_schematic.gif" alt="pooling_schematic"></p>
+<h2 id="其它工具用法总结"><a href="#其它工具用法总结" class="headerlink" title="其它工具用法总结"></a>其它工具用法总结</h2><p>matplotlib 图像行内显示： <code>%matplotlib inline</code></p>
+<p>通过 PIL 加载图像：<code>Image.open(&#39;img/cnn_sample_test.jpg&#39;)</code></p>
+<p>图像转 numpy array： <code>numpy.asarray(img, dtype=&#39;float32&#39;)</code></p>
+<p>numpy array 转 PIL 图像： <code>Image.fromarray(img[:, :, :], &#39;RGB&#39;)</code></p>
+<p>第一个参数是 array ，第二个参数是图像的模式，灰度图像为 L，彩色图像为 RGB， 灰度图像深度为1，是一个二维矩阵，RGB图像为三层深度的二维矩阵。</p>
+<p>PIL 多图像拼接显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gs1 = gridspec.GridSpec(3, 5)</span><br><span class="line">for i in range(3):</span><br><span class="line">    plt.subplot(gs1[i, 0]); plt.axis(&#x27;off&#x27;); plt.imshow(img[:, :, :])</span><br><span class="line">    plt.subplot(gs1[i, 1]); plt.axis(&#x27;off&#x27;); plt.imshow(conv_op[0, :, :, i])</span><br><span class="line">    plt.subplot(gs1[i, 2]); plt.axis(&#x27;off&#x27;); plt.imshow(sigmoid_op[0, :, :, i])</span><br><span class="line">    plt.subplot(gs1[i, 3]); plt.axis(&#x27;off&#x27;); plt.imshow(avg_pool_op[0, :, :, i])</span><br><span class="line">    plt.subplot(gs1[i, 4]); plt.axis(&#x27;off&#x27;); plt.imshow(max_pool_op[0, :, :, i])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><code>gridspec.GridSpec(3, 5)</code> 可以理解为将一个画布分成 3 × 5 的方格</p>
+<p><code>plt.subplot(gs1[0, 0]); plt.axis(&#39;off&#39;); plt.imshow(img[:, :])</code> 选择第一个画布，将图像填充到这个画布下，并且不显示坐标。</p>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="http://mourafiq.com/2016/08/10/playing-with-convolutions-in-tensorflow.html">http://mourafiq.com/2016/08/10/playing-with-convolutions-in-tensorflow.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/11/18/1.html" rel="prev" title="深度学习系列第五篇 — 卷积神经网络">
+                  <i class="fa fa-chevron-left"></i> 深度学习系列第五篇 — 卷积神经网络
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/11/22/1.html" rel="next" title="Ubuntu开发环境配置">
+                  Ubuntu开发环境配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3285f92cad113350c1e8e3cf85cb473e"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

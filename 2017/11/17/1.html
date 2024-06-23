@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="[以下代码基于 Tornado 3.2.1 版本讲解][主要目标：讲解 gen.coroutine、Future、Runner 之间的关系] 这里是示例运行代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344#!&#x2F;usr&#x2F;bin&#x2F;python# coding: utf-8&quot;&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tornado 异步非阻塞浅析">
+<meta property="og:url" content="https://noge.top/2017/11/17/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="[以下代码基于 Tornado 3.2.1 版本讲解][主要目标：讲解 gen.coroutine、Future、Runner 之间的关系] 这里是示例运行代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344#!&#x2F;usr&#x2F;bin&#x2F;python# coding: utf-8&quot;&amp;q">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-17T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="Tornado">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://noge.top/2017/11/17/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/11/17/1.html","path":"2017/11/17/1.html","title":"Tornado 异步非阻塞浅析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Tornado 异步非阻塞浅析 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/11/17/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tornado 异步非阻塞浅析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+00:00">2017-11-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>[以下代码基于 Tornado 3.2.1 版本讲解]<br>[主要目标：讲解 gen.coroutine、Future、Runner 之间的关系]</p>
+<p>这里是示例运行代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># coding: utf-8</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">File: demo.py</span><br><span class="line">Author: noogel</span><br><span class="line">Date: 2017-08-28 22:59</span><br><span class="line">Description: demo</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import tornado</span><br><span class="line"></span><br><span class="line">from tornado import gen, web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@gen.coroutine</span><br><span class="line">def service_method():</span><br><span class="line">    raise gen.Return(&quot;abc&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class NoBlockHandler(tornado.web.RequestHandler):</span><br><span class="line"></span><br><span class="line">    @web.asynchronous</span><br><span class="line">    @gen.coroutine</span><br><span class="line">    def get(self):</span><br><span class="line">        result = yield service_method()</span><br><span class="line">        self.write(result)</span><br><span class="line">        self.finish()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Application(tornado.web.Application):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        settings = &#123;</span><br><span class="line">            &quot;xsrf_cookies&quot;: False,</span><br><span class="line">        &#125;</span><br><span class="line">        handlers = [</span><br><span class="line">            (r&quot;/api/noblock&quot;, NoBlockHandler),</span><br><span class="line">        ]</span><br><span class="line">        tornado.web.Application.__init__(self, handlers, **settings)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    Application().listen(2345)</span><br><span class="line">    tornado.ioloop.IOLoop.instance().start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>演示运行效果…</p>
+</blockquote>
+<p>讲解从 coroutine 修饰器入手，这个函数实现了简单的异步，它通过 generator 中的 yield 语句使函数暂停执行，将中间结果临时保存，然后再通过 send() 函数将上一次的结果送入函数恢复函数执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def coroutine(func):</span><br><span class="line">    @functools.wraps(func)</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        future = TracebackFuture()</span><br><span class="line">        if &#x27;callback&#x27; in kwargs:</span><br><span class="line">            print(&quot;gen.coroutine callback:&#123;&#125;&quot;.format(kwargs[&#x27;callback&#x27;]))</span><br><span class="line">            callback = kwargs.pop(&#x27;callback&#x27;)</span><br><span class="line">            IOLoop.current().add_future(</span><br><span class="line">                future, lambda future: callback(future.result()))</span><br><span class="line">        try:</span><br><span class="line">            print(&quot;gen.coroutine run func:&#123;&#125;&quot;.format(func))</span><br><span class="line">            result = func(*args, **kwargs)</span><br><span class="line">        except (Return, StopIteration) as e:</span><br><span class="line">            result = getattr(e, &#x27;value&#x27;, None)</span><br><span class="line">        except Exception:</span><br><span class="line">            future.set_exc_info(sys.exc_info())</span><br><span class="line">            return future</span><br><span class="line">        else:</span><br><span class="line">            if isinstance(result, types.GeneratorType):</span><br><span class="line">                def final_callback(value):</span><br><span class="line">                    deactivate()</span><br><span class="line">                    print(&quot;gen.coroutine final set_result:&#123;&#125;&quot;.format(value))</span><br><span class="line">                    future.set_result(value)</span><br><span class="line">                print(&quot;gen.coroutine will Runner.run() result:&#123;&#125;&quot;.format(result))</span><br><span class="line">                runner = Runner(result, final_callback)</span><br><span class="line">                runner.run()</span><br><span class="line">                return future</span><br><span class="line">        print(&quot;@@ gen.coroutine will set_result and return:&#123;&#125;&quot;.format(result))</span><br><span class="line">        future.set_result(result)</span><br><span class="line">        return future</span><br><span class="line">    return wrapper</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: create future object</span><br><span class="line">rf=&gt;operation: run function</span><br><span class="line">ex=&gt;condition: is not exception</span><br><span class="line">gen=&gt;condition: is generator</span><br><span class="line">run=&gt;operation: Runner.run()</span><br><span class="line">fts=&gt;operation: future.set_done()</span><br><span class="line">rtnf=&gt;operation: return future</span><br><span class="line">ed=&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;rf-&gt;ex</span><br><span class="line">ex(no)-&gt;rtnf</span><br><span class="line">ex(yes)-&gt;gen</span><br><span class="line">gen(yes)-&gt;run</span><br><span class="line">gen(no)-&gt;rtnf</span><br><span class="line">run-&gt;rtnf</span><br><span class="line">rtnf-&gt;ed</span><br></pre></td></tr></table></figure>
+
+
+<p>首先创建一个Future实例，然后执行被修饰的函数，一般函数返回的是一个生成器对象，接下来交由 Runner 处理，如果函数返回的是 Return, StopIteration 那么表示函数执行完成将结果放入 future 中并 set_done() 返回。</p>
+<p>下面是Future的简版：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Future(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._result = None</span><br><span class="line">        self._callbacks = []</span><br><span class="line"></span><br><span class="line">    def result(self, timeout=None):</span><br><span class="line">        self._clear_tb_log()</span><br><span class="line">        if self._result is not None:</span><br><span class="line">            return self._result</span><br><span class="line">        if self._exc_info is not None:</span><br><span class="line">            raise_exc_info(self._exc_info)</span><br><span class="line">        self._check_done()</span><br><span class="line">        return self._result</span><br><span class="line"></span><br><span class="line">    def add_done_callback(self, fn):</span><br><span class="line">        if self._done:</span><br><span class="line">            fn(self)</span><br><span class="line">        else:</span><br><span class="line">            self._callbacks.append(fn)</span><br><span class="line"></span><br><span class="line">    def set_result(self, result):</span><br><span class="line">        self._result = result</span><br><span class="line">        self._set_done()</span><br><span class="line"></span><br><span class="line">    def _set_done(self):</span><br><span class="line">        self._done = True</span><br><span class="line">        for cb in self._callbacks:</span><br><span class="line">            try:</span><br><span class="line">                cb(self)</span><br><span class="line">            except Exception:</span><br><span class="line">                app_log.exception(&#x27;Exception in callback %r for %r&#x27;, cb, self)</span><br><span class="line">        self._callbacks = None</span><br></pre></td></tr></table></figure>
+<p>在tornado中大多数的异步操作返回一个Future对象，这里指的是 Runner 中处理的异步返回结果。我们可以将该对象抽象成一个占位对象，它包含很多属性和函数。一个 Future 对象一般对应这一个异步操作。当这个对象的异步操作完成后会通过 set_done() 函数去处理 _callbacks 中的回调函数，这个回调函数是在我们在做修饰定义的时候传入 coroutine 中的。</p>
+<p>下面的代码是在 coroutine 中定义的，用来添加对异步操作完成后的回调处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if &#x27;callback&#x27; in kwargs:</span><br><span class="line">    print(&quot;gen.coroutine callback:&#123;&#125;&quot;.format(kwargs[&#x27;callback&#x27;]))</span><br><span class="line">    callback = kwargs.pop(&#x27;callback&#x27;)</span><br><span class="line">    IOLoop.current().add_future(</span><br><span class="line">        future, lambda future: callback(future.result()))</span><br></pre></td></tr></table></figure>
+<p>这里是 IOLoop 中的 add_future 函数，它是来给 future 对象添加回调函数的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def add_future(self, future, callback):</span><br><span class="line">    assert isinstance(future, Future)</span><br><span class="line">    callback = stack_context.wrap(callback)</span><br><span class="line">    future.add_done_callback(</span><br><span class="line">        lambda future: self.add_callback(callback, future))</span><br></pre></td></tr></table></figure>
+
+<p>然后说 Runner 都做了什么。在 3.2.1 版本中 Runner 的作用更重要一些。那么 Runner() 的作用是什么？<br>它主要用来控制生成器的执行与终止，将异步操作的结果 send() 至生成器暂停的地方恢复执行。在生成器嵌套的时候，当 A 中 yield B 的时候，先终止 A 的执行去执行 B，然后当 B 执行结束后将结果 send 至 A 终止的地方继续执行 A。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">class Runner(object):</span><br><span class="line">    def __init__(self, gen, final_callback):</span><br><span class="line">        self.gen = gen</span><br><span class="line">        self.final_callback = final_callback</span><br><span class="line">        self.yield_point = _null_yield_point</span><br><span class="line">        self.results = &#123;&#125;</span><br><span class="line">        self.running = False</span><br><span class="line">        self.finished = False</span><br><span class="line"></span><br><span class="line">    def is_ready(self, key):</span><br><span class="line">        if key not in self.pending_callbacks:</span><br><span class="line">            raise UnknownKeyError(&quot;key %r is not pending&quot; % (key,))</span><br><span class="line">        return key in self.results</span><br><span class="line"></span><br><span class="line">    def set_result(self, key, result):</span><br><span class="line">        self.results[key] = result</span><br><span class="line">        self.run()</span><br><span class="line"></span><br><span class="line">    def pop_result(self, key):</span><br><span class="line">        self.pending_callbacks.remove(key)</span><br><span class="line">        return self.results.pop(key)</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        try:</span><br><span class="line">            self.running = True</span><br><span class="line">            while True:</span><br><span class="line">                next = self.yield_point.get_result()</span><br><span class="line">                self.yield_point = None</span><br><span class="line">                try:</span><br><span class="line">                    print(&quot;gen.Runner.run() will send(next)&quot;)</span><br><span class="line">                    yielded = self.gen.send(next)</span><br><span class="line">                    print(&quot;gen.Runner.run() send(next) done.&quot;)</span><br><span class="line">                except (StopIteration, Return) as e:</span><br><span class="line">                    print(&quot;gen.Runner.run() send(next) throw StopIteration or Return done.&quot;)</span><br><span class="line">                    self.finished = True</span><br><span class="line">                    self.yield_point = _null_yield_point</span><br><span class="line">                    self.final_callback(getattr(e, &#x27;value&#x27;, None))</span><br><span class="line">                    self.final_callback = None</span><br><span class="line">                    return</span><br><span class="line">                if isinstance(yielded, (list, dict)):</span><br><span class="line">                    yielded = Multi(yielded)</span><br><span class="line">                elif isinstance(yielded, Future):</span><br><span class="line">                    yielded = YieldFuture(yielded)</span><br><span class="line">                    self.yield_point = yielded</span><br><span class="line">                    self.yield_point.start(self)</span><br><span class="line">        finally:</span><br><span class="line">            self.running = False</span><br><span class="line"></span><br><span class="line">    def result_callback(self, key):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            if kwargs or len(args) &gt; 1:</span><br><span class="line">                result = Arguments(args, kwargs)</span><br><span class="line">            elif args:</span><br><span class="line">                result = args[0]</span><br><span class="line">            else:</span><br><span class="line">                result = None</span><br><span class="line">            self.set_result(key, result)</span><br><span class="line">        return wrap(inner)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实例化 Runner() 的时候将生成器对象和生成器执行结束时的回调函数传入，然后通过 run() 函数去继续执行生成器对象。</p>
+<p>run() 函数的处理首先包了一层 while 循环，因为在生成器对象中可能包含多个 yield 语句。</p>
+<p><code>yielded = self.gen.send(next)</code>，在第一次 send() 恢复执行的时候默认传入 None ,因为函数第一次执行并没有结果。然后将第二次执行的结果 yielded （返回的是一个 Future 对象），包装成一个 YieldFuture 对象，然后通过 start()  函数处理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def start(self, runner):</span><br><span class="line">    if not self.future.done():</span><br><span class="line">        self.runner = runner</span><br><span class="line">        self.key = object()</span><br><span class="line">        self.io_loop.add_future(self.future, runner.result_callback(self.key))</span><br><span class="line">    else:</span><br><span class="line">        self.runner = None</span><br><span class="line">        self.result = self.future.result()</span><br></pre></td></tr></table></figure>
+
+<p>首先判断 future 是否被 set_done()，如果没有则注册一系列回调函数，如果完成则保存结果，以供下一次恢复执行时将结果送入生成器。<br>在 Runner.run() 执行完成后此时的 coroutine 中的 future 对象已经是被 set_done 的，然后直接返回 future 对象，最后被 外层的 @web.asynchronous 修饰器消费。</p>
+<hr>
+<p>参考：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/MnCu8261/p/6560502.html">http://www.cnblogs.com/MnCu8261/p/6560502.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenchao1990/p/5406245.html">https://www.cnblogs.com/chenchao1990/p/5406245.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/u010168160/article/details/53019039">http://blog.csdn.net/u010168160/article/details/53019039</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yezuhui/p/6863781.html">https://www.cnblogs.com/yezuhui/p/6863781.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhaohongyan6/article/details/70888221">http://blog.csdn.net/zhaohongyan6/article/details/70888221</a><br><a target="_blank" rel="noopener" href="https://www.zybuluo.com/noogel/note/952488">https://www.zybuluo.com/noogel/note/952488</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Tornado/" rel="tag"># Tornado</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/10/08/1.html" rel="prev" title="这些Mac神器也许你正需要">
+                  <i class="fa fa-chevron-left"></i> 这些Mac神器也许你正需要
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/11/18/1.html" rel="next" title="深度学习系列第五篇 — 卷积神经网络">
+                  深度学习系列第五篇 — 卷积神经网络 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"6ad8ad73fc827075983cff3b11720652"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

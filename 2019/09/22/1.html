@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="夜色降临，三男（老张、老王和老李）一女（小刘）三人对视而坐。 老王率先打破僵局，说：既然大家都还没吃饭，今晚我们叫麻辣烫怎么样？我来点。 小刘：可以哦，终于可以吃上王哥的麻辣烫了呀~ 老张：下次我来。 老李：不如今天一起呗。 四人迅速点完，等待外卖小哥上门，期间有些无聊，老李趁机开启了话题。 老李：现在有些无聊，不如我们聊一聊 NP 咋样？嘿嘿嘿~ 小刘：李哥你在说什么呀（脸色微微泛红） 老王：我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P&#x2F;NP 问题">
+<meta property="og:url" content="https://noge.top/2019/09/22/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="夜色降临，三男（老张、老王和老李）一女（小刘）三人对视而坐。 老王率先打破僵局，说：既然大家都还没吃饭，今晚我们叫麻辣烫怎么样？我来点。 小刘：可以哦，终于可以吃上王哥的麻辣烫了呀~ 老张：下次我来。 老李：不如今天一起呗。 四人迅速点完，等待外卖小哥上门，期间有些无聊，老李趁机开启了话题。 老李：现在有些无聊，不如我们聊一聊 NP 咋样？嘿嘿嘿~ 小刘：李哥你在说什么呀（脸色微微泛红） 老王：我">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15691427327856.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15691427425317.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15691427520678.jpg">
+<meta property="article:published_time" content="2019-09-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15691427327856.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2019/09/22/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2019/09/22/1.html","path":"2019/09/22/1.html","title":"P/NP 问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>P/NP 问题 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/09/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          P/NP 问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-22T00:00:00+00:00">2019-09-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>夜色降临，三男（老张、老王和老李）一女（小刘）三人对视而坐。</p>
+<p><strong>老王率先打破僵局，说</strong>：既然大家都还没吃饭，今晚我们叫麻辣烫怎么样？我来点。</p>
+<p><strong>小刘</strong>：可以哦，终于可以吃上王哥的麻辣烫了呀~</p>
+<p><strong>老张</strong>：下次我来。</p>
+<p><strong>老李</strong>：不如今天一起呗。</p>
+<p>四人迅速点完，等待外卖小哥上门，期间有些无聊，老李趁机开启了话题。</p>
+<p><strong>老李</strong>：现在有些无聊，不如我们聊一聊 NP 咋样？嘿嘿嘿~</p>
+<p><strong>小刘</strong>：李哥你在说什么呀（脸色微微泛红）</p>
+<p><strong>老王</strong>：我知道，我先来说吧。所谓 NP 其实是计算复杂度理论中最重要的集合之一。非决定性多项式集合 ( non-deterministic polynomial )，简称 NP。</p>
+<blockquote>
+<p>它包含 P 和 NP-complete。 P 集合的问题即在多项式时间内可以找出解的决策性问题 ( decision problem ) 集合。注意 NP 包含 P 和 NP-complete 问题, 因此 NP 集合中有简单的问题和不容易快速得到解的难题。</p>
+</blockquote>
+<p>那么画图表示就是下面这样：<br><img src="/resource/img/15691427327856.jpg"></p>
+<p><strong>老张</strong>：说的好，我来补充说一下 NP-complete 问题，又叫 NP 完备，简称 NPC，注意不是游戏里那个。</p>
+<blockquote>
+<p>NPC 是计算复杂度理论中，决定性问题的等级之一。NP 完备是 NP 与 NP 困难的交集，是 NP 中最难的决定性问题。因此 NP 完备问题应该是最不可能被化简为 P（多项式时间可决定）的决定性问题的集合。一个决定性问题C若是为NPC，则代表它对NP是完备的，这表示：</p>
+<ol>
+<li>它是一个NP问题。</li>
+<li>其他属于NP的问题都可在多项式时间内归约成它。</li>
+</ol>
+<p>可归约在此意指对每个问题L，总有一个多项式时间多对一变换，即一个决定性的算法可以将实例l ∈ L转化成实例c ∈ C，并让c回答Yes当且仅当此答案对l也是Yes。为了证明某个NP问题A实际上是NPC问题，证明者必须找出一个已知的NPC问题可以变换成A。</p>
+</blockquote>
+<p>但如果我们证明了一个问题是 NPC 问题，则表明这个问题很可能不能通过多项式时间解决。<br><img src="/resource/img/15691427425317.jpg"></p>
+<p><strong>老李</strong>：得，一个回合下来都给你们说完了，那我就说说 NP-hard 问题吧。又称 NP 困难、NPH 问题。在说到 NPH 问题之前，你们也都对 P&#x2F;NP 问题有一些了解了。</p>
+<blockquote>
+<p>P 问题就是在多项式时间内可以被解决的问题，NP 问题就是在多项式时间内可以被验证其正确性的问题。如果所有 NP 问题都可以多项式时间归约到某个问题，则称该问题为 NP 困难。因为 NP 困难问题未必可以在多项式时间内验证一个解的正确性（即不一定是 NP 问题），因此即使 NP 完全问题有多项式时间的解（P&#x3D;NP），NP 困难问题依然可能没有多项式时间的解。因此 NP 困难问题“至少与 NP 完全问题一样难”。</p>
+</blockquote>
+<p>说了这么多，小刘你一定很懵吧，看下面这个图的左半部分就可以很清楚的了解它们几个之间的关系了。<br><img src="/resource/img/15691427520678.jpg"></p>
+<p><strong>小刘</strong>：几位哥，哦不，几位大佬，你们刚才说的我好多不懂的，比如说的什么，计算复杂度理论、多项式时间。。。</p>
+<p><strong>老王</strong>：哈哈哈，小刘还是很好学的吗。</p>
+<blockquote>
+<p>计算复杂性理论（Computational complexity theory）是理论计算机科学和数学的一个分支，它致力于将可计算问题根据它们本身的复杂性分类，以及将这些类别联系起来。一个可计算问题被认为是一个原则上可以用计算机解决的问题，亦即这个问题可以用一系列机械的数学步骤解决，例如算法。<br>计算复杂性理论最成功的成果之一是NP完备理论。通过该理论，我们可以理解为什么在程序设计与生产实践中遇到的很多问题至今没有找到多项式算法。而该理论更为计算复杂性中的核心问题：P与NP的关系问题指明了方向。<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A8%88%E7%AE%97%E8%A4%87%E9%9B%9C%E6%80%A7%E7%90%86%E8%AB%96">https://zh.wikipedia.org/wiki/計算複雜性理論</a></p>
+</blockquote>
+<blockquote>
+<p>多项式时间（英语：Polynomial time）在计算复杂度理论中，指的是一个问题的计算时间 m(n) 不大于问题大小 n 的多项式倍数。任何抽象机器都拥有一复杂度类，此类包括可于此机器以多项式时间求解的问题。<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A0%85%E5%BC%8F%E6%99%82%E9%96%93">https://zh.wikipedia.org/wiki/多項式時間</a></p>
+</blockquote>
+<p>常见的多项式时间有：</p>
+<ul>
+<li>常量时间：O(1)</li>
+<li>线性时间：O(n)</li>
+<li>平方时间：O(n^2)</li>
+<li>立方时间：O(n^3)</li>
+<li>O(n log(n))</li>
+</ul>
+<p>与多项式时间对应的是超多项式时间，比如 指数时间 O(c^n)。</p>
+<p><strong>小刘</strong>：明白了，那我们点麻辣烫的等待时间应该是 O(log(n)) 时间了吧，也是属于多项式时间的。其实我们今天交流的 P&#x2F;NP 问题指的是在计算复杂度上对于问题的复杂程度的一个划分。但是我注意到其中一个图中表达着 P &#x3D; NP 和 P ≠ NP 的划分，那么 P ≠ NP  吗？</p>
+<p><strong>老张</strong>：哎呀，小刘真是聪明又细心，那么关于 P 等不等于 NP 这个问题也有得说了….</p>
+<p><strong>哐哐哐有人敲门，不一会儿，只见老王拿着东西走了过来</strong>：饭来喽，先吃麻辣烫，吃完我们再交流。</p>
+<p><strong>老李</strong>：对的，对的，吃完了我们可以深入交流一下嘛，哈哈。</p>
+<p>PS：本文背景纯属虚构，内容均来自维基百科 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/P/NP%E9%97%AE%E9%A2%98">https://zh.wikipedia.org/wiki/P/NP问题</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/29/2.html" rel="prev" title="数据结构与算法思想">
+                  <i class="fa fa-chevron-left"></i> 数据结构与算法思想
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/27/1.html" rel="next" title="基本的照片脱敏处理">
+                  基本的照片脱敏处理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"bbe5c93be7c8bbce6a98149d0694623f"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

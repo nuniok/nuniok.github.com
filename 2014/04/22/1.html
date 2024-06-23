@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="伪彩色处理是指将灰度图像转换成彩色图象。因为人眼对于彩色的分辨能力远高于对灰度图像的分辨能力，所以将灰度图像转换成彩色可以提高人眼对图像细节的辨别能力。伪彩色并不能真实的反映图像像的彩色情况。 效果图： 强度分层法和灰度级-彩色变换法：（1）强度分层法是伪彩色处理技术中最简单的一种。在某个灰度级Li上设置一个平行于x-y平面的切割平面，切割平面下面的，即灰度级小于Li的像素分配给一种颜色，相应的切">
+<meta property="og:type" content="article">
+<meta property="og:title" content="伪彩色处理">
+<meta property="og:url" content="https://noge.top/2014/04/22/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="伪彩色处理是指将灰度图像转换成彩色图象。因为人眼对于彩色的分辨能力远高于对灰度图像的分辨能力，所以将灰度图像转换成彩色可以提高人眼对图像细节的辨别能力。伪彩色并不能真实的反映图像像的彩色情况。 效果图： 强度分层法和灰度级-彩色变换法：（1）强度分层法是伪彩色处理技术中最简单的一种。在某个灰度级Li上设置一个平行于x-y平面的切割平面，切割平面下面的，即灰度级小于Li的像素分配给一种颜色，相应的切">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/15455544332499.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15455544967422.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15455545098350.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15455545220346.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15455545275803.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15455545323031.jpg">
+<meta property="article:published_time" content="2014-04-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="伪彩色">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/15455544332499.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2014/04/22/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2014/04/22/1.html","path":"2014/04/22/1.html","title":"伪彩色处理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>伪彩色处理 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2014/04/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          伪彩色处理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-04-22 00:00:00" itemprop="dateCreated datePublished" datetime="2014-04-22T00:00:00+00:00">2014-04-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>伪彩色处理是指将灰度图像转换成彩色图象。因为人眼对于彩色的分辨能力远高于对灰度图像的分辨能力，所以将灰度图像转换成彩色可以提高人眼对图像细节的辨别能力。伪彩色并不能真实的反映图像像的彩色情况。</p>
+<p>效果图：<br><img src="/resource/img/15455544332499.jpg"></p>
+<p>强度分层法和灰度级-彩色变换法：<br>（1）强度分层法是伪彩色处理技术中最简单的一种。<br>在某个灰度级Li上设置一个平行于x-y平面的切割平面，切割平面下面的，即灰度级小于Li的像素分配给一种颜色，相应的切割平面上大于灰度级Li的像素分配给另一种颜色。这样切割结果可以分成两层的伪彩色。可以使用M个平面去切割，就会得到M个不同灰度级的区域，这样就是具有M种颜色的为彩色图像。这种方法虽然简单，但是视觉效果不理想。<br>（2）灰度级-彩色变换法可以将灰度图像变为具有多种颜色渐变的连续彩色图像。<br>主要就是将图像通过不同变换特性的红、绿、蓝3个变换器，然后将三个颜色通道的输出合成某种颜色。由于三种颜色变换的不同，使得不同大小灰度级可以合成不同的颜色。一组典型的变换传递函数如下图。<br><img src="/resource/img/15455544967422.jpg"></p>
+<p>这里面需要注意的地方，代码只能是处理JPG格式的灰度图像，因为JPG图像的颜色深度是24位表示（R,G,B），每像素由3个字节表示即可，然而PNG图像的颜色深度是32位表示（R,G,B,A）。</p>
+<p>下面的代码是测试代码，以处理24位深度的图像为例，同像素不同通道的颜色值要相同，组合表示出是具有一定灰度的颜色。在实际应用中需要修改下面的代码依据要处理的图像格式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">#region 伪彩色图像处理</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 伪彩色图像处理</span><br><span class="line">/// 博客园-初行 http://www.cnblogs.com/zxlovenet</span><br><span class="line">/// 日期：2014.2.14</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;bmp&quot;&gt;传入的灰度图像&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;method&quot;&gt;使用何种方法，false强度分层法,true灰度级-彩色变换法&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;seg&quot;&gt;强度分层中的分层数&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;返回伪彩色图像&lt;/returns&gt;</span><br><span class="line">private Bitmap gcTrans(Bitmap bmp, bool method, byte seg)</span><br><span class="line">&#123;</span><br><span class="line">    if (bmp != null)</span><br><span class="line">    &#123;</span><br><span class="line">        if (System.Drawing.Imaging.PixelFormat.Format24bppRgb == bmp.PixelFormat)</span><br><span class="line">        &#123;</span><br><span class="line">            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);</span><br><span class="line">            System.Drawing.Imaging.BitmapData bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);</span><br><span class="line">            IntPtr ptr = bmpData.Scan0;</span><br><span class="line">            int bytes = bmp.Width * bmp.Height * 3;</span><br><span class="line">            byte[] grayValues = new byte[bytes];</span><br><span class="line">            System.Runtime.InteropServices.Marshal.Copy(ptr, grayValues, 0, bytes);</span><br><span class="line">            bmp.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">            byte[] rgbValues = new byte[bytes];</span><br><span class="line">            //清零</span><br><span class="line">            Array.Clear(rgbValues, 0, bytes);</span><br><span class="line">            byte tempB;</span><br><span class="line"></span><br><span class="line">            if (method == false)</span><br><span class="line">            &#123;</span><br><span class="line">                //强度分层法</span><br><span class="line">                for (int i = 0; i &lt; bytes; i += 3)</span><br><span class="line">                &#123;</span><br><span class="line">                    byte ser = (byte)(256 / seg);</span><br><span class="line">                    tempB = (byte)(grayValues[i] / ser);</span><br><span class="line">                    //分配任意一种颜色</span><br><span class="line">                    rgbValues[i + 1] = (byte)(tempB * ser);</span><br><span class="line">                    rgbValues[i] = (byte)((seg - 1 - tempB) * ser);</span><br><span class="line">                    rgbValues[i + 2] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //灰度级-彩色变换法</span><br><span class="line">                for (int i = 0; i &lt; bytes; i += 3)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (grayValues[i] &lt; 64)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 0;</span><br><span class="line">                        rgbValues[i + 1] = (byte)(4 * grayValues[i]);</span><br><span class="line">                        rgbValues[i] = 255;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (grayValues[i] &lt; 128)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 0;</span><br><span class="line">                        rgbValues[i + 1] = 255;</span><br><span class="line">                        rgbValues[i] = (byte)(-4 * grayValues[i] + 2 * 255);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (grayValues[i] &lt; 192)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = (byte)(4 * grayValues[i] - 2 * 255);</span><br><span class="line">                        rgbValues[i + 1] = 255;</span><br><span class="line">                        rgbValues[i] = 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 255;</span><br><span class="line">                        rgbValues[i + 1] = (byte)(-4 * grayValues[i] + 4 * 255);</span><br><span class="line">                        rgbValues[i] = 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            bmp = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);</span><br><span class="line">            bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);</span><br><span class="line">            ptr = bmpData.Scan0;</span><br><span class="line"></span><br><span class="line">            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);</span><br><span class="line">            bmp.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">            return bmp;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+<p>颜色映射：<br><img src="/resource/img/15455545098350.jpg"></p>
+<p>颜色映射的方法需要做一个颜色映射表，不同灰度级都会有对应的颜色。这个跟强度分层法相似，可以分成不同的层次，对应的颜色可以根据实际情况做映射。<br>在实际应用中，热成像测温系统所产生的红外图像为黑白灰度级图像，灰度值动态范围不大，人眼很难从这些灰度级中获得丰富的信息。为了更直观地增强显示图像的层次，提高人眼分辨能力，对系统所摄取的图像进行伪彩色处理，从而达到图像增强的效果，使图像信息更加丰富。例如对受热物体所成的像进行伪彩色时，将灰度低的区域设置在蓝色附近(或蓝灰、黑等)，而灰度级高的区域设置在红色附近(或棕红、白等)，以方便人们对物体的观察。</p>
+<p>下面几张图片是在实际应用中的情况（图片来源网络，侵删）：<br><img src="/resource/img/15455545220346.jpg"><br><img src="/resource/img/15455545275803.jpg"><br><img src="/resource/img/15455545323031.jpg"></p>
+<p><a href="/resource/file/GreyColor-Convert.rar">xmind文件</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E4%BC%AA%E5%BD%A9%E8%89%B2/" rel="tag"># 伪彩色</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2014/01/29/1.html" rel="prev" title="写在2013年末">
+                  <i class="fa fa-chevron-left"></i> 写在2013年末
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2014/10/16/1.html" rel="next" title="SQL的几种连接：内连接、左联接、右连接、全连接、交叉连接">
+                  SQL的几种连接：内连接、左联接、右连接、全连接、交叉连接 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"19e63b13837671547f68ee15c2694201"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="上一节学习的向前传播算法是一种线性模型，全连接神经网络和单层神经网络模型都只能处理线性问题，这具有相当大的局限性。而深度学习要强调的是非线性。 激活函数去线性化如下图，如果我们将每一个神经元的输出通过一个非线性函数，那么这个神经网络模型就不再是线性的了，而这个非线性函数就是激活函数，也实现了我们对神经元的去线性化。  下面列举了三个常用激活函数  ReLU 函数 sigmoid 函数 tanh 函">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习系列第二篇 — 深度神经网络">
+<meta property="og:url" content="https://noge.top/2017/09/25/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="上一节学习的向前传播算法是一种线性模型，全连接神经网络和单层神经网络模型都只能处理线性问题，这具有相当大的局限性。而深度学习要强调的是非线性。 激活函数去线性化如下图，如果我们将每一个神经元的输出通过一个非线性函数，那么这个神经网络模型就不再是线性的了，而这个非线性函数就是激活函数，也实现了我们对神经元的去线性化。  下面列举了三个常用激活函数  ReLU 函数 sigmoid 函数 tanh 函">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/jihuohanshu.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/jihuohanshu2.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/deep_learning/softmax.jpg">
+<meta property="article:published_time" content="2017-09-25T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/deep_learning/jihuohanshu.jpg">
+
+
+<link rel="canonical" href="https://noge.top/2017/09/25/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2017/09/25/1.html","path":"2017/09/25/1.html","title":"深度学习系列第二篇 — 深度神经网络"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习系列第二篇 — 深度神经网络 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%8E%BB%E7%BA%BF%E6%80%A7%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">激活函数去线性化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">反向传播算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">过拟合问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E5%B9%B3%E5%9D%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">滑动平均模型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/09/25/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习系列第二篇 — 深度神经网络
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-25T00:00:00+00:00">2017-09-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>上一节学习的向前传播算法是一种线性模型，全连接神经网络和单层神经网络模型都只能处理线性问题，这具有相当大的局限性。而深度学习要强调的是非线性。</p>
+<h3 id="激活函数去线性化"><a href="#激活函数去线性化" class="headerlink" title="激活函数去线性化"></a>激活函数去线性化</h3><p>如下图，如果我们将每一个神经元的输出通过一个非线性函数，那么这个神经网络模型就不再是线性的了，而这个非线性函数就是激活函数，也实现了我们对神经元的去线性化。</p>
+<p><img src="/resource/img/deep_learning/jihuohanshu.jpg" alt="激活函数去线性化"></p>
+<p>下面列举了三个常用激活函数</p>
+<ul>
+<li>ReLU 函数</li>
+<li>sigmoid 函数</li>
+<li>tanh 函数</li>
+</ul>
+<p><img src="/resource/img/deep_learning/jihuohanshu2.jpg" alt="激活函数去线性化"></p>
+<p>tf 中也提供了这几种不同的非线性激活函数。</p>
+<p><code>tf.nn.relu(tf.matmul(x, w1) + biases1)</code></p>
+<p>通过对 x 的加权增加偏置项，再在外层加上激活函数，实现神经元的非线性化。</p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>损失函数用来衡量预测值与真实值之间的不一致程度，是一个非负实值函数，损失函数越小，证明模型预测的越准确。</p>
+<p>交叉熵可以用来衡量两个概率分布之间的距离，是分类问题中使用比较光的一种损失函数。对于两个概率分布 p 和 q，表示交叉熵如下：</p>
+<p>$$H(p,q)&#x3D;-\sum_{x}p(x)log q(x)$$</p>
+<p>将神经网络向前传播得到的结果变成概率分布使用 Softmax 回归，它可以作为一个算法来优化分类结果。假设神经网络的输出值为 <code>y1,y2,...yn</code>，那么 Softmax 回归处理的输出为：</p>
+<p>$$softmax(y)<em>i&#x3D;y_i’&#x3D;\frac{e^{yi}}{\sum</em>{j&#x3D;1}^ne^{yj}}$$</p>
+<p>如下图通过 Softmax 层将神经网络的输出变成一个概率分布。</p>
+<p><img src="/resource/img/deep_learning/softmax.jpg" alt="Softmax"></p>
+<p>交叉熵一般会与 Softmax 回归一起使用，tf 对这两个功能提供了封装提供函数 <code>tf.nn.softmax_cross_entropy_with_logits</code>。</p>
+<p>对于回归问题区别与分类问题，需要预测的是一个任意实数，最常使用的损失函数是均方误差 MSE,定义如下：</p>
+<p>$$MSE(y,y’)&#x3D;\frac{\sum_{i&#x3D;1}^n(y_i-y_i’)^2}{n}$$</p>
+<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p>反向传播算法是训练神经网络的核心算法，它可以根据定义好的损失函数优化神经网络的参数值，是神经网络模型的损失函数达到一个较小的值。</p>
+<p>梯度下降算法是最常用的神经网络优化方法，假设用 θ 表示神经网络的参数， J(θ) 表示给定参数下的取值，梯度下降算法会迭代式的更新 θ，让迭代朝着损失最小的方向更新。梯度通过求偏导的方式计算，梯度为 $$\frac{∂}{∂θ}J(θ)$$ 然后定义一个学习率 η。参数更新公式如下：$$θ_{n+1}&#x3D;θ_n-η\frac{∂}{∂θ_n}J(θ_n)$$</p>
+<p>优化过程分为两步：</p>
+<ol>
+<li>通过向前传播算法得到预测值，将预测值与真实值之间对比差距。</li>
+<li>通过反向传播算法计算损失函数对每一个参数的梯度，根据梯度和学习率是梯度下降算法更新每一个参数。</li>
+</ol>
+<p>为了降低计算量和加速训练过程，可以使用随机梯度下降算法，选取一部分数据进行训练。</p>
+<p>学习率的设置可以通过指数衰减法，逐步减小学习率，可以在开始时快速得到一个较优解，然后减小学习率，使后模型的训练更加稳定。tf 提供了<code>tf.train.exponential_decay</code> 函数实现指数衰减学习率， <code>每一轮优化的学习率 = 初始学习率 * 衰减系数 ^ (学习步数 / 衰减速度)</code></p>
+<h3 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h3><p>通过损失函数优化模型参数的时候，并不是让模型尽量的模拟训练数据的行为，而是通过训练数据对未知数据给出判断，当一个模型能完美契合训练数据的时候，损失函数为0，但是无法对未知数据做出可靠的判断，这就是过拟合。</p>
+<p>避免过拟合的常用方法是正则化，就是在损失函数中加入刻画模型复杂度的指标，我们对模型的优化则变为 $$J(θ)+λR(w)$$ 其中 <code>R(w)</code> 刻画的是模型的复杂程度，λ 表示模型复杂损失在总损失中的比例。下面是常用的两种正则化函数：</p>
+<p>L1正则化：会让参数变得稀疏，公式不可导</p>
+<p>$$R(w) &#x3D; \Vert<del>w</del>\Vert_1 &#x3D; \sum_i|w_i|$$</p>
+<p>L2正则化：不会让参数变得稀疏，公式可导</p>
+<p>$$R(w) &#x3D; \Vert<del>w</del>\Vert_2^2 &#x3D; \sum_i|w_i^2|$$</p>
+<p>在实际使用中会将 L1 正则化和 L2 正则化同时使用：</p>
+<p>$$R(w) &#x3D; \sum_iα|w_i|+(1-α)w_i^2$$</p>
+<h3 id="滑动平均模型"><a href="#滑动平均模型" class="headerlink" title="滑动平均模型"></a>滑动平均模型</h3><p>在采用随机梯度下降算法训练神经网络时，使用平均滑动模型可以在大部分情况下提高模型在测试数据上的表现。在 tf 中提供了 <code>tf.train.ExponentialMovingAverage</code> 来实现这个模型，通过设置一个衰减率来初始化，在其中维护一个影子变量，可以控制模型的更新速度。<br><code>影子变量值 = 衰减率 * 影子变量值 + (1 - 衰减率) * 待更新变量</code>，为了让模型前期更新比较快，还提供了 num_updates 参数，每次使用的衰减率为：</p>
+<p>$$min(decay,\frac{1+numupdates}{10+numupdates})$$</p>
+<hr>
+<p>附 mathjax 语法教程：<a target="_blank" rel="noopener" href="http://blog.csdn.net/u010945683/article/details/46757757">http://blog.csdn.net/u010945683/article/details/46757757</a></p>
+<p>本章结束～</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/09/21/1.html" rel="prev" title="深度学习系列第一篇 — 入门">
+                  <i class="fa fa-chevron-left"></i> 深度学习系列第一篇 — 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/09/28/2.html" rel="next" title="深度学习系列第四篇 — 神经反向传播">
+                  深度学习系列第四篇 — 神经反向传播 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"af9fa5d42c97eccbb1506602fdf2c26c"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

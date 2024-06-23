@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resource/img/favicon2018.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resource/img/favicon2018.png">
+  <link rel="mask-icon" href="/resource/img/favicon2018.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"noge.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="15. 三数之和题目给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c &#x3D; 0 ？找出所有满足条件且不重复的三元组。 注意：答案中不可以包含重复的三元组。 例如, 给定数组 nums &#x3D; [-1, 0, 1, 2, -1, -4]， 满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode 习题集">
+<meta property="og:url" content="https://noge.top/2019/07/22/1.html">
+<meta property="og:site_name" content="码力欧">
+<meta property="og:description" content="15. 三数之和题目给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c &#x3D; 0 ？找出所有满足条件且不重复的三元组。 注意：答案中不可以包含重复的三元组。 例如, 给定数组 nums &#x3D; [-1, 0, 1, 2, -1, -4]， 满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]]">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noge.top/resource/img/8_queens.png">
+<meta property="og:image" content="https://noge.top/resource/img/15646758982785.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15646763098184.jpg">
+<meta property="og:image" content="https://noge.top/resource/img/15720909856457.jpg">
+<meta property="article:published_time" content="2019-07-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T13:43:06.017Z">
+<meta property="article:author" content="nuniok">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noge.top/resource/img/8_queens.png">
+
+
+<link rel="canonical" href="https://noge.top/2019/07/22/1.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://noge.top/2019/07/22/1.html","path":"2019/07/22/1.html","title":"leetcode 习题集"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>leetcode 习题集 | 码力欧</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?9cdc9a11cbd242c6336b07c464d8820c"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">码力欧</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">的业余生活</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.</span> <span class="nav-text">15. 三数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E7%BB%B4"><span class="nav-number">1.3.</span> <span class="nav-text">解题思维</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">解题代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">22. 括号生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94"><span class="nav-number">2.3.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#49%E3%80%81242-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D"><span class="nav-number">3.</span> <span class="nav-text">49、242. 字母异位词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">51. N皇后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-2"><span class="nav-number">4.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">4.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">4.3.</span> <span class="nav-text">解题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#69-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9"><span class="nav-number">5.</span> <span class="nav-text">69. x 的平方根</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">5.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-1"><span class="nav-number">5.2.</span> <span class="nav-text">解答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">5.3.</span> <span class="nav-text">扩展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">98. 验证二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-3"><span class="nav-number">6.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="nav-number">6.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">6.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="nav-number">7.</span> <span class="nav-text">102. 二叉树的层次遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">7.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-2"><span class="nav-number">7.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="nav-number">8.</span> <span class="nav-text">104. 二叉树的最大深度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">8.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-3"><span class="nav-number">8.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#111-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6"><span class="nav-number">9.</span> <span class="nav-text">111. 二叉树的最小深度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-4"><span class="nav-number">9.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-4"><span class="nav-number">9.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8"><span class="nav-number">10.</span> <span class="nav-text">141. 环形链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#146-LRU%E7%BC%93%E5%AD%98"><span class="nav-number">11.</span> <span class="nav-text">146. LRU缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">11.1.</span> <span class="nav-text">其它</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8"><span class="nav-number">12.</span> <span class="nav-text">206. 反转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#208-%E5%AE%9E%E7%8E%B0-Trie-%E5%89%8D%E7%BC%80%E6%A0%91"><span class="nav-number">13.</span> <span class="nav-text">208. 实现 Trie (前缀树)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-5"><span class="nav-number">13.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">13.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-5"><span class="nav-number">13.3.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#703-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E7%AC%ACK%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="nav-number">14.</span> <span class="nav-text">703. 数据流中的第K大元素</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">nuniok</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/noogel" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;noogel" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:noogel@163.com" title="E-Mail → mailto:noogel@163.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/07/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetcode 习题集
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-22T00:00:00+00:00">2019-07-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c &#x3D; 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<p>例如, 给定数组 nums &#x3D; [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>初读这道题时忽略了一个点，就是在检查时，如果有两个重复的数字可以都用上组成一个三元组集合，但是在返回结果的时候不能第一个数字参与组成三元组后第二个相同数字继续组成三元组。<strong>①</strong></p>
+<p>有三种思路，先进性排序处理，然后再进行处理。第一种就是做三层枚举；第二种就是两层枚举，在进行 set O(1) 查找；第三种是一层枚举，然后从剩余列表中的左右两边进行查找，满足三元组的添加记录。</p>
+<p>下面是主要介绍第三种思路的细节 <strong>②</strong>：</p>
+<ol>
+<li>排序处理</li>
+<li>从第 0 位置开始遍历<ol>
+<li>分别取剩余数组的首尾值进行求和</li>
+<li>如果大于零则向前移动尾部游标</li>
+<li>如果小于零则向后移动头部游标</li>
+<li>如果等于零则添加记录<ol>
+<li>添加记录后对首尾游标向中间移动一格</li>
+</ol>
+</li>
+<li>如果首尾游标没有相交则继续 2.1 步骤处理</li>
+</ol>
+</li>
+<li>进行下一位置的遍历，直到数组尾部</li>
+<li>返回结果</li>
+</ol>
+<p>整个流程思路基本是这样子的，然后我们对于边界情况的处理单独进行描述 <strong>③</strong></p>
+<ol>
+<li>如果当前遍历位置值大于 0 则直接返回结果</li>
+<li>对于我在 ① 中描述的情况，需要在 2.1 之前进行与判断，当前位置与上一位置值相同则跳过，进行排重处理</li>
+<li>同样的情况处理在 4.1 之后也要进行首尾游标移动方向相邻值的排重处理</li>
+</ol>
+<h3 id="解题思维"><a href="#解题思维" class="headerlink" title="解题思维"></a>解题思维</h3><ol>
+<li>首先需要做到的是充分理解题意，至少要做到能肉眼推导正确结果。</li>
+<li>解决方案一般都会有多种，合理选择最优方案进行骨架设计 ②，充分考虑时间和空间复杂度。</li>
+<li>然后解决边界条件 ③，优化代码可读性。</li>
+<li>充分进行测试验证算法的正确性。</li>
+</ol>
+<h3 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h3><p>最后放一下解题代码，也是参考别人的方案实现的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">public class ThreeSum &#123;</span><br><span class="line"></span><br><span class="line">    public static List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; resp = new ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">            if (nums[i] &gt; 0) break;</span><br><span class="line">            int l = i + 1;</span><br><span class="line">            int r = nums.length - 1;</span><br><span class="line">            if (i &gt; 0 &amp;&amp; nums[i-1] == nums[i]) continue;</span><br><span class="line">            while (l &lt; r)&#123;</span><br><span class="line">                int sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                if ( sum&gt; 0) r--;</span><br><span class="line">                else if (sum &lt; 0) l++;</span><br><span class="line">                else if (sum == 0)&#123;</span><br><span class="line">                    resp.add(Arrays.asList(nums[i], nums[l] , nums[r]));</span><br><span class="line">                    while (l &lt; r &amp;&amp; nums[l] == nums[l+1]) l++;</span><br><span class="line">                    while (l &lt; r &amp;&amp; nums[r] == nums[r-1]) r--;</span><br><span class="line">                    l++;</span><br><span class="line">                    r--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return resp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h2><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
+<p>例如，给出 n &#x3D; 3，生成结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[---</span><br><span class="line">title: 51. N皇后</span><br><span class="line">date: 2019-08-20</span><br><span class="line">tags: [算法, leetcode]</span><br><span class="line">id: 1</span><br><span class="line">---</span><br><span class="line">  &quot;((()))&quot;,</span><br><span class="line">  &quot;(()())&quot;,</span><br><span class="line">  &quot;(())()&quot;,</span><br><span class="line">  &quot;()(())&quot;,</span><br><span class="line">  &quot;()()()&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>根据递归做暴力处理，同时进行剪枝操作。</p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class GenerateParenthesis &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        GenerateParenthesis obj = new GenerateParenthesis();</span><br><span class="line">        List&lt;String&gt; stringList = obj.generateParenthesis(3);</span><br><span class="line">        System.out.println(stringList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;String&gt; generateParenthesis(int n) &#123;</span><br><span class="line">        List&lt;String&gt; collect = new ArrayList&lt;&gt;();</span><br><span class="line">        gen(collect, &quot;&quot;, n, n);</span><br><span class="line">        return collect;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void gen(List&lt;String&gt; collect, String cur, int left, int right) &#123;</span><br><span class="line">        if (left == 0 &amp;&amp; right == 0) &#123;</span><br><span class="line">            collect.add(cur);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (left &gt; 0) &#123;</span><br><span class="line">            gen(collect, cur + &quot;(&quot;, left - 1, right);</span><br><span class="line">        &#125;</span><br><span class="line">        if (right &gt; 0 &amp;&amp; right &gt; left) &#123;</span><br><span class="line">            gen(collect, cur + &quot;)&quot;, left, right - 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="49、242-字母异位词"><a href="#49、242-字母异位词" class="headerlink" title="49、242. 字母异位词"></a>49、242. 字母异位词</h2><p>第一题：</p>
+<p><code>242. 有效的字母异位词</code><br>给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。</p>
+<p>示例 1:</p>
+<p>输入: s &#x3D; “anagram”, t &#x3D; “nagaram”<br>输出: true<br>示例 2:</p>
+<p>输入: s &#x3D; “rat”, t &#x3D; “car”<br>输出: false</p>
+<p>说明:<br>你可以假设字符串只包含小写字母。</p>
+<p>解答第一个思路是使用 HashMap 进行字频统计再对比，第二个思路是字符串排序后进行比较。</p>
+<p>第二题：</p>
+<p><code>49. 字母异位词分组</code></p>
+<p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
+<p>示例:</p>
+<p>输入: [“eat”, “tea”, “tan”, “ate”, “nat”, “bat”],<br>输出:<br>[<br>  [“ate”,”eat”,”tea”],<br>  [“nat”,”tan”],<br>  [“bat”]<br>]<br>说明：</p>
+<p>所有输入均为小写字母。<br>不考虑答案输出的顺序。</p>
+<p>练习输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">public class Anagram &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(isAnagram(&quot;anagram&quot;, &quot;nagaram&quot;));</span><br><span class="line">        System.out.println(isAnagram2(&quot;anagram&quot;, &quot;nagaram&quot;));</span><br><span class="line">        groupAnagrams(new String[]&#123;&quot;eat&quot;, &quot;ate&quot;, &quot;aaa&quot;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isAnagram(String s, String t) &#123;</span><br><span class="line">        if (null == s &amp;&amp; null == t) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else if (null == s || null == t) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125; else if (s.length() != t.length()) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;Character, Integer&gt; left = new HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;Character, Integer&gt; right = new HashMap&lt;&gt;();</span><br><span class="line">        for (int i = 0; i &lt; s.length(); i++) &#123;</span><br><span class="line">            left.put(s.charAt(i), left.getOrDefault(s.charAt(i), 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line">        for (int j = 0; j &lt; t.length(); j++) &#123;</span><br><span class="line">            right.put(t.charAt(j), right.getOrDefault(t.charAt(j), 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line">        for (Map.Entry&lt;Character, Integer&gt; c : left.entrySet()) &#123;</span><br><span class="line">            if (!c.getValue().equals(right.getOrDefault(c.getKey(), 0))) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isAnagram2(String s, String t) &#123;</span><br><span class="line">        if (null == s &amp;&amp; null == t) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else if (null == s || null == t) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125; else if (s.length() != t.length()) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        char[] left = s.toCharArray();</span><br><span class="line">        char[] right = t.toCharArray();</span><br><span class="line">        Arrays.sort(left);</span><br><span class="line">        Arrays.sort(right);</span><br><span class="line">        for (int i = 0; i &lt; left.length; i++) &#123;</span><br><span class="line">            if (left[i] != right[i]) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) &#123;</span><br><span class="line">        Map&lt;String, List&lt;String&gt;&gt; res = new HashMap&lt;&gt;();</span><br><span class="line">        for (String sr : strs) &#123;</span><br><span class="line">            char[] chars = sr.toCharArray();</span><br><span class="line">            Arrays.sort(chars);</span><br><span class="line">            String sortedSr = new String(chars);</span><br><span class="line">            if (!res.containsKey(sortedSr)) &#123;</span><br><span class="line">                res.put(sortedSr, new ArrayList&lt;&gt;());</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;String&gt; mapVal = res.get(sortedSr);</span><br><span class="line">            mapVal.add(sr);</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;List&lt;String&gt;&gt; rep = new ArrayList&lt;&gt;();</span><br><span class="line">        for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : res.entrySet()) &#123;</span><br><span class="line">            rep.add(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        return rep;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="51-N皇后"><a href="#51-N皇后" class="headerlink" title="51. N皇后"></a>51. N皇后</h2><h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><p>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p><img src="/resource/img/8_queens.png" alt="8_queens"></p>
+<p>上图为 8 皇后问题的一种解法。</p>
+<p>给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。</p>
+<p>每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<p>示例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入: 4</span><br><span class="line">输出: [</span><br><span class="line"> [&quot;.Q..&quot;,  // 解法 1</span><br><span class="line">  &quot;...Q&quot;,</span><br><span class="line">  &quot;Q...&quot;,</span><br><span class="line">  &quot;..Q.&quot;],</span><br><span class="line"></span><br><span class="line"> [&quot;..Q.&quot;,  // 解法 2</span><br><span class="line">  &quot;Q...&quot;,</span><br><span class="line">  &quot;...Q&quot;,</span><br><span class="line">  &quot;.Q..&quot;]</span><br><span class="line">]</span><br><span class="line">解释: 4 皇后问题存在两个不同的解法。</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>…</p>
+<h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.HashSet;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">public class SolveNQueens &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SolveNQueens queens = new SolveNQueens();</span><br><span class="line">        System.out.println(queens.solveNQueens(5));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;String&gt;&gt; solveNQueens(int n) &#123;</span><br><span class="line">        List&lt;List&lt;String&gt;&gt; resp = new ArrayList&lt;&gt;();</span><br><span class="line">        Set&lt;Integer&gt; cols = new HashSet&lt;&gt;();</span><br><span class="line">        Set&lt;Integer&gt; pie = new HashSet&lt;&gt;();</span><br><span class="line">        Set&lt;Integer&gt; na = new HashSet&lt;&gt;();</span><br><span class="line">        dfs(n, 0, new ArrayList&lt;&gt;(), resp, cols, pie, na);</span><br><span class="line">        return resp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void dfs(int max, int row, List&lt;String&gt; curState, List&lt;List&lt;String&gt;&gt; resp,</span><br><span class="line">                    Set&lt;Integer&gt; cols, Set&lt;Integer&gt; pie, Set&lt;Integer&gt; na) &#123;</span><br><span class="line">        // 终结条件</span><br><span class="line">        if (row &gt;= max) &#123;</span><br><span class="line">            if (curState.size() == max) &#123;</span><br><span class="line">                resp.add(curState);</span><br><span class="line">            &#125;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        // 循环列</span><br><span class="line">        for (int col = 0; col &lt; max; col++) &#123;</span><br><span class="line">            if (cols.contains(col) || pie.contains(row + col) || na.contains(row - col)) &#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            cols.add(col);</span><br><span class="line">            pie.add(row + col);</span><br><span class="line">            na.add(row - col);</span><br><span class="line">            curState.add(trans(col, max));</span><br><span class="line">            int size = curState.size();</span><br><span class="line">            List&lt;String&gt; newState = (max - row == 1) ? new ArrayList&lt;String&gt;() &#123;&#123;</span><br><span class="line">                addAll(curState);</span><br><span class="line">            &#125;&#125; : curState;</span><br><span class="line">            // 递归层</span><br><span class="line">            dfs(max, row + 1, newState, resp, cols, pie, na);</span><br><span class="line">            cols.remove(col);</span><br><span class="line">            pie.remove(row + col);</span><br><span class="line">            na.remove(row - col);</span><br><span class="line">            curState.remove(size - 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String trans(int point, int max) &#123;</span><br><span class="line">        char[] chars = new char[max];</span><br><span class="line">        for (int i = 0; i &lt; max; i++) &#123;</span><br><span class="line">            chars[i] = i == point ? &#x27;Q&#x27; : &#x27;.&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">        return String.valueOf(chars);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="69-x-的平方根"><a href="#69-x-的平方根" class="headerlink" title="69. x 的平方根"></a>69. x 的平方根</h2><p>实现 <code>int sqrt(int x)</code> 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 4</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: 8</span><br><span class="line">输出: 2</span><br><span class="line">说明: 8 的平方根是 2.82842..., </span><br><span class="line">     由于返回类型是整数，小数部分将被舍去。</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>二分查找比较</p>
+<p>需要注意的地方有两个</p>
+<ol>
+<li>注意开始边界问题</li>
+<li>注意类型长度越界</li>
+</ol>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public class MySqrt &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MySqrt mySqrt = new MySqrt();</span><br><span class="line">        System.out.println(mySqrt.mySqrt(2147395599));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 边界问题</span><br><span class="line">    // 1. 0\1边界</span><br><span class="line">    //  类型长度越界</span><br><span class="line">    public int mySqrt(int x) &#123;</span><br><span class="line">        if (x == 0) return 0;</span><br><span class="line">        if (x == 1) return 1;</span><br><span class="line">        return mySqrt(x, 0, x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int mySqrt(long x, long left, long right) &#123;</span><br><span class="line">        long cur = (right - left) / 2 + left;</span><br><span class="line">        long cur2 = cur * cur;</span><br><span class="line">        if (cur2 == x) &#123;</span><br><span class="line">            return (int) cur;</span><br><span class="line">        &#125; else if (right - left == 1) &#123;</span><br><span class="line">            return (int) left;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (cur2 &lt; x) &#123;</span><br><span class="line">            left = cur;</span><br><span class="line">        &#125; else if (cur2 &gt; x) &#123;</span><br><span class="line">            right = cur;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return (int) cur;</span><br><span class="line">        &#125;</span><br><span class="line">        return mySqrt(x, left, right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>牛顿迭代法</p>
+<hr>
+<h2 id="98-验证二叉搜索树"><a href="#98-验证二叉搜索树" class="headerlink" title="98. 验证二叉搜索树"></a>98. 验证二叉搜索树</h2><h3 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h3><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
+<p>假设一个二叉搜索树具有如下特征：</p>
+<p>节点的左子树只包含小于当前节点的数。<br>节点的右子树只包含大于当前节点的数。<br>所有左子树和右子树自身必须也是二叉搜索树。<br>示例 1:</p>
+<p>输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  2</span><br><span class="line"> / \</span><br><span class="line">1   3</span><br></pre></td></tr></table></figure>
+
+<p>输出: true<br>示例 2:</p>
+<p>输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  5</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br></pre></td></tr></table></figure>
+
+<p>输出: false<br>解释: 输入为: [5,1,4,null,null,3,6]。<br>     根节点的值为 5 ，但是其右子节点值为 4 。</p>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>首先拿到这个题看起来思路比较简单，实现起来还有有点困难，而且在思考过程中踩过一个坑，又爬上来的。哎，看题还是要全面点。</p>
+<ol>
+<li>首先想到就是中序遍历了，放到一个列表中，然后比较大小即可。</li>
+<li>或者是做一个递归操作，判断当前节点是否在一个范围即可。</li>
+</ol>
+<p>思路是这么两个思路，代码实现起来为了执行效率做了短路处理，就是边遍历边检查，遇到错误就一路返回不再进行后面处理，当然这是思路理顺后的优化。</p>
+<p>中序遍历没坑，直接写就行了，有坑的是第二种操作，刚开始觉得只要比较当前节点的父节点和两个子节点就好了，就像下面画的，已 C 点为当前节点进行处理，实际是一个错误的思路，并且情况也分析的不对。</p>
+<p><img src="/resource/img/15646758982785.jpg"></p>
+<p>意识到问题后就重新分析，把当前节点作为最底端的节点，我们去比较的都是当前节点和父辈及以上的节点的大小，也就是拆出来四种情况。</p>
+<p><img src="/resource/img/15646763098184.jpg"></p>
+<p>其中 <code>⨁</code> 表示当前节点，和其它点的相对位置表示左右子节点关系，<code>min -&gt; max</code> 指向当前节点值必须在此区间中才可以，<code>+∞</code> 和 <code>-∞</code> 为单点情况的边界表示。最后拆分出这四种子情况，只要任一节点符合这四种情况之一即当前节点满足，当所有节点均满足则二叉搜索🌲有效，事实根据这个思路写出的代码验证是可行的。比较开心的是重新思考后的思路写出来的代码一次通过✌️。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>解法1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for a binary tree node.</span><br><span class="line"> * public class TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode left;</span><br><span class="line"> *     TreeNode right;</span><br><span class="line"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidBST(TreeNode root)&#123;</span><br><span class="line">        return forEachNode(root, new ArrayList&lt;&gt;());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean forEachNode(TreeNode node, List&lt;Integer&gt; val)&#123;</span><br><span class="line">        if (null == node) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!forEachNode(node.left, val))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!validOrAdd(val, node))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!forEachNode(node.right, val))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean validOrAdd(List&lt;Integer&gt; val, TreeNode node)&#123;</span><br><span class="line">        if(val.size() &gt; 0 &amp;&amp; val.get(val.size() - 1) &gt;= node.val)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return val.add(node.val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解法2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for a binary tree node.</span><br><span class="line"> * public class TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode left;</span><br><span class="line"> *     TreeNode right;</span><br><span class="line"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidBST(TreeNode root)&#123;</span><br><span class="line">        return subValidBSTLeft(root, null, null);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean subValidBSTLeft(TreeNode node, Integer min, Integer max) &#123;</span><br><span class="line">        if (null == node)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if (null == min &amp;&amp; null == max)&#123;</span><br><span class="line">        &#125;else if (null == min &amp;&amp; null !=max &amp;&amp; node.val &lt; max)&#123;</span><br><span class="line">        &#125;else if (null != min &amp;&amp; null == max &amp;&amp; min &lt; node.val)&#123;</span><br><span class="line">        &#125;else if (null != min &amp;&amp; null != max &amp;&amp; min &lt; node.val &amp;&amp; node.val &lt; max)&#123;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        // left</span><br><span class="line">        if (!subValidBSTLeft(node.left, min, node.val))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        // right</span><br><span class="line">        if (!subValidBSTLeft(node.right, node.val, max))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="102-二叉树的层次遍历"><a href="#102-二叉树的层次遍历" class="headerlink" title="102. 二叉树的层次遍历"></a>102. 二叉树的层次遍历</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。</p>
+<p>例如:<br>给定二叉树: [3,9,20,null,null,15,7],</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+
+<p>返回其层次遍历结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [3],</span><br><span class="line">  [9,20],</span><br><span class="line">  [15,7]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; resp = new ArrayList&lt;&gt;();</span><br><span class="line">        levelOrder(root, 0, resp);</span><br><span class="line">        return resp;</span><br><span class="line">    &#125;</span><br><span class="line">    public void levelOrder(TreeNode cur, int cur_level, List&lt;List&lt;Integer&gt;&gt; resp) &#123;</span><br><span class="line">        if(null == cur)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if(cur_level == resp.size())&#123;</span><br><span class="line">            resp.add(new ArrayList&lt;&gt;());</span><br><span class="line">        &#125;</span><br><span class="line">        resp.get(cur_level).add(cur.val);</span><br><span class="line">        levelOrder(cur.left, cur_level+1, resp);</span><br><span class="line">        levelOrder(cur.right, cur_level+1, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一次过</p>
+</blockquote>
+<hr>
+<h2 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104. 二叉树的最大深度"></a>104. 二叉树的最大深度</h2><h3 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h3><p>给定一个二叉树，找出其最大深度。</p>
+<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+<p>说明: 叶子节点是指没有子节点的节点。</p>
+<p>示例：<br>给定二叉树 [3,9,20,null,null,15,7]，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+
+<p>返回它的最大深度 3 。</p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxDepth(TreeNode root) &#123;</span><br><span class="line">        return maxDepth(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">    public int maxDepth(TreeNode cur, int level) &#123;</span><br><span class="line">        if(null == cur) return level;</span><br><span class="line">        int left_level = maxDepth(cur.left, level + 1);</span><br><span class="line">        int right_level = maxDepth(cur.right, level + 1);</span><br><span class="line">        return left_level &gt; right_level ? left_level: right_level;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一次过</p>
+</blockquote>
+<hr>
+<h2 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111. 二叉树的最小深度"></a>111. 二叉树的最小深度</h2><h3 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h3><p>给定一个二叉树，找出其最小深度。</p>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</p>
+<p>说明: 叶子节点是指没有子节点的节点。</p>
+<p>示例:</p>
+<p>给定二叉树 [3,9,20,null,null,15,7],</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+
+<p>返回它的最小深度  2.</p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int minDepth(TreeNode root) &#123;</span><br><span class="line">        return minDepth(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int minDepth(TreeNode cur, int level) &#123;</span><br><span class="line">        if (null == cur) return level;</span><br><span class="line">        if (null == cur.left &amp;&amp; null == cur.right) &#123;</span><br><span class="line">            return level + 1;</span><br><span class="line">        &#125; else if (null != cur.left &amp;&amp; null == cur.right) &#123;</span><br><span class="line">            return minDepth(cur.left, level + 1);</span><br><span class="line">        &#125; else if (null == cur.left &amp;&amp; null != cur.right) &#123;</span><br><span class="line">            return minDepth(cur.right, level + 1);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            int left_level = minDepth(cur.left, level + 1);</span><br><span class="line">            int right_level = minDepth(cur.right, level + 1);</span><br><span class="line">            return left_level &gt; right_level ? right_level : left_level;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141. 环形链表"></a>141. 环形链表</h2><p>给定一个链表，判断链表中是否有环。</p>
+<p>为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</p>
+<p>正常的解题思路，通过记录走过的节点来判断是否有环。</p>
+<p>时间复杂度：O(n)，对于含有 n 个元素的链表，我们访问每个元素最多一次。添加一个结点到哈希表中只需要花费 O(1) 的时间。</p>
+<p>空间复杂度：O(n)，空间取决于添加到哈希表中的元素数目，最多可以添加 n 个元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * class ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode next;</span><br><span class="line"> *     ListNode(int x) &#123;</span><br><span class="line"> *         val = x;</span><br><span class="line"> *         next = null;</span><br><span class="line"> *     &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line">public class Solution &#123;</span><br><span class="line">    public boolean hasCycle(ListNode head) &#123;</span><br><span class="line">        HashSet&lt;Integer&gt; points = new HashSet&lt;Integer&gt;();</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        while (null != cur)&#123;</span><br><span class="line">            int curHashCode = cur.hashCode();</span><br><span class="line">            if(points.contains(curHashCode))&#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            points.add(curHashCode);</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种解题思路是双指针大小步，一个指针每次走一步，另一个指针每次走两步，如果有环的话则两个指针最终会相遇。</p>
+<p>在最糟糕的情形下，时间复杂度为 O(N+K)，也就是 O(n)。</p>
+<p>空间复杂度：O(1)，我们只使用了慢指针和快指针两个结点，所以空间复杂度为 O(1)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * class ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode next;</span><br><span class="line"> *     ListNode(int x) &#123;</span><br><span class="line"> *         val = x;</span><br><span class="line"> *         next = null;</span><br><span class="line"> *     &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line">public class Solution &#123;</span><br><span class="line">    public boolean hasCycle(ListNode head) &#123;</span><br><span class="line">        if (null == head)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else if (null == head.next)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else if (head == head.next.next)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode minCur = head.next;</span><br><span class="line">        ListNode maxCur = head.next.next;</span><br><span class="line">        while (minCur != maxCur)&#123;</span><br><span class="line">            if (null == minCur.next)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (null == maxCur.next)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (null == maxCur.next.next)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            minCur = minCur.next;</span><br><span class="line">            maxCur = maxCur.next.next;</span><br><span class="line">            if (minCur == maxCur)&#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="146-LRU缓存"><a href="#146-LRU缓存" class="headerlink" title="146. LRU缓存"></a>146. LRU缓存</h2><p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。</p>
+<p>获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。<br>写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lru-cache">https://leetcode-cn.com/problems/lru-cache</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">from collections import OrderedDict</span><br><span class="line"></span><br><span class="line">class LRUCache(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self, capacity):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type capacity: int</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self._cache = OrderedDict()</span><br><span class="line">        self._size = capacity</span><br><span class="line"></span><br><span class="line">    def get(self, key):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type key: int</span><br><span class="line">        :rtype: int</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if key not in self._cache:</span><br><span class="line">            return -1</span><br><span class="line">        val = self._cache.pop(key)</span><br><span class="line">        self._cache[key] = val</span><br><span class="line">        return val</span><br><span class="line"></span><br><span class="line">    def put(self, key, value):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type key: int</span><br><span class="line">        :type value: int</span><br><span class="line">        :rtype: None</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if key in self._cache:</span><br><span class="line">            self._cache.pop(key)</span><br><span class="line">            self._cache[key] = value</span><br><span class="line">        else:</span><br><span class="line">            if len(self._cache) == self._size:</span><br><span class="line">                self._cache.popitem(last=False)</span><br><span class="line">            self._cache[key] = value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Your LRUCache object will be instantiated and called as such:</span><br><span class="line"># obj = LRUCache(capacity)</span><br><span class="line"># param_1 = obj.get(key)</span><br><span class="line"># obj.put(key,value)</span><br></pre></td></tr></table></figure>
+
+<p>有序字典的解法<br>时间复杂度 O(1)<br>空间复杂度 O(capacity)</p>
+<p>Java 解法需要 LinkedHashMap <strong>TODO</strong></p>
+<p>LRU(Least Recently Used)最少最近使用，一种页面置换算法。</p>
+<p>LFU(Least Frequently Used)最近最不常用。</p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>LRU</p>
+<p><img src="/resource/img/15720909856457.jpg"></p>
+<hr>
+<h2 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a>206. 反转链表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">public class ReverseLinkedList &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ListNode listNode = ListNode.of(</span><br><span class="line">                1,</span><br><span class="line">                ListNode.of(</span><br><span class="line">                        2,</span><br><span class="line">                        ListNode.of(</span><br><span class="line">                                3,</span><br><span class="line">                                ListNode.of(</span><br><span class="line">                                        4,</span><br><span class="line">                                        ListNode.of(</span><br><span class="line">                                                5, null</span><br><span class="line">                                        )</span><br><span class="line">                                )</span><br><span class="line">                        )</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">        ListNode next = listNode;</span><br><span class="line">        while (null != next) &#123;</span><br><span class="line">            System.out.println(next.val);</span><br><span class="line">            next = next.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;===&quot;);</span><br><span class="line">        ListNode reverse = reverse3(listNode);</span><br><span class="line"></span><br><span class="line">        ListNode next2 = reverse;</span><br><span class="line">        while (null != next2) &#123;</span><br><span class="line">            System.out.println(next2.val);</span><br><span class="line">            next2 = next2.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 官方推荐的</span><br><span class="line">     * @param head</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static ListNode reverse2(ListNode head) &#123;</span><br><span class="line">        // prev -&gt; curr -&gt; nextTemp</span><br><span class="line">        ListNode prev = null;</span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        while (curr != null) &#123;</span><br><span class="line">            ListNode nextTemp = curr.next;</span><br><span class="line">            curr.next = prev;</span><br><span class="line">            prev = curr;</span><br><span class="line">            curr = nextTemp;</span><br><span class="line">        &#125;</span><br><span class="line">        return prev;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 自己写的</span><br><span class="line">     * @param head</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static ListNode reverse(ListNode head) &#123;</span><br><span class="line">        // cur -&gt; prev -&gt; tmp</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode next = head.next;</span><br><span class="line">        head.next = null;</span><br><span class="line">        while (null != cur) &#123;</span><br><span class="line">            ListNode tmp = null;</span><br><span class="line">            if (null != next) &#123;</span><br><span class="line">                tmp = next.next;</span><br><span class="line">                next.next = cur;</span><br><span class="line">            &#125;</span><br><span class="line">            if (null == next) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = next;</span><br><span class="line">            next = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        return cur;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 复写的</span><br><span class="line">     * 1. 记录前一个节点，当前节点</span><br><span class="line">     * 2. 迭代</span><br><span class="line">     * 3. 取出当前节点到临时变量</span><br><span class="line">     * 4. -- 现在有 prev -&gt; curr -&gt; next 三个节点</span><br><span class="line">     * 5. 将 curr.next -&gt; prev，改变指向方向</span><br><span class="line">     * 6. 依次挪动节点位置 prev = curr , curr = nextTemp</span><br><span class="line">     * 7. 最后返回 prev</span><br><span class="line">     *</span><br><span class="line">     * 时间复杂度 O(n)</span><br><span class="line">     * 空间复杂度 O(1)</span><br><span class="line">     * @param head</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static ListNode reverse3(ListNode head) &#123;</span><br><span class="line">        // prev -&gt; curr -&gt; next</span><br><span class="line">        ListNode prev = null;</span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        while (null != curr) &#123;</span><br><span class="line">            ListNode next = curr.next;</span><br><span class="line">            curr.next = prev;</span><br><span class="line">            prev = curr;</span><br><span class="line">            curr = next;</span><br><span class="line">        &#125;</span><br><span class="line">        return prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="208-实现-Trie-前缀树"><a href="#208-实现-Trie-前缀树" class="headerlink" title="208. 实现 Trie (前缀树)"></a>208. 实现 Trie (前缀树)</h2><h3 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h3><p>实现一个 Trie (前缀树)，包含 insert, search, 和 startsWith 这三个操作。</p>
+<p>示例:</p>
+<p>Trie trie &#x3D; new Trie();</p>
+<p>trie.insert(“apple”);<br>trie.search(“apple”);   &#x2F;&#x2F; 返回 true<br>trie.search(“app”);     &#x2F;&#x2F; 返回 false<br>trie.startsWith(“app”); &#x2F;&#x2F; 返回 true<br>trie.insert(“app”);<br>trie.search(“app”);     &#x2F;&#x2F; 返回 true<br>说明:</p>
+<p>你可以假设所有的输入都是由小写字母 a-z 构成的。<br>保证所有输入均为非空字符串。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>前缀树<br>Trie<br>字典树</p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">public class Trie &#123;</span><br><span class="line">    private final int SIZE = 26;</span><br><span class="line">    private Node root;</span><br><span class="line"></span><br><span class="line">    private class Node &#123;</span><br><span class="line">        private boolean isStr;</span><br><span class="line">        private int num;</span><br><span class="line">        private Node[] child;</span><br><span class="line"></span><br><span class="line">        public Node() &#123;</span><br><span class="line">            child = new Node[SIZE];</span><br><span class="line">            isStr = false;</span><br><span class="line">            num = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Trie() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void insert(String word) &#123;</span><br><span class="line">        if (null == word || word.isEmpty()) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Node pNode = this.root;</span><br><span class="line">        for (int i = 0; i &lt; word.length(); i++) &#123;</span><br><span class="line">            int index = word.charAt(i) - &#x27;a&#x27;;</span><br><span class="line">            if (pNode.child[index] == null) &#123;</span><br><span class="line">                Node tmp = new Node();</span><br><span class="line">                pNode.child[index] = tmp;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                pNode.child[index].num++;</span><br><span class="line">            &#125;</span><br><span class="line">            pNode = pNode.child[index];</span><br><span class="line">        &#125;</span><br><span class="line">        pNode.isStr = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean search(String word) &#123;</span><br><span class="line">        if (null == word || word.isEmpty()) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        Node pNode = this.root;</span><br><span class="line">        for (int i = 0; i &lt; word.length(); i++) &#123;</span><br><span class="line">            int index = word.charAt(i) - &#x27;a&#x27;;</span><br><span class="line">            if (pNode.child[index] == null || (word.length() - i == 1 &amp;&amp; pNode.child[index].isStr == false)) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            pNode = pNode.child[index];</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean startsWith(String prefix) &#123;</span><br><span class="line">        if (null == prefix || prefix.isEmpty()) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        Node pNode = this.root;</span><br><span class="line">        for (int i = 0; i &lt; prefix.length(); i++) &#123;</span><br><span class="line">            int index = prefix.charAt(i) - &#x27;a&#x27;;</span><br><span class="line">            if (pNode.child[index] == null) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            pNode = pNode.child[index];</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="703-数据流中的第K大元素"><a href="#703-数据流中的第K大元素" class="headerlink" title="703. 数据流中的第K大元素"></a>703. 数据流中的第K大元素</h2><p>设计一个找到数据流中第K大元素的类（class）。注意是排序后的第K大元素，不是第K个不同的元素。</p>
+<p>你的 KthLargest 类需要一个同时接收整数 k 和整数数组nums 的构造器，它包含数据流中的初始元素。每次调用 KthLargest.add，返回当前数据流中第K大的元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line">public class KthLargest &#123;</span><br><span class="line">    private PriorityQueue&lt;Integer&gt; minHeap;</span><br><span class="line">    private int kSize;</span><br><span class="line"></span><br><span class="line">    public KthLargest(int k, int[] nums) &#123;</span><br><span class="line">        kSize = k;</span><br><span class="line">        minHeap=new PriorityQueue&lt;Integer&gt;(kSize);</span><br><span class="line">        for (int i = 0; i&lt; nums.length; i++)&#123;</span><br><span class="line">            add(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int add(int val) &#123;</span><br><span class="line">        if (minHeap.size() &lt; kSize)&#123;</span><br><span class="line">            minHeap.offer(val);</span><br><span class="line">        &#125;else if (minHeap.peek() &lt; val)&#123;</span><br><span class="line">            minHeap.poll();</span><br><span class="line">            minHeap.offer(val);</span><br><span class="line">        &#125;</span><br><span class="line">        return minHeap.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java中PriorityQueue通过二叉小顶堆实现，可以用一棵完全二叉树表示。</p>
+<p>关于堆操作：<a target="_blank" rel="noopener" href="https://shmilyaw-hotmail-com.iteye.com/blog/1775868">https://shmilyaw-hotmail-com.iteye.com/blog/1775868</a></p>
+<p>操作说明：</p>
+<table><thead><tr class="header"><th>方法名</th><th>功能描述</th></tr></thead>
+<tbody><tr class="odd"><td>add(Ee)</td><td>在队列头部增加一个元素，如果容量已满，则抛出异常，成功则返回true。</td></tr>
+<tr class="even"><td>clear()</td><td>清空</td></tr>
+<tr class="odd"><td>contains(Objecto)</td><td>检查是否包含当前参数元素</td></tr>
+<tr class="even"><td>offer(Ee)</td><td>在队列头部增加一个元素，如果容量已满，则返回false，成功加入，返回true。</td></tr>
+<tr class="odd"><td>peek()</td><td>返回队列头部节点，但不移除队列头节点。</td></tr>
+<tr class="even"><td>poll()</td><td>将队列头部元素移出队列并返回。</td></tr>
+<tr class="odd"><td>remove(Objecto)</td><td>将队列头部元素移出队列并返回，如果队列为空，则抛出异常。</td></tr>
+<tr class="even"><td>size()</td><td>返回长度</td></tr></tbody></table>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/resource/file/wechat_mini.jpg" alt="nuniok 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/resource/file/alipay_mini.jpg" alt="nuniok 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/resource/file/qrcode_for_gh_4223a67f3865_258.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/14/1.html" rel="prev" title="网络异常测试">
+                  <i class="fa fa-chevron-left"></i> 网络异常测试
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/25/1.html" rel="next" title="Redis数据结构之跳表">
+                  Redis数据结构之跳表 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nuniok</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js","integrity":"sha256-96rwDGMWIQYB0yKGp1sKi1yrjrLPj2oT39IpbCsIrsg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"noogel","repo":"noogel.github.io","client_id":"41a4e14aca0b3552334a","client_secret":"ebe0f9bfd24824f3d0d0f41bfd88a8736353759b","admin_user":"noogel","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"5da16f972f32609d007bd65eaed44b8b"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
