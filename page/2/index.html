@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -177,6 +178,148 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/04/05/4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/04/05/4.html" class="post-title-link" itemprop="url">JVM GC</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00+00:00">2020-04-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><ul>
+<li>引用计数算法，记录对象被引用的次数。</li>
+<li>可达性分析算法，通过一系列的“GC Roots” 根对象作为开始节点集，根据引用关系向下搜索，如果某个对象到 GC Roots 间没有任何引用链相连，表明对象不可达。</li>
+</ul>
+<p>引用的概念</p>
+<ul>
+<li>强引用，普遍的引用赋值。</li>
+<li>软引用，在程序将要内存溢出的时候可以进行回收，回收后内存依然不够时则抛出异常。</li>
+<li>弱引用，生存周期为下一次垃圾回收为止。</li>
+<li>虚引用，被垃圾回收时触发一次系统通知。</li>
+</ul>
+<p>垃圾收集算法 - 分代收集理论</p>
+<ul>
+<li>内存区域<ul>
+<li>新生代</li>
+<li>老年代</li>
+<li>永久代（元空间、方法区）</li>
+</ul>
+</li>
+<li>回收类型<ul>
+<li>新生代收集</li>
+<li>老年代收集</li>
+<li>整堆收集</li>
+</ul>
+</li>
+<li>回收算法<ul>
+<li>标记 - 清除算法：将垃圾对象标记清除。容易造成内存空间碎片化，大对象申请问题，可能触发下一次垃圾收集动作。</li>
+<li>标记 - 复制算法：半区复制，浪费空间。新生代 eden 空间、两块 survivor 空间，比例是 8:1，每次只使用 Eden空间和一块survivor空间，进行垃圾回收时会将存活对象复制到另一块 survivor 空间，然后清理掉已经用过的 Eden 空间和 survivor 空间，这样整个新生代利用了 90% 的空间。当一次垃圾回收的存活对象超过一个surivor空间时会通过分配担保机制使用老年代空间。</li>
+<li>标记 - 整理算法：清除后将所有存活对象向内存空间一端移动。</li>
+</ul>
+</li>
+</ul>
+<h3 id="经典垃圾收集器"><a href="#经典垃圾收集器" class="headerlink" title="经典垃圾收集器"></a>经典垃圾收集器</h3><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e197cc0e51d451c774dc56f">https://juejin.im/post/5e197cc0e51d451c774dc56f</a></p>
+<p><img src="/resource/img/15860681718965.jpg"></p>
+<p><img src="/resource/img/15860666420812.jpg"></p>
+<p>Java8 GC 默认使用的是 Parallel Scavenge (新生代) 和 Parallel Old (老年代)。</p>
+<h3 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h3><p>在启动命令中增加 <code>-XX:+PrintGCDetails</code> 输出详细GC日志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * VM Args: -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8</span><br><span class="line"> * 堆内存溢出</span><br><span class="line"> */</span><br><span class="line">public class JvmDemo1 &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        List&lt;Long&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            list.add(random.nextLong());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[GC (Allocation Failure) [PSYoungGen: 8097K-&gt;1008K(9216K)] 11954K-&gt;10351K(19456K), 0.0091685 secs] [Times: user=0.02 sys=0.01, real=0.01 secs] </span><br><span class="line"></span><br><span class="line">[Full GC (Ergonomics) [PSYoungGen: 1008K-&gt;495K(9216K)] [ParOldGen: 9343K-&gt;9793K(10240K)] 10351K-&gt;10288K(19456K), [Metaspace: 3224K-&gt;3224K(1056768K)], 0.1013312 secs] [Times: user=0.16 sys=0.00, real=0.10 secs] </span><br></pre></td></tr></table></figure>
+
+<p>GC：表明进行了一次垃圾回收，前面没有Full修饰，表明这是一次Minor GC ,注意它不表示只GC新生代，并且现有的不管是新生代还是老年代都会STW。 Allocation Failure：表明本次引起GC的原因是因为在年轻代中没有足够的空间能够存储新的数据了。</p>
+<p><img src="/resource/img/15860668066361.jpg"></p>
+<p><img src="/resource/img/15860668161669.jpg"></p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="JVM-堆栈配置参数"><a href="#JVM-堆栈配置参数" class="headerlink" title="JVM 堆栈配置参数"></a>JVM 堆栈配置参数</h3><p><img src="/resource/img/15860671536079.jpg"></p>
+<h3 id="jps-查看-JVM-进程启动参数"><a href="#jps-查看-JVM-进程启动参数" class="headerlink" title="jps 查看 JVM 进程启动参数"></a>jps 查看 JVM 进程启动参数</h3><p>默认元空间大小128M，最大元空间大小256M，初始化堆大小2G，最大堆大小5G，新生代512M，每个线程分配内存大小1M。eden空间和survivor空间的分配比率8:2，使用标记复制算法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:/usr/lib/jvm/java-8-oracle/bin# ./jps -v</span><br><span class="line">1 xxx.jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Xms2048m -Xmx5048m -Xmn512m -Xss1024k -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails</span><br></pre></td></tr></table></figure>
+
+<h3 id="jmap-生成堆快照"><a href="#jmap-生成堆快照" class="headerlink" title="jmap 生成堆快照"></a>jmap 生成堆快照</h3><p>format 指定输出格式，live 指明是活着的对象，file 指定文件名。方便后面通过分析工具分析。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -dump:live,format=b,file=dump.hprof pid</span><br></pre></td></tr></table></figure>
+
+<h3 id="jstat-查看-JVM-进程已使用空间百分比"><a href="#jstat-查看-JVM-进程已使用空间百分比" class="headerlink" title="jstat 查看 JVM 进程已使用空间百分比"></a>jstat 查看 JVM 进程已使用空间百分比</h3><p><img src="/resource/img/15860681523977.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:/usr/lib/jvm/java-8-oracle/bin# ./jstat -gcutil 1</span><br><span class="line">  S0 S1 E O M CCS YGC YGCT FGC FGCT GCT</span><br><span class="line">  0.00 72.37 40.12 3.59 96.52 94.68 113 4.433 0 0.000 4.433</span><br></pre></td></tr></table></figure>
+
+<p>S0 survivo0<br>S1 survivo1<br>E Eden空间<br>O 老年代<br>M 元空间使用率<br>CCS 压缩使用比例<br>YGC 新生代 GC 次数<br>YGCT 新生代 GC 耗时<br>FGC Full GC 次数<br>FGCT Full GC 耗时<br>GCT GC 耗时</p>
+<h3 id="jmap-查看进程堆的详细信息"><a href="#jmap-查看进程堆的详细信息" class="headerlink" title="jmap 查看进程堆的详细信息"></a>jmap 查看进程堆的详细信息</h3><p><code>jmap -heap pid</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">Attaching to process ID 3764, please wait...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.171-b11</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Parallel GC with 8 thread(s) //采用Parallel GC </span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   MinHeapFreeRatio = 0 //JVM最小空闲比率 可由-XX:MinHeapFreeRatio=&lt;n&gt;参数设置， jvm heap 在使用率小于 n 时 ,heap 进行收缩</span><br><span class="line">   MaxHeapFreeRatio = 100 //JVM最大空闲比率 可由-XX:MaxHeapFreeRatio=&lt;n&gt;参数设置， jvm heap 在使用率大于 n 时 ,heap 进行扩张 </span><br><span class="line">   MaxHeapSize = 2095054848 (1998.0MB) //JVM堆的最大大小 可由-XX:MaxHeapSize=&lt;n&gt;参数设置</span><br><span class="line">   NewSize = 44040192 (42.0MB) //JVM新生代的默认大小 可由-XX:NewSize=&lt;n&gt;参数设置</span><br><span class="line">   MaxNewSize = 698351616 (666.0MB) //JVM新生代的最大大小 可由-XX:MaxNewSize=&lt;n&gt;参数设置</span><br><span class="line">   OldSize = 88080384 (84.0MB) //JVM老生代的默认大小 可由-XX:OldSize=&lt;n&gt;参数设置 </span><br><span class="line">   NewRatio = 2 //新生代：老生代（的大小）=1:2 可由-XX:NewRatio=&lt;n&gt;参数指定New Generation与Old Generation heap size的比例。</span><br><span class="line">   SurvivorRatio = 8 //survivor:eden = 1:8,即survivor space是新生代大小的1/(8+2)[因为有两个survivor区域] 可由-XX:SurvivorRatio=&lt;n&gt;参数设置</span><br><span class="line">   MetaspaceSize = 21807104 (20.796875MB) //元空间的默认大小，超过此值就会触发Full GC 可由-XX:MetaspaceSize=&lt;n&gt;参数设置</span><br><span class="line">   CompressedClassSpaceSize = 1073741824 (1024.0MB) //类指针压缩空间的默认大小 可由-XX:CompressedClassSpaceSize=&lt;n&gt;参数设置</span><br><span class="line">   MaxMetaspaceSize = 17592186044415 MB //元空间的最大大小 可由-XX:MaxMetaspaceSize=&lt;n&gt;参数设置</span><br><span class="line">   G1HeapRegionSize = 0 (0.0MB) //使用G1垃圾收集器的时候，堆被分割的大小 可由-XX:G1HeapRegionSize=&lt;n&gt;参数设置</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">PS Young Generation //新生代区域分配情况</span><br><span class="line">Eden Space: //Eden区域分配情况</span><br><span class="line">   capacity = 89653248 (85.5MB)</span><br><span class="line">   used = 8946488 (8.532035827636719MB)</span><br><span class="line">   free = 80706760 (76.96796417236328MB)</span><br><span class="line">   9.978989272089729% used</span><br><span class="line">From Space: //其中一个Survivor区域分配情况</span><br><span class="line">   capacity = 42467328 (40.5MB)</span><br><span class="line">   used = 15497496 (14.779563903808594MB)</span><br><span class="line">   free = 26969832 (25.720436096191406MB)</span><br><span class="line">   36.49275037977431% used</span><br><span class="line">To Space: //另一个Survivor区域分配情况</span><br><span class="line">   capacity = 42991616 (41.0MB)</span><br><span class="line">   used = 0 (0.0MB)</span><br><span class="line">   free = 42991616 (41.0MB)</span><br><span class="line">   0.0% used</span><br><span class="line">PS Old Generation //老生代区域分配情况</span><br><span class="line">   capacity = 154664960 (147.5MB)</span><br><span class="line">   used = 98556712 (93.99100494384766MB)</span><br><span class="line">   free = 56108248 (53.508995056152344MB)</span><br><span class="line">   63.722715216167906% used</span><br><span class="line"></span><br><span class="line">1819 interned Strings occupying 163384 bytes.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>目的：对JVM内存的系统级的调优主要的目的是减少GC的频率和Full GC的次数，减少系统停顿时间。</p>
+<p>步骤：</p>
+<ol>
+<li>监控GC状态</li>
+<li>生成 dump 文件</li>
+<li>分析dump 文件（MAT 工具）</li>
+<li>分析判断是否需要进行优化</li>
+</ol>
+<ul>
+<li>Minor GC执行时间超过50ms；</li>
+<li>Minor GC执行频繁，约10秒内一次；</li>
+<li>Full GC执行时间超过1s；</li>
+<li>Full GC执行频繁，高于10分钟1次；</li>
+</ul>
+<ol start="5">
+<li>调整GC类型和内存分配</li>
+<li>不断分析调整</li>
+</ol>
+<h2 id="可视化分析工具-MAT"><a href="#可视化分析工具-MAT" class="headerlink" title="可视化分析工具 MAT"></a>可视化分析工具 MAT</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wwlwwy89/article/details/74330544">https://blog.csdn.net/wwlwwy89/article/details/74330544</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -267,91 +410,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/01/17/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/01/17/1.html" class="post-title-link" itemprop="url">2020知识储备计划</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-01-17 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-17T00:00:00+00:00">2020-01-17</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li>六本本职技术书籍&#x2F;专题<ul>
-<li>effective java done 01.29</li>
-<li>Java 并发编程实战  done 02.14</li>
-<li>深入理解 Java 虚拟机</li>
-</ul>
-</li>
-<li>六本技术扩展书籍&#x2F;专题<ul>
-<li>图解密码技术 第三版</li>
-<li>Linux 内核设计与实现（原书第三版）</li>
-<li>现代编译原理</li>
-</ul>
-</li>
-<li>六本人文社科书籍<ul>
-<li>精进 done 02.11</li>
-<li>国富论 杨敬年译本</li>
-<li>乌合之众 冯克利译本</li>
-<li>黑客与画家</li>
-</ul>
-</li>
-<li>整理输出两篇高质量博客文章</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://noge.top/2020/01/11/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -398,156 +456,6 @@
 <p><img src="/resource/img/15786784433586.jpg"></p>
 <p><img src="/resource/img/15786784707412.jpg"></p>
 <p><img src="/resource/img/15786786649467.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/01/01/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/01/01/1.html" class="post-title-link" itemprop="url">Todo List</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+00:00">2020-01-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="待整理文章列表"><a href="#待整理文章列表" class="headerlink" title="待整理文章列表"></a>待整理文章列表</h2><p>常用设计模式应用</p>
-<p>缓存一致性问题分析</p>
-<p>爬虫系统设计实践</p>
-<p>高性能网络模型介绍</p>
-<p>Java NIO 模型</p>
-<p>时间轮算法详解</p>
-<p>稀疏矩阵数据结构</p>
-<p>零拷贝技术</p>
-<p>MySQL 索引设计与使用</p>
-<h2 id="如何写好技术文章"><a href="#如何写好技术文章" class="headerlink" title="如何写好技术文章"></a>如何写好技术文章</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25720136">https://zhuanlan.zhihu.com/p/25720136</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22861247/answer/730177950">https://www.zhihu.com/question/22861247/answer/730177950</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37133420">https://zhuanlan.zhihu.com/p/37133420</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/12/01/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/12/01/2.html" class="post-title-link" itemprop="url">第一个半马</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-01T00:00:00+00:00">2019-12-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>第一个半马…真的没啥挑战性，哈哈哈哈哈。</p>
-<p>事情起源于表姐在群里问要不要去参加马拉松，她那有名额，然后就兴冲冲的报名了，报了个半马，然后开始了为期几个月的夜跑锻炼任务，从最初的慢悠悠的每天三公里，到逐步拔高的每次五公里，然后开始选鞋完善装备，提高到了十公里。因为家里有事中途中断了一些日子，之后就三天打鱼两天晒网的锻炼着，直到马拉松开始的那天。</p>
-<p>周六早起动身，从北京出发到白洋淀站下车。迎着末夏的烈日，面对明天的半马，还是很兴奋的。都说出问题的都是跑半马的，因为半马大多是新手，不懂得如何把握自己身体和跑步强度，所以还是有点担心，就抱着玩玩看的心态去跑的。</p>
-<p><img src="/resource/img/15782137244716.jpg"></p>
-<p>半马路线图，从容城雄安市民服务中心出发一直跑到安新，全马则是跑到雄县。<br><img src="/resource/img/15782139652993.jpg"></p>
-<p><img src="/resource/img/15782140046345.jpg"></p>
-<p>第一个半马还算是比较轻松的跑过来了吧，期间粗心大意的没有把盐丸当回事，结果起跑就不力，心跳一直过速，直接影响了发挥，边跑变琢磨是怎么回事，后来觉得出汗多了，便找周围的人要了两粒盐丸，然后感觉心跳就慢慢的降到正常水平了。目标不高，完赛就好～，顺便拿起奖牌嘚瑟了一把。因为比赛在周日，担心第二天无法上班，其实多虑了，跑后做好充分的拉伸，第二天依然照常去上班了，腿也没有预期的酸痛，只是身体进行了一周左右的慢慢康复，身体的磨损在逐渐自我修复。</p>
-<p><img src="/resource/img/15782140217189.jpg"></p>
-<p><img src="/resource/img/15782154117780.jpg"></p>
-<p><img src="/resource/img/15782154399317.jpg"></p>
-<p>后面的时间可能不会再继续练跑步了，小区周围没有公园，只能在大街上跑，有比较多的尾气，感觉对身体不太好，然后买了辆山地准备以后骑行山间了。买后的一个周末独自骑行去了香山，前后 30 公里左右，感觉还不错，以后准备依赖这个了～</p>
-<p><img src="/resource/img/15782154605761.jpg"></p>
 
       
     </div>
@@ -1144,8 +1052,188 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/08/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/22/1.html" class="post-title-link" itemprop="url">Redis IO模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00+00:00">2019-08-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>通俗的理解 Redis 是一个单进程单线程模型的 KV 内存数据库，截止到目前官方会在年底发布多线程版本，并且 Redis 也有自己的持久化方案。采用 I&#x2F;O 复用模型和非阻塞 IO 技术，被广泛应用在高并发场景中。</p>
+<p>Redis 高性能的几个关键点：</p>
+<ul>
+<li>完全基于内存操作，数据也是存储在内存中。</li>
+<li>数据结构简单，很多查找和操作的时间复杂度在 O(1)。</li>
+<li>单线程模式，避免了上下文的切换和锁竞争。</li>
+<li>使用了 I&#x2F;O 多路复用模型和非阻塞 IO。</li>
+</ul>
+<p>Redis 同时支持多个客户端连接，采用 I&#x2F;O 多路复用模型（select\poll\epoll）可以同时监听多个 IO 流事件。</p>
+<blockquote>
+<p>多路指的是多个网络连接，复用指的是复用同一个线程。<br>采用多路IO复用技术可以让单个线程高效的处理多个连接请求(尽量减少网络IO的时间消耗)，且Redis在内存中操作数据的速度非常快(内存内的操作不会成为这里的性能瓶颈)，主要以上两点造就了Redis具有很高的吞吐量。</p>
+</blockquote>
+<p>TODO I&#x2F;O 多路复用</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://researchlab.github.io/2018/10/08/redis-11-redisio/">http://researchlab.github.io/2018/10/08/redis-11-redisio/</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/07/29/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/07/29/1.html" class="post-title-link" itemprop="url">第一次露营</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-29T00:00:00+00:00">2019-07-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>发现自己没玩过的事情好多，上周末便实施了一次露营⛺️之路，叫上小伙伴一起报了个户外团，第一次去选择的比较休闲级别的，然后自带了几十斤装备在山上扎营看天。</p>
+<p>去之前连帐篷都没有打开过，不过好在很好弄，去到了迅速选择好营地很快就扎好了。然后在山顶四处转了转。第一次出来玩还是挺兴奋的，但没多久就冻得回帐篷换上了衣服，对比去的时候早上北京的天气超级闷热。<br><img src="/resource/img/15644162500365.jpg"></p>
+<p>周围也有好多同行的人在扎营，还有两只🐶子互相溜着玩，和它们的主人一样的兴奋。<br><img src="/resource/img/15644164178708.jpg"></p>
+<p>到了傍晚，就开始下起了大雾，一直持续到了第二天早上，后来想想从山脚下看来这应该是☁️吧，那就是身在云中了。在这么个野外环境下，找厕所也是很方了，哈哈哈。</p>
+<p><img src="/resource/img/15644165914978.jpg"></p>
+<p><img src="/resource/img/15644165994873.jpg"></p>
+<p>下了这么一晚上的雾，有点遗憾的是没能看到星空🌃，而且没能选到一个防露水的帐篷晚上被滴醒好几次😶。。。</p>
+<p><img src="/resource/img/15644166097428.jpg"></p>
+<p>早上还是挺可以的，看到了日出🌅和云海，还有四处觅食的🐂。其实云海肉眼看上去不太明显，但是做成一个加速的短视频就很好看了。</p>
+<p><img src="/resource/img/15644168860852.jpg"></p>
+<p><img src="/resource/img/15644168979835.jpg"></p>
+<p><img src="/resource/img/15644169199043.jpg"></p>
+<p><img src="/resource/img/15644169500468.jpg"></p>
+<p>露营前简单做的攻略</p>
+<p>说明：</p>
+<ol>
+<li>加粗为必备</li>
+<li>标 A 的说明已准备好</li>
+</ol>
+<p>装备：</p>
+<p><strong>帐篷A</strong>、<strong>防潮垫A</strong>、<strong>睡袋A</strong>、气垫（防咯）、<strong>头灯A</strong>、手电A、<strong>登山包A</strong>、<strong>充电宝A</strong>、手机</p>
+<p><strong>雨衣A</strong>、雨鞋套A、<strong>登山鞋或运动鞋</strong>、<strong>长袖防风衣物</strong>、羽绒服、头巾、棉帽</p>
+<p><strong>暖贴A</strong>、水杯、<strong>水5L A</strong>、<strong>湿巾A</strong>、<strong>纸巾A</strong>、洗漱用品、<strong>垃圾袋A</strong>、耳塞（风声吵）、眼罩</p>
+<p><strong>自发热小火锅A</strong>、八宝粥、面包、筷子、红牛、便携气炉</p>
+<p><strong>药物</strong>（快客、思密达+ 、藿香正气、创可贴、防虫喷雾、布洛芬）、风油精 AAAAA</p>
+<p>银行卡一张A、<strong>工具刀A</strong>、备用手机A</p>
+<p>这里说一些注意点</p>
+<ol>
+<li>帐篷一定要四季防雨防露水的，赶上下雨就惨了</li>
+<li>防潮垫一定要有，并且根据情况准备厚点的防咯</li>
+<li>暖贴可以准备一些晚上睡觉冷贴身上</li>
+<li>垃圾袋还是多带点将垃圾带走</li>
+<li>工具刀准备一下防止意外保护安全</li>
+<li>如果带气炉的话要注意地铁不让进</li>
+<li>吃的尽量带一些高热量食物，自发热小火锅我觉得必备</li>
+</ol>
+<p>最后附上一张小朋友拍的很棒的照片。</p>
+<p><img src="/resource/img/15644170535159.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

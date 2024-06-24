@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -177,854 +178,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/04/20/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/04/20/1.html" class="post-title-link" itemprop="url">Spring 随手记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+00:00">2018-04-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>基本记录，没有系统性整理，只是作为一个重温知识点用，不具有阅读参考价值。</p>
-<p><img src="/resource/img/15618712316175.jpg"></p>
-<h3 id="注解（Inherited）"><a href="#注解（Inherited）" class="headerlink" title="注解（Inherited）"></a>注解（Inherited）</h3><p>Spring注解方式减少了配置文件内容，更加便于管理。</p>
-<h3 id="MVC模块注解"><a href="#MVC模块注解" class="headerlink" title="MVC模块注解"></a>MVC模块注解</h3><p>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<br>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true。<br>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。<br>@RestController ：控制器实现了REST的API，只为服务于JSON，XML或其它自定义的类型内容，@RestController用来创建REST类型的控制器，与@Controller类型。</p>
-<h3 id="组件类注解"><a href="#组件类注解" class="headerlink" title="组件类注解"></a>组件类注解</h3><p>@Component ：表示一个带注释的类是一个“组件”，成为Spring管理的Bean。当使用基于注解的配置和类路径扫描时，这些类被视为自动检测的候选对象。同时@Component还是一个元注解。<br>@ComponentScan：自动扫描指定包下所有使用@Service,@Component,@Controller,@Repository的类并注册。<br>@Repository：标注一个DAO组件类。<br>@Service：标注一个业务逻辑组件类。<br>@Controller：标注一个控制器组件类。<br>@Component 可以代替 @Repository、@Service、@Controller，因为这三个注解是被 @Component 标注的。</p>
-<h3 id="装配-Bean-时常用注解"><a href="#装配-Bean-时常用注解" class="headerlink" title="装配 Bean 时常用注解"></a>装配 Bean 时常用注解</h3><p>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。<br>@Resource：不属于spring的注解，而是来自于JSR-250位于java.annotation包下，使用该annotation为目标bean指定协作者Bean。<br>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作。</p>
-<h3 id="Configuration-and-Bean"><a href="#Configuration-and-Bean" class="headerlink" title="Configuration and @Bean"></a>Configuration and @Bean</h3><p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
-<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC">https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC</a></p>
-<h2 id="Spring-通过-calss-直接获取-Bean"><a href="#Spring-通过-calss-直接获取-Bean" class="headerlink" title="Spring 通过 calss 直接获取 Bean"></a>Spring 通过 calss 直接获取 Bean</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SpringApplication app = new SpringApplication(THTTPMain.class);</span><br><span class="line">ApplicationContext ctx = app.run(args);</span><br><span class="line">ReportManager manager = ctx.getBean(ReportManager.class);</span><br><span class="line">manager.run();</span><br></pre></td></tr></table></figure>
-
-<h2 id="Spring-标签管理"><a href="#Spring-标签管理" class="headerlink" title="Spring 标签管理"></a>Spring 标签管理</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuchanming/p/5426746.html">https://www.cnblogs.com/wuchanming/p/5426746.html</a><br><img src="/resource/img/15618712485957.jpg"></p>
-<h2 id="AOP-面向切面编程"><a href="#AOP-面向切面编程" class="headerlink" title="AOP 面向切面编程"></a>AOP 面向切面编程</h2><p><img src="/resource/img/15618712585422.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/04/01/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/04/01/1.html" class="post-title-link" itemprop="url">会计基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-04-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-01T00:00:00+00:00">2018-04-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="会计基本假设"><a href="#会计基本假设" class="headerlink" title="会计基本假设"></a>会计基本假设</h2><p>包括（会计主体、持续经营、会计分期和货币计量）</p>
-<p>会计主体：规范空间范围，独立核算的特定单位或组织。<br>会计主体于法律主体并非对等的概念。法律主体可以作为会计主体，但会计主体不一定是法律主体。</p>
-<p>持续经营：持续经营保持了会计信息处理的一致性和稳定性。</p>
-<p>会计分期：将一个会计主体持续的生产经营活动划分为若干相等的会计期间，以便结算帐目和编制财务会计报告。</p>
-<p>货币计量：指会计主体在会计确认、计量和报告时采用货币作为统一的计量单位。是衡量商品价值的共同尺度。</p>
-<p>四个基本假设相互依存、相互补充关系。</p>
-<h2 id="会计基础"><a href="#会计基础" class="headerlink" title="会计基础"></a>会计基础</h2><p>会计基础：确定收入和费用的归属期。按照其以应收应付还是实收实付作为标准。</p>
-<p>权责发生制（应收应付制）：以应收应付作为标准来确定本期收入和费用以计算本期盈亏的会计处理基础。（会计记账以此为主）</p>
-<p>收付实现制：以款项的实际收付来确认本期收入和费用，计算本期盈亏的一种会计处理基础。（行政部门使用）</p>
-<p>会计科目的设置不完全相同：<br>    权责发生制：有必要设置一些待摊和预提账户。<br>    收付实现制：不需要设置待摊和预提账户。</p>
-<p>权责发生制比收付实现制计算的盈亏更准确，相对也更复杂。</p>
-<h2 id="会计要素与会计科目"><a href="#会计要素与会计科目" class="headerlink" title="会计要素与会计科目"></a>会计要素与会计科目</h2><p><img src="/resource/img/15358782519943.jpg"></p>
-<p>会计要素：对会计对象的基本分类，会计核算对象的具体化。是设置会计科目的依据。<br>一类反应财务状况的要素，资产负债表的要素，包括资产、负债和所有者权益。<br>二类反应经营成果要素，包括收入、费用和利润。<br>资产：过去的交易或事项形成，企业拥有或控制，预期带来经济利益。（货币资金、交易型金融资产、应收及预付款项、存货、长期股权投资、固定资产、无形资产等）<br>负债：企业承担的现时义务，预期导致经济利益流出，过去交易或事项形成。（短期借款、应付票据、应付账款、预收账款、应交税费、应付职工薪酬、长期借款、应付债券、长期应付款）<br>所有者权益（股东权益）：资产 － 负债 ＝ 所有者权益。清算、减资、分派现金股利时不需要偿还，企业清算时享有剩余权益，参与利润分配。源于资产和负债的确认。</p>
-<p>收入：日常活动中形成，与投入资本无关的经济利益总流入，导致所有者权益增加，本企业经济利益流入。</p>
-<p>费用：日常活动中形成，导致所有者权益减少，与投入资本无关的经济利益总流出。</p>
-<p>利润：一定会计期间的经营成果。利润＝收入－费用＋利得－损失。</p>
-<p><strong>会计要素的计量：</strong></p>
-<p>会计计量：为符合会计要素条件的登记入账，确定会计要素的金额。</p>
-<p>历史成本：购置资产时的现金或其它等价物。用于资产或负债的过去价值的计量，不随时间折旧和市场价格变动影响。</p>
-<p>重置成本：现实成本，按当前市场条件下，重新获取同样资产所需支付的现金或现金等价物。主要用于固定资产盘盈的计量。</p>
-<p>可变现净值：资产预计售价 - 进一步加工成本 - 销售所需预计售金、费用后的净值。</p>
-<p>现值：对未来现金流量以折旧率折现后的价值。</p>
-<p>公允价值：在公平交易中，交易双方自愿进行资产交换或债务清偿的金额。</p>
-<p><strong>会计科目：</strong><br>会计科目是对会计要素进行分类核算的项目。<br>意义：</p>
-<ol>
-<li>复式记账的基础</li>
-<li>编制记账凭证的基础</li>
-<li>为成本计算与财产清查提供了前提条件</li>
-<li>为编制财务报表提供了方便</li>
-</ol>
-<p><img src="/resource/img/15358781637539.jpg"></p>
-<h2 id="会计等式与复式记账"><a href="#会计等式与复式记账" class="headerlink" title="会计等式与复式记账"></a>会计等式与复式记账</h2><p>会计恒等式：资产 + 费用 &#x3D; 负债 + 所有者权益 + 收入</p>
-<p>意义：是设置会计科目和账户，进行复式记账和编制资产负债表的理论依据。</p>
-<p>复式记账法<br>对每一笔经济业务，需要在两个或两个以上项目联系账户中进行记录的方法。</p>
-<ol>
-<li>需要完整的账户体系。</li>
-<li>对每一笔经济业务都进行反映和记录</li>
-<li>对每一笔经济业务都要反映设计的所有方面</li>
-<li>对一定时期内的账户记录能进行综合试算平衡</li>
-</ol>
-<p>借贷记账法是复式记账发的一种。以借、贷为记账符号，建立在会计恒等式的基础之上。通过“T”型图，左借右贷记录。</p>
-<p>借贷记账法下各类会计科目的基本结构</p>
-<p><img src="/resource/img/15358777116072.jpg"></p>
-<p><strong>记账规则：</strong><br>有借必有贷 —— 账户登记方向<br>借贷必相等 —— 账户登记金额</p>
-<p><strong>记录步骤：</strong></p>
-<ol>
-<li>分析每一笔经济业务发证所涉及的账户名称，并判断账户性质</li>
-<li>判断经济业务发生所引起的资金数量是增加还是减少</li>
-<li>根据账户的结构确定记入账户的方向。</li>
-</ol>
-<p>账户对应关系：在两个或两个以上账户之间形成的应借应贷的相互对照关系。作用是了解业务的来龙去脉，检查经济业务处理是否合理。</p>
-<p><strong>会计分录</strong><br>是对某项经济业务事项表明其应借应贷账户及其金额的一种记录，简称分录。<br>格式：会计三要素，记账方向、对应账户、金额。<br>种类：简单会计分录：一借一贷的会计分录；复合会计分录：一借多贷或一贷多借的会计分录。</p>
-<p><strong>如何编制：</strong></p>
-<ol>
-<li>分析经济业务设计的要素</li>
-<li>确定涉及哪些账户，是增加还是减少</li>
-<li>确定应计入哪个账户的借方，哪个账户的贷方</li>
-<li>确定应借应贷账户是否正确，借贷方金额是否相等</li>
-</ol>
-<p>平衡方法——编制“总分类账户额试算平衡表”</p>
-<p>平行登记：对所发生的每项经济业务事项都要以会计凭证为依据，一方面记入有关总分类账户，另一方面计入有关总分类账户所属明细分类账户的方法。要点：依据相同，借贷方向相同，会计期间相同，金额相等。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/31/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/31/2.html" class="post-title-link" itemprop="url">提升专注力的方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+00:00">2018-03-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这篇文章是根据学习知乎 Live <a target="_blank" rel="noopener" href="https://www.zhihu.com/lives/789164011882041344">提升专注力的四个方法</a> 总结的学习笔记。</p>
-<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p>先放一个大纲，然后写出学习后会总结的点。</p>
-<p><img src="/resource/img/15225120331295.jpg"></p>
-<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>主要分四个大块：</p>
-<ol>
-<li><p>像设计游戏一样设计任务（目标、规则、障碍）</p>
-<ul>
-<li>我们要达成一个任务或者目标，首先将任务拆分成一个个小的、明确的小任务，每一个环节不用太难，也不用太简单，按照自己的专注力上限设计任务。</li>
-<li>每一个小环节可以设置一些障碍，来提升成就感，通过不断的成就感的提升驱使完成目标，在成就感与挫败感之间寻找一个平衡。</li>
-<li>这样可以在不断的达成目标时提升自己的专注力上限。</li>
-</ul>
-</li>
-<li><p>创造使用推理和类比的机会</p>
-<ul>
-<li>专注力应该是一种思维能力，而不仅仅是一种强制力。需要的是脑力的专注力，而不是身体的专注力。提升这些的方法是推理和类比。</li>
-<li>推理：通过一个点，去不断深挖，了解其本质。（推理解决 A ——&gt; 什么是 A ？怎么产生的 A ？ ——&gt; 产生 A 的是什么？[是否有经验性的证据？] ——&gt; 对这件事情我的理解是什么？ ——&gt; 我是否可以更深入的了解？）</li>
-<li>类比：相同事物的相关性思考。思考一个事物可以通过相关性的联系来帮助你理解。</li>
-<li>一件事情的训练需要可以的练习。</li>
-<li>创造和使用推理和类比的机会。<ul>
-<li>费曼学习法则：如何把这个东西通俗易懂的讲解给别人？</li>
-<li>笔记整理和回顾</li>
-<li>输出：和别人分享你的经验、知识和见解（例如我写了这篇文章）</li>
-<li>反驳：养成反驳自己的习惯，站在相反的观点思考问题，左右互搏。通过自我辩论的方式。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>学习之前寻找『困惑感』</p>
-<ul>
-<li>如何快速进入学习状态？积累困惑感。困惑感是你学习一个东西的源动力，当你找到足够多的困惑时，你学习一个东西的时候会更加专注。</li>
-<li>当你不知道自己有什么困惑的时候，需要先创造困惑感。</li>
-<li>根据主题寻找知识，更能提高你的兴趣。<ul>
-<li>当你有问题的时候决定你如何看书，而不是被书牵着鼻子走。</li>
-</ul>
-</li>
-<li>读一本书之前，先评估一本书是否适合你。<ul>
-<li>首选根据作者选书。如果你觉得一本书写的很好，那么不妨看看这个作者的其它书。</li>
-<li>其次是看书的目录和简介，可以判断一本书的难易程度。</li>
-<li>看豆瓣和亚马逊的评分和评论。看其中的差评可以了解一本书的不足。</li>
-<li>通过以上三点来了解一本书是否适合你🌹时间去读。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>抗干扰能力的养成 —— 学会和大脑相处</p>
-<ul>
-<li>做任何一件事情的时候不要过早退出循环。</li>
-<li>不要太习惯于失败的模式，要思考如何才能去成功。</li>
-<li>情绪控制</li>
-<li>选择控制<ul>
-<li>不要给自己太多的选择。</li>
-</ul>
-</li>
-<li>信息控制</li>
-<li><em>上面有部分的音频不能播放，不知道什么原因，👂不了</em></li>
-</ul>
-</li>
-</ol>
-<p>最后再贴一张图，是作者 PPT 中的一部分，觉得总结的很好，贴出来分享。</p>
-<p><img src="/resource/img/15225138638216.jpg"></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这里提到的四块总结都是很实用的点，里面很多地方博主也是深有体会的。主要差在了刻意练习上面，不能很好的和自己的大脑相处，就像《象与骑象人》中描述的，骑象人无法很好的驾驭🐘，是因为不够了解🐘，缺乏足够的练习。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/31/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/31/1.html" class="post-title-link" itemprop="url">计划书单</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+00:00">2018-03-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>计划书单废弃，剩下的书并没有制定计划读下去，而是被工作需要左右了学习方向。</p>
-<blockquote>
-<p>update at 2019-05-22</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>首先是书名，后面跟随的时间是读完的时间。</p>
-</blockquote>
-<h2 id="情商管理"><a href="#情商管理" class="headerlink" title="情商管理"></a>情商管理</h2><p>《秘密-朗达.拜恩》</p>
-<p>《情商套装6册-丹尼尔.戈尔曼》</p>
-<p>《6秒钟改变你的情商-乔舒瓦弗理》</p>
-<h2 id="心理学"><a href="#心理学" class="headerlink" title="心理学"></a>心理学</h2><p>《社会心理学》</p>
-<p><del>《象与骑象人》</del> 2018.02</p>
-<p>《最熟悉的陌生人》</p>
-<p>《心理学与生活》</p>
-<p>《裸猿三部曲》</p>
-<h2 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h2><p>《代码大全》</p>
-<p><del>《微服务设计》</del> 2017.08</p>
-<p>《程序员的自我修养：链接、装载与库》</p>
-<h2 id="散文随笔"><a href="#散文随笔" class="headerlink" title="散文随笔"></a>散文随笔</h2><p>《走到人生边上：自问自答》</p>
-<h2 id="语言文学"><a href="#语言文学" class="headerlink" title="语言文学"></a>语言文学</h2><p>《蔡康永的说话之道（套装2册）》</p>
-<h2 id="经济管理"><a href="#经济管理" class="headerlink" title="经济管理"></a>经济管理</h2><p>《金字塔原理1+2》</p>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p><del>《数学之美》</del> 2016.xx</p>
-<p><del>《天才在左疯子在右》</del> 2015.xx</p>
-<p>《最好的告别：关于衰老与死亡，你必须知道的常识》</p>
-<p>《黄金时代-王小波》</p>
-<p>《一九八四-乔治·奥威尔》</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/30/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/30/1.html" class="post-title-link" itemprop="url">2018年4月计划</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+00:00">2018-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><p>读书</p>
-<ul>
-<li>《见识-吴军》</li>
-<li>《领域驱动设计：软件核心复杂性应对之道》</li>
-<li>Java相关</li>
-</ul>
-</li>
-<li><p>文章</p>
-<ul>
-<li>Java相关的基础技术总结</li>
-<li>Python各种技巧的技术使用（middleware、元类、with）</li>
-<li>《象与骑象人》读书笔记</li>
-</ul>
-</li>
-</ol>
-<p>以上</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/29/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/29/1.html" class="post-title-link" itemprop="url">2018年3月更新</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-29 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-29T00:00:00+00:00">2018-03-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>三月并没有制定和学习计划，只是随心更新了几篇文章。</p>
-<ul>
-<li>基金选购学习笔记</li>
-<li>关于java的最初了解</li>
-<li>git场景化操作</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/17/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/17/1.html" class="post-title-link" itemprop="url">如何选购基金</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-17T00:00:00+00:00">2018-03-17</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="基金适合什么样的人？"><a href="#基金适合什么样的人？" class="headerlink" title="基金适合什么样的人？"></a>基金适合什么样的人？</h2><ul>
-<li>没有太多时间关注市场的人</li>
-<li>对某种理财产品不了解又比较感兴趣</li>
-<li>有闲钱 3-5 年用不到，不适合短线投资</li>
-</ul>
-<h2 id="买基金要考虑什么？"><a href="#买基金要考虑什么？" class="headerlink" title="买基金要考虑什么？"></a>买基金要考虑什么？</h2><ul>
-<li>能不能坚持长期持有基金？</li>
-<li>能不能承担风险？因为有可能亏损。</li>
-<li>买基金的钱会不会影响我的生活？</li>
-<li>基金的风格和种类，是投资的哪种类型的资产？</li>
-</ul>
-<h2 id="基金的类型"><a href="#基金的类型" class="headerlink" title="基金的类型"></a>基金的类型</h2><p><img src="/resource/img/15216457698476.jpg"></p>
-<p>高中低风险综合配置，可以有侧重。</p>
-<ul>
-<li>货币基金： 以余额宝为举例，风险低，收益不高且稳定。基金规模占总体的一半以上。</li>
-<li>债券基金： 纯债基金全部用来买债券，分为短债基金（一年左右，收益和风险略高于余额宝）;长债基金（3-5年长期债券，风险和收益比短债高一些）。还有一种拿一部分用来买股票，分为一级债基（主要是打新股）和二级债基（可以买股票）。</li>
-<li>可转债基金： …</li>
-<li>混合基金： 主动型基金的主要品种，配置灵活，可以买股票、债券、大宗商品、货币等。</li>
-<li>对冲基金和量化基金： 震荡市场下严格按照模型去调整。</li>
-<li>指数基金： 不太依赖基金经理，受整体市场平均值影响。跟踪某一类股票指数的涨跌走，主要是做好模型，追求平均收益。（国内指数基金种类比较少）（若于美国和香港市场）</li>
-<li>股票型基金： 基金经理按照股票市场的形式去调整。每个基金和基金经理的风格和他们团队的风格不同而不同。</li>
-<li>增强指数基金： …</li>
-<li>主动型基金： 依赖基金经理团队的能力。需要挑好基金经理，基金团队，可获得超平均收益。</li>
-<li>分级基金： 门槛比较高，风险比价高。</li>
-<li>QD基金： 投资海外。</li>
-</ul>
-<h2 id="购买基金的渠道"><a href="#购买基金的渠道" class="headerlink" title="购买基金的渠道"></a>购买基金的渠道</h2><ul>
-<li>基金公司官网（专卖店）（产品比较单一）</li>
-<li>基金公司运营的公众号、APP</li>
-<li>证券公司炒股软件（适合场内基金）</li>
-<li>第三方基金平台（基金超市）（赎回时间比较短一些）</li>
-<li>银行</li>
-</ul>
-<blockquote>
-<p>推荐使用第三方平台，基金类型丰富，介绍详细，方便对比。</p>
-</blockquote>
-<blockquote>
-<p>蚂蚁聚宝、天天基金网、好买基金网（看数据）</p>
-</blockquote>
-<blockquote>
-<p>回撤率?</p>
-</blockquote>
-<h2 id="主动型基金看什么？"><a href="#主动型基金看什么？" class="headerlink" title="主动型基金看什么？"></a>主动型基金看什么？</h2><p>成立时间比较久的（稳步上升）<br>基金以往业绩（长期业绩、平均收益）<br>基金经理的水平（以往业绩、回报率、擅长强项、基金投资风格）<br>回撤率<br>基金评级（基金购买页面标星）（指数基金没有评级）<br>夏普（冒一个单位风险获得的收益越大基金越好）</p>
-<blockquote>
-<p>不要过于纠结以往业绩</p>
-</blockquote>
-<h2 id="基金转换功能"><a href="#基金转换功能" class="headerlink" title="基金转换功能"></a>基金转换功能</h2><p>买入一个基金，可以直接在同基金公司转换为另一个基金公司，转换过程只收申购费的差价，不需要买入卖出的申购费。</p>
-<p>想节省申购费只能用同一个基金公司的基金互转，基金官网支持的转换种类比较多，第三方平台支持的比较少。</p>
-<p>利用基金公司官网货基零元购，再去转换到其它基金，有的在转换中不需要再交申购费。不支持 QD 基金。</p>
-<p>QD 基金申购费比较贵，申购和赎回都比国内基金高。</p>
-<p>基金公司主要靠管理费来赚钱。</p>
-<p>公募基金关注基金规模（更稳健），私募基金主要关注收益（更激进）。</p>
-<p>场内基金是可以通过炒股软件来买的。带 ETF、LOF 后缀的是场内基金，申购费比较低。场内基金比较灵活，可以当天买当天卖。手续费一般都在 0.02% ~ 0.03%，适合短线投资。</p>
-<h2 id="定投基本原则"><a href="#定投基本原则" class="headerlink" title="定投基本原则"></a>定投基本原则</h2><p><strong>逢低买入，逢高卖出，越跌越买，越涨越卖，定期不定额，止盈不止损。（反人性）</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/14/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/14/1.html" class="post-title-link" itemprop="url">财务、支付词汇</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-14T00:00:00+00:00">2018-03-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="冲正"><a href="#冲正" class="headerlink" title="冲正"></a>冲正</h2><p>冲正是为系统认为可能交易失败时采取的补救手法。即一笔交易在终端已经置为成功标志，但是发送到主机的账务交易包没有得到响应，即终端交易超时，所以不确定该笔交易是否在主机端也成功完成，为了确保用户的利益，终端重新向主机发送请求，请求取消该笔交易的流水，如果主机端已经交易成功，则回滚交易，否则不处理，然后将处理结果返回给终端。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/04/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/03/04/1.html" class="post-title-link" itemprop="url">Git操作场景化实践</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-04T00:00:00+00:00">2018-03-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>小明（是一个虚构人物）作为一名开发工程师（认真脸），平时经常用 Git 提交代码，觉得有些操作姿势还是很不舒服的，于是专门研究了一下各种场景下如果操作更优雅。</p>
-<p>简短的提供思路式的讲解。</p>
-<h2 id="git-merge-场景"><a href="#git-merge-场景" class="headerlink" title="git merge 场景"></a>git merge 场景</h2><h3 id="场景一：分支-merge"><a href="#场景一：分支-merge" class="headerlink" title="场景一：分支 merge"></a>场景一：分支 merge</h3><p>有时候开发一个稍微大一些的需求持续个几天，搞一个分支去提交吧，于是有了 <code>git checkout -b mywork</code>，在 mywork 分支 commit C4、C5，然后主分支被 commit C3，最后我要将分支 merge 到之分支之上 <code>git merge mywork</code>。</p>
-<p><img src="/resource/img/15182443948597.jpg"></p>
-<p>流程示意图如上面，使用 merge 的好处就是多人维护一个项目仓库的时候，要任何时候保证主分支代码是可用的，任何人不应该直接在 master 上提交代码。</p>
-<h3 id="场景二：merge-request"><a href="#场景二：merge-request" class="headerlink" title="场景二：merge request"></a>场景二：merge request</h3><p>fork \ merge request</p>
-<p><img src="/resource/img/15182456532437.jpg"></p>
-<h2 id="场景三：rebase"><a href="#场景三：rebase" class="headerlink" title="场景三：rebase"></a>场景三：rebase</h2><p>开发了很久，各种fix提交记录，终于测通过了，要合到主分支了。发现这么多无效信息的提交记录干扰我们阅读，这时可以通过rebase将你的多次提交记录压缩成一个commit信息，然后再合到主分支上。</p>
-<p><img src="/resource/img/15182459869424.jpg"></p>
-<p><img src="/resource/img/15184903464515.jpg"></p>
-<p>压缩 commit<br><code>git log</code> 选择你提交的前一个版本</p>
-<p><code>git rebase -i e9a13ba5adcc154d5717b107d55f416e61c03958</code></p>
-<p>然后对其中的各项 commit 选择 pick &#x2F; f &#x2F; drop</p>
-<p>遇到问题后处理，然后 <code>git rebase --continue</code> 直到合并完成</p>
-<p>rebase到最新提交前</p>
-<p>把所有分支的提交记录都弄下来 <code>git fetch --all</code></p>
-<p>然后 <code>git rebase base/master</code></p>
-<p>还是遇到问题后处理，然后 <code>git rebase --continue</code> 直到合并完成</p>
-<p>最后 <code>git push -f origin master</code></p>
-<p>还有处理过程中不想处理了可以 <code>git rebase --abort</code></p>
-<h2 id="blame"><a href="#blame" class="headerlink" title="blame"></a>blame</h2><p>咨询（检举）谁写的代码为什么这么设计（写了一堆坑）。</p>
-<p><code>git blame __init__.py</code> 可以查看每行代码提交记录</p>
-<p><img src="/resource/img/15184912683256.jpg"></p>
-<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p><code>git grep -n tensorflow</code> 可以根据关键字搜索代码</p>
-<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E6%90%9C%E7%B4%A2">7.5 Git 工具 - 搜索</a></p>
-<p><img src="/resource/img/15201547049654.jpg"></p>
-<h2 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h2><p><code>git revert C2</code> revert 是将你的一次提交代码反向重新创建一个新的记录</p>
-<p><img src="/resource/img/15201551398904.jpg"></p>
-<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><p>patch 的做法是将我们多次的提交diff成一个问题件，然后在 apply 作为一个新的 commit 提交。对于上面 rebase 那种多次提交并带着merge记录的很难通过rebase操作，patch会很方便的解决。</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/y041039/articles/2411600.html">https://www.cnblogs.com/y041039/articles/2411600.html</a></p>
-<p><img src="/resource/img/15201577453732.jpg"></p>
-<h2 id="hooks"><a href="#hooks" class="headerlink" title="hooks"></a>hooks</h2><p>git操作的一些钩子，可以帮你做一些检查。</p>
-<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9">https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9</a></p>
-<h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>临时保存操作内容</p>
-<p>保存记录 <code>git stash</code><br>提取记录 <code>git stash pop</code></p>
-<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9">https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9</a></p>
-<h2 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h2><p>对已经提交的数据再次提交使用</p>
-<ol>
-<li>找到一个 commit，记录 log 值</li>
-<li>新建一个分支 <code>git checkout -b newbranch</code></li>
-<li>将一个commit 复制到新分支提交一个新 commit。<code>git cherry-pick 38361a55138140827b31b72f8bbfd88b3705d77a</code></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -1120,8 +273,791 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/06/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/02/06/2.html" class="post-title-link" itemprop="url">Python时间处理函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+00:00">2018-02-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="常用时间表示方法"><a href="#常用时间表示方法" class="headerlink" title="常用时间表示方法"></a>常用时间表示方法</h2><p>时间处理看似简单，不熟悉的话实则也有很多坑在里面，下面先介绍一下常用的时间系统。</p>
+<h3 id="格林尼治时间-GMT"><a href="#格林尼治时间-GMT" class="headerlink" title="格林尼治时间 GMT"></a>格林尼治时间 GMT</h3><p>格林尼治时间是指位于英国伦敦郊区的皇家格林尼治天文台当地的标准时间，因为本初子午线被定义为通过那里的经线。由于地球每天的自转是有些不规则的，而且正在缓慢减速，因此格林尼治时间基于天文观测本身的缺陷，已经不再被作为标准时间使用。现在的标准时间，是由原子钟报时的协调世界时（UTC）来决定。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93">格林尼治标准时间-维基百科</a></p>
+</blockquote>
+<h3 id="协调世界时-UTC"><a href="#协调世界时-UTC" class="headerlink" title="协调世界时 UTC"></a>协调世界时 UTC</h3><p>协调世界时是最主要的世界时间标准，其以原子时秒长为基础。它与0度经线的平太阳时相差不超过1秒，并不遵守夏令时。协调世界时是最接近格林威治标准时间的几个替代时间系统之一，也是我们系统中主要使用的一个时间系统。<br>理论时区上以被15整除的子午线为中心，向东西两侧延伸7.5°，每15°为一个时区，这是理论时区。所以每差一个时区理论相差一个小时。东边的时区比西边的时区早，所以引入了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E6%97%A5%E6%9C%9F%E5%8F%98%E6%9B%B4%E7%BA%BF">国际日期变更线</a>的概念。实际上为了避开国界线，时区的形状并不规则，又会以国家内部行政分界线划分，这是实际时区。在我国横跨四个理论时区，实际统一使用东八区（UTC+8）为实际时区。<br><img src="/resource/img/15143912170273.jpg"><br>时区的具体表示方式请移步 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA">时区-维基百科</a></p>
+<h3 id="UNIX时间"><a href="#UNIX时间" class="headerlink" title="UNIX时间"></a>UNIX时间</h3><p>UNIX时间或称POSIX时间，是UNIX或类UNIX系统使用的时间表示方式：从协调世界时1970年1月1日0时0分0秒起至现在的总秒数，不考虑闰秒。<br>UNIX时间也就是我们常说的时间戳，也是系统中常用的一种时间表示方式。它全球唯一，当我们将时间戳转换成协调世界时的时候是零时区的时间加上对应时区的时差得出的协调世界时。</p>
+<h3 id="夏令时"><a href="#夏令时" class="headerlink" title="夏令时"></a>夏令时</h3><p>先放维基百科解释 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E6%97%B6%E5%88%B6">夏时制-维基百科</a><br>是一种为了节约能源而认为规定的地方时间制度。</p>
+<h2 id="Python-处理时间"><a href="#Python-处理时间" class="headerlink" title="Python 处理时间"></a>Python 处理时间</h2><p>说完了时间的一些表示方法，下面来说说 Python 有哪些处理时间的模块，以及整理了一些各异的时间处理函数。</p>
+<h3 id="time-模块"><a href="#time-模块" class="headerlink" title="time 模块"></a>time 模块</h3><h3 id="datetime-模块"><a href="#datetime-模块" class="headerlink" title="datetime 模块"></a>datetime 模块</h3><h3 id="calendar-模块"><a href="#calendar-模块" class="headerlink" title="calendar 模块"></a>calendar 模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"></span><br><span class="line">#返回指定年的某月</span><br><span class="line">def get_month(year, month):</span><br><span class="line">    return calendar.month(year, month)</span><br><span class="line"></span><br><span class="line">#返回指定年的日历</span><br><span class="line">def get_calendar(year):</span><br><span class="line">    return calendar.calendar(year)</span><br><span class="line"></span><br><span class="line">#判断某一年是否为闰年，如果是，返回True，如果不是，则返回False</span><br><span class="line">def is_leap(year):</span><br><span class="line">    return calendar.isleap(year)</span><br><span class="line"></span><br><span class="line">#返回某个月的weekday的第一天和这个月的所有天数</span><br><span class="line">def get_month_range(year, month):</span><br><span class="line">    return calendar.monthrange(year, month)</span><br><span class="line"></span><br><span class="line">#返回某个月以每一周为元素的序列</span><br><span class="line">def get_month_calendar(year, month):</span><br><span class="line">    return calendar.monthcalendar(year, month)</span><br></pre></td></tr></table></figure>
+
+<h3 id="arrow-库"><a href="#arrow-库" class="headerlink" title="arrow 库"></a>arrow 库</h3><p>pip 安装就好了，Python中最好用的时间处理库了。</p>
+<p><a target="_blank" rel="noopener" href="http://arrow.readthedocs.io/en/latest/">官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/crsmithdev/arrow/">crsmithdev_arrow_ Better dates &amp; times for Python - github</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/06/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/02/06/1.html" class="post-title-link" itemprop="url">《编写可读代码的艺术》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+00:00">2018-02-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/resource/img/15178471816667.jpg"></p>
+<h2 id="优雅的代码注释"><a href="#优雅的代码注释" class="headerlink" title="优雅的代码注释"></a>优雅的代码注释</h2><p>准确描述代码的行为。<br>代码分块，描述每一块的行为。</p>
+<h2 id="合理的变量命名"><a href="#合理的变量命名" class="headerlink" title="合理的变量命名"></a>合理的变量命名</h2><p>使用更具像化的词语描述，使别人不会误解。<br>对于返回是否的变量命名通过『is_』做前缀。</p>
+<h2 id="简化循环流程"><a href="#简化循环流程" class="headerlink" title="简化循环流程"></a>简化循环流程</h2><p>条件语句中将常量放表达式右边。<br>避免使用 三目运算符、do／while 、goto 这些可读性比较差的结构。<br>把超长的表达式拆分成更容易理解的小块。<br>复杂表达式的等价转换写法，使可读性更高（德摩根定理）。<br>减少中间变量，减少中间变量的作用域。<br>积极的发现并抽取出不相关的子逻辑，是不是可以提取到公共方法或更高层；同时也要避免过度的拆分公共方法。<br>一次只做一件事，将你要做的事分成若干子步骤去处理。<br>『如果你不能把一件事解释给你祖母听的话说明你还没有真正理解它。』 —— 阿尔伯特 爱因斯坦</p>
+<p><img src="/resource/img/15178473805394.jpg"></p>
+<h2 id="少写代码"><a href="#少写代码" class="headerlink" title="少写代码"></a>少写代码</h2><p>一定程度上代码库越小越好，越轻量越好，这样你维护的成本会越小，主要是不要过度理解需求，以最方便的方式去解决问题，不要过度设计，因为你有时候很难去用到这些。<br>删除一些没用的代码。<br>熟悉你周边的库，每隔一段时间，花十几分钟来阅读标准库中的所有函数／模块／类型的名字。</p>
+<h2 id="测试的可读性"><a href="#测试的可读性" class="headerlink" title="测试的可读性"></a>测试的可读性</h2><p>封装不重要的细节，使测试的重要细节更突出。<br>让错误消息具有可读性，将错误的输出打印出来。<br>合理的测试函数命名。<br>不要着迷于100％的测试覆盖率，参考2／8法则。<br>不要让测试成为产品开发的障碍。</p>
+<p><img src="/resource/img/15178474543035.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>大概看了两周左右，将一些觉得比较好的内容总结了一下，并在实际工作中应用起来，之前一些不好的习惯在慢慢的刻意改正。书是本好书，经验与实例相结合，更容易读懂其中含义，让人品味到了坏代码的味道。这本书的内容还需要不断思考并实践。借用前辈告诫的一句话结尾『不要放任自己，要时刻保持严谨的态度，对代码负责，也是对自己负责。』</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/28/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/01/28/1.html" class="post-title-link" itemprop="url">谈谈工作这三年</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-28T00:00:00+00:00">2018-01-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/resource/img/tantan1.jpeg" alt="tantan1"></p>
+<p>一不留神工作就三年了，准确的说是八个月的实习加两年七个月的正式。是该找个时间跟自己谈谈，也是在反思，这三年的得与失。就通过并不咋样的表达能力，列出以下几点去总结和反思一下吧。</p>
+<h2 id="毕业找工作"><a href="#毕业找工作" class="headerlink" title="毕业找工作"></a>毕业找工作</h2><p>在帝都的第一家公司是我在大四上学期通过一个学长推荐进去的。也是有一些幸运的成分，之前在大学所在城市一家公司和几个同学一起实习，没几个月就发现工作环境并不是我想要的，就想着要去帝都闯一闯，也是为了躲避前女友母亲逼迫她毕业就回家的要求。当时自学了两个月的 Python ，和同学业余时间搞了一个项目，面向学校学生，大概有一两万用户吧。正想着去北京找找工作看，发现学长的公司在校招，就找他内推了一把，笔试比较惨，但还是被录取了。</p>
+<h2 id="在帝都第一家公司"><a href="#在帝都第一家公司" class="headerlink" title="在帝都第一家公司"></a>在帝都第一家公司</h2><p>录取后很快我就从上一家公司离职奔来北京入职了，从实习到试用再到正式，一切都比较顺顺利利的，还两次评到了优秀员工。带我的那个师傅比较认真给我不少帮助，而我平时和学长混的也不错。强制的代码规范，不断评审的代码设计给我成长不小帮助，渐渐在组内任务越来越重，主要是公司内部的管理系统开发。说起学长，给我的感觉是做技术的有两种人，一种是为了技术做技术的人，另一种是为了生活做技术的人，学长走了我身边就只剩下另一种人了，而我渐渐的成了两者之间的一种人，最终还是会趋于其中一种。</p>
+<h2 id="为什么从上一家离职"><a href="#为什么从上一家离职" class="headerlink" title="为什么从上一家离职"></a>为什么从上一家离职</h2><p>离职的原因无非两种，待得不爽和给的钱少。之于我也是这两点吧，这两年从无知到渐渐确定了自己的方向，路不同便只好挥挥手告别。</p>
+<h2 id="今后有什么规划"><a href="#今后有什么规划" class="headerlink" title="今后有什么规划"></a>今后有什么规划</h2><p>目前在一家明星公司，在这个环境里还有很大的成长空间，方向也不错，踏实学习成长，后面的路还是比较长的。就现在的状况来说，更主要的是注重技术的成长，从做内部系统到结算系统到现在的支付系统，更专注与业务方向，对语言的选择并不那么重要了。</p>
+<p>两个方面，一方面是后端技术栈的经验积累，另一方面是产品层面的业务划分与设计能力。</p>
+<p>2018继续加油，做一个为技术做技术的人。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/12/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/01/12/1.html" class="post-title-link" itemprop="url">Python的mixin模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-12T00:00:00+00:00">2018-01-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Mixin 是利用语言特性来简洁的实现组合模式，Python 中通过一定规范的多继承实现的。</p>
+<p>使用时需要注意一下几点：</p>
+<ul>
+<li>类的单一职责</li>
+<li>对宿主类一无所知</li>
+<li>不存在对宿主类的方法调用，避免引入 MRO 查找顺序</li>
+</ul>
+<p>如下例子，对于不同的 Mixin 类只负责实现自己的行为特征函数，然后 People 类继承这些特征，在自己的函数中使用这些特征。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># coding: utf-8</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">File: mixin_demo.py</span><br><span class="line">Author: noogel &lt;noogel@163.com&gt;</span><br><span class="line">Date: 2018-01-12 09:11</span><br><span class="line">Description: mixin_demo</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class EatMixin(object):</span><br><span class="line"></span><br><span class="line">    def eat(self):</span><br><span class="line">        return &quot;eat!&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class DrinkMixin(object):</span><br><span class="line"></span><br><span class="line">    def drink(self):</span><br><span class="line">        return &quot;drink!&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SleepMixin(object):</span><br><span class="line"></span><br><span class="line">    def sleep(self):</span><br><span class="line">        return &quot;sleep!&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class People(EatMixin, DrinkMixin, SleepMixin):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        print &quot;People can &quot;, self.eat()</span><br><span class="line">        print &quot;People can &quot;, self.drink()</span><br><span class="line">        print &quot;People can &quot;, self.sleep()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    print &quot;Init people.&quot;</span><br><span class="line">    people = People()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  dev-demo python mixin_demo.py </span><br><span class="line">Init people.</span><br><span class="line">People can  eat!</span><br><span class="line">People can  drink!</span><br><span class="line">People can  sleep!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20778853">https://www.zhihu.com/question/20778853</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/07/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/01/07/2.html" class="post-title-link" itemprop="url">SHH打洞配置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-07T00:00:00+00:00">2018-01-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>拿三台机器举例打洞配置讲解</p>
+<table>
+<thead>
+<tr>
+<th>机器</th>
+<th>网络环境</th>
+<th>用途</th>
+<th>SSH服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A机器</td>
+<td>公网IP固定</td>
+<td>中转机器</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>B机器</td>
+<td>NAT网络</td>
+<td>被访问机器</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>C机器</td>
+<td>任意网络环境</td>
+<td>需要访问B机器</td>
+<td>不需要</td>
+</tr>
+</tbody></table>
+<h2 id="自动连接重试"><a href="#自动连接重试" class="headerlink" title="自动连接重试"></a>自动连接重试</h2><p>需要B机器向A机器建立 SSH 反向隧道，命令如下：</p>
+<p><code>autossh -p 22 -M 6777 -NR &#39;*:6766:127.0.0.1:22&#39; usera@a.site</code></p>
+<p>通过 <code>autossh</code> 可以实现连接失败自动重连，<code>*:6766:127.0.0.1:22</code> 是将A机器的6766端口转发到B机器的22端口，<code>usera@a.site</code> 是请求B机器的用户名和地址。</p>
+<h2 id="打洞"><a href="#打洞" class="headerlink" title="打洞"></a>打洞</h2><p>开启端口转发功能，编辑 sshd 的配置文件 &#x2F;etc&#x2F;ssh&#x2F;sshd_config，增加配置：<br><code>GatewayPorts yes</code></p>
+<h2 id="另一台机器连接"><a href="#另一台机器连接" class="headerlink" title="另一台机器连接"></a>另一台机器连接</h2><p>通过C机器对A机器的6766端口发起连接就会自动被转发到B机器。</p>
+<p><code>ssh -p 6766 userb@a.site</code></p>
+<h2 id="SSH-私钥认证"><a href="#SSH-私钥认证" class="headerlink" title="SSH 私钥认证"></a>SSH 私钥认证</h2><p>把请求机器的 ~&#x2F;.ssh&#x2F;id_rsa.pub 添加到被请求机器的 ~&#x2F;.ssh&#x2F;authorzied_keys 文件中</p>
+<p>同时设置文件权限为 <code>chmod 600 ~/.ssh/authorzied_keys</code></p>
+<p>设置后在连接机器的时候就不需要密码了，可以走私钥认证。</p>
+<h2 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h2><p>这里通过 supervisord 配置保证B机器重启后 autossh 能启动。</p>
+<h2 id="有固定公网IP的机器"><a href="#有固定公网IP的机器" class="headerlink" title="有固定公网IP的机器"></a>有固定公网IP的机器</h2><p>这里我选用的是阿里云的机器，因为平时用的量不大，所以选择按量付费就可以了，看了下费用大概 80RMB&#x2F;月。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/lidongshengajz/article/details/73482908">http://blog.csdn.net/lidongshengajz/article/details/73482908</a><br><a target="_blank" rel="noopener" href="https://linux.cn/article-5975-1.html">https://linux.cn/article-5975-1.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/07/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/01/07/1.html" class="post-title-link" itemprop="url">Jupyter Notebook配置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-07T00:00:00+00:00">2018-01-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/gx19862005/article/details/60141711">http://blog.csdn.net/gx19862005/article/details/60141711</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/06/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/01/06/1.html" class="post-title-link" itemprop="url">Ubuntu配置SMB服务</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-06T00:00:00+00:00">2018-01-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="安装samba"><a href="#安装samba" class="headerlink" title="安装samba"></a>安装samba</h2><p><code>sudo apt-get install samba</code></p>
+<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>添加 smb 服务的用户名密码</p>
+<p><code>sudo smbpasswd -a xyz</code></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑&#x2F;etc&#x2F;samba&#x2F;smb.conf文件，在最后加上如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[xyz]</span><br><span class="line">   comment = xyz&#x27;s Home</span><br><span class="line">   path = /home/Doucument</span><br><span class="line">   browseable = yes</span><br><span class="line">   read only = no</span><br><span class="line">   guest ok = no</span><br><span class="line">   create mask = 0600</span><br></pre></td></tr></table></figure>
+
+<h2 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h2><p><code>sudo /etc/init.d/samba restart</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/29/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/29/1.html" class="post-title-link" itemprop="url">《亿级流量网站架构核心技术》读书笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-29 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-29T00:00:00+00:00">2017-12-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="交易系统设计与原则"><a href="#交易系统设计与原则" class="headerlink" title="交易系统设计与原则"></a>交易系统设计与原则</h2><p><strong>墨菲定律</strong></p>
+<ol>
+<li>任何事都没有表面看起来那么简单。</li>
+<li>所有的事都会比你预计的时间长。</li>
+<li>会出错的事总会出错。</li>
+<li>如果你担心某种情况发生，那么它就更有可能发生。</li>
+</ol>
+<p><strong>康威定律</strong></p>
+<ol>
+<li>组织沟通方式会通过系统设计表达出来。</li>
+<li>时间再多一件事情也不可能做的完美，但总有时间做完一件事情。</li>
+<li>线型系统和线型组织架构间有潜在的异质同态特性。</li>
+<li>大的系统组织总是比小系统更倾向于分解。<br><img src="/resource/img/15145617696252.jpg"></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/8611">https://yq.aliyun.com/articles/8611</a></p>
+<h3 id="高并发原则"><a href="#高并发原则" class="headerlink" title="高并发原则"></a>高并发原则</h3><ul>
+<li><p><strong>无状态</strong> 应用无状态，配置文件有状态。</p>
+</li>
+<li><p><strong>拆分</strong> 一个大而全的系统是按照功能模块拆分系统。</p>
+<ul>
+<li>系统维度：按照系统功能&#x2F;业务拆分，比如商品系统、购物车、订单、支付、分账、结算等。</li>
+<li>功能维度：对一个系统进行功能拆分，优惠券创建系统、领券系统、用券系统。</li>
+<li>读写维度：使用读写分离，读服务考虑使用缓存提升性能，写服务量大可以考虑分库分表，聚合读取场景下考虑数据异构拆分系统然后将分散在多处的数据聚合到一处存储。</li>
+<li>AOP 维度：面向切面编程，根据访问特征按照 AOP 进行拆分。处理日志记录，性能统计，安全控制，事务处理，异常处理等等。</li>
+<li>模块维度：按照基础模块特征进行拆分，比如分库分表、数据库连接池；代码结构按照三层划分。</li>
+</ul>
+</li>
+<li><p><strong>服务化</strong> 进程内服务 → 单机远程服务 → 集群手动注册服务 → 自动注册和服务发现 → 服务的分组&#x2F;隔离&#x2F;路由 → 服务治理。</p>
+</li>
+<li><p><strong>消息队列</strong> 使用消息队列可以实现服务解耦、异步处理、流量削峰&#x2F;缓冲等。</p>
+<ol>
+<li><p>大流量缓冲<br>  <img src="/resource/img/15145639698521.jpg"><br><img src="/resource/img/15145641673423.jpg"></p>
+</li>
+<li><p>数据校对：使用异步机制会存在消息丢失的情况，需要考虑定期去扫描原始表，对数据进行校对和问题的补偿。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>数据异构</strong></p>
+<ul>
+<li>数据异构，比如订单分库分表，按照订单ID进行划分，对于异构意义不大不大的字段（库存价格）考虑异步加载，合并并发请求等。</li>
+<li>数据闭环，通过 MQ 机制接收数据变更，然后把原子化数据存储到合适的存储引擎，然后将数据聚合，把多个数据源拿过来，然后存储到KV存储中。如果一次需要多个数据，可以考虑使用 Hash Tag 机制将相关数据聚合到一个实例。</li>
+<li>前端展示，减少前端拿数据的数量。</li>
+</ul>
+</li>
+<li><p><strong>缓存银弹</strong></p>
+<ul>
+<li>浏览器端缓存，通过设计过期时间进行控制，适用于不太敏感的数据。</li>
+<li>APP 客户端缓存，为了防止瞬间流量冲击，把相关的静态文件下发到客户端缓存。</li>
+<li>CDN 缓存，将一些活动页、图片、视频等资源推送到离用户进的 CDN 节点。一般是通过推送机制和拉取机制。</li>
+<li>接入层缓存，例如 Nginx 层，通过 URL 重写、一致性哈希、代理缓存等机制实现。</li>
+<li>应用层缓存</li>
+<li>分布式缓存</li>
+</ul>
+</li>
+<li><p><strong>并发化</strong> 将串行获取的数据通过并发化获取。</p>
+</li>
+</ul>
+<h3 id="高可用原则"><a href="#高可用原则" class="headerlink" title="高可用原则"></a>高可用原则</h3><ul>
+<li><strong>降级</strong> 主要的是设计一个降级开关。<ul>
+<li>开关集中化管理，通过推送机制将开关推送到各个应用。</li>
+<li>可降级的多级读服务，按照读写维度进行调用降级。</li>
+<li>开关前置化，将开关前置到 Nginx 接入层，对流量请求拦截或一小部分放流。</li>
+<li>业务降级，把同步调用改成异步调用，或者优先处理高优先级数据或包含特征的数据，合理分配流量进入系统，以保障系统可用。</li>
+</ul>
+</li>
+<li><strong>限流</strong> 为了防止恶意请求流量、恶意攻击，防止流量超出系统峰值。<ul>
+<li>恶意请求只访问到 cache。</li>
+<li>穿透到后端的应用流量可以考虑使用 Nginx 层做处理。</li>
+<li>对于恶意 IP 使用 Nginx 层进行屏蔽。</li>
+<li><em>原则是限制流量穿透到后端薄弱的应用层。</em></li>
+</ul>
+</li>
+<li><strong>切流量</strong> 应对多机房环境某机房挂了或者机架挂了，或者不可抗拒的自然灾害，这时异地多活机房就很重要了。我们要做的就是能及时将异常的地方下线，流量切到正常的服务下。<ul>
+<li>DNS，切换机房入口。</li>
+<li>LVS&#x2F;HAProxy，切换故障的接入层。</li>
+<li>Nginx，切换故障的应用层。</li>
+</ul>
+</li>
+<li><strong>可回滚</strong> 当服务出错时，通过版本话机制回滚到最近的一个正确版本。</li>
+</ul>
+<h3 id="业务设计原则"><a href="#业务设计原则" class="headerlink" title="业务设计原则"></a>业务设计原则</h3><ul>
+<li>防重设计，比如结算页面防止重复提交。</li>
+<li>幂等设计，在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。</li>
+<li>流程可定义，两个流程彼此分离，在需要的时候进行关联，或者复用一些理赔流程。</li>
+<li>状态与状态机，在设计交易订单系统，会存在正向状态和逆向状态，需要记录订单的状态轨迹并记录相关日志。还需要考虑并发状态修改的问题。</li>
+<li>后台系统操作的反馈，对后台系统操作场景能及时预览最终效果。</li>
+<li>后台系统审批，对于一些敏感操作记录日志，设计审批流程，保证操作可追溯、可审计。</li>
+<li>文档和注释，无需多说。</li>
+<li>备份，代码仓库的备份和管理。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/27/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/27/2.html" class="post-title-link" itemprop="url">PyCharm越用越好用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-27 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-27T00:00:00+00:00">2017-12-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="调试面板"><a href="#调试面板" class="headerlink" title="调试面板"></a>调试面板</h2><p><img src="/resource/img/15143878443336.jpg"></p>
+<h2 id="设置文件和代码模板"><a href="#设置文件和代码模板" class="headerlink" title="设置文件和代码模板"></a>设置文件和代码模板</h2><p><img src="/resource/img/15143878611785.jpg"></p>
+<p>PyCharm comes with a set of predefined template variables.</p>
+<p>The available predefined file template variables are:</p>
+<p>${PROJECT_NAME} - the name of the current project.<br>${NAME} - the name of the new file which you specify in the New File dialog box during the file creation.<br>${USER} - the login name of the current user.<br>${DATE} - the current system date.<br>${TIME} - the current system time.<br>${YEAR} - the current year.<br>${MONTH} - the current month.<br>${DAY} - the current day of the month.<br>${HOUR} - the current hour.<br>${MINUTE} - the current minute.<br>${PRODUCT_NAME} - the name of the IDE in which the file will be created.<br>${MONTH_NAME_SHORT} - the first 3 letters of the month name. Example: Jan, Feb, etc.<br>${MONTH_NAME_FULL} - full name of a month. Example: January, February, etc.</p>
+<blockquote>
+<p>官方文档 <a target="_blank" rel="noopener" href="http://www.jetbrains.com/pycharm/help/creating-and-editing-file-templates.html">http://www.jetbrains.com/pycharm/help/creating-and-editing-file-templates.html</a></p>
+</blockquote>
+<h2 id="设置字体、字号"><a href="#设置字体、字号" class="headerlink" title="设置字体、字号"></a>设置字体、字号</h2><p><img src="/resource/img/15143879090652.jpg"></p>
+<h2 id="设置行号"><a href="#设置行号" class="headerlink" title="设置行号"></a>设置行号</h2><ol>
+<li><p>临时设置。右键单击行号处，选择 Show Line Numbers。但是这种方法，只对一个文件有效，并且，重启PyCharm 后消失。<br><img src="/resource/img/15143879346256.jpg"></p>
+</li>
+<li><p>永久设置。File –&gt; Settings –&gt;Editor –&gt;Appearance , 之后勾选Show Line Numbers。<br><img src="/resource/img/15143879759193.jpg"></p>
+</li>
+</ol>
+<h2 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h2><ol>
+<li><p>配置远程编译器，输入地址、用户名、密码、远程编译器路径，SSH方式连接。<br><img src="/resource/img/15143880088991.jpg"></p>
+</li>
+<li><p>调试配置。<br><img src="/resource/img/15143880281617.jpg"></p>
+</li>
+<li><p>配置远程开发环境项目目录。<br><img src="/resource/img/15143880522143.jpg"></p>
+</li>
+</ol>
+<p><img src="/resource/img/15143880587039.jpg"></p>
+<ol start="4">
+<li>设置自动上传<br><img src="/resource/img/15143880744831.jpg"></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

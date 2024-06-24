@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -186,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/08/22/1.html">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/07/28/2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +200,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/22/1.html" class="post-title-link" itemprop="url">Redis IO模型</a>
+          <a href="/2019/07/28/2.html" class="post-title-link" itemprop="url">Maven 效率手册</a>
         </h2>
 
         <div class="post-meta-container">
@@ -210,7 +211,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-22T00:00:00+00:00">2019-08-22</time>
+      <time title="创建时间：2019-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-28T00:00:00+00:00">2019-07-28</time>
     </span>
 
   
@@ -223,123 +224,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>通俗的理解 Redis 是一个单进程单线程模型的 KV 内存数据库，截止到目前官方会在年底发布多线程版本，并且 Redis 也有自己的持久化方案。采用 I&#x2F;O 复用模型和非阻塞 IO 技术，被广泛应用在高并发场景中。</p>
-<p>Redis 高性能的几个关键点：</p>
-<ul>
-<li>完全基于内存操作，数据也是存储在内存中。</li>
-<li>数据结构简单，很多查找和操作的时间复杂度在 O(1)。</li>
-<li>单线程模式，避免了上下文的切换和锁竞争。</li>
-<li>使用了 I&#x2F;O 多路复用模型和非阻塞 IO。</li>
-</ul>
-<p>Redis 同时支持多个客户端连接，采用 I&#x2F;O 多路复用模型（select\poll\epoll）可以同时监听多个 IO 流事件。</p>
-<blockquote>
-<p>多路指的是多个网络连接，复用指的是复用同一个线程。<br>采用多路IO复用技术可以让单个线程高效的处理多个连接请求(尽量减少网络IO的时间消耗)，且Redis在内存中操作数据的速度非常快(内存内的操作不会成为这里的性能瓶颈)，主要以上两点造就了Redis具有很高的吞吐量。</p>
+          <blockquote>
+<p>基于 Ubuntu 18.04.2 系统做过尝试</p>
 </blockquote>
-<p>TODO I&#x2F;O 多路复用</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="http://researchlab.github.io/2018/10/08/redis-11-redisio/">http://researchlab.github.io/2018/10/08/redis-11-redisio/</a></p>
-</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install maven</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/07/29/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/29/1.html" class="post-title-link" itemprop="url">第一次露营</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-07-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-29T00:00:00+00:00">2019-07-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>发现自己没玩过的事情好多，上周末便实施了一次露营⛺️之路，叫上小伙伴一起报了个户外团，第一次去选择的比较休闲级别的，然后自带了几十斤装备在山上扎营看天。</p>
-<p>去之前连帐篷都没有打开过，不过好在很好弄，去到了迅速选择好营地很快就扎好了。然后在山顶四处转了转。第一次出来玩还是挺兴奋的，但没多久就冻得回帐篷换上了衣服，对比去的时候早上北京的天气超级闷热。<br><img src="/resource/img/15644162500365.jpg"></p>
-<p>周围也有好多同行的人在扎营，还有两只🐶子互相溜着玩，和它们的主人一样的兴奋。<br><img src="/resource/img/15644164178708.jpg"></p>
-<p>到了傍晚，就开始下起了大雾，一直持续到了第二天早上，后来想想从山脚下看来这应该是☁️吧，那就是身在云中了。在这么个野外环境下，找厕所也是很方了，哈哈哈。</p>
-<p><img src="/resource/img/15644165914978.jpg"></p>
-<p><img src="/resource/img/15644165994873.jpg"></p>
-<p>下了这么一晚上的雾，有点遗憾的是没能看到星空🌃，而且没能选到一个防露水的帐篷晚上被滴醒好几次😶。。。</p>
-<p><img src="/resource/img/15644166097428.jpg"></p>
-<p>早上还是挺可以的，看到了日出🌅和云海，还有四处觅食的🐂。其实云海肉眼看上去不太明显，但是做成一个加速的短视频就很好看了。</p>
-<p><img src="/resource/img/15644168860852.jpg"></p>
-<p><img src="/resource/img/15644168979835.jpg"></p>
-<p><img src="/resource/img/15644169199043.jpg"></p>
-<p><img src="/resource/img/15644169500468.jpg"></p>
-<p>露营前简单做的攻略</p>
-<p>说明：</p>
-<ol>
-<li>加粗为必备</li>
-<li>标 A 的说明已准备好</li>
-</ol>
-<p>装备：</p>
-<p><strong>帐篷A</strong>、<strong>防潮垫A</strong>、<strong>睡袋A</strong>、气垫（防咯）、<strong>头灯A</strong>、手电A、<strong>登山包A</strong>、<strong>充电宝A</strong>、手机</p>
-<p><strong>雨衣A</strong>、雨鞋套A、<strong>登山鞋或运动鞋</strong>、<strong>长袖防风衣物</strong>、羽绒服、头巾、棉帽</p>
-<p><strong>暖贴A</strong>、水杯、<strong>水5L A</strong>、<strong>湿巾A</strong>、<strong>纸巾A</strong>、洗漱用品、<strong>垃圾袋A</strong>、耳塞（风声吵）、眼罩</p>
-<p><strong>自发热小火锅A</strong>、八宝粥、面包、筷子、红牛、便携气炉</p>
-<p><strong>药物</strong>（快客、思密达+ 、藿香正气、创可贴、防虫喷雾、布洛芬）、风油精 AAAAA</p>
-<p>银行卡一张A、<strong>工具刀A</strong>、备用手机A</p>
-<p>这里说一些注意点</p>
-<ol>
-<li>帐篷一定要四季防雨防露水的，赶上下雨就惨了</li>
-<li>防潮垫一定要有，并且根据情况准备厚点的防咯</li>
-<li>暖贴可以准备一些晚上睡觉冷贴身上</li>
-<li>垃圾袋还是多带点将垃圾带走</li>
-<li>工具刀准备一下防止意外保护安全</li>
-<li>如果带气炉的话要注意地铁不让进</li>
-<li>吃的尽量带一些高热量食物，自发热小火锅我觉得必备</li>
-</ol>
-<p>最后附上一张小朋友拍的很棒的照片。</p>
-<p><img src="/resource/img/15644170535159.jpg"></p>
+<h2 id="仓库概念"><a href="#仓库概念" class="headerlink" title="仓库概念"></a>仓库概念</h2><p><img src="/resource/img/15720899449087.jpg"></p>
+<p><code>~/.m2</code> 目录下面是存放安装包的内容缓冲.</p>
+<p><code>settings.xml</code> 。。。</p>
+<p>不要使用 IDE 内嵌 Maven</p>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><p><code>mvn compile</code> 编译源码<br><code>mvn package</code> 打包<br><code>mvn test</code> 测试<br><code>mvn clean</code> 清除代码<br><code>mvn deploy</code> 上传到私服<br><code>mvn install</code> 上传到本地仓库</p>
+<p><code>mvn -X install</code> 开启调试日志<br><code>mvn -U package</code> 清除缓存打包<br><code>mvn cobertura:cobertura</code> 单元测试覆盖率<br><code>mvn dependency:tree</code> 查看依赖关系</p>
+<h2 id="Maven-SNAPSHOT-版本和-RELEASE-版本的区别"><a href="#Maven-SNAPSHOT-版本和-RELEASE-版本的区别" class="headerlink" title="Maven SNAPSHOT 版本和 RELEASE 版本的区别"></a>Maven SNAPSHOT 版本和 RELEASE 版本的区别</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/EasonJim/p/6852840.html">https://www.cnblogs.com/EasonJim/p/6852840.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7e8e67205b97">https://www.jianshu.com/p/7e8e67205b97</a></p>
+<h2 id="Maven-依赖冲突"><a href="#Maven-依赖冲突" class="headerlink" title="Maven 依赖冲突"></a>Maven 依赖冲突</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b08364ce234f">https://www.jianshu.com/p/b08364ce234f</a></p>
 
       
     </div>
@@ -424,83 +322,6 @@
 <li>节省空间，只在必要时进行升级。</li>
 </ol>
 <p>升级操作是指将整数由 16 位、32 位、64 位的方式增加支持范围。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/07/28/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/28/2.html" class="post-title-link" itemprop="url">Maven 效率手册</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-28T00:00:00+00:00">2019-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>基于 Ubuntu 18.04.2 系统做过尝试</p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install maven</span><br></pre></td></tr></table></figure>
-
-<h2 id="仓库概念"><a href="#仓库概念" class="headerlink" title="仓库概念"></a>仓库概念</h2><p><img src="/resource/img/15720899449087.jpg"></p>
-<p><code>~/.m2</code> 目录下面是存放安装包的内容缓冲.</p>
-<p><code>settings.xml</code> 。。。</p>
-<p>不要使用 IDE 内嵌 Maven</p>
-<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><p><code>mvn compile</code> 编译源码<br><code>mvn package</code> 打包<br><code>mvn test</code> 测试<br><code>mvn clean</code> 清除代码<br><code>mvn deploy</code> 上传到私服<br><code>mvn install</code> 上传到本地仓库</p>
-<p><code>mvn -X install</code> 开启调试日志<br><code>mvn -U package</code> 清除缓存打包<br><code>mvn cobertura:cobertura</code> 单元测试覆盖率<br><code>mvn dependency:tree</code> 查看依赖关系</p>
-<h2 id="Maven-SNAPSHOT-版本和-RELEASE-版本的区别"><a href="#Maven-SNAPSHOT-版本和-RELEASE-版本的区别" class="headerlink" title="Maven SNAPSHOT 版本和 RELEASE 版本的区别"></a>Maven SNAPSHOT 版本和 RELEASE 版本的区别</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/EasonJim/p/6852840.html">https://www.cnblogs.com/EasonJim/p/6852840.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7e8e67205b97">https://www.jianshu.com/p/7e8e67205b97</a></p>
-<h2 id="Maven-依赖冲突"><a href="#Maven-依赖冲突" class="headerlink" title="Maven 依赖冲突"></a>Maven 依赖冲突</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b08364ce234f">https://www.jianshu.com/p/b08364ce234f</a></p>
 
       
     </div>
@@ -1286,8 +1107,216 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/05/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/05/22/1.html" class="post-title-link" itemprop="url">数据库事务隔离级别与 InnoDB</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+00:00">2019-05-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="ACID特性"><a href="#ACID特性" class="headerlink" title="ACID特性"></a>ACID特性</h2><ul>
+<li>atomicity 原子性，一个事务中的所有操作要么全部成功，要么全部失败，不能只成功一部分。</li>
+<li>consistency 一致性，从一个一致性状态到另一个一致性状态的转换。（一致性和隔离性保证了数据的一致性）</li>
+<li>isolation 隔离性，一个事务在提交之前对其它事务是不可见的。</li>
+<li>durability 持久性，一个事务一旦被提交就会永久的保存到数据库中。</li>
+</ul>
+<h2 id="概念澄清"><a href="#概念澄清" class="headerlink" title="概念澄清"></a>概念澄清</h2><p>一个事务在进行数据变更时对另一个事务产生的可见性影响描述，表达为 脏读、幻读、不可重复读三个概念。下面具体解释下对应概念。</p>
+<ul>
+<li>脏读：当前事务能够读取其它事务未提交的数据。</li>
+<li>幻读：当前事务中在前后两次相同查询中读取的数据不一致，原因在第一次查询后第二次查询前提交了数据产生的。（侧重于插入了新的数据）</li>
+<li>不可重复读：当前事务中查询相同的范围数据，同一数据的内容发生了变化。（侧重于数据的更新）<br>基于这三个现象描述，主要因为 MySQL 设置的隔离级别不同导致的。</li>
+</ul>
+<h2 id="InnoDB-事务隔离级别"><a href="#InnoDB-事务隔离级别" class="headerlink" title="InnoDB 事务隔离级别"></a>InnoDB 事务隔离级别</h2><ul>
+<li>Read Uncommitted（读取未提交内容）</li>
+<li>Read Committed（读取提交内容）</li>
+<li>Repeatable Read（可重读）</li>
+<li>Serializable（可串行化）</li>
+</ul>
+<p>这四种隔离级别可能产生的问题关系表：<br><img src="/resource/img/15588467810805.jpg"></p>
+<p>查询 MySQL 当前事务隔离级别：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@tx_isolation; </span><br></pre></td></tr></table></figure>
+<p><img src="/resource/img/15588467880791.jpg"></p>
+<p>查询 InnoDB 的默认隔离级别是 RR，按照四种隔离级别的关系来看是会出现幻读情况，但实际上 InnoDB 引擎下的两次查询是一致的，那么它是帮我们解决幻读了吗？</p>
+<h2 id="解决幻读"><a href="#解决幻读" class="headerlink" title="解决幻读"></a>解决幻读</h2><p><img src="/resource/img/15588467956986.jpg"></p>
+<p>根据维基幻读定义，当我们两次 SELECT 期间，另个一事务提交了一条插入语句正好命中查询结果，如果两次结果不一致则出现了幻读。所以可以明确的是 innoDB 帮我们在 RR 界别解决了部分幻读问题，默认情况下并没有在查询中加锁，导致另一事务可以插入数据，原来事务在做数据插入时可能出现 duplicate key error 。需要我们配合使用 SELECT … FOR UPDATE 加锁来保证不会出现幻读。InnoDB 这样做的一个原因猜测是考虑性能问题，如果每个查询都增加锁，性能上会打折扣。</p>
+<p>参考：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/likui360/p/9632641.html">https://www.cnblogs.com/likui360/p/9632641.html</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads">https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/05/19/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/05/19/1.html" class="post-title-link" itemprop="url">我的极简主义尝试</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-19T00:00:00+00:00">2019-05-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/resource/img/15584582961685.jpg"></p>
+<p>夏天来了，大半夜热的睡不着，最近看过一本书《极简主义》，罗列一下其中的观点，以及作用到生活中的尝试。</p>
+<p>首先来引述原文介绍下什么是极简主义：</p>
+<blockquote>
+<p>极简主义是一个工具，我们用它来获得人生的满足感。极简主义中没有规则。确切的说，极简主义只是去除生活中那些无关紧要的事物，从而使我们能够专注于最重要的东西——而它们事实上根本就不是实物。</p>
+</blockquote>
+<p>这并不是它的定义，而是说明了从极简主义带给我们什么，让我们从杂乱的生活中抽离出来，让我们舍弃对于我们不那么重要却又不想割舍的人际关系或事物，专注于重要的事情中去。读这本书的起因是前一段时间对于工作和生活感到很沉重，工作一天带着疲惫身体回家后，面对堆满杂物的宿舍，心情更加烦躁，每天纷繁不断的微信消息偷走了大量的时间。每天都很忙，却又觉得并没做什么事情，睡觉的时间也越来越少。<br><img src="/resource/img/15584584339214.jpg"></p>
+<p>当我意识到现在的问题，恰好在豆瓣看到这样一本书，下载下来读了一遍，对于书中的部分观点还是比较认可的，便有意识的改变自己的生活方式。这里作出改变只是在生活上，对于工作还是那样，甚至我认为工作是反极简主义的，就像书中的作者是辞去工作开始的极简主义实践。其中有很多讨论我并没有太在意，也是不适合我当下去作出改变，下面只是按照一条实践过的线去聊。</p>
+<p>首先，是什么让我们感到不够快乐，让我们感到压力呢？作者确定了一个叫做『锚』的概念，代指我们想要的得到的大房子、高薪、物质财产、公司奖励等，这些欲望占据着我们，给我们带来压力。试想一下如果我们已经拥有或者舍弃掉这些，也许会轻松很多，可以有更多的时间精力专注于我们喜欢的事情上，让人生过得更有意义？好像我现在也无法做到舍弃。如果这个⚓️给你带来太多负担，那你是要舍弃了，而这里我所能做的不是上面那些，下面慢慢说。</p>
+<p>首先我们要使人生有意义的五大价值明确：</p>
+<ol>
+<li>健康</li>
+<li>人际关系</li>
+<li>热情</li>
+<li>成长</li>
+<li>奉献</li>
+</ol>
+<p><img src="/resource/img/15584585009545.jpg"></p>
+<p>这本书后面的章节也是在围绕着五个主题来开展说明的。这本书有个特点就是并不想书名那样极简，而是在不断赘述一些观点，以加强这些观点在读者心中的印象吧。</p>
+<p><strong>作出改变</strong>，如果你只是一味在想而没有实际付出行动的话并没有任何作用。首先是必须要作出改变，改变永远不会太迟，你需要的只是在知道该怎么做了之后付诸行动。这点很重要，所以作者也是提前说明。这里推荐去看拖延症相关的知识。</p>
+<blockquote>
+<p>下决心总是困难的。而拖延却很简单——至少拖延一时很简单。但拖延得不到任何回报。</p>
+</blockquote>
+<p><strong>打包派对</strong>，打包你大量的闲置物品，保留生活中常用的，然后扔掉、转卖或捐赠。对于闲置物品不仅占用了你的空间，还浪费你的精力，平时你也想不起来用它，然后又要找半天，在生活如此便利的今天，你可以舍弃很多无用的东西了。还有注意不要囤货，日用品很容易买到，你就把楼下的便利店当做你的免费仓库好了。东西要少而精。推荐看一下《怦然心动的人生整理魔法》、《断舍离》还有日剧《我的家里空无一物》。看完书的当周我便清理出了几大袋子暗藏在屋里角落的无用物品，实际上在之前看书的时候就有意识的清理丢弃无用的东西，只是后来没做好，看来要周期性清理一番。</p>
+<p><strong>健康</strong>，这个老生常谈，却总被人忽视，没有健康，你连生活中最简单快乐都无法享受。这里我一直做不好的就是没能去改变熬夜的习惯。健康的从广义上来讲有以下几种：情绪健康、心理健康、精神健康、财务健康、身体健康等。这里只针对身体健康来讲，分为两个方面，饮食和锻炼。饮食上并没有去尝试改变，因为自己本身很瘦。而锻炼作出了一些，在这之前总是说要去健身房健身，却总是懒的去，读完这本书后努力去作出改变，从跑步开始，因为我觉得跑步是最容易开始的锻炼，现代科技带给人们很多的便利性，借着小米手环的帮助开始了每周三次的夜跑，精神状态也慢慢好转。另外说一句是跑步要是一件技术活，推荐看一下《运动改造大脑》、《跑步圣经》这两本书。平时多看看书还是有好处的，当你尝试作出改变的时候也是能知道如果改变。</p>
+<blockquote>
+<p>讽刺的是，锻炼实际上给了你更多时间，而不是把时间夺走了。它不光能延长寿命，对我个人而言，它还让我跟我最好的朋友建立了更紧密的联系。当我一个人锻炼时，它又给了我独处的时间，留给自己的时间，而我们都知道这是很重要的。锻炼是一种意想不到的帮你重获时间的方式。</p>
+</blockquote>
+<p><strong>人际关系</strong>，你的人际关系有你的亲人、朋友、同事、配偶、恋人、室友等。人际关系处理这块是弱项，需要认真🤔一下。</p>
+<p>建立关系的三种办法：</p>
+<ol>
+<li>寻找超棒的新人际关系；</li>
+<li>改造你现有的人际关系；</li>
+<li>改变你自己。</li>
+</ol>
+<blockquote>
+<p>必须要牢记的是：你的人际关系在你往后的人生中并不是固定不变的。随着年龄的增长，会有不同的人走入或走出你的生活，而他们与你的关系的重要程度也会改变。许多十年前与你关系紧密的人现在已经不再亲密了，对吧？同样，你未来的人际关系也会继续变化、成长。因此，在这个过程中积极行动就很重要。你主动选择自己的人际关系，而关于前两档人际关系的调整，往往要作出很艰难的抉择。<br>你唯一能改变的人是你自己。当你以身作则时，与你走得最近的人，往往也会跟着效仿。</p>
+</blockquote>
+<p><strong>断掉网络</strong>，这点对我的改变应该说是关键性的。每天下班回家都会有家人和朋友发来各种微信消息，填充了我整个晚上的时间，使我并没有一段固定且连续的个人时间了，也就导致我对于当下缺少反思，活在网络的世界中。还有各种 APP 新闻推送，一刷就停不下来的短视频等，我们的时间被大量的占据，这也是痛苦和拖延的关键，也是一个很重要的⚓️。然后我做了一些改变。</p>
+<ol>
+<li>开始清理📱中那些功能重复的 APP，比如获取热点新闻微信足够了，我对时效性又没有那么高。</li>
+<li>各种短视频 APP，这些起初我觉得有学到东西才装的，但是却背离了初衷，成了娱乐工具，然后果断卸掉。</li>
+<li>还有各种能用微信小程序替代的常用 APP 基本都卸掉了。</li>
+<li>有些保留了，QQ 被我用 Tim 替代，有些不得不看的群内容我也是订好提醒，每周看一周的内容。无关紧要的推送都被我禁掉了。</li>
+<li>还有最重要的一点是每天非特殊情况下执行断舍离计划，晚上 10 点到 11 点断网一小时，感觉这个世界突然安静了起来，可以专心想和做一些事了。</li>
+</ol>
+<p>这里多说一句，网络依赖确实像一种上瘾的症状，而且现在绝大多数人都是这样子，这个还是要从自身开始尝试摆脱这种依赖，呼吁身边的人同样去改变，我们的生活应该会有很大的改变。</p>
+<p><strong>认知</strong>，认知是我们最宝贵的自由。前几年我们一直在讲认知升级，确实，这就是一种让我们获得自由的方法。这里推荐去看《见识》这本书，不再多说。</p>
+<p><img src="/resource/img/15584585285131.jpg"></p>
+<p>回到最初，极简主义是一个工具，这个工具使我们摆脱那些闲杂冗余，从而更容易过上有意义的生活，这个工具使充斥着无尽装饰、看起来错综复杂的世界变得更简单、更容易、更真实。</p>
+<hr>
+<p>第二天早起接的🐰主子，来自主子的凝视 qwq…<br><img src="/resource/img/15584586882785.jpg"></p>
+<p><img src="/resource/img/15584587970593.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

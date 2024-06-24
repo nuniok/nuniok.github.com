@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -177,214 +178,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/05/22/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/05/22/1.html" class="post-title-link" itemprop="url">数据库事务隔离级别与 InnoDB</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-05-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+00:00">2019-05-22</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="ACID特性"><a href="#ACID特性" class="headerlink" title="ACID特性"></a>ACID特性</h2><ul>
-<li>atomicity 原子性，一个事务中的所有操作要么全部成功，要么全部失败，不能只成功一部分。</li>
-<li>consistency 一致性，从一个一致性状态到另一个一致性状态的转换。（一致性和隔离性保证了数据的一致性）</li>
-<li>isolation 隔离性，一个事务在提交之前对其它事务是不可见的。</li>
-<li>durability 持久性，一个事务一旦被提交就会永久的保存到数据库中。</li>
-</ul>
-<h2 id="概念澄清"><a href="#概念澄清" class="headerlink" title="概念澄清"></a>概念澄清</h2><p>一个事务在进行数据变更时对另一个事务产生的可见性影响描述，表达为 脏读、幻读、不可重复读三个概念。下面具体解释下对应概念。</p>
-<ul>
-<li>脏读：当前事务能够读取其它事务未提交的数据。</li>
-<li>幻读：当前事务中在前后两次相同查询中读取的数据不一致，原因在第一次查询后第二次查询前提交了数据产生的。（侧重于插入了新的数据）</li>
-<li>不可重复读：当前事务中查询相同的范围数据，同一数据的内容发生了变化。（侧重于数据的更新）<br>基于这三个现象描述，主要因为 MySQL 设置的隔离级别不同导致的。</li>
-</ul>
-<h2 id="InnoDB-事务隔离级别"><a href="#InnoDB-事务隔离级别" class="headerlink" title="InnoDB 事务隔离级别"></a>InnoDB 事务隔离级别</h2><ul>
-<li>Read Uncommitted（读取未提交内容）</li>
-<li>Read Committed（读取提交内容）</li>
-<li>Repeatable Read（可重读）</li>
-<li>Serializable（可串行化）</li>
-</ul>
-<p>这四种隔离级别可能产生的问题关系表：<br><img src="/resource/img/15588467810805.jpg"></p>
-<p>查询 MySQL 当前事务隔离级别：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@tx_isolation; </span><br></pre></td></tr></table></figure>
-<p><img src="/resource/img/15588467880791.jpg"></p>
-<p>查询 InnoDB 的默认隔离级别是 RR，按照四种隔离级别的关系来看是会出现幻读情况，但实际上 InnoDB 引擎下的两次查询是一致的，那么它是帮我们解决幻读了吗？</p>
-<h2 id="解决幻读"><a href="#解决幻读" class="headerlink" title="解决幻读"></a>解决幻读</h2><p><img src="/resource/img/15588467956986.jpg"></p>
-<p>根据维基幻读定义，当我们两次 SELECT 期间，另个一事务提交了一条插入语句正好命中查询结果，如果两次结果不一致则出现了幻读。所以可以明确的是 innoDB 帮我们在 RR 界别解决了部分幻读问题，默认情况下并没有在查询中加锁，导致另一事务可以插入数据，原来事务在做数据插入时可能出现 duplicate key error 。需要我们配合使用 SELECT … FOR UPDATE 加锁来保证不会出现幻读。InnoDB 这样做的一个原因猜测是考虑性能问题，如果每个查询都增加锁，性能上会打折扣。</p>
-<p>参考：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/likui360/p/9632641.html">https://www.cnblogs.com/likui360/p/9632641.html</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads">https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/05/19/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/05/19/1.html" class="post-title-link" itemprop="url">我的极简主义尝试</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-19T00:00:00+00:00">2019-05-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/resource/img/15584582961685.jpg"></p>
-<p>夏天来了，大半夜热的睡不着，最近看过一本书《极简主义》，罗列一下其中的观点，以及作用到生活中的尝试。</p>
-<p>首先来引述原文介绍下什么是极简主义：</p>
-<blockquote>
-<p>极简主义是一个工具，我们用它来获得人生的满足感。极简主义中没有规则。确切的说，极简主义只是去除生活中那些无关紧要的事物，从而使我们能够专注于最重要的东西——而它们事实上根本就不是实物。</p>
-</blockquote>
-<p>这并不是它的定义，而是说明了从极简主义带给我们什么，让我们从杂乱的生活中抽离出来，让我们舍弃对于我们不那么重要却又不想割舍的人际关系或事物，专注于重要的事情中去。读这本书的起因是前一段时间对于工作和生活感到很沉重，工作一天带着疲惫身体回家后，面对堆满杂物的宿舍，心情更加烦躁，每天纷繁不断的微信消息偷走了大量的时间。每天都很忙，却又觉得并没做什么事情，睡觉的时间也越来越少。<br><img src="/resource/img/15584584339214.jpg"></p>
-<p>当我意识到现在的问题，恰好在豆瓣看到这样一本书，下载下来读了一遍，对于书中的部分观点还是比较认可的，便有意识的改变自己的生活方式。这里作出改变只是在生活上，对于工作还是那样，甚至我认为工作是反极简主义的，就像书中的作者是辞去工作开始的极简主义实践。其中有很多讨论我并没有太在意，也是不适合我当下去作出改变，下面只是按照一条实践过的线去聊。</p>
-<p>首先，是什么让我们感到不够快乐，让我们感到压力呢？作者确定了一个叫做『锚』的概念，代指我们想要的得到的大房子、高薪、物质财产、公司奖励等，这些欲望占据着我们，给我们带来压力。试想一下如果我们已经拥有或者舍弃掉这些，也许会轻松很多，可以有更多的时间精力专注于我们喜欢的事情上，让人生过得更有意义？好像我现在也无法做到舍弃。如果这个⚓️给你带来太多负担，那你是要舍弃了，而这里我所能做的不是上面那些，下面慢慢说。</p>
-<p>首先我们要使人生有意义的五大价值明确：</p>
-<ol>
-<li>健康</li>
-<li>人际关系</li>
-<li>热情</li>
-<li>成长</li>
-<li>奉献</li>
-</ol>
-<p><img src="/resource/img/15584585009545.jpg"></p>
-<p>这本书后面的章节也是在围绕着五个主题来开展说明的。这本书有个特点就是并不想书名那样极简，而是在不断赘述一些观点，以加强这些观点在读者心中的印象吧。</p>
-<p><strong>作出改变</strong>，如果你只是一味在想而没有实际付出行动的话并没有任何作用。首先是必须要作出改变，改变永远不会太迟，你需要的只是在知道该怎么做了之后付诸行动。这点很重要，所以作者也是提前说明。这里推荐去看拖延症相关的知识。</p>
-<blockquote>
-<p>下决心总是困难的。而拖延却很简单——至少拖延一时很简单。但拖延得不到任何回报。</p>
-</blockquote>
-<p><strong>打包派对</strong>，打包你大量的闲置物品，保留生活中常用的，然后扔掉、转卖或捐赠。对于闲置物品不仅占用了你的空间，还浪费你的精力，平时你也想不起来用它，然后又要找半天，在生活如此便利的今天，你可以舍弃很多无用的东西了。还有注意不要囤货，日用品很容易买到，你就把楼下的便利店当做你的免费仓库好了。东西要少而精。推荐看一下《怦然心动的人生整理魔法》、《断舍离》还有日剧《我的家里空无一物》。看完书的当周我便清理出了几大袋子暗藏在屋里角落的无用物品，实际上在之前看书的时候就有意识的清理丢弃无用的东西，只是后来没做好，看来要周期性清理一番。</p>
-<p><strong>健康</strong>，这个老生常谈，却总被人忽视，没有健康，你连生活中最简单快乐都无法享受。这里我一直做不好的就是没能去改变熬夜的习惯。健康的从广义上来讲有以下几种：情绪健康、心理健康、精神健康、财务健康、身体健康等。这里只针对身体健康来讲，分为两个方面，饮食和锻炼。饮食上并没有去尝试改变，因为自己本身很瘦。而锻炼作出了一些，在这之前总是说要去健身房健身，却总是懒的去，读完这本书后努力去作出改变，从跑步开始，因为我觉得跑步是最容易开始的锻炼，现代科技带给人们很多的便利性，借着小米手环的帮助开始了每周三次的夜跑，精神状态也慢慢好转。另外说一句是跑步要是一件技术活，推荐看一下《运动改造大脑》、《跑步圣经》这两本书。平时多看看书还是有好处的，当你尝试作出改变的时候也是能知道如果改变。</p>
-<blockquote>
-<p>讽刺的是，锻炼实际上给了你更多时间，而不是把时间夺走了。它不光能延长寿命，对我个人而言，它还让我跟我最好的朋友建立了更紧密的联系。当我一个人锻炼时，它又给了我独处的时间，留给自己的时间，而我们都知道这是很重要的。锻炼是一种意想不到的帮你重获时间的方式。</p>
-</blockquote>
-<p><strong>人际关系</strong>，你的人际关系有你的亲人、朋友、同事、配偶、恋人、室友等。人际关系处理这块是弱项，需要认真🤔一下。</p>
-<p>建立关系的三种办法：</p>
-<ol>
-<li>寻找超棒的新人际关系；</li>
-<li>改造你现有的人际关系；</li>
-<li>改变你自己。</li>
-</ol>
-<blockquote>
-<p>必须要牢记的是：你的人际关系在你往后的人生中并不是固定不变的。随着年龄的增长，会有不同的人走入或走出你的生活，而他们与你的关系的重要程度也会改变。许多十年前与你关系紧密的人现在已经不再亲密了，对吧？同样，你未来的人际关系也会继续变化、成长。因此，在这个过程中积极行动就很重要。你主动选择自己的人际关系，而关于前两档人际关系的调整，往往要作出很艰难的抉择。<br>你唯一能改变的人是你自己。当你以身作则时，与你走得最近的人，往往也会跟着效仿。</p>
-</blockquote>
-<p><strong>断掉网络</strong>，这点对我的改变应该说是关键性的。每天下班回家都会有家人和朋友发来各种微信消息，填充了我整个晚上的时间，使我并没有一段固定且连续的个人时间了，也就导致我对于当下缺少反思，活在网络的世界中。还有各种 APP 新闻推送，一刷就停不下来的短视频等，我们的时间被大量的占据，这也是痛苦和拖延的关键，也是一个很重要的⚓️。然后我做了一些改变。</p>
-<ol>
-<li>开始清理📱中那些功能重复的 APP，比如获取热点新闻微信足够了，我对时效性又没有那么高。</li>
-<li>各种短视频 APP，这些起初我觉得有学到东西才装的，但是却背离了初衷，成了娱乐工具，然后果断卸掉。</li>
-<li>还有各种能用微信小程序替代的常用 APP 基本都卸掉了。</li>
-<li>有些保留了，QQ 被我用 Tim 替代，有些不得不看的群内容我也是订好提醒，每周看一周的内容。无关紧要的推送都被我禁掉了。</li>
-<li>还有最重要的一点是每天非特殊情况下执行断舍离计划，晚上 10 点到 11 点断网一小时，感觉这个世界突然安静了起来，可以专心想和做一些事了。</li>
-</ol>
-<p>这里多说一句，网络依赖确实像一种上瘾的症状，而且现在绝大多数人都是这样子，这个还是要从自身开始尝试摆脱这种依赖，呼吁身边的人同样去改变，我们的生活应该会有很大的改变。</p>
-<p><strong>认知</strong>，认知是我们最宝贵的自由。前几年我们一直在讲认知升级，确实，这就是一种让我们获得自由的方法。这里推荐去看《见识》这本书，不再多说。</p>
-<p><img src="/resource/img/15584585285131.jpg"></p>
-<p>回到最初，极简主义是一个工具，这个工具使我们摆脱那些闲杂冗余，从而更容易过上有意义的生活，这个工具使充斥着无尽装饰、看起来错综复杂的世界变得更简单、更容易、更真实。</p>
-<hr>
-<p>第二天早起接的🐰主子，来自主子的凝视 qwq…<br><img src="/resource/img/15584586882785.jpg"></p>
-<p><img src="/resource/img/15584587970593.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -467,84 +260,6 @@
 <h2 id="吃"><a href="#吃" class="headerlink" title="吃"></a>吃</h2><p>关于吃这可就难到我了，古文化街的小吃真心不建议了，景点的东西贵倒无所谓，主要是不好吃。地道的小吃又找不到，所以也无法推荐，据说天津人特别重早餐，越小摊做的小吃越地道，可以去试一下，注意要避开景点附近。</p>
 <p>这次的天津游玩，更偏重于了解城市文化和历史吧，吃上没怎么下功夫，玩上适合两个人春暖花开来拍照。单单了解一个城市两天肯定是不够的，这次也只是把课本上的历史一部分变成了身边的故事，至于剩下的故事，不知何时再去了解了。</p>
 <h2 id="最后附上一张🤳"><a href="#最后附上一张🤳" class="headerlink" title="最后附上一张🤳"></a>最后附上一张🤳</h2><p><img src="/resource/img/15552253096040.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2019/03/23/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/23/1.html" class="post-title-link" itemprop="url">关于成长与失去的 2018 年</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-23T00:00:00+00:00">2019-03-23</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>今日寻得一个好地方，可以静下心来好好回忆下去年的经历与成长。在这一年中遇见了一个不错的领导同时经历了部门比较大的人事变动；谈了女朋友又分手了，改变了我某些观念和生活习惯；首付了一套老家的房子，漂泊的心得以暂时的安稳；认真读完吴军博士的《见识》、《具体生活》两本书，对于我的认知提升帮助很大。</p>
-<h2 id="工作的成长"><a href="#工作的成长" class="headerlink" title="工作的成长"></a>工作的成长</h2><p><img src="/resource/img/lt4.jpg" alt="lt4"></p>
-<p>第一次遇见这个领导，并没有特别的印象，只是他特别女性化的名字很容易让没见过他的人误解。后面慢慢工作中会发现带着之前学长的身影，是那种之前提到过的为了技术而做技术的人，会带着一种求知与好知的心态在工作与生活，在目前这样一家公司部门中很难再发现第二个这样的人，他的强大之处还有就是对于人的影响。我认为知识与观念之类的第一我们要做到的是输入，需要我们去主动学习；第二便是内化，如何将所看所听转化为自身的感悟，需要我们去多思考；第三便是输出，将我们自身的认知与见解传达给别人，从而影响和改变别人。所以能做到第三点的人真的是很厉害，当然这里所说影响一定要是积极的一面。他的影响力在周边同事相较是要高出很多。而我自评来说，第一和第二尚可，第三却是几乎没有了，所以表达力这一层也是我很缺失的一部分，再有就是过于习惯性做事，缺乏足够的思考。这里说的更多还是在于工作和技术方面。</p>
-<h2 id="失去的开始"><a href="#失去的开始" class="headerlink" title="失去的开始"></a>失去的开始</h2><p><img src="/resource/img/lt2.jpg" alt="lt2"></p>
-<p>失去了什么？时间还是人。有个深刻的体会就是失去便是成长的过程，想起电视剧《男人帮》中的一句颇有哲理性的一句话『有一些东西我们盼不到，有一些事情我们回不去。但每次想到你带给我的变化，我就充满感激。我想起你，就是想到现在变得更好的自己，这样的自己是你带给我的。』，你身边的恋人或每一个同学朋友，你们互相交谈一起玩耍，后来你们不再联系，彼此陌生，或许有一天你会突然回想起他（她）的一句话，你觉得有道理去改变了。其实在这些亲密关系中，一个很重要的角色就是你的恋人，因为熟悉，便可以心安理得地对自己的缺点置之不理，很容易忽略对方的吐槽，直到有一天过不下去了，你便开始察觉开始改变。也或者说，其实你一直在改变中，对方也一直在改变中，只不过之间有道无法逾越的鸿沟，或是没有留给时间足够的耐心。</p>
-<p>改变的过程大部分情况下是很不舒服的，时常会抱怨，会拒绝，但有时如果你能从更长的时间范围去思考你现在所处的环境下，也许就会变得从容很多，我说的时间长度超越生命。很多事物我们不能掌控，比如时间、生命、人与人之间的关系，唯一能掌控的便是我们的心灵，所以外在的事物变得不那么紧要。</p>
-<p>最近在看和听一些关于哲学方面的书，其中有些哲学学派的理念与我现在生活的状态有些契合，并且能带来新的观念认知，接下来还需要一个比较长时间的内化过程，过段时间想整理一篇关于哲学感悟的文章。</p>
-<h2 id="习惯与认知"><a href="#习惯与认知" class="headerlink" title="习惯与认知"></a>习惯与认知</h2><p><img src="/resource/img/lt3.jpg" alt="lt3"></p>
-<p>去年带给我认知升级的一本书便是《见识》，有很多更高视角的观点与态度认识；另外便是我的领导，从他身上看到了求知好知的习惯；再有便是看到了前女友的行胜于言。每一个人每一本书都有我们值得学习与借鉴的地方。</p>
-<p>保持一颗好奇心很重要，不知道从哪里有人提到过康德的《纯粹理性批判》这本经典哲学书，又听说过王思聪大学读的是哲学这种基础学科，加上身边很多人对于哲学的态度，便想一探究竟，咨询过朋友后便从个《苏菲的世界》这本西方哲学入门书开始了，加之樊登读书会中听了很多地关于东方哲学书，有些感悟，又有些混乱，这个过程又带来了很多快乐，有时间真的要好好整理一番。</p>
-<p>可能因为我们领导是个数学谜，所以或多或少都会受到他的一些影响，印象深刻的便是他曾问我『如何证明存在 0 这个数？』这种奇怪的问题，还有要我们新系统都是以数学家的名字命名的，这些事情也改变了我对于数学的一些看法，发现数学之美，但是却难以实践其中真髓，这里推荐《费马大定理》、《数学之美》这两本书，你会发现你之前学的只是数学，数学之外的延伸才是真正的数学之道。</p>
-<p>还有一点必须要的说的便是『知行合一』，是王阳明心学中的主要理念。我们经常说『知易行难』，说的是知道很容易但是做起来很难，其实按照王阳明的观点来说，知行必合一，你只有知道了才会去做，如果你不去做你肯定是没有真正知道。在这里前女友践行的是『行胜于言』，她的执行力与沟通能力都要高出周围人很多，也是我所见到过的。所以我最近养成的一个习惯是，周末不要宅在家里，多出去走走，看看不同的人，学习接受新的观念与知识，扩展自己不熟悉的领域。忽然发现『读万卷书，行万里路。』与『知行合一』有种异曲同工之妙。</p>
-<h2 id="在路上"><a href="#在路上" class="headerlink" title="在路上"></a>在路上</h2><p><img src="/resource/img/lt1.jpg" alt="lt1"></p>
-<p>今天又是一个周六，没有计划出去玩，偷了一个懒觉，下午便寻得一个安静的小地方，写完这篇文章，也是对去年和最近一段时间的总结与感悟。</p>
-<p>对了，这个安静的小地方叫『三味书屋』，至于哪三味能让我如此安静的写完文章，待我下次再来问一问。 </p>
 
       
     </div>
@@ -793,142 +508,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/08/07/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/08/07/1.html" class="post-title-link" itemprop="url">数据库建模</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-07T00:00:00+00:00">2018-08-07</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>数据库建模的三个阶段：概念模型、逻辑模型、物理模型，对世界进行分析、抽象并找出内在联系，从而确定数据结构。</p>
-<p><img src="/resource/img/15335748281915.jpg"></p>
-<ul>
-<li>概念模型：从现实需求到信息的第一层抽象，确定领域实体属性关系，使用E-R图表示。</li>
-<li>逻辑模型：概念模型转化为具体的数据模型的过程。</li>
-<li>物理模型：根据逻辑模型对应到具体的数据模型的机器实现，对真实数据库的描述。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/08/07/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/08/07/2.html" class="post-title-link" itemprop="url">BUG的前世今生</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-07T00:00:00+00:00">2018-08-07</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一个软件项目的整个生命周期都伴随着很多的BUG产生和修复。</p>
-<p>当我们要去修复一个BUG的时候，首先要考虑它是一个什么类型的，产生的原因和背景。然后再去想解决办法。</p>
-<p><img src="/resource/img/15335763639745.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://noge.top/2018/05/16/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -994,8 +573,500 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/04/20/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/04/20/1.html" class="post-title-link" itemprop="url">Spring 随手记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+00:00">2018-04-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>基本记录，没有系统性整理，只是作为一个重温知识点用，不具有阅读参考价值。</p>
+<p><img src="/resource/img/15618712316175.jpg"></p>
+<h3 id="注解（Inherited）"><a href="#注解（Inherited）" class="headerlink" title="注解（Inherited）"></a>注解（Inherited）</h3><p>Spring注解方式减少了配置文件内容，更加便于管理。</p>
+<h3 id="MVC模块注解"><a href="#MVC模块注解" class="headerlink" title="MVC模块注解"></a>MVC模块注解</h3><p>@Controller ：表明该类会作为与前端作交互的控制层组件，通过服务接口定义的提供访问应用程序的一种行为，解释用户的输入，将其转换成一个模型然后将试图呈献给用户。<br>@RequestMapping ： 这个注解用于将url映射到整个处理类或者特定的处理请求的方法。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true。<br>@RequestParam ：将请求的参数绑定到方法中的参数上，有required参数，默认情况下，required&#x3D;true。<br>@RequestBody ： @RequestBody是指方法参数应该被绑定到HTTP请求Body上。<br>@RestController ：控制器实现了REST的API，只为服务于JSON，XML或其它自定义的类型内容，@RestController用来创建REST类型的控制器，与@Controller类型。</p>
+<h3 id="组件类注解"><a href="#组件类注解" class="headerlink" title="组件类注解"></a>组件类注解</h3><p>@Component ：表示一个带注释的类是一个“组件”，成为Spring管理的Bean。当使用基于注解的配置和类路径扫描时，这些类被视为自动检测的候选对象。同时@Component还是一个元注解。<br>@ComponentScan：自动扫描指定包下所有使用@Service,@Component,@Controller,@Repository的类并注册。<br>@Repository：标注一个DAO组件类。<br>@Service：标注一个业务逻辑组件类。<br>@Controller：标注一个控制器组件类。<br>@Component 可以代替 @Repository、@Service、@Controller，因为这三个注解是被 @Component 标注的。</p>
+<h3 id="装配-Bean-时常用注解"><a href="#装配-Bean-时常用注解" class="headerlink" title="装配 Bean 时常用注解"></a>装配 Bean 时常用注解</h3><p>@Autowired：属于Spring 的org.springframework.beans.factory.annotation包下,可用于为类的属性、构造器、方法进行注值。<br>@Resource：不属于spring的注解，而是来自于JSR-250位于java.annotation包下，使用该annotation为目标bean指定协作者Bean。<br>@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作。</p>
+<h3 id="Configuration-and-Bean"><a href="#Configuration-and-Bean" class="headerlink" title="Configuration and @Bean"></a>Configuration and @Bean</h3><p>使用@Configuration 来注解类表示类可以被 Spring 的 IoC 容器所使用，作为 bean 定义的资源。</p>
+<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC">https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC</a></p>
+<h2 id="Spring-通过-calss-直接获取-Bean"><a href="#Spring-通过-calss-直接获取-Bean" class="headerlink" title="Spring 通过 calss 直接获取 Bean"></a>Spring 通过 calss 直接获取 Bean</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SpringApplication app = new SpringApplication(THTTPMain.class);</span><br><span class="line">ApplicationContext ctx = app.run(args);</span><br><span class="line">ReportManager manager = ctx.getBean(ReportManager.class);</span><br><span class="line">manager.run();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-标签管理"><a href="#Spring-标签管理" class="headerlink" title="Spring 标签管理"></a>Spring 标签管理</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuchanming/p/5426746.html">https://www.cnblogs.com/wuchanming/p/5426746.html</a><br><img src="/resource/img/15618712485957.jpg"></p>
+<h2 id="AOP-面向切面编程"><a href="#AOP-面向切面编程" class="headerlink" title="AOP 面向切面编程"></a>AOP 面向切面编程</h2><p><img src="/resource/img/15618712585422.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/04/01/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/04/01/1.html" class="post-title-link" itemprop="url">会计基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-01T00:00:00+00:00">2018-04-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="会计基本假设"><a href="#会计基本假设" class="headerlink" title="会计基本假设"></a>会计基本假设</h2><p>包括（会计主体、持续经营、会计分期和货币计量）</p>
+<p>会计主体：规范空间范围，独立核算的特定单位或组织。<br>会计主体于法律主体并非对等的概念。法律主体可以作为会计主体，但会计主体不一定是法律主体。</p>
+<p>持续经营：持续经营保持了会计信息处理的一致性和稳定性。</p>
+<p>会计分期：将一个会计主体持续的生产经营活动划分为若干相等的会计期间，以便结算帐目和编制财务会计报告。</p>
+<p>货币计量：指会计主体在会计确认、计量和报告时采用货币作为统一的计量单位。是衡量商品价值的共同尺度。</p>
+<p>四个基本假设相互依存、相互补充关系。</p>
+<h2 id="会计基础"><a href="#会计基础" class="headerlink" title="会计基础"></a>会计基础</h2><p>会计基础：确定收入和费用的归属期。按照其以应收应付还是实收实付作为标准。</p>
+<p>权责发生制（应收应付制）：以应收应付作为标准来确定本期收入和费用以计算本期盈亏的会计处理基础。（会计记账以此为主）</p>
+<p>收付实现制：以款项的实际收付来确认本期收入和费用，计算本期盈亏的一种会计处理基础。（行政部门使用）</p>
+<p>会计科目的设置不完全相同：<br>    权责发生制：有必要设置一些待摊和预提账户。<br>    收付实现制：不需要设置待摊和预提账户。</p>
+<p>权责发生制比收付实现制计算的盈亏更准确，相对也更复杂。</p>
+<h2 id="会计要素与会计科目"><a href="#会计要素与会计科目" class="headerlink" title="会计要素与会计科目"></a>会计要素与会计科目</h2><p><img src="/resource/img/15358782519943.jpg"></p>
+<p>会计要素：对会计对象的基本分类，会计核算对象的具体化。是设置会计科目的依据。<br>一类反应财务状况的要素，资产负债表的要素，包括资产、负债和所有者权益。<br>二类反应经营成果要素，包括收入、费用和利润。<br>资产：过去的交易或事项形成，企业拥有或控制，预期带来经济利益。（货币资金、交易型金融资产、应收及预付款项、存货、长期股权投资、固定资产、无形资产等）<br>负债：企业承担的现时义务，预期导致经济利益流出，过去交易或事项形成。（短期借款、应付票据、应付账款、预收账款、应交税费、应付职工薪酬、长期借款、应付债券、长期应付款）<br>所有者权益（股东权益）：资产 － 负债 ＝ 所有者权益。清算、减资、分派现金股利时不需要偿还，企业清算时享有剩余权益，参与利润分配。源于资产和负债的确认。</p>
+<p>收入：日常活动中形成，与投入资本无关的经济利益总流入，导致所有者权益增加，本企业经济利益流入。</p>
+<p>费用：日常活动中形成，导致所有者权益减少，与投入资本无关的经济利益总流出。</p>
+<p>利润：一定会计期间的经营成果。利润＝收入－费用＋利得－损失。</p>
+<p><strong>会计要素的计量：</strong></p>
+<p>会计计量：为符合会计要素条件的登记入账，确定会计要素的金额。</p>
+<p>历史成本：购置资产时的现金或其它等价物。用于资产或负债的过去价值的计量，不随时间折旧和市场价格变动影响。</p>
+<p>重置成本：现实成本，按当前市场条件下，重新获取同样资产所需支付的现金或现金等价物。主要用于固定资产盘盈的计量。</p>
+<p>可变现净值：资产预计售价 - 进一步加工成本 - 销售所需预计售金、费用后的净值。</p>
+<p>现值：对未来现金流量以折旧率折现后的价值。</p>
+<p>公允价值：在公平交易中，交易双方自愿进行资产交换或债务清偿的金额。</p>
+<p><strong>会计科目：</strong><br>会计科目是对会计要素进行分类核算的项目。<br>意义：</p>
+<ol>
+<li>复式记账的基础</li>
+<li>编制记账凭证的基础</li>
+<li>为成本计算与财产清查提供了前提条件</li>
+<li>为编制财务报表提供了方便</li>
+</ol>
+<p><img src="/resource/img/15358781637539.jpg"></p>
+<h2 id="会计等式与复式记账"><a href="#会计等式与复式记账" class="headerlink" title="会计等式与复式记账"></a>会计等式与复式记账</h2><p>会计恒等式：资产 + 费用 &#x3D; 负债 + 所有者权益 + 收入</p>
+<p>意义：是设置会计科目和账户，进行复式记账和编制资产负债表的理论依据。</p>
+<p>复式记账法<br>对每一笔经济业务，需要在两个或两个以上项目联系账户中进行记录的方法。</p>
+<ol>
+<li>需要完整的账户体系。</li>
+<li>对每一笔经济业务都进行反映和记录</li>
+<li>对每一笔经济业务都要反映设计的所有方面</li>
+<li>对一定时期内的账户记录能进行综合试算平衡</li>
+</ol>
+<p>借贷记账法是复式记账发的一种。以借、贷为记账符号，建立在会计恒等式的基础之上。通过“T”型图，左借右贷记录。</p>
+<p>借贷记账法下各类会计科目的基本结构</p>
+<p><img src="/resource/img/15358777116072.jpg"></p>
+<p><strong>记账规则：</strong><br>有借必有贷 —— 账户登记方向<br>借贷必相等 —— 账户登记金额</p>
+<p><strong>记录步骤：</strong></p>
+<ol>
+<li>分析每一笔经济业务发证所涉及的账户名称，并判断账户性质</li>
+<li>判断经济业务发生所引起的资金数量是增加还是减少</li>
+<li>根据账户的结构确定记入账户的方向。</li>
+</ol>
+<p>账户对应关系：在两个或两个以上账户之间形成的应借应贷的相互对照关系。作用是了解业务的来龙去脉，检查经济业务处理是否合理。</p>
+<p><strong>会计分录</strong><br>是对某项经济业务事项表明其应借应贷账户及其金额的一种记录，简称分录。<br>格式：会计三要素，记账方向、对应账户、金额。<br>种类：简单会计分录：一借一贷的会计分录；复合会计分录：一借多贷或一贷多借的会计分录。</p>
+<p><strong>如何编制：</strong></p>
+<ol>
+<li>分析经济业务设计的要素</li>
+<li>确定涉及哪些账户，是增加还是减少</li>
+<li>确定应计入哪个账户的借方，哪个账户的贷方</li>
+<li>确定应借应贷账户是否正确，借贷方金额是否相等</li>
+</ol>
+<p>平衡方法——编制“总分类账户额试算平衡表”</p>
+<p>平行登记：对所发生的每项经济业务事项都要以会计凭证为依据，一方面记入有关总分类账户，另一方面计入有关总分类账户所属明细分类账户的方法。要点：依据相同，借贷方向相同，会计期间相同，金额相等。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/31/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/03/31/2.html" class="post-title-link" itemprop="url">提升专注力的方法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+00:00">2018-03-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这篇文章是根据学习知乎 Live <a target="_blank" rel="noopener" href="https://www.zhihu.com/lives/789164011882041344">提升专注力的四个方法</a> 总结的学习笔记。</p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><p>先放一个大纲，然后写出学习后会总结的点。</p>
+<p><img src="/resource/img/15225120331295.jpg"></p>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>主要分四个大块：</p>
+<ol>
+<li><p>像设计游戏一样设计任务（目标、规则、障碍）</p>
+<ul>
+<li>我们要达成一个任务或者目标，首先将任务拆分成一个个小的、明确的小任务，每一个环节不用太难，也不用太简单，按照自己的专注力上限设计任务。</li>
+<li>每一个小环节可以设置一些障碍，来提升成就感，通过不断的成就感的提升驱使完成目标，在成就感与挫败感之间寻找一个平衡。</li>
+<li>这样可以在不断的达成目标时提升自己的专注力上限。</li>
+</ul>
+</li>
+<li><p>创造使用推理和类比的机会</p>
+<ul>
+<li>专注力应该是一种思维能力，而不仅仅是一种强制力。需要的是脑力的专注力，而不是身体的专注力。提升这些的方法是推理和类比。</li>
+<li>推理：通过一个点，去不断深挖，了解其本质。（推理解决 A ——&gt; 什么是 A ？怎么产生的 A ？ ——&gt; 产生 A 的是什么？[是否有经验性的证据？] ——&gt; 对这件事情我的理解是什么？ ——&gt; 我是否可以更深入的了解？）</li>
+<li>类比：相同事物的相关性思考。思考一个事物可以通过相关性的联系来帮助你理解。</li>
+<li>一件事情的训练需要可以的练习。</li>
+<li>创造和使用推理和类比的机会。<ul>
+<li>费曼学习法则：如何把这个东西通俗易懂的讲解给别人？</li>
+<li>笔记整理和回顾</li>
+<li>输出：和别人分享你的经验、知识和见解（例如我写了这篇文章）</li>
+<li>反驳：养成反驳自己的习惯，站在相反的观点思考问题，左右互搏。通过自我辩论的方式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>学习之前寻找『困惑感』</p>
+<ul>
+<li>如何快速进入学习状态？积累困惑感。困惑感是你学习一个东西的源动力，当你找到足够多的困惑时，你学习一个东西的时候会更加专注。</li>
+<li>当你不知道自己有什么困惑的时候，需要先创造困惑感。</li>
+<li>根据主题寻找知识，更能提高你的兴趣。<ul>
+<li>当你有问题的时候决定你如何看书，而不是被书牵着鼻子走。</li>
+</ul>
+</li>
+<li>读一本书之前，先评估一本书是否适合你。<ul>
+<li>首选根据作者选书。如果你觉得一本书写的很好，那么不妨看看这个作者的其它书。</li>
+<li>其次是看书的目录和简介，可以判断一本书的难易程度。</li>
+<li>看豆瓣和亚马逊的评分和评论。看其中的差评可以了解一本书的不足。</li>
+<li>通过以上三点来了解一本书是否适合你🌹时间去读。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>抗干扰能力的养成 —— 学会和大脑相处</p>
+<ul>
+<li>做任何一件事情的时候不要过早退出循环。</li>
+<li>不要太习惯于失败的模式，要思考如何才能去成功。</li>
+<li>情绪控制</li>
+<li>选择控制<ul>
+<li>不要给自己太多的选择。</li>
+</ul>
+</li>
+<li>信息控制</li>
+<li><em>上面有部分的音频不能播放，不知道什么原因，👂不了</em></li>
+</ul>
+</li>
+</ol>
+<p>最后再贴一张图，是作者 PPT 中的一部分，觉得总结的很好，贴出来分享。</p>
+<p><img src="/resource/img/15225138638216.jpg"></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这里提到的四块总结都是很实用的点，里面很多地方博主也是深有体会的。主要差在了刻意练习上面，不能很好的和自己的大脑相处，就像《象与骑象人》中描述的，骑象人无法很好的驾驭🐘，是因为不够了解🐘，缺乏足够的练习。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/14/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/03/14/1.html" class="post-title-link" itemprop="url">财务、支付词汇</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-14T00:00:00+00:00">2018-03-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="冲正"><a href="#冲正" class="headerlink" title="冲正"></a>冲正</h2><p>冲正是为系统认为可能交易失败时采取的补救手法。即一笔交易在终端已经置为成功标志，但是发送到主机的账务交易包没有得到响应，即终端交易超时，所以不确定该笔交易是否在主机端也成功完成，为了确保用户的利益，终端重新向主机发送请求，请求取消该笔交易的流水，如果主机端已经交易成功，则回滚交易，否则不处理，然后将处理结果返回给终端。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/03/04/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/03/04/1.html" class="post-title-link" itemprop="url">Git操作场景化实践</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-04T00:00:00+00:00">2018-03-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>小明（是一个虚构人物）作为一名开发工程师（认真脸），平时经常用 Git 提交代码，觉得有些操作姿势还是很不舒服的，于是专门研究了一下各种场景下如果操作更优雅。</p>
+<p>简短的提供思路式的讲解。</p>
+<h2 id="git-merge-场景"><a href="#git-merge-场景" class="headerlink" title="git merge 场景"></a>git merge 场景</h2><h3 id="场景一：分支-merge"><a href="#场景一：分支-merge" class="headerlink" title="场景一：分支 merge"></a>场景一：分支 merge</h3><p>有时候开发一个稍微大一些的需求持续个几天，搞一个分支去提交吧，于是有了 <code>git checkout -b mywork</code>，在 mywork 分支 commit C4、C5，然后主分支被 commit C3，最后我要将分支 merge 到之分支之上 <code>git merge mywork</code>。</p>
+<p><img src="/resource/img/15182443948597.jpg"></p>
+<p>流程示意图如上面，使用 merge 的好处就是多人维护一个项目仓库的时候，要任何时候保证主分支代码是可用的，任何人不应该直接在 master 上提交代码。</p>
+<h3 id="场景二：merge-request"><a href="#场景二：merge-request" class="headerlink" title="场景二：merge request"></a>场景二：merge request</h3><p>fork \ merge request</p>
+<p><img src="/resource/img/15182456532437.jpg"></p>
+<h2 id="场景三：rebase"><a href="#场景三：rebase" class="headerlink" title="场景三：rebase"></a>场景三：rebase</h2><p>开发了很久，各种fix提交记录，终于测通过了，要合到主分支了。发现这么多无效信息的提交记录干扰我们阅读，这时可以通过rebase将你的多次提交记录压缩成一个commit信息，然后再合到主分支上。</p>
+<p><img src="/resource/img/15182459869424.jpg"></p>
+<p><img src="/resource/img/15184903464515.jpg"></p>
+<p>压缩 commit<br><code>git log</code> 选择你提交的前一个版本</p>
+<p><code>git rebase -i e9a13ba5adcc154d5717b107d55f416e61c03958</code></p>
+<p>然后对其中的各项 commit 选择 pick &#x2F; f &#x2F; drop</p>
+<p>遇到问题后处理，然后 <code>git rebase --continue</code> 直到合并完成</p>
+<p>rebase到最新提交前</p>
+<p>把所有分支的提交记录都弄下来 <code>git fetch --all</code></p>
+<p>然后 <code>git rebase base/master</code></p>
+<p>还是遇到问题后处理，然后 <code>git rebase --continue</code> 直到合并完成</p>
+<p>最后 <code>git push -f origin master</code></p>
+<p>还有处理过程中不想处理了可以 <code>git rebase --abort</code></p>
+<h2 id="blame"><a href="#blame" class="headerlink" title="blame"></a>blame</h2><p>咨询（检举）谁写的代码为什么这么设计（写了一堆坑）。</p>
+<p><code>git blame __init__.py</code> 可以查看每行代码提交记录</p>
+<p><img src="/resource/img/15184912683256.jpg"></p>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p><code>git grep -n tensorflow</code> 可以根据关键字搜索代码</p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E6%90%9C%E7%B4%A2">7.5 Git 工具 - 搜索</a></p>
+<p><img src="/resource/img/15201547049654.jpg"></p>
+<h2 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h2><p><code>git revert C2</code> revert 是将你的一次提交代码反向重新创建一个新的记录</p>
+<p><img src="/resource/img/15201551398904.jpg"></p>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><p>patch 的做法是将我们多次的提交diff成一个问题件，然后在 apply 作为一个新的 commit 提交。对于上面 rebase 那种多次提交并带着merge记录的很难通过rebase操作，patch会很方便的解决。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/y041039/articles/2411600.html">https://www.cnblogs.com/y041039/articles/2411600.html</a></p>
+<p><img src="/resource/img/15201577453732.jpg"></p>
+<h2 id="hooks"><a href="#hooks" class="headerlink" title="hooks"></a>hooks</h2><p>git操作的一些钩子，可以帮你做一些检查。</p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9">https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9</a></p>
+<h2 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h2><p>临时保存操作内容</p>
+<p>保存记录 <code>git stash</code><br>提取记录 <code>git stash pop</code></p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9">https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9</a></p>
+<h2 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h2><p>对已经提交的数据再次提交使用</p>
+<ol>
+<li>找到一个 commit，记录 log 值</li>
+<li>新建一个分支 <code>git checkout -b newbranch</code></li>
+<li>将一个commit 复制到新分支提交一个新 commit。<code>git cherry-pick 38361a55138140827b31b72f8bbfd88b3705d77a</code></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

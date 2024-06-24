@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -177,6 +178,106 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2024/06/25/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/25/1.html" class="post-title-link" itemprop="url">Docker 部署 PaddleOCR 图文识别技术应用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-25 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-25T00:00:00+00:00">2024-06-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>PaddleOCR 是由百度飞桨（PaddlePaddle）团队开发的一款开源的光学字符识别（Optical Character Recognition, OCR）工具库。它专门设计用于文本检测和识别任务，能够识别图像中的文本信息，并将其转换成可编辑的文本格式。PaddleOCR 具有以下特点：</p>
+<ol>
+<li><p><strong>多语言支持</strong>：PaddleOCR 不仅支持中文，还支持多种语言的文本识别。</p>
+</li>
+<li><p><strong>多种识别模型</strong>：提供了多种文本识别模型，包括但不限于通用识别模型、超轻量级模型等，以适应不同的应用场景和性能需求。</p>
+</li>
+<li><p><strong>端到端识别</strong>：PaddleOCR 提供了端到端的识别流程，包括文本检测、方向分类、文本识别等步骤。</p>
+</li>
+<li><p><strong>易用性</strong>：PaddleOCR 提供了丰富的 API 和命令行工具，使得开发者可以快速集成和使用 OCR 功能。</p>
+</li>
+<li><p><strong>高性能</strong>：基于深度学习技术，PaddleOCR 在保证高精度的同时，也具有较高的识别速度。</p>
+</li>
+<li><p><strong>可扩展性</strong>：PaddleOCR 允许用户自定义训练数据和模型，以适应特定的应用需求。</p>
+</li>
+<li><p><strong>社区支持</strong>：作为开源项目，PaddleOCR 拥有活跃的社区，用户可以在社区中获取帮助和进行交流。</p>
+</li>
+</ol>
+<p>PaddleOCR 适用于各种场景下的文本识别任务，如文档扫描、票据识别、街景文字提取等，是企业和开发者在进行 OCR 相关开发时的一个有力工具。</p>
+<h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>机票的识别结果：</p>
+<p><img src="/resource/img/2024-06-25-00-36-13.png"></p>
+<p>照片识别结果：</p>
+<p><img src="/resource/img/2024-06-25-00-37-40.png"></p>
+<p>从结果上看识别的准确率还是很高的，</p>
+<h2 id="镜像获取"><a href="#镜像获取" class="headerlink" title="镜像获取"></a>镜像获取</h2><p>本篇文章介绍如果通过 docker 部署 cpu 版本，有以下三种方式获取</p>
+<ol>
+<li>通过 dockerfile 自己打包镜像使用 <a target="_blank" rel="noopener" href="https://gitee.com/noogel/docker-paddleocr">https://gitee.com/noogel/docker-paddleocr</a></li>
+<li>通过拉取 dockerhub 的镜像。由于目前很难找到代理，倾向于通过第一中方式自己打包镜像。</li>
+<li>联系作者要单独镜像文件。</li>
+</ol>
+<p>其中第一中方式使用的是 cpu 版本服务端识别模型，需要部署的 cpu 有比较好的性能，特点是多语言识别，且识别结果很准确。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ENV PPOCR=v2.7.5</span><br><span class="line">ENV DET=ch_PP-OCRv4_det_server_infer.tar</span><br><span class="line">ENV CLS=ch_ppocr_mobile_v2.0_cls_slim_infer.tar</span><br><span class="line">ENV REC=ch_PP-OCRv4_rec_server_infer.tar</span><br><span class="line">ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python</span><br></pre></td></tr></table></figure>
+
+<p>如果你想切换使用不同的模型可以在 github 文档中自行选择：<a target="_blank" rel="noopener" href="https://github.com/PaddlePaddle/PaddleOCR/blob/main/deploy/slim/auto_compression/README.md">https://github.com/PaddlePaddle/PaddleOCR/blob/main/deploy/slim/auto_compression/README.md</a></p>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><p>然而 docker 提供的只是 API 接口形式访问，需要先将图片读取转化为 base64 编码，再通过 POST 请求后获取解析结果。下面是测试代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import time</span><br><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def cv2_to_base64(image):</span><br><span class="line">    return base64.b64encode(image).decode(&quot;utf8&quot;)</span><br><span class="line"></span><br><span class="line">def main(args):</span><br><span class="line">    headers = &#123;&quot;Content-type&quot;: &quot;application/json&quot;&#125;</span><br><span class="line">    cnt = 0</span><br><span class="line">    total_time = 0</span><br><span class="line">    for directory, _, file_list in os.walk(args.image_dir):</span><br><span class="line">        for file_name in file_list:</span><br><span class="line">            file_path = os.path.join(directory, file_name)</span><br><span class="line">            img = open(file_path, &quot;rb&quot;).read()</span><br><span class="line">            if img is None:</span><br><span class="line">                print(&quot;error in loading image:&#123;&#125;&quot;.format(file_path))</span><br><span class="line">                continue</span><br><span class="line">            # seed http request</span><br><span class="line">            starttime = time.time()</span><br><span class="line">            data = &#123;&quot;images&quot;: [cv2_to_base64(img)]&#125;</span><br><span class="line">            r = requests.post(url=args.server_url, headers=headers, data=json.dumps(data))</span><br><span class="line">            elapse = time.time() - starttime</span><br><span class="line">            total_time += elapse</span><br><span class="line">            print(&quot;Predict time of %s: %.3fs&quot; % (file_path, elapse))</span><br><span class="line">            res = r.json()[&quot;results&quot;][0]</span><br><span class="line">            print(&quot;Result:&quot; + &quot; &quot;.join([val[&#x27;text&#x27;] for val in res]))</span><br><span class="line">            cnt += 1</span><br><span class="line">            if cnt % 100 == 0:</span><br><span class="line">                print(&quot;&#123;&#125; processed&quot;.format(cnt))</span><br><span class="line">    print(&quot;avg time cost: &#123;&#125;&quot;.format(float(total_time) / cnt))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def parse_args():</span><br><span class="line">    import argparse</span><br><span class="line"></span><br><span class="line">    parser = argparse.ArgumentParser(description=&quot;args for hub serving&quot;)</span><br><span class="line">    parser.add_argument(&quot;--server_url&quot;, type=str, required=True)</span><br><span class="line">    parser.add_argument(&quot;--image_dir&quot;, type=str, required=True)</span><br><span class="line">    parser.add_argument(&quot;--output&quot;, type=str, default=&quot;./hubserving_result&quot;)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    return args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    args = parse_args()</span><br><span class="line">    main(args)</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>关注到 PaddleOCR 是因为日常想找照片的时候，因为照片太多根本搜索不到，而照片存储在 NAS 上，又没有提供很好的图文检索功能，于是在自研的一个项目中想着集成图文检索功能。我是码力欧 <a href="https://noge.top/">https://noge.top</a> ，如果你也有类似的需要，欢迎交流使用经验。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -944,150 +1045,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2020/04/05/4.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/05/4.html" class="post-title-link" itemprop="url">JVM GC</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-04-05T00:00:00+00:00">2020-04-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><ul>
-<li>引用计数算法，记录对象被引用的次数。</li>
-<li>可达性分析算法，通过一系列的“GC Roots” 根对象作为开始节点集，根据引用关系向下搜索，如果某个对象到 GC Roots 间没有任何引用链相连，表明对象不可达。</li>
-</ul>
-<p>引用的概念</p>
-<ul>
-<li>强引用，普遍的引用赋值。</li>
-<li>软引用，在程序将要内存溢出的时候可以进行回收，回收后内存依然不够时则抛出异常。</li>
-<li>弱引用，生存周期为下一次垃圾回收为止。</li>
-<li>虚引用，被垃圾回收时触发一次系统通知。</li>
-</ul>
-<p>垃圾收集算法 - 分代收集理论</p>
-<ul>
-<li>内存区域<ul>
-<li>新生代</li>
-<li>老年代</li>
-<li>永久代（元空间、方法区）</li>
-</ul>
-</li>
-<li>回收类型<ul>
-<li>新生代收集</li>
-<li>老年代收集</li>
-<li>整堆收集</li>
-</ul>
-</li>
-<li>回收算法<ul>
-<li>标记 - 清除算法：将垃圾对象标记清除。容易造成内存空间碎片化，大对象申请问题，可能触发下一次垃圾收集动作。</li>
-<li>标记 - 复制算法：半区复制，浪费空间。新生代 eden 空间、两块 survivor 空间，比例是 8:1，每次只使用 Eden空间和一块survivor空间，进行垃圾回收时会将存活对象复制到另一块 survivor 空间，然后清理掉已经用过的 Eden 空间和 survivor 空间，这样整个新生代利用了 90% 的空间。当一次垃圾回收的存活对象超过一个surivor空间时会通过分配担保机制使用老年代空间。</li>
-<li>标记 - 整理算法：清除后将所有存活对象向内存空间一端移动。</li>
-</ul>
-</li>
-</ul>
-<h3 id="经典垃圾收集器"><a href="#经典垃圾收集器" class="headerlink" title="经典垃圾收集器"></a>经典垃圾收集器</h3><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e197cc0e51d451c774dc56f">https://juejin.im/post/5e197cc0e51d451c774dc56f</a></p>
-<p><img src="/resource/img/15860681718965.jpg"></p>
-<p><img src="/resource/img/15860666420812.jpg"></p>
-<p>Java8 GC 默认使用的是 Parallel Scavenge (新生代) 和 Parallel Old (老年代)。</p>
-<h3 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h3><p>在启动命令中增加 <code>-XX:+PrintGCDetails</code> 输出详细GC日志。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * VM Args: -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8</span><br><span class="line"> * 堆内存溢出</span><br><span class="line"> */</span><br><span class="line">public class JvmDemo1 &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        List&lt;Long&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            list.add(random.nextLong());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[GC (Allocation Failure) [PSYoungGen: 8097K-&gt;1008K(9216K)] 11954K-&gt;10351K(19456K), 0.0091685 secs] [Times: user=0.02 sys=0.01, real=0.01 secs] </span><br><span class="line"></span><br><span class="line">[Full GC (Ergonomics) [PSYoungGen: 1008K-&gt;495K(9216K)] [ParOldGen: 9343K-&gt;9793K(10240K)] 10351K-&gt;10288K(19456K), [Metaspace: 3224K-&gt;3224K(1056768K)], 0.1013312 secs] [Times: user=0.16 sys=0.00, real=0.10 secs] </span><br></pre></td></tr></table></figure>
-
-<p>GC：表明进行了一次垃圾回收，前面没有Full修饰，表明这是一次Minor GC ,注意它不表示只GC新生代，并且现有的不管是新生代还是老年代都会STW。 Allocation Failure：表明本次引起GC的原因是因为在年轻代中没有足够的空间能够存储新的数据了。</p>
-<p><img src="/resource/img/15860668066361.jpg"></p>
-<p><img src="/resource/img/15860668161669.jpg"></p>
-<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="JVM-堆栈配置参数"><a href="#JVM-堆栈配置参数" class="headerlink" title="JVM 堆栈配置参数"></a>JVM 堆栈配置参数</h3><p><img src="/resource/img/15860671536079.jpg"></p>
-<h3 id="jps-查看-JVM-进程启动参数"><a href="#jps-查看-JVM-进程启动参数" class="headerlink" title="jps 查看 JVM 进程启动参数"></a>jps 查看 JVM 进程启动参数</h3><p>默认元空间大小128M，最大元空间大小256M，初始化堆大小2G，最大堆大小5G，新生代512M，每个线程分配内存大小1M。eden空间和survivor空间的分配比率8:2，使用标记复制算法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:/usr/lib/jvm/java-8-oracle/bin# ./jps -v</span><br><span class="line">1 xxx.jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Xms2048m -Xmx5048m -Xmn512m -Xss1024k -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails</span><br></pre></td></tr></table></figure>
-
-<h3 id="jmap-生成堆快照"><a href="#jmap-生成堆快照" class="headerlink" title="jmap 生成堆快照"></a>jmap 生成堆快照</h3><p>format 指定输出格式，live 指明是活着的对象，file 指定文件名。方便后面通过分析工具分析。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmap -dump:live,format=b,file=dump.hprof pid</span><br></pre></td></tr></table></figure>
-
-<h3 id="jstat-查看-JVM-进程已使用空间百分比"><a href="#jstat-查看-JVM-进程已使用空间百分比" class="headerlink" title="jstat 查看 JVM 进程已使用空间百分比"></a>jstat 查看 JVM 进程已使用空间百分比</h3><p><img src="/resource/img/15860681523977.jpg"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:/usr/lib/jvm/java-8-oracle/bin# ./jstat -gcutil 1</span><br><span class="line">  S0 S1 E O M CCS YGC YGCT FGC FGCT GCT</span><br><span class="line">  0.00 72.37 40.12 3.59 96.52 94.68 113 4.433 0 0.000 4.433</span><br></pre></td></tr></table></figure>
-
-<p>S0 survivo0<br>S1 survivo1<br>E Eden空间<br>O 老年代<br>M 元空间使用率<br>CCS 压缩使用比例<br>YGC 新生代 GC 次数<br>YGCT 新生代 GC 耗时<br>FGC Full GC 次数<br>FGCT Full GC 耗时<br>GCT GC 耗时</p>
-<h3 id="jmap-查看进程堆的详细信息"><a href="#jmap-查看进程堆的详细信息" class="headerlink" title="jmap 查看进程堆的详细信息"></a>jmap 查看进程堆的详细信息</h3><p><code>jmap -heap pid</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">Attaching to process ID 3764, please wait...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.171-b11</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Parallel GC with 8 thread(s) //采用Parallel GC </span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   MinHeapFreeRatio = 0 //JVM最小空闲比率 可由-XX:MinHeapFreeRatio=&lt;n&gt;参数设置， jvm heap 在使用率小于 n 时 ,heap 进行收缩</span><br><span class="line">   MaxHeapFreeRatio = 100 //JVM最大空闲比率 可由-XX:MaxHeapFreeRatio=&lt;n&gt;参数设置， jvm heap 在使用率大于 n 时 ,heap 进行扩张 </span><br><span class="line">   MaxHeapSize = 2095054848 (1998.0MB) //JVM堆的最大大小 可由-XX:MaxHeapSize=&lt;n&gt;参数设置</span><br><span class="line">   NewSize = 44040192 (42.0MB) //JVM新生代的默认大小 可由-XX:NewSize=&lt;n&gt;参数设置</span><br><span class="line">   MaxNewSize = 698351616 (666.0MB) //JVM新生代的最大大小 可由-XX:MaxNewSize=&lt;n&gt;参数设置</span><br><span class="line">   OldSize = 88080384 (84.0MB) //JVM老生代的默认大小 可由-XX:OldSize=&lt;n&gt;参数设置 </span><br><span class="line">   NewRatio = 2 //新生代：老生代（的大小）=1:2 可由-XX:NewRatio=&lt;n&gt;参数指定New Generation与Old Generation heap size的比例。</span><br><span class="line">   SurvivorRatio = 8 //survivor:eden = 1:8,即survivor space是新生代大小的1/(8+2)[因为有两个survivor区域] 可由-XX:SurvivorRatio=&lt;n&gt;参数设置</span><br><span class="line">   MetaspaceSize = 21807104 (20.796875MB) //元空间的默认大小，超过此值就会触发Full GC 可由-XX:MetaspaceSize=&lt;n&gt;参数设置</span><br><span class="line">   CompressedClassSpaceSize = 1073741824 (1024.0MB) //类指针压缩空间的默认大小 可由-XX:CompressedClassSpaceSize=&lt;n&gt;参数设置</span><br><span class="line">   MaxMetaspaceSize = 17592186044415 MB //元空间的最大大小 可由-XX:MaxMetaspaceSize=&lt;n&gt;参数设置</span><br><span class="line">   G1HeapRegionSize = 0 (0.0MB) //使用G1垃圾收集器的时候，堆被分割的大小 可由-XX:G1HeapRegionSize=&lt;n&gt;参数设置</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">PS Young Generation //新生代区域分配情况</span><br><span class="line">Eden Space: //Eden区域分配情况</span><br><span class="line">   capacity = 89653248 (85.5MB)</span><br><span class="line">   used = 8946488 (8.532035827636719MB)</span><br><span class="line">   free = 80706760 (76.96796417236328MB)</span><br><span class="line">   9.978989272089729% used</span><br><span class="line">From Space: //其中一个Survivor区域分配情况</span><br><span class="line">   capacity = 42467328 (40.5MB)</span><br><span class="line">   used = 15497496 (14.779563903808594MB)</span><br><span class="line">   free = 26969832 (25.720436096191406MB)</span><br><span class="line">   36.49275037977431% used</span><br><span class="line">To Space: //另一个Survivor区域分配情况</span><br><span class="line">   capacity = 42991616 (41.0MB)</span><br><span class="line">   used = 0 (0.0MB)</span><br><span class="line">   free = 42991616 (41.0MB)</span><br><span class="line">   0.0% used</span><br><span class="line">PS Old Generation //老生代区域分配情况</span><br><span class="line">   capacity = 154664960 (147.5MB)</span><br><span class="line">   used = 98556712 (93.99100494384766MB)</span><br><span class="line">   free = 56108248 (53.508995056152344MB)</span><br><span class="line">   63.722715216167906% used</span><br><span class="line"></span><br><span class="line">1819 interned Strings occupying 163384 bytes.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>目的：对JVM内存的系统级的调优主要的目的是减少GC的频率和Full GC的次数，减少系统停顿时间。</p>
-<p>步骤：</p>
-<ol>
-<li>监控GC状态</li>
-<li>生成 dump 文件</li>
-<li>分析dump 文件（MAT 工具）</li>
-<li>分析判断是否需要进行优化</li>
-</ol>
-<ul>
-<li>Minor GC执行时间超过50ms；</li>
-<li>Minor GC执行频繁，约10秒内一次；</li>
-<li>Full GC执行时间超过1s；</li>
-<li>Full GC执行频繁，高于10分钟1次；</li>
-</ul>
-<ol start="5">
-<li>调整GC类型和内存分配</li>
-<li>不断分析调整</li>
-</ol>
-<h2 id="可视化分析工具-MAT"><a href="#可视化分析工具-MAT" class="headerlink" title="可视化分析工具 MAT"></a>可视化分析工具 MAT</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wwlwwy89/article/details/74330544">https://blog.csdn.net/wwlwwy89/article/details/74330544</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

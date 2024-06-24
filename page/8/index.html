@@ -71,7 +71,7 @@
       <h1 class="site-title">码力欧</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">的业余生活</p>
+      <p class="site-subtitle" itemprop="description">瞎折腾</p>
   </div>
 
   <div class="site-nav-right">
@@ -86,9 +86,10 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>├ 技术</a></li>
+        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>├ 动态</a></li>
+        <li class="menu-item menu-item-nas"><a href="/nas/" rel="section"><i class="sitemap fa-fw"></i>├ NAS</a></li>
         <li class="menu-item menu-item-life"><a href="/life/" rel="section"><i class="sitemap fa-fw"></i>├ 生活</a></li>
-        <li class="menu-item menu-item-future"><a href="/future/" rel="section"><i class="sitemap fa-fw"></i>└ 未来</a></li>
+        <li class="menu-item menu-item-career"><a href="/career/" rel="section"><i class="sitemap fa-fw"></i>└ 技术</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
   </ul>
@@ -133,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -186,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/11/18/1.html">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/03/15/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +200,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/11/18/1.html" class="post-title-link" itemprop="url">深度学习系列第五篇 — 卷积神经网络</a>
+          <a href="/2017/03/15/1.html" class="post-title-link" itemprop="url">关于Java的最初了解</a>
         </h2>
 
         <div class="post-meta-container">
@@ -210,7 +211,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-11-18 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-18T00:00:00+00:00">2017-11-18</time>
+      <time title="创建时间：2017-03-15 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-15T00:00:00+00:00">2017-03-15</time>
     </span>
 
   
@@ -223,61 +224,39 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">卷积神经网络 - 维基百科</a></p>
-<p>这篇例子是学习 <a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/">莫烦PYTHON</a> 视频教程整理的学习笔记。</p>
-<p>卷积神经网络包含如下几层：</p>
-<ol>
-<li>输入层</li>
-<li>卷积层（卷积层的结构 + 向前传播算法） &#x3D;&gt;&gt; （过滤器或内核）（用来提取特征,每一层会将图层变厚）</li>
-<li>池化层（用来采样，稀疏参数，每一层会将图层变瘦）</li>
-<li>全连接层（将前两层提取的图像特征使用全连接层完成分类任务）</li>
-<li>Softmax 层（主要处理分类，得到不同种类的概率分布情况）</li>
-</ol>
-<p><img src="/resource/img/cnn.jpg" alt="cnn"></p>
-<p>首先我们将如下包导入，这次练习是通过 Tensorflow 提供的 MNIST 数据集进行训练，识别手写数字。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载或加载数据</span></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">&quot;MNIST_data&quot;</span>, one_hot=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<pre><code>Extracting MNIST_data/train-images-idx3-ubyte.gz
-Extracting MNIST_data/train-labels-idx1-ubyte.gz
-Extracting MNIST_data/t10k-images-idx3-ubyte.gz
-Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">weight_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    inital = tf.truncated_normal(shape, stddev=<span class="number">0.1</span>)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(inital)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bias_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    inital = tf.constant(<span class="number">0.1</span>, shape=shape)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(inital)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_layer</span>(<span class="params">inputs, in_size, out_size, activation_function=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># 在生成初始参数时，随机变量(normal distribution)会比全部为0要好很多</span></span><br><span class="line">    <span class="comment"># 所以我们这里的weights为一个in_size行, out_size列的随机变量矩阵。</span></span><br><span class="line">    weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    <span class="comment"># biases的推荐值不为0，所以我们这里是在0向量的基础上又加了0.1</span></span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]) + <span class="number">0.1</span>)</span><br><span class="line">    wx_plus_b = tf.matmul(inputs, weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        outputs = wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compute_accuracy</span>(<span class="params">v_xs, v_ys</span>):</span><br><span class="line">    <span class="keyword">global</span> prediction</span><br><span class="line">    y_pre = sess.run(prediction, feed_dict=&#123;xs: v_xs, keep_drop: <span class="number">1</span>&#125;)</span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(y_pre,<span class="number">1</span>), tf.argmax(v_ys,<span class="number">1</span>))</span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line">    result = sess.run(accuracy, feed_dict=&#123;xs: v_xs, ys: v_ys, keep_drop: <span class="number">1</span>&#125;)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">conv2d</span>(<span class="params">x, w</span>):</span><br><span class="line">    <span class="comment"># stride [1, x_movement, y_movement, 1]</span></span><br><span class="line">    <span class="comment"># Must have strides[0] = strides[4] = 1</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.conv2d(x, w, strides=[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>], padding=<span class="string">&#x27;SAME&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">max_pool_2x2</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="comment"># stride [1, x_movement, y_movement, 1]</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.max_pool(x, ksize=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], strides=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], padding=<span class="string">&#x27;SAME&#x27;</span>)</span><br><span class="line"></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">784</span>])  <span class="comment"># 28 * 28</span></span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">10</span>])</span><br><span class="line">keep_drop = tf.placeholder(tf.float32)</span><br><span class="line">x_image = tf.reshape(xs, [-<span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># print x_image.shape  # [n_sample, 28, 28, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># conv1 layer #</span></span><br><span class="line">w_conv1 = weight_variable([<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">32</span>])  <span class="comment"># patch 5 x 5, in size 1, out size 32</span></span><br><span class="line">b_conv1 = bias_variable([<span class="number">32</span>])</span><br><span class="line">h_conv1 = tf.nn.relu(conv2d(x_image, w_conv1) + b_conv1)  <span class="comment"># output size 28 x 28 x 32</span></span><br><span class="line">h_pool1 = max_pool_2x2(h_conv1)  <span class="comment"># output size 14 x 14 x 32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># conv2 layer #</span></span><br><span class="line">w_conv2 = weight_variable([<span class="number">5</span>,<span class="number">5</span>,<span class="number">32</span>,<span class="number">64</span>])  <span class="comment"># patch 5 x 5, in size 32, out size 64</span></span><br><span class="line">b_conv2 = bias_variable([<span class="number">64</span>])</span><br><span class="line">h_conv2 = tf.nn.relu(conv2d(h_pool1, w_conv2) + b_conv2)  <span class="comment"># output size 14 x 14 x 64</span></span><br><span class="line">h_pool2 = max_pool_2x2(h_conv2)  <span class="comment"># output size 7 x 7 x 64</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># func1 layer #</span></span><br><span class="line">w_fc1 = weight_variable([<span class="number">7</span> * <span class="number">7</span> * <span class="number">64</span>, <span class="number">1024</span>])</span><br><span class="line">b_fc1 = bias_variable([<span class="number">1024</span>])</span><br><span class="line">h_pool2_flat = tf.reshape(h_pool2, [-<span class="number">1</span>, <span class="number">7</span>*<span class="number">7</span>*<span class="number">64</span>])  <span class="comment"># [n_sample, 7, 7 64]  -&gt; [n_sample, 7*7*64]</span></span><br><span class="line">h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, w_fc1) + b_fc1)</span><br><span class="line">h_fc1_drop = tf.nn.dropout(h_fc1, keep_drop)</span><br><span class="line"></span><br><span class="line"><span class="comment"># func2 layer #</span></span><br><span class="line">w_fc2 = weight_variable([<span class="number">1024</span>, <span class="number">10</span>])</span><br><span class="line">b_fc2 = bias_variable([<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
-
-<p>通过使用 <code>softmax</code> 分类器输出分类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2) + b_fc2)</span><br></pre></td></tr></table></figure>
-
-<p>loss函数（即最优化目标函数）选用交叉熵函数。交叉熵用来衡量预测值和真实值的相似程度，如果完全相同，它们的交叉熵等于零。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction), reduction_indices=[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
-
-<p>通过使用 <code>AdamOptimizer</code> 优化器进行优化，使 <code>cross_entropy</code> 最小</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_step = tf.train.AdamOptimizer(<span class="number">1e-4</span>).minimize(cross_entropy)</span><br></pre></td></tr></table></figure>
-
-<p>下面开始训练，通过两千次的训练，每次抽样 100 条数据，每 100 次训练完验证一下预测的准确率</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">2001</span>):</span><br><span class="line">        batch_xs, batch_ys = mnist.train.next_batch(<span class="number">100</span>)</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;xs: batch_xs, ys: batch_ys, keep_drop: <span class="number">0.5</span>&#125;)</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span> i, compute_accuracy(</span><br><span class="line">                mnist.test.images[:<span class="number">1000</span>], mnist.test.labels[:<span class="number">1000</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;end!&quot;</span></span><br></pre></td></tr></table></figure>
-<p>训练结果：</p>
-<pre><code>100 0.861
-200 0.904
-300 0.93
-400 0.933
-500 0.94
-600 0.949
-700 0.955
-800 0.958
-900 0.961
-1000 0.964
-1100 0.966
-1200 0.968
-1300 0.972
-1400 0.968
-1500 0.973
-1600 0.972
-1700 0.976
-1800 0.975
-1900 0.973
-2000 0.981
-end!
-</code></pre>
+          <h2 id="Apache-Maven"><a href="#Apache-Maven" class="headerlink" title="Apache Maven"></a>Apache Maven</h2><p>Maven 是一个项目管理和构建自动化工具。但是对于我们程序员来说，我们最关心的是它的项目构建功能，它可以规定项目的文件结构，比如下面：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>${basedir}</td>
+<td>存放 pom.xml和所有的子目录</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;main&#x2F;java</td>
+<td>项目的 java源代码</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;main&#x2F;resources</td>
+<td>项目的资源，比如说 property文件</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;test&#x2F;java</td>
+<td>项目的测试类，比如说 JUnit代码</td>
+</tr>
+<tr>
+<td>${basedir}&#x2F;src&#x2F;test&#x2F;resources</td>
+<td>测试使用的资源</td>
+</tr>
+</tbody></table>
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><p>Spring Boot 是一个轻量级框架，Spring Boot 的目的是提供一组工具，以便快速构建容易配置的 Spring 应用程序。</p>
+<h2 id="Apache-Tomcat"><a href="#Apache-Tomcat" class="headerlink" title="Apache Tomcat"></a>Apache Tomcat</h2><p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
+<h2 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h2><p>是一种Java语言下的对象关系映射解决方案。Hibernate不仅负责从Java类到数据库表的映射（还包括从Java数据类型到SQL数据类型的映射），还提供了面向对象的数据查询检索机制，从而极大地缩短了手动处理SQL和JDBC上的开发时间。</p>
+<h2 id="Spring-web-MVC"><a href="#Spring-web-MVC" class="headerlink" title="Spring web MVC"></a>Spring web MVC</h2><p>框架提供了模型-视图-控制的体系结构和可以用来开发灵活、松散耦合的 web 应用程序的组件。MVC 模式导致了应用程序的不同方面(输入逻辑、业务逻辑和 UI 逻辑)的分离，同时提供了在这些元素之间的松散耦合。</p>
 
       
     </div>
@@ -304,7 +283,7 @@ end!
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/11/17/1.html">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/03/02/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -317,7 +296,7 @@ end!
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/11/17/1.html" class="post-title-link" itemprop="url">Tornado 异步非阻塞浅析</a>
+          <a href="/2017/03/02/1.html" class="post-title-link" itemprop="url">结算开发中遇到的坑</a>
         </h2>
 
         <div class="post-meta-container">
@@ -328,7 +307,7 @@ end!
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+00:00">2017-11-17</time>
+      <time title="创建时间：2017-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-02T00:00:00+00:00">2017-03-02</time>
     </span>
 
   
@@ -341,665 +320,448 @@ end!
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>[以下代码基于 Tornado 3.2.1 版本讲解]<br>[主要目标：讲解 gen.coroutine、Future、Runner 之间的关系]</p>
-<p>这里是示例运行代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># coding: utf-8</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">File: demo.py</span><br><span class="line">Author: noogel</span><br><span class="line">Date: 2017-08-28 22:59</span><br><span class="line">Description: demo</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import tornado</span><br><span class="line"></span><br><span class="line">from tornado import gen, web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@gen.coroutine</span><br><span class="line">def service_method():</span><br><span class="line">    raise gen.Return(&quot;abc&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class NoBlockHandler(tornado.web.RequestHandler):</span><br><span class="line"></span><br><span class="line">    @web.asynchronous</span><br><span class="line">    @gen.coroutine</span><br><span class="line">    def get(self):</span><br><span class="line">        result = yield service_method()</span><br><span class="line">        self.write(result)</span><br><span class="line">        self.finish()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Application(tornado.web.Application):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        settings = &#123;</span><br><span class="line">            &quot;xsrf_cookies&quot;: False,</span><br><span class="line">        &#125;</span><br><span class="line">        handlers = [</span><br><span class="line">            (r&quot;/api/noblock&quot;, NoBlockHandler),</span><br><span class="line">        ]</span><br><span class="line">        tornado.web.Application.__init__(self, handlers, **settings)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    Application().listen(2345)</span><br><span class="line">    tornado.ioloop.IOLoop.instance().start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>坑1：浮点数不精确性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [1]: 0.1+0.1+0.1-0.3</span><br><span class="line">Out[1]: 5.551115123125783e-17</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [2]: from decimal import Decimal</span><br><span class="line">In [3]: Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) + Decimal(&#x27;0.1&#x27;) - Decimal(&#x27;0.3&#x27;)</span><br><span class="line">Out[3]: Decimal(&#x27;0.0&#x27;)</span><br></pre></td></tr></table></figure>
+<p>坑2：Decimal使用问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [5]: Decimal(0.1) + Decimal(0.1) + Decimal(0.1) - Decimal(0.3)</span><br><span class="line">Out[5]: Decimal(&#x27;2.775557561565156540423631668E-17&#x27;)</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>参照坑1的解决办法，Decimal传入值需要str类型<br>更多用法查看：<a target="_blank" rel="noopener" href="https://docs.python.org/2/library/decimal.html">https://docs.python.org/2/library/decimal.html</a></p>
+<p>坑3：四舍五入不准确问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [3]: &#x27;&#123;:.2f&#125;&#x27;.format(Decimal(str(1001.8250)))</span><br><span class="line">Out[3]: &#x27;1001.82&#x27;</span><br><span class="line">In [2]: Decimal(&#x27;1001.8250&#x27;).quantize(Decimal(&#x27;0.01&#x27;))</span><br><span class="line">Out[2]: Decimal(&#x27;1001.82&#x27;)</span><br><span class="line">In [4]: round(2.55, 1)</span><br><span class="line">Out[4]: 2.5</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>发现问题原因为在不能正确四舍五入的float数值中都是因为数据存储末位的.5被存储为.4999999…的形式，解决办法是在.5上加.1的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def exact_round(num, exp=2):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    准确的四舍五入方法</span><br><span class="line">    :param num: 数值</span><br><span class="line">    :param exp: 保留精度</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    str_num = str(num)</span><br><span class="line">    dec_num = Decimal(str_num)</span><br><span class="line">    exp_unit = Decimal(&#x27;0.1&#x27;) ** exp</span><br><span class="line">    mini_unit = Decimal(&#x27;0.1&#x27;) ** (exp + 1)</span><br><span class="line">    if dec_num % exp_unit == (5 * mini_unit):</span><br><span class="line">        dec_num += mini_unit</span><br><span class="line">    return Decimal(dec_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>演示运行效果…</p>
-</blockquote>
-<p>讲解从 coroutine 修饰器入手，这个函数实现了简单的异步，它通过 generator 中的 yield 语句使函数暂停执行，将中间结果临时保存，然后再通过 send() 函数将上一次的结果送入函数恢复函数执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def coroutine(func):</span><br><span class="line">    @functools.wraps(func)</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        future = TracebackFuture()</span><br><span class="line">        if &#x27;callback&#x27; in kwargs:</span><br><span class="line">            print(&quot;gen.coroutine callback:&#123;&#125;&quot;.format(kwargs[&#x27;callback&#x27;]))</span><br><span class="line">            callback = kwargs.pop(&#x27;callback&#x27;)</span><br><span class="line">            IOLoop.current().add_future(</span><br><span class="line">                future, lambda future: callback(future.result()))</span><br><span class="line">        try:</span><br><span class="line">            print(&quot;gen.coroutine run func:&#123;&#125;&quot;.format(func))</span><br><span class="line">            result = func(*args, **kwargs)</span><br><span class="line">        except (Return, StopIteration) as e:</span><br><span class="line">            result = getattr(e, &#x27;value&#x27;, None)</span><br><span class="line">        except Exception:</span><br><span class="line">            future.set_exc_info(sys.exc_info())</span><br><span class="line">            return future</span><br><span class="line">        else:</span><br><span class="line">            if isinstance(result, types.GeneratorType):</span><br><span class="line">                def final_callback(value):</span><br><span class="line">                    deactivate()</span><br><span class="line">                    print(&quot;gen.coroutine final set_result:&#123;&#125;&quot;.format(value))</span><br><span class="line">                    future.set_result(value)</span><br><span class="line">                print(&quot;gen.coroutine will Runner.run() result:&#123;&#125;&quot;.format(result))</span><br><span class="line">                runner = Runner(result, final_callback)</span><br><span class="line">                runner.run()</span><br><span class="line">                return future</span><br><span class="line">        print(&quot;@@ gen.coroutine will set_result and return:&#123;&#125;&quot;.format(result))</span><br><span class="line">        future.set_result(result)</span><br><span class="line">        return future</span><br><span class="line">    return wrapper</span><br></pre></td></tr></table></figure>
+<p>为了验证这个方法写了个测试脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">摘    要: exact_round.py</span><br><span class="line">创 建 者: abc</span><br><span class="line">创建日期: 2017-01-05</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">__author__ = &quot;abc&quot;</span><br><span class="line"></span><br><span class="line">from decimal import Decimal, ROUND_HALF_EVEN</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def exact_round(num, exp=2):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    准确的四舍五入方法</span><br><span class="line">    :param num: 数值</span><br><span class="line">    :param exp: 保留精度</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    str_num = str(num)</span><br><span class="line">    dec_num = Decimal(str_num)</span><br><span class="line">    exp_unit = Decimal(&#x27;0.1&#x27;) ** exp</span><br><span class="line">    mini_unit = Decimal(&#x27;0.1&#x27;) ** (exp + 1)</span><br><span class="line">    raw_num = dec_num</span><br><span class="line">    if dec_num % exp_unit == (5 * mini_unit):</span><br><span class="line">        dec_num += mini_unit</span><br><span class="line">    raw_result = Decimal(raw_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br><span class="line">    result = Decimal(dec_num).quantize(exp_unit, rounding=ROUND_HALF_EVEN)</span><br><span class="line">    if result != raw_result:</span><br><span class="line">        print &quot;raw:round(&#123;&#125;, &#123;&#125;) = &gt; &#123;&#125;; fixed: round(&#123;&#125;, &#123;&#125;) =&gt; &#123;&#125;&quot;.format(</span><br><span class="line">            raw_num, exp, raw_result,</span><br><span class="line">            dec_num, exp, result</span><br><span class="line">        )</span><br><span class="line">    return result</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    val = 900.0000</span><br><span class="line">    while val &lt; 1001.8600:</span><br><span class="line">        for exp in range(0, 6):</span><br><span class="line">            exact_round(val, exp=exp)</span><br><span class="line">        val += 0.0005</span><br></pre></td></tr></table></figure>
+<p>脚本中我们将被修正过的数据打印出来，发现被打印出来的都是四舍五入不正确的数值，经过方法处理可以保证准确的输出。</p>
+<p>因为我们的测试只是覆盖了部分的数值，精度深度也只到到了6位，也不能保证说方法没有问题。<br>后来询问了在银行做开发的朋友，他们对于数据的计算都是在数据库的存储过程中运算的，并对上面坑中的数值放到数据库中做四舍五入发现确实没有问题。</p>
+<p>于是我将这个方法做的运算与数据库的运算结果做对比写了测试脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">摘    要: test_db_round.py</span><br><span class="line">创 建 者: abc</span><br><span class="line">创建日期: 2017-01-06</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">__author__ = &quot;abc&quot;</span><br><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">sys.path.append(os.path.dirname(os.path.split(os.path.realpath(__file__))[0]))</span><br><span class="line"></span><br><span class="line">from lib.utils import exact_round</span><br><span class="line">from model import Model</span><br><span class="line"> </span><br><span class="line">def test_db_round(val, exp):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    test_db_round</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    sql = &quot;SELECT round(&#123;&#125;, &#123;&#125;) as val&quot;.format(str(val), exp)</span><br><span class="line">    db_round = Model().raw(sql)[0][&quot;val&quot;]</span><br><span class="line">    exa_round = exact_round(val, exp)</span><br><span class="line">    if str(db_round) != str(exa_round):</span><br><span class="line">        print &quot;db:&#123;&#125;; ex:&#123;&#125;&quot;.format(str(db_round), str(exa_round))</span><br><span class="line"> </span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    val = 900.0000</span><br><span class="line">    while val &lt; 1001.8600:</span><br><span class="line">        for exp in range(0, 6):</span><br><span class="line">            test_db_round(val, exp=exp)</span><br><span class="line">        val += 0.0005</span><br></pre></td></tr></table></figure>
+<p>经过测试后发现没有数据被打印出，证明在测试范围内Python方法和数据库的运算结果没有差异。</p>
+<p>关于浮点数不精确性的事情相信学过计算机组成原理这门课程的都明白，这里不再赘述，放个链接：<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kubixuesheng/p/4107309.html">从如何判断浮点数是否等于0说起——浮点数的机器级表示</a></p>
+<p>话说为什么要在Python中做财务相关运算呢，可能最初开发这个系统的人缺乏这方面的经验，然后通过扩展精度保留位数来解决这个问题的，但终究在做四舍五入时可能产生1分的差异。<br>既然发现这个问题，本着眼里不揉沙子的态度，快速的解决方案是在Python中替换原来的四舍五入函数，长期策略是逐步将计算过程挪到数据库通过存储过程来实现。</p>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: create future object</span><br><span class="line">rf=&gt;operation: run function</span><br><span class="line">ex=&gt;condition: is not exception</span><br><span class="line">gen=&gt;condition: is generator</span><br><span class="line">run=&gt;operation: Runner.run()</span><br><span class="line">fts=&gt;operation: future.set_done()</span><br><span class="line">rtnf=&gt;operation: return future</span><br><span class="line">ed=&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;rf-&gt;ex</span><br><span class="line">ex(no)-&gt;rtnf</span><br><span class="line">ex(yes)-&gt;gen</span><br><span class="line">gen(yes)-&gt;run</span><br><span class="line">gen(no)-&gt;rtnf</span><br><span class="line">run-&gt;rtnf</span><br><span class="line">rtnf-&gt;ed</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
 
-<p>首先创建一个Future实例，然后执行被修饰的函数，一般函数返回的是一个生成器对象，接下来交由 Runner 处理，如果函数返回的是 Return, StopIteration 那么表示函数执行完成将结果放入 future 中并 set_done() 返回。</p>
-<p>下面是Future的简版：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Future(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._result = None</span><br><span class="line">        self._callbacks = []</span><br><span class="line"></span><br><span class="line">    def result(self, timeout=None):</span><br><span class="line">        self._clear_tb_log()</span><br><span class="line">        if self._result is not None:</span><br><span class="line">            return self._result</span><br><span class="line">        if self._exc_info is not None:</span><br><span class="line">            raise_exc_info(self._exc_info)</span><br><span class="line">        self._check_done()</span><br><span class="line">        return self._result</span><br><span class="line"></span><br><span class="line">    def add_done_callback(self, fn):</span><br><span class="line">        if self._done:</span><br><span class="line">            fn(self)</span><br><span class="line">        else:</span><br><span class="line">            self._callbacks.append(fn)</span><br><span class="line"></span><br><span class="line">    def set_result(self, result):</span><br><span class="line">        self._result = result</span><br><span class="line">        self._set_done()</span><br><span class="line"></span><br><span class="line">    def _set_done(self):</span><br><span class="line">        self._done = True</span><br><span class="line">        for cb in self._callbacks:</span><br><span class="line">            try:</span><br><span class="line">                cb(self)</span><br><span class="line">            except Exception:</span><br><span class="line">                app_log.exception(&#x27;Exception in callback %r for %r&#x27;, cb, self)</span><br><span class="line">        self._callbacks = None</span><br></pre></td></tr></table></figure>
-<p>在tornado中大多数的异步操作返回一个Future对象，这里指的是 Runner 中处理的异步返回结果。我们可以将该对象抽象成一个占位对象，它包含很多属性和函数。一个 Future 对象一般对应这一个异步操作。当这个对象的异步操作完成后会通过 set_done() 函数去处理 _callbacks 中的回调函数，这个回调函数是在我们在做修饰定义的时候传入 coroutine 中的。</p>
-<p>下面的代码是在 coroutine 中定义的，用来添加对异步操作完成后的回调处理。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if &#x27;callback&#x27; in kwargs:</span><br><span class="line">    print(&quot;gen.coroutine callback:&#123;&#125;&quot;.format(kwargs[&#x27;callback&#x27;]))</span><br><span class="line">    callback = kwargs.pop(&#x27;callback&#x27;)</span><br><span class="line">    IOLoop.current().add_future(</span><br><span class="line">        future, lambda future: callback(future.result()))</span><br></pre></td></tr></table></figure>
-<p>这里是 IOLoop 中的 add_future 函数，它是来给 future 对象添加回调函数的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def add_future(self, future, callback):</span><br><span class="line">    assert isinstance(future, Future)</span><br><span class="line">    callback = stack_context.wrap(callback)</span><br><span class="line">    future.add_done_callback(</span><br><span class="line">        lambda future: self.add_callback(callback, future))</span><br></pre></td></tr></table></figure>
 
-<p>然后说 Runner 都做了什么。在 3.2.1 版本中 Runner 的作用更重要一些。那么 Runner() 的作用是什么？<br>它主要用来控制生成器的执行与终止，将异步操作的结果 send() 至生成器暂停的地方恢复执行。在生成器嵌套的时候，当 A 中 yield B 的时候，先终止 A 的执行去执行 B，然后当 B 执行结束后将结果 send 至 A 终止的地方继续执行 A。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">class Runner(object):</span><br><span class="line">    def __init__(self, gen, final_callback):</span><br><span class="line">        self.gen = gen</span><br><span class="line">        self.final_callback = final_callback</span><br><span class="line">        self.yield_point = _null_yield_point</span><br><span class="line">        self.results = &#123;&#125;</span><br><span class="line">        self.running = False</span><br><span class="line">        self.finished = False</span><br><span class="line"></span><br><span class="line">    def is_ready(self, key):</span><br><span class="line">        if key not in self.pending_callbacks:</span><br><span class="line">            raise UnknownKeyError(&quot;key %r is not pending&quot; % (key,))</span><br><span class="line">        return key in self.results</span><br><span class="line"></span><br><span class="line">    def set_result(self, key, result):</span><br><span class="line">        self.results[key] = result</span><br><span class="line">        self.run()</span><br><span class="line"></span><br><span class="line">    def pop_result(self, key):</span><br><span class="line">        self.pending_callbacks.remove(key)</span><br><span class="line">        return self.results.pop(key)</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        try:</span><br><span class="line">            self.running = True</span><br><span class="line">            while True:</span><br><span class="line">                next = self.yield_point.get_result()</span><br><span class="line">                self.yield_point = None</span><br><span class="line">                try:</span><br><span class="line">                    print(&quot;gen.Runner.run() will send(next)&quot;)</span><br><span class="line">                    yielded = self.gen.send(next)</span><br><span class="line">                    print(&quot;gen.Runner.run() send(next) done.&quot;)</span><br><span class="line">                except (StopIteration, Return) as e:</span><br><span class="line">                    print(&quot;gen.Runner.run() send(next) throw StopIteration or Return done.&quot;)</span><br><span class="line">                    self.finished = True</span><br><span class="line">                    self.yield_point = _null_yield_point</span><br><span class="line">                    self.final_callback(getattr(e, &#x27;value&#x27;, None))</span><br><span class="line">                    self.final_callback = None</span><br><span class="line">                    return</span><br><span class="line">                if isinstance(yielded, (list, dict)):</span><br><span class="line">                    yielded = Multi(yielded)</span><br><span class="line">                elif isinstance(yielded, Future):</span><br><span class="line">                    yielded = YieldFuture(yielded)</span><br><span class="line">                    self.yield_point = yielded</span><br><span class="line">                    self.yield_point.start(self)</span><br><span class="line">        finally:</span><br><span class="line">            self.running = False</span><br><span class="line"></span><br><span class="line">    def result_callback(self, key):</span><br><span class="line">        def inner(*args, **kwargs):</span><br><span class="line">            if kwargs or len(args) &gt; 1:</span><br><span class="line">                result = Arguments(args, kwargs)</span><br><span class="line">            elif args:</span><br><span class="line">                result = args[0]</span><br><span class="line">            else:</span><br><span class="line">                result = None</span><br><span class="line">            self.set_result(key, result)</span><br><span class="line">        return wrap(inner)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>实例化 Runner() 的时候将生成器对象和生成器执行结束时的回调函数传入，然后通过 run() 函数去继续执行生成器对象。</p>
-<p>run() 函数的处理首先包了一层 while 循环，因为在生成器对象中可能包含多个 yield 语句。</p>
-<p><code>yielded = self.gen.send(next)</code>，在第一次 send() 恢复执行的时候默认传入 None ,因为函数第一次执行并没有结果。然后将第二次执行的结果 yielded （返回的是一个 Future 对象），包装成一个 YieldFuture 对象，然后通过 start()  函数处理：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def start(self, runner):</span><br><span class="line">    if not self.future.done():</span><br><span class="line">        self.runner = runner</span><br><span class="line">        self.key = object()</span><br><span class="line">        self.io_loop.add_future(self.future, runner.result_callback(self.key))</span><br><span class="line">    else:</span><br><span class="line">        self.runner = None</span><br><span class="line">        self.result = self.future.result()</span><br></pre></td></tr></table></figure>
+    
 
-<p>首先判断 future 是否被 set_done()，如果没有则注册一系列回调函数，如果完成则保存结果，以供下一次恢复执行时将结果送入生成器。<br>在 Runner.run() 执行完成后此时的 coroutine 中的 future 对象已经是被 set_done 的，然后直接返回 future 对象，最后被 外层的 @web.asynchronous 修饰器消费。</p>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/02/09/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/09/1.html" class="post-title-link" itemprop="url">Tensorflow学习</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-09 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-09T00:00:00+00:00">2017-02-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例子1</span></span><br><span class="line"></span><br><span class="line">x_data = np.random.rand(<span class="number">100</span>).astype(np.float32)</span><br><span class="line">y_data = x_data*<span class="number">0.4</span> + <span class="number">0.9</span></span><br><span class="line"></span><br><span class="line">weight = tf.Variable(tf.random_uniform([<span class="number">1</span>], -<span class="number">0.1</span>, <span class="number">1.0</span>))</span><br><span class="line">biases = tf.Variable(tf.zeros([<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">y = weight * x_data + biases</span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y - y_data))</span><br><span class="line"><span class="comment"># 误差传递方法是梯度下降法</span></span><br><span class="line">optimizer = tf.train.GradientDescentOptimizer(<span class="number">0.5</span>)</span><br><span class="line">train = optimizer.minimize(loss)</span><br><span class="line"><span class="comment"># 始化所有之前定义的Variable</span></span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>):</span><br><span class="line">    sess.run(train)</span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span> step, sess.run(weight), sess.run(biases)</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From &lt;ipython-input-3-3c832ce985bb&gt;:16 in &lt;module&gt;.: initialize_all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02.
+Instructions for updating:
+Use `tf.global_variables_initializer` instead.
+0 [ 0.8605063] [ 0.92711782]
+20 [ 0.49690402] [ 0.8437199]
+40 [ 0.42823532] [ 0.88360143]
+60 [ 0.40822706] [ 0.89522189]
+80 [ 0.40239716] [ 0.89860773]
+100 [ 0.40069851] [ 0.89959431]
+120 [ 0.40020356] [ 0.89988178]
+140 [ 0.40005937] [ 0.89996552]
+160 [ 0.40001735] [ 0.8999899]
+180 [ 0.40000507] [ 0.89999706]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 例子2</span></span><br><span class="line"></span><br><span class="line">matrix1 = tf.constant([[<span class="number">3</span>,<span class="number">3</span>]])</span><br><span class="line">matrix2 = tf.constant([[<span class="number">2</span>], [<span class="number">2</span>]])</span><br><span class="line"></span><br><span class="line">product = tf.matmul(matrix1, matrix2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># method 1</span></span><br><span class="line">sess = tf.Session()</span><br><span class="line">result = sess.run(product)</span><br><span class="line"><span class="built_in">print</span> result</span><br><span class="line">sess.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    result = sess.run(product)</span><br><span class="line">    <span class="built_in">print</span> result</span><br></pre></td></tr></table></figure>
+
+<pre><code>[[12]]
+[[12]]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Variable变量</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">state = tf.Variable(<span class="number">0</span>, name=<span class="string">&#x27;counter&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义常量1</span></span><br><span class="line">one = tf.constant(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义加法步骤 (注: 此步并没有直接计算)</span></span><br><span class="line">new_value = tf.add(state, one)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 State 更新成 new_value</span></span><br><span class="line">update = tf.assign(state, new_value)</span><br><span class="line"></span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        sess.run(update)</span><br><span class="line">        <span class="built_in">print</span> sess.run(state)</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From &lt;ipython-input-12-816914535228&gt;:14 in &lt;module&gt;.: initialize_all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02.
+Instructions for updating:
+Use `tf.global_variables_initializer` instead.
+1
+2
+3
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># placeholder 传入值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预定义传入值</span></span><br><span class="line">input1 = tf.placeholder(tf.float32)</span><br><span class="line">input2 = tf.placeholder(tf.float32)</span><br><span class="line"></span><br><span class="line">output = tf.mul(input1, input2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># feed_dict传入实际值</span></span><br><span class="line">    <span class="built_in">print</span> sess.run(output, feed_dict=&#123;input1:[<span class="number">7.</span>], input2: [<span class="number">2.</span>]&#125;)</span><br></pre></td></tr></table></figure>
+
+<pre><code>[ 14.]
+</code></pre>
+<h2 id="Activation-Functions-激励函数-tf-nn"><a href="#Activation-Functions-激励函数-tf-nn" class="headerlink" title="Activation Functions 激励函数 tf.nn"></a>Activation Functions 激励函数 tf.nn</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加神经层 add_layer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_layer</span>(<span class="params">inputs, in_size, out_size, activation_function=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># 在生成初始参数时，随机变量(normal distribution)会比全部为0要好很多</span></span><br><span class="line">    <span class="comment"># 所以我们这里的weights为一个in_size行, out_size列的随机变量矩阵。</span></span><br><span class="line">    weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    <span class="comment"># biases的推荐值不为0，所以我们这里是在0向量的基础上又加了0.1</span></span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]) + <span class="number">0.1</span>)</span><br><span class="line">    wx_plus_b = tf.matmul(inputs, weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        outputs = wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 建造神经网络</span></span><br><span class="line">x_data = np.linspace(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">300</span>)[:, np.newaxis]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方差0.05, x_data.shape数据形式</span></span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.05</span>, x_data.shape)</span><br><span class="line"><span class="comment"># x_data 二次方</span></span><br><span class="line">y_data = np.square(x_data) - <span class="number">0.5</span> + noise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入层 -&gt; 隐藏层 -&gt; 输出层</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入值</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">1</span>])</span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 定义隐藏层 1 输入层神经元数量， 输出层神经元数量，隐藏层神经元数量</span></span><br><span class="line">l1 = add_layer(xs, <span class="number">1</span>, <span class="number">10</span>, activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment"># 定义输出层</span></span><br><span class="line">prediction = add_layer(l1, <span class="number">10</span>, <span class="number">1</span>, activation_function=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测误差 二者差的平方和再求平均值</span></span><br><span class="line">loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys - prediction), reduction_indices=[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提供学习效率0.1，通常小于1， 最小化误差</span></span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># 输出误差</span></span><br><span class="line">        <span class="built_in">print</span> sess.run(loss, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From &lt;ipython-input-36-245eb01b43f9&gt;:41 in &lt;module&gt;.: initialize_all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02.
+Instructions for updating:
+Use `tf.global_variables_initializer` instead.
+0.295339
+0.00607488
+0.00473904
+0.00429677
+0.00412784
+0.0040373
+0.0039907
+0.00395235
+0.00391656
+0.00388327
+0.00385458
+0.0038216
+0.00378461
+0.00374649
+0.00369835
+0.00366241
+0.00363534
+0.00361383
+0.0035907
+0.00357239
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 结果可视化</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">ax.scatter(x_data, y_data)</span><br><span class="line"><span class="comment"># plt.ion()</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/resource/img/tensorflow_study/output_7_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 展示每一步的学习结果</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        sess.run(train_step, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># 输出误差</span></span><br><span class="line">            <span class="comment"># print sess.run(loss, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span></span><br><span class="line">            prediction_value = sess.run(prediction, feed_dict=&#123;xs: x_data&#125;)</span><br><span class="line">            fig = plt.figure()</span><br><span class="line">            ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">            ax.scatter(x_data, y_data)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># 去除原来的线</span></span><br><span class="line">                ax.lines.remove(lines[<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="comment"># 画线</span></span><br><span class="line">            lines = ax.plot(x_data, prediction_value, <span class="string">&#x27;r-&#x27;</span>, lw=<span class="number">5</span>)</span><br><span class="line">            <span class="comment"># 暂停一个时间</span></span><br><span class="line">            plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/resource/img/tensorflow_study/output_8_0.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_1.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_2.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_3.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_4.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_5.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_6.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_7.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_8.png" alt="png"></p>
+<p><img src="/resource/img/tensorflow_study/output_8_9.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Optimizer 优化器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GradientDescentOptimizer最基本的一种</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/02/05/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/05/2.html" class="post-title-link" itemprop="url">Peewee源码解读</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-05T00:00:00+00:00">2017-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="通过select查询语句引入"><a href="#通过select查询语句引入" class="headerlink" title="通过select查询语句引入"></a>通过select查询语句引入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> model.db.tb1 <span class="keyword">import</span> Tb1</span><br><span class="line">query = Tb1.select().where(Tb1.<span class="built_in">id</span> &gt; <span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;select query:&quot;</span>, query.sql()[<span class="number">0</span>] % <span class="built_in">tuple</span>(query.sql()[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;query result:&quot;</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> query.dicts().execute():</span><br><span class="line">    <span class="built_in">print</span> item</span><br></pre></td></tr></table></figure>
+
+<pre><code>select query: SELECT `t1`.`id`, `t1`.`name`, `t1`.`age`, `t1`.`create_time` FROM `tb1` AS t1 WHERE (`t1`.`id` &gt; 0)
+query result:
+&#123;&#39;age&#39;: 12, &#39;create_time&#39;: datetime.datetime(2017, 2, 5, 0, 14, 6), &#39;id&#39;: 1, &#39;name&#39;: u&#39;test&#39;&#125;
+&#123;&#39;age&#39;: 20, &#39;create_time&#39;: datetime.datetime(2017, 2, 5, 0, 14, 55), &#39;id&#39;: 2, &#39;name&#39;: u&#39;zhang&#39;&#125;
+</code></pre>
+<h2 id="分析每一次调用"><a href="#分析每一次调用" class="headerlink" title="分析每一次调用"></a>分析每一次调用</h2><p><img src="/resource/img/peewee_select_query.png" alt="peewee_select_query"><br>其中<code>Tb1</code>是我们定义的一个Model</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Tb1(XYZ_DB.Model):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    id = PrimaryKeyField()</span><br><span class="line">    name = CharField()</span><br><span class="line">    age = IntegerField()</span><br><span class="line">    create_time = DateTimeField()</span><br><span class="line"></span><br><span class="line">    class Meta(object):</span><br><span class="line"></span><br><span class="line">        &quot;&quot;&quot;表配置信息</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        db_table = &quot;tb1&quot;</span><br></pre></td></tr></table></figure>
+<p>peewee对<code>Model</code>类指定<code>BaseModel</code>元类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Model(with_metaclass(BaseModel)):</span><br></pre></td></tr></table></figure>
+
+<p>未完待续</p>
+<p><a target="_blank" rel="noopener" href="http://daringfireball.net/">Jupyter Markdown</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/02/05/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/05/1.html" class="post-title-link" itemprop="url">Matplotlib学习</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-05T00:00:00+00:00">2017-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;
+
+
+
+
+&lt;matplotlib.figure.Figure at 0x7f0c740ccd90&gt;
+</code></pre>
+<p>figure创建一个绘图对象,figsize参数可以指定绘图对象的宽度和高度，单位为英寸。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line">z = np.cos(x**<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x,y,label=<span class="string">&quot;$sin(x)$&quot;</span>,color=<span class="string">&quot;red&quot;</span>,linewidth=<span class="number">2</span>)</span><br><span class="line">plt.plot(x,z,<span class="string">&quot;b--&quot;</span>,label=<span class="string">&quot;$cos(x^2)$&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f0c73e2ea90&gt;]
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_5_1.png" alt="png"></p>
+<p>plot函数的调用方式很灵活，第一句将x,y数组传递给plot之后，用关键字参数指定各种属性：</p>
+<ul>
+<li>label : 给所绘制的曲线一个名字，此名字在图示(legend)中显示。只要在字符串前后添加”$”符号，matplotlib就会使用其内嵌的latex引擎绘制的数学公式。</li>
+<li>color : 指定曲线的颜色</li>
+<li>linewidth : 指定曲线的宽度</li>
+</ul>
+<p>第二句直接通过第三个参数”b–”指定曲线的颜色和线型。其中b表示蓝色，”–”表示线型为虚线。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plt.plot?</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.xlabel(<span class="string">&quot;Time(s)&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Volt&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;PyPlot First Example&quot;</span>)</span><br><span class="line">plt.ylim(-<span class="number">1.2</span>,<span class="number">1.2</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
+
+<pre><code>/usr/lib/python2.7/dist-packages/matplotlib/axes/_axes.py:519: UserWarning: No labelled objects found. Use label=&#39;...&#39; kwarg on individual plots.
+  warnings.warn(&quot;No labelled objects found. &quot;
+</code></pre>
+<p><img src="/resource/img/matplotlib/output_8_1.png" alt="png"></p>
+<ul>
+<li>xlabel : 设置X轴的文字</li>
+<li>ylabel : 设置Y轴的文字</li>
+<li>title : 设置图表的标题</li>
+<li>ylim : 设置Y轴的范围</li>
+<li>legend : 显示图示</li>
+</ul>
+<p>最后调用plt.show()显示出我们创建的所有绘图对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
 <hr>
-<p>参考：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/MnCu8261/p/6560502.html">http://www.cnblogs.com/MnCu8261/p/6560502.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenchao1990/p/5406245.html">https://www.cnblogs.com/chenchao1990/p/5406245.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/u010168160/article/details/53019039">http://blog.csdn.net/u010168160/article/details/53019039</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yezuhui/p/6863781.html">https://www.cnblogs.com/yezuhui/p/6863781.html</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhaohongyan6/article/details/70888221">http://blog.csdn.net/zhaohongyan6/article/details/70888221</a><br><a target="_blank" rel="noopener" href="https://www.zybuluo.com/noogel/note/952488">https://www.zybuluo.com/noogel/note/952488</a></p>
-</blockquote>
+<h2 id="配置属性"><a href="#配置属性" class="headerlink" title="配置属性"></a>配置属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">5</span>, <span class="number">0.1</span>)</span><br><span class="line">line, = plt.plot(x, x*x) <span class="comment"># plot返回一个列表，通过line,获取其第一个元素</span></span><br><span class="line"><span class="comment"># 调用Line2D对象的set_*方法设置属性值</span></span><br><span class="line">line.set_antialiased(<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+<p><img src="/resource/img/matplotlib/output_12_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同时绘制sin和cos两条曲线，lines是一个有两个Line2D对象的列表</span></span><br><span class="line">lines = plt.plot(x, np.sin(x), x, np.cos(x))</span><br><span class="line"><span class="comment"># 调用setp函数同时配置多个Line2D对象的多个属性值</span></span><br><span class="line">plt.setp(lines, color=<span class="string">&quot;r&quot;</span>, linewidth=<span class="number">2.0</span>)</span><br></pre></td></tr></table></figure>
 
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/10/08/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/10/08/1.html" class="post-title-link" itemprop="url">这些Mac神器也许你正需要</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-10-08 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-08T00:00:00+00:00">2017-10-08</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这篇文章主要介绍Mac下常用的效率工具，也许正是你所需要的或者使用后对你的工作有很大的效率提升，废话不多说，看下面介绍的五款常用效率工具。</p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p> <br><img src="/resource/img/efficiency/a1.png" alt="Alfred"></p>
-<p>Alfred 作为神器的霸主地位可谓实至名归，它不仅可以帮我们快速打开切换应用、打开网址，使用计算器、词典、剪贴板增强等功能，还可以通过Workflow模块实现功能的扩展，下面详细介绍一下此神器的一些功能。</p>
-<p>首先我们定义调出 Alfred 的快捷键，这里我设置的是 Command + Space ，可以启动输入框。</p>
-<p><img src="/resource/img/efficiency/a2.png" alt="Alfred"></p>
-<p>在输入框中我们可以输入想要打开或切换的应用：</p>
-<p><img src="/resource/img/efficiency/a3.png" alt="Alfred"></p>
-<p>也可以输入基本的数学公式，计算结果：</p>
-<p><img src="/resource/img/efficiency/a4.png" alt="Alfred"></p>
-<p>或者去 Google 搜索：</p>
-<p><img src="/resource/img/efficiency/a5.png" alt="Alfred"></p>
-<p>打开 Terminal 执行命令：</p>
-<p><img src="/resource/img/efficiency/a6.png" alt="Alfred"></p>
-<p>在 Web Search 中配置自定义打开的网址：</p>
-<p><img src="/resource/img/efficiency/a7.png" alt="Alfred"></p>
-<p>调出剪贴板历史，我设置的快捷键是 Option + Command + C：</p>
-<p><img src="/resource/img/efficiency/a8.png" alt="Alfred"></p>
-<p>默认回车会执行第一个结果，或打开网址，或将结果复制到剪贴板，这样可以极大地提高我们操作的效率。<br> <br>当然这些默认的功能是不能够满足我们的，还可以通过 Worklow 去扩展效率工具，这里是自己做的一个效率工具箱 xyzUtils ：</p>
-<p><img src="/resource/img/efficiency/a9.png" alt="Alfred"></p>
-<p>Github 地址： <a target="_blank" rel="noopener" href="https://github.com/noogel/Alfred-Workflow">https://github.com/noogel/Alfred-Workflow</a></p>
-<p>这里我做了一些开发中常用的数据转换功能，时间戳与时间的互相转换、Unicode码中文转换、随机字符串生成、IP查询、base64编码解码、MD5生成等，回车复制结果到剪贴板，举例如下：</p>
-<p><img src="/resource/img/efficiency/a10.png" alt="Alfred"></p>
-<p>网友们还提供了更多的 自定义功能，可自行知乎。</p>
-<h2 id="Jietu"><a href="#Jietu" class="headerlink" title="Jietu"></a>Jietu</h2><p><img src="/resource/img/efficiency/j1.png" alt="Jietu"></p>
-<p>这个是腾讯提供的免费截图工具，可进行区域截图或者屏幕录制功能，可以快捷编辑截图，也是我常用的一个神器。配置信息如下图：</p>
-<p><img src="/resource/img/efficiency/j2.png" alt="Jietu"></p>
-<p>截好图后可以按 空格键 进行快速编辑，很是方便，截图后会自动放到剪贴板，可直接粘贴到微信、QQ、Slack等应用的对话框中。</p>
-<p><img src="/resource/img/efficiency/j3.png" alt="Jietu"></p>
-<p> </p>
-<h2 id="Hammerspoon"><a href="#Hammerspoon" class="headerlink" title="Hammerspoon"></a>Hammerspoon</h2><p><img src="/resource/img/efficiency/h1.png" alt="Hammerspoon"></p>
-<p>这款神器和上面的 Alfred 功能点有些重合，可以提供快速启动应用、调整窗口大小等功能。通过自定义 Lua 脚本实现所需的功能，这些功能主要通过绑定快捷键实现功能出发，当然也会绑定一些系统事件触发脚本功能。</p>
-<p>目前在网上搜集了一些基本功能，调整窗口比例，连接到办公区网络自动静音等功能。</p>
-<p><img src="/resource/img/efficiency/h2.png" alt="Hammerspoon"></p>
-<p> </p>
-<h2 id="Time-Out"><a href="#Time-Out" class="headerlink" title="Time Out"></a>Time Out</h2><p><img src="/resource/img/efficiency/t1.png" alt="Time Out"></p>
-<p>这款工具主要是可以帮助久用电脑的人每隔一段时间暂停一下，我这里设置的每隔 50分钟暂停 3分钟，就是在这 3分钟时间这个软件会弹出屏保提醒你稍事休息一下再工作，当然暂停期间是可以随之取消的，暂停的时候就是这个样子的。</p>
-<p><img src="/resource/img/efficiency/t2.png" alt="Time Out"></p>
-<h2 id="Reeder"><a href="#Reeder" class="headerlink" title="Reeder"></a>Reeder</h2><p>这是一款 Mac 上知名度很高的 RSS 阅读器，简洁的外观与便捷的操作方式可以省去了去个站点看文章。结合Mac 触控板的左右滑动操作还是很方便的。</p>
-<p><img src="/resource/img/efficiency/r1.png" alt="Reeder"></p>
-<p><img src="/resource/img/efficiency/r2.png" alt="Reeder"></p>
-<p>最后，来还有一些常用效率工具会在在后面的文章继续介绍，或许正是你所需要的，敬请期待！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/09/28/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/28/1.html" class="post-title-link" itemprop="url">深度学习系列第三篇 — MNIST数字识别</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+00:00">2017-09-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这一节将上一节学到的深度神经网络的概念运用起来，通过 tf 来实现 MNIST 手写字识别。<br>首先导入 tf 库和训练数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.examples.tutorials.mnist import input_data</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(&quot;MNIST_data&quot;, one_hot=True)</span><br></pre></td></tr></table></figure>
-
-<p>定义全局初始常量，其中 INPUT_NODE 数为每一张图片 28 * 28 的像素数，OUTPUT_NODE 就是分类的个数 10； LAYER1_NODE 为隐藏层节点数，BATCH_SIZE 为每次训练数据的个数；LEARNING_RATE_BASE 为基础学习率，LEARNING_RATE_DECAY 为学习率的衰减率，REGULARIZATION_RATE 为正则化损失函数的系数，TRAINING_STEPS 为训练的次数，MOVING_AVERAGE_DECAY 为滑动平均衰减率。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">INPUT_NODE = 784</span><br><span class="line">OUTPUT_NODE = 10</span><br><span class="line"></span><br><span class="line">LAYER1_NODE = 500</span><br><span class="line">BATCH_SIZE = 100</span><br><span class="line"></span><br><span class="line">LEARNING_RATE_BASE = 0.8</span><br><span class="line">LEARNING_RATE_DECAY = 0.99</span><br><span class="line">REGULARIZATION_RATE = 0.0001</span><br><span class="line">TRAINING_STEPS = 30000</span><br><span class="line">MOVING_AVERAGE_DECAY = 0.99</span><br></pre></td></tr></table></figure>
-
-<p>定义一个 inference 函数用来计算神经网络的向前传播结果，并且通过 RELU 函数实现了去线性化。avg_class 参数是用来支持测试时使用滑动平均模型，当我们使用了滑动平均模型时，weights 和 biases 值都是从 avg_class 中取出的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def inference(input_tensor, avg_class, weights1, biases1, weights2, biases2):</span><br><span class="line">    if avg_class is None:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, weights1) + biases1)</span><br><span class="line">        return tf.matmul(layer1, weights2) + biases2</span><br><span class="line">    else:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, avg_class.average(weights1)) + avg_class.average(biases1))</span><br><span class="line">        return tf.matmul(layer1, avg_class.average(weights2)) + avg_class.average(biases2)</span><br></pre></td></tr></table></figure>
-
-<p>定义输入层，生成隐藏层和输出层参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = tf.placeholder(tf.float32, [None, INPUT_NODE])</span><br><span class="line">y_ = tf.placeholder(tf.float32, [None, OUTPUT_NODE])</span><br><span class="line"></span><br><span class="line">weights1 = tf.Variable(tf.truncated_normal([INPUT_NODE, LAYER1_NODE], stddev=0.1))</span><br><span class="line">biases1 = tf.Variable(tf.constant(0.1, shape=[LAYER1_NODE]))</span><br><span class="line"></span><br><span class="line">weights2 = tf.Variable(tf.truncated_normal([LAYER1_NODE, OUTPUT_NODE], stddev=0.1))</span><br><span class="line">biases2 = tf.Variable(tf.constant(0.1, shape=[OUTPUT_NODE]))</span><br></pre></td></tr></table></figure>
-
-<p>计算当前参数下神经网络向前传播的效果。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = inference(x, None, weights1, biases1, weights2, biases2)</span><br></pre></td></tr></table></figure>
-
-<p>这里通过滑动平均衰减率和训练次数初始化这个类，用来加快训练早期变量的更新速度；global_step 为动态存储训练次数。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">global_step = tf.Variable(0, trainable=False)</span><br><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br></pre></td></tr></table></figure>
-
-<p>variables_averages_op 这里将所有的神经网络的上参数使用滑动平均，对于指定 trainable&#x3D;False 的参数不作用。计算使用了滑动平均模型处理的向前传播结果。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">variables_averages_op = variable_averages.apply(tf.trainable_variables())</span><br><span class="line">average_y = inference(x, variable_averages, weights1, biases1, weights2, biases2)</span><br></pre></td></tr></table></figure>
-
-<p>计算损失。交叉熵用来刻画预测值与真实值差距的损失函数，我们再通过 softmax 回归将结果变成概率分布。tf 提供了将这两个函数合并使用的函数，第一个参数是向前传播的结果，第二个参数是训练数据的答案。然后计算所有样例的交叉熵平均值。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, 1))</span><br><span class="line">cross_entropy_mean = tf.reduce_mean(cross_entropy)</span><br></pre></td></tr></table></figure>
-
-<p>这里使用 L2 正则化损失函数，计算模型的正则化损失，计算权重的，不计算偏置。正则化损失函数用来避免过拟合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)</span><br><span class="line">regularization = regularizer(weights1) + regularizer(weights2)</span><br></pre></td></tr></table></figure>
-
-<p>最后得出的总损失等于交叉熵损失和正则化损失之和。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss = cross_entropy_mean + regularization</span><br></pre></td></tr></table></figure>
-
-<p>设置指数衰减的学习率。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">learnging_rate = tf.train.exponential_decay(</span><br><span class="line">    LEARNING_RATE_BASE, global_step, mnist.train.num_examples / BATCH_SIZE, LEARNING_RATE_DECAY)</span><br></pre></td></tr></table></figure>
-
-<p>使用优化算法优化总损失。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_step = tf.train.GradientDescentOptimizer(learnging_rate).minimize(loss, global_step=global_step)</span><br></pre></td></tr></table></figure>
-
-<p>每过一次数据需要更新一下参数。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with tf.control_dependencies([train_step, variables_averages_op]):</span><br><span class="line">    train_op = tf.no_op()</span><br></pre></td></tr></table></figure>
-
-<p>检验使用了滑动平均模型的向前传播结果是否正确。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">correct_prediction = tf.equal(tf.argmax(average_y, 1), tf.argmax(y_, 1))</span><br></pre></td></tr></table></figure>
-
-<p>计算平均准确率。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br></pre></td></tr></table></figure>
-
-<p>最后开始我们的训练，并验证数据的准确率。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess:</span><br><span class="line">    # 初始化全部变量</span><br><span class="line">    tf.global_variables_initializer().run()</span><br><span class="line">    # 准备验证数据</span><br><span class="line">    validate_feed = &#123;x: mnist.validation.images,</span><br><span class="line">                    y_: mnist.validation.labels&#125;</span><br><span class="line">    # 准备测试数据</span><br><span class="line">    test_feed = &#123;x: mnist.test.images, y_: mnist.test.labels&#125;</span><br><span class="line"></span><br><span class="line">    # 迭代</span><br><span class="line">    for i in range(TRAINING_STEPS):</span><br><span class="line">        if i % 1000 == 0:</span><br><span class="line">            # 使用全部的验证数据去做了验证</span><br><span class="line">            validate_acc = sess.run(accuracy, feed_dict=validate_feed)</span><br><span class="line">            print &quot;训练轮数：&quot;, i, &quot;，准确率：&quot;, validate_acc * 100, &quot;%&quot;</span><br><span class="line">        # 取出一部分训练数据</span><br><span class="line">        xs, ys = mnist.train.next_batch(BATCH_SIZE)</span><br><span class="line">        # 训练</span><br><span class="line">        sess.run(train_op, feed_dict=&#123;x: xs, y_: ys&#125;)</span><br><span class="line"></span><br><span class="line">    # 计算最终的准确率。</span><br><span class="line">    test_acc = sess.run(accuracy, feed_dict=test_feed)</span><br><span class="line">    print &quot;训练轮数：&quot;, TRAINING_STEPS, &quot;，准确率：&quot;, test_acc * 100, &quot;%&quot;</span><br></pre></td></tr></table></figure>
-
-<p>开始训练的过程，首先初始化所有变量。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.global_variables_initializer().run()</span><br></pre></td></tr></table></figure>
-
-<p>MNIST 数据分为训练数据、验证数据和测试数据。我们先准备好验证数据和测试数据，因为数据量不大，可以直接将全部数据用于训练。然后开始我们的迭代训练，训练数据有很多，我们每次训练只取一部分数据进行训练，这样减小计算量，加速神经网络的训练，又不会对结果产生太大影响。</p>
-<p>tf 的训练通过  sess.run 函数，第一个参数是最终要计算的，也就是公式的输出，第二个参数 feed 是 placeholder 的输入。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sess.run(train_op, feed_dict=&#123;x: xs, y_: ys&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>通过一次次的训练，总损失会越来越小，模型的预测越来越准确，到达一个临界点。</p>
-<p>完整代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">&quot;MNIST_data&quot;</span>, one_hot=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># MNIST数据集相关常数，其中输入节点数为每一张图片 28 * 28 的像素数，输出的节点数就是分类的个数 10； LAYER1_NODE 为隐藏层节点数，</span></span><br><span class="line"><span class="comment"># BATCH_SIZE 为每次训练数据的个数；LEARNING_RATE_BASE 为基础学习率，LEARNING_RATE_DECAY 为学习率的衰减率，</span></span><br><span class="line"><span class="comment"># REGULARIZATION_RATE 为正则化损失函数的系数，TRAINING_STEPS 为训练的次数，MOVING_AVERAGE_DECAY 为滑动平均衰减率</span></span><br><span class="line"></span><br><span class="line">INPUT_NODE = <span class="number">784</span></span><br><span class="line">OUTPUT_NODE = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">LAYER1_NODE = <span class="number">500</span></span><br><span class="line">BATCH_SIZE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">LEARNING_RATE_BASE = <span class="number">0.8</span></span><br><span class="line">LEARNING_RATE_DECAY = <span class="number">0.99</span></span><br><span class="line">REGULARIZATION_RATE = <span class="number">0.0001</span></span><br><span class="line">TRAINING_STEPS = <span class="number">30000</span></span><br><span class="line">MOVING_AVERAGE_DECAY = <span class="number">0.99</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个函数用来计算神经网络的向前传播结果，并且通过 RELU 函数实现了去线性化。avg_class 参数是用来支持测试时使用滑动平均模型。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">inference</span>(<span class="params">input_tensor, avg_class, weights1, biases1, weights2, biases2</span>):</span><br><span class="line">    <span class="keyword">if</span> avg_class <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, weights1) + biases1)</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, weights2) + biases2</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        layer1 = tf.nn.relu(tf.matmul(input_tensor, avg_class.average(weights1)) + avg_class.average(biases1))</span><br><span class="line">        <span class="keyword">return</span> tf.matmul(layer1, avg_class.average(weights2)) + avg_class.average(biases2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入层</span></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, INPUT_NODE])</span><br><span class="line">y_ = tf.placeholder(tf.float32, [<span class="literal">None</span>, OUTPUT_NODE])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成隐藏层参数</span></span><br><span class="line">weights1 = tf.Variable(tf.truncated_normal([INPUT_NODE, LAYER1_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">biases1 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[LAYER1_NODE]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成输出层参数</span></span><br><span class="line">weights2 = tf.Variable(tf.truncated_normal([LAYER1_NODE, OUTPUT_NODE], stddev=<span class="number">0.1</span>))</span><br><span class="line">biases2 = tf.Variable(tf.constant(<span class="number">0.1</span>, shape=[OUTPUT_NODE]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算当前参数下神经网络向前传播的效果。</span></span><br><span class="line">y = inference(x, <span class="literal">None</span>, weights1, biases1, weights2, biases2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个变量用来存储当前训练的次数。</span></span><br><span class="line">global_step = tf.Variable(<span class="number">0</span>, trainable=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里通过滑动平均衰减率和训练次数初始化这个类，用来加快训练早期变量的更新速度。</span></span><br><span class="line">variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY, global_step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里将所有的神经网络的上参数使用滑动平均，对于指定 trainable=False 的参数不作用。</span></span><br><span class="line">variables_averages_op = variable_averages.apply(tf.trainable_variables())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算使用了滑动平均模型处理的向前传播结果。</span></span><br><span class="line">average_y = inference(x, variable_averages, weights1, biases1, weights2, biases2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算交叉熵，用来刻画预测值与真实值差距的损失函数，第一个参数是向前传播的结果，第二个是训练数据的答案。</span></span><br><span class="line">cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算所有样例的交叉熵平均值。</span></span><br><span class="line">cross_entropy_mean = tf.reduce_mean(cross_entropy)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算 L2 正则化损失函数</span></span><br><span class="line">regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)</span><br><span class="line"><span class="comment"># 计算模型的正则化损失，计算权重的，不计算偏置。</span></span><br><span class="line">regularization = regularizer(weights1) + regularizer(weights2)</span><br><span class="line"><span class="comment"># 总损失等于交叉熵损失和正则化损失之和。</span></span><br><span class="line">loss = cross_entropy_mean + regularization</span><br><span class="line"><span class="comment"># 设置指数衰减的学习率。</span></span><br><span class="line">learnging_rate = tf.train.exponential_decay(</span><br><span class="line">    LEARNING_RATE_BASE, global_step, mnist.train.num_examples / BATCH_SIZE, LEARNING_RATE_DECAY)</span><br><span class="line"><span class="comment"># 使用优化算法优化总损失。</span></span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(learnging_rate).minimize(loss, global_step=global_step)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每过一次数据需要更新一下参数。</span></span><br><span class="line"><span class="keyword">with</span> tf.control_dependencies([train_step, variables_averages_op]):</span><br><span class="line">    train_op = tf.no_op()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检验使用了滑动平均模型的向前传播结果是否正确。</span></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(average_y, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># 计算平均准确率。</span></span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">        <span class="comment"># 初始化全部变量</span></span><br><span class="line">        tf.global_variables_initializer().run()</span><br><span class="line">        <span class="comment"># 准备验证数据</span></span><br><span class="line">        validate_feed = &#123;x: mnist.validation.images,</span><br><span class="line">                        y_: mnist.validation.labels&#125;</span><br><span class="line">        <span class="comment"># 准备测试数据</span></span><br><span class="line">        test_feed = &#123;x: mnist.test.images, y_: mnist.test.labels&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 迭代</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(TRAINING_STEPS):</span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="comment"># 使用全部的验证数据去做了验证</span></span><br><span class="line">                validate_acc = sess.run(accuracy, feed_dict=validate_feed)</span><br><span class="line">                <span class="built_in">print</span> <span class="string">&quot;训练轮数：&quot;</span>, i, <span class="string">&quot;，准确率：&quot;</span>, validate_acc * <span class="number">100</span>, <span class="string">&quot;%&quot;</span></span><br><span class="line">            <span class="comment"># 取出一部分训练数据</span></span><br><span class="line">            xs, ys = mnist.train.next_batch(BATCH_SIZE)</span><br><span class="line">            <span class="comment"># 训练</span></span><br><span class="line">            sess.run(train_op, feed_dict=&#123;x: xs, y_: ys&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算最终的准确率。</span></span><br><span class="line">        test_acc = sess.run(accuracy, feed_dict=test_feed)</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;训练轮数：&quot;</span>, TRAINING_STEPS, <span class="string">&quot;，准确率：&quot;</span>, test_acc * <span class="number">100</span>, <span class="string">&quot;%&quot;</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>Extracting MNIST_data/train-images-idx3-ubyte.gz
-Extracting MNIST_data/train-labels-idx1-ubyte.gz
-Extracting MNIST_data/t10k-images-idx3-ubyte.gz
-Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
-训练轮数： 0 ，准确率： 9.20000001788 %
-训练轮数： 1000 ，准确率： 97.619998455 %
-训练轮数： 2000 ，准确率： 98.0799973011 %
-训练轮数： 3000 ，准确率： 98.2599973679 %
-训练轮数： 4000 ，准确率： 98.1999993324 %
-训练轮数： 5000 ，准确率： 98.1800019741 %
-训练轮数： 6000 ，准确率： 98.2400000095 %
-训练轮数： 7000 ，准确率： 98.2200026512 %
-训练轮数： 8000 ，准确率： 98.1999993324 %
-训练轮数： 9000 ，准确率： 98.2599973679 %
-训练轮数： 10000 ，准确率： 98.2400000095 %
-训练轮数： 11000 ，准确率： 98.2400000095 %
-训练轮数： 12000 ，准确率： 98.1599986553 %
-训练轮数： 13000 ，准确率： 98.2599973679 %
-训练轮数： 14000 ，准确率： 98.299998045 %
-训练轮数： 15000 ，准确率： 98.4200000763 %
-训练轮数： 16000 ，准确率： 98.2800006866 %
-训练轮数： 17000 ，准确率： 98.3799993992 %
-训练轮数： 18000 ，准确率： 98.3600020409 %
-训练轮数： 19000 ，准确率： 98.3200013638 %
-训练轮数： 20000 ，准确率： 98.3399987221 %
-训练轮数： 21000 ，准确率： 98.3799993992 %
-训练轮数： 22000 ，准确率： 98.400002718 %
-训练轮数： 23000 ，准确率： 98.400002718 %
-训练轮数： 24000 ，准确率： 98.4200000763 %
-训练轮数： 25000 ，准确率： 98.3200013638 %
-训练轮数： 26000 ，准确率： 98.4200000763 %
-训练轮数： 27000 ，准确率： 98.3799993992 %
-训练轮数： 28000 ，准确率： 98.400002718 %
-训练轮数： 29000 ，准确率： 98.3200013638 %
-训练轮数： 30000 ，准确率： 98.3900010586 %
+<pre><code>[None, None, None, None]
 </code></pre>
-<blockquote>
-<p>下一节总结 准确率、交叉熵平均值、总损失、学习率、平均绝对梯度 的变化趋势。</p>
-</blockquote>
+<p><img src="/resource/img/matplotlib/output_13_1.png" alt="png"></p>
+<p>调用Line2D对象line的set_antialiased方法，关闭对象的反锯齿效果。或者通过调用plt.setp函数配置多个Line2D对象的颜色和线宽属性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">line.get_linewidth()</span><br><span class="line">plt.getp(lines[<span class="number">0</span>], <span class="string">&quot;color&quot;</span>) <span class="comment"># 返回color属性</span></span><br><span class="line">plt.getp(lines[<span class="number">1</span>]) <span class="comment"># 输出全部属性</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/09/28/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/28/2.html" class="post-title-link" itemprop="url">深度学习系列第四篇 — 神经反向传播</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+00:00">2017-09-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95">反向传播算法 - 维基百科</a></p>
-<p>反向传播是一种与最优化方法结合使用的，用来训练人工神经网络的常用方法。通过计算所有权值的损失函数梯度，反馈给最优化方法，用来更新权值以最小化损失函数。</p>
-<p>反向传播算法分成两个阶段：激励传播和权值更新</p>
-<ul>
-<li>激励传播：将输入值送入网络，活的激励响应，验证结果求差，从而获得响应误差。</li>
-<li>权重更新：将输入的激励和响应误差相乘，获得权重的梯度，将梯度乘一个比例后取反加到权重上。</li>
-</ul>
-<p>训练的过程就是不断的重复这两个阶段，直到获得满意的预测准确率。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/09/25/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/25/1.html" class="post-title-link" itemprop="url">深度学习系列第二篇 — 深度神经网络</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-25T00:00:00+00:00">2017-09-25</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>上一节学习的向前传播算法是一种线性模型，全连接神经网络和单层神经网络模型都只能处理线性问题，这具有相当大的局限性。而深度学习要强调的是非线性。</p>
-<h3 id="激活函数去线性化"><a href="#激活函数去线性化" class="headerlink" title="激活函数去线性化"></a>激活函数去线性化</h3><p>如下图，如果我们将每一个神经元的输出通过一个非线性函数，那么这个神经网络模型就不再是线性的了，而这个非线性函数就是激活函数，也实现了我们对神经元的去线性化。</p>
-<p><img src="/resource/img/deep_learning/jihuohanshu.jpg" alt="激活函数去线性化"></p>
-<p>下面列举了三个常用激活函数</p>
-<ul>
-<li>ReLU 函数</li>
-<li>sigmoid 函数</li>
-<li>tanh 函数</li>
-</ul>
-<p><img src="/resource/img/deep_learning/jihuohanshu2.jpg" alt="激活函数去线性化"></p>
-<p>tf 中也提供了这几种不同的非线性激活函数。</p>
-<p><code>tf.nn.relu(tf.matmul(x, w1) + biases1)</code></p>
-<p>通过对 x 的加权增加偏置项，再在外层加上激活函数，实现神经元的非线性化。</p>
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>损失函数用来衡量预测值与真实值之间的不一致程度，是一个非负实值函数，损失函数越小，证明模型预测的越准确。</p>
-<p>交叉熵可以用来衡量两个概率分布之间的距离，是分类问题中使用比较光的一种损失函数。对于两个概率分布 p 和 q，表示交叉熵如下：</p>
-<p>$$H(p,q)&#x3D;-\sum_{x}p(x)log q(x)$$</p>
-<p>将神经网络向前传播得到的结果变成概率分布使用 Softmax 回归，它可以作为一个算法来优化分类结果。假设神经网络的输出值为 <code>y1,y2,...yn</code>，那么 Softmax 回归处理的输出为：</p>
-<p>$$softmax(y)<em>i&#x3D;y_i’&#x3D;\frac{e^{yi}}{\sum</em>{j&#x3D;1}^ne^{yj}}$$</p>
-<p>如下图通过 Softmax 层将神经网络的输出变成一个概率分布。</p>
-<p><img src="/resource/img/deep_learning/softmax.jpg" alt="Softmax"></p>
-<p>交叉熵一般会与 Softmax 回归一起使用，tf 对这两个功能提供了封装提供函数 <code>tf.nn.softmax_cross_entropy_with_logits</code>。</p>
-<p>对于回归问题区别与分类问题，需要预测的是一个任意实数，最常使用的损失函数是均方误差 MSE,定义如下：</p>
-<p>$$MSE(y,y’)&#x3D;\frac{\sum_{i&#x3D;1}^n(y_i-y_i’)^2}{n}$$</p>
-<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p>反向传播算法是训练神经网络的核心算法，它可以根据定义好的损失函数优化神经网络的参数值，是神经网络模型的损失函数达到一个较小的值。</p>
-<p>梯度下降算法是最常用的神经网络优化方法，假设用 θ 表示神经网络的参数， J(θ) 表示给定参数下的取值，梯度下降算法会迭代式的更新 θ，让迭代朝着损失最小的方向更新。梯度通过求偏导的方式计算，梯度为 $$\frac{∂}{∂θ}J(θ)$$ 然后定义一个学习率 η。参数更新公式如下：$$θ_{n+1}&#x3D;θ_n-η\frac{∂}{∂θ_n}J(θ_n)$$</p>
-<p>优化过程分为两步：</p>
-<ol>
-<li>通过向前传播算法得到预测值，将预测值与真实值之间对比差距。</li>
-<li>通过反向传播算法计算损失函数对每一个参数的梯度，根据梯度和学习率是梯度下降算法更新每一个参数。</li>
-</ol>
-<p>为了降低计算量和加速训练过程，可以使用随机梯度下降算法，选取一部分数据进行训练。</p>
-<p>学习率的设置可以通过指数衰减法，逐步减小学习率，可以在开始时快速得到一个较优解，然后减小学习率，使后模型的训练更加稳定。tf 提供了<code>tf.train.exponential_decay</code> 函数实现指数衰减学习率， <code>每一轮优化的学习率 = 初始学习率 * 衰减系数 ^ (学习步数 / 衰减速度)</code></p>
-<h3 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h3><p>通过损失函数优化模型参数的时候，并不是让模型尽量的模拟训练数据的行为，而是通过训练数据对未知数据给出判断，当一个模型能完美契合训练数据的时候，损失函数为0，但是无法对未知数据做出可靠的判断，这就是过拟合。</p>
-<p>避免过拟合的常用方法是正则化，就是在损失函数中加入刻画模型复杂度的指标，我们对模型的优化则变为 $$J(θ)+λR(w)$$ 其中 <code>R(w)</code> 刻画的是模型的复杂程度，λ 表示模型复杂损失在总损失中的比例。下面是常用的两种正则化函数：</p>
-<p>L1正则化：会让参数变得稀疏，公式不可导</p>
-<p>$$R(w) &#x3D; \Vert<del>w</del>\Vert_1 &#x3D; \sum_i|w_i|$$</p>
-<p>L2正则化：不会让参数变得稀疏，公式可导</p>
-<p>$$R(w) &#x3D; \Vert<del>w</del>\Vert_2^2 &#x3D; \sum_i|w_i^2|$$</p>
-<p>在实际使用中会将 L1 正则化和 L2 正则化同时使用：</p>
-<p>$$R(w) &#x3D; \sum_iα|w_i|+(1-α)w_i^2$$</p>
-<h3 id="滑动平均模型"><a href="#滑动平均模型" class="headerlink" title="滑动平均模型"></a>滑动平均模型</h3><p>在采用随机梯度下降算法训练神经网络时，使用平均滑动模型可以在大部分情况下提高模型在测试数据上的表现。在 tf 中提供了 <code>tf.train.ExponentialMovingAverage</code> 来实现这个模型，通过设置一个衰减率来初始化，在其中维护一个影子变量，可以控制模型的更新速度。<br><code>影子变量值 = 衰减率 * 影子变量值 + (1 - 衰减率) * 待更新变量</code>，为了让模型前期更新比较快，还提供了 num_updates 参数，每次使用的衰减率为：</p>
-<p>$$min(decay,\frac{1+numupdates}{10+numupdates})$$</p>
+<pre><code>    agg_filter = None
+    alpha = None
+    animated = False
+    antialiased or aa = True
+    axes = Axes(0.125,0.125;0.775x0.775)
+    children = []
+    clip_box = TransformedBbox(Bbox([[0.0, 0.0], [1.0, 1.0]]), Co...
+    clip_on = True
+    clip_path = None
+    color or c = r
+    contains = None
+    dash_capstyle = butt
+    dash_joinstyle = round
+    data = (array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6, ...
+    drawstyle = default
+    figure = Figure(432x288)
+    fillstyle = full
+    gid = None
+    label = _line1
+    linestyle or ls = -
+    linewidth or lw = 2.0
+    marker = None
+    markeredgecolor or mec = r
+    markeredgewidth or mew = 0.5
+    markerfacecolor or mfc = r
+    markerfacecoloralt or mfcalt = none
+    markersize or ms = 6.0
+    markevery = None
+    path = Path(array([[ 0.        ,  1.        ],        [ 0...
+    path_effects = []
+    picker = None
+    pickradius = 5
+    rasterized = None
+    sketch_params = None
+    snap = None
+    solid_capstyle = projecting
+    solid_joinstyle = round
+    transform = CompositeGenericTransform(TransformWrapper(Blended...
+    transformed_clip_path_and_affine = (None, None)
+    url = None
+    visible = True
+    xdata = [ 0.   0.1  0.2  0.3  0.4  0.5]...
+    xydata = [[ 0.          1.        ]  [ 0.1         0.995004...
+    ydata = [ 1.          0.99500417  0.98006658  0.95533649  ...
+    zorder = 2
+</code></pre>
 <hr>
-<p>附 mathjax 语法教程：<a target="_blank" rel="noopener" href="http://blog.csdn.net/u010945683/article/details/46757757">http://blog.csdn.net/u010945683/article/details/46757757</a></p>
-<p>本章结束～</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+<h2 id="绘制多轴图"><a href="#绘制多轴图" class="headerlink" title="绘制多轴图"></a>绘制多轴图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> idx, color <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="string">&quot;rgbyck&quot;</span>):</span><br><span class="line">    plt.subplot(<span class="number">320</span>+idx+<span class="number">1</span>, axisbg=color)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
 
+<p><img src="/resource/img/matplotlib/output_17_0.png" alt="png"></p>
+<p>subplot将整个绘图区域等分为numRows行 * numCols列个子区域，然后按照从左到右，从上到下的顺序对每个子区域进行编号，左上的子区域的编号为1。如果numRows，numCols和plotNum这三个数都小于10的话，可以把它们缩写为一个整数，例如subplot(323)和subplot(3,2,3)是相同的。subplot在plotNum指定的区域中创建一个轴对象。如果新创建的轴和之前创建的轴重叠的话，之前的轴将被删除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">221</span>) <span class="comment"># 第一行的左图</span></span><br><span class="line">plt.subplot(<span class="number">222</span>) <span class="comment"># 第一行的右图</span></span><br><span class="line">plt.subplot(<span class="number">212</span>) <span class="comment"># 第二整行</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
 
-    
+<p><img src="/resource/img/matplotlib/output_19_0.png" alt="png"></p>
+<hr>
+<h2 id="绘制散列图"><a href="#绘制散列图" class="headerlink" title="绘制散列图"></a>绘制散列图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">t = ax.scatter(np.random.rand(<span class="number">20</span>), np.random.rand(<span class="number">20</span>))</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
 
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/09/21/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/21/1.html" class="post-title-link" itemprop="url">深度学习系列第一篇 — 入门</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-21 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-21T00:00:00+00:00">2017-09-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这篇文章是学习人工智能的笔记，首先抛出下面一个问题。</p>
-<h4 id="人工智能、机器学习和深度学习之间的关系？"><a href="#人工智能、机器学习和深度学习之间的关系？" class="headerlink" title="人工智能、机器学习和深度学习之间的关系？"></a>人工智能、机器学习和深度学习之间的关系？</h4><p><img src="/resource/img/deep_learning/relation.jpg" alt="三者之间的联系"></p>
-<p>从图中可以看出人工智能概念的范围更广，机器学习是其中的一个子集，而深度学习又是机器学习中的一个子集。</p>
-<p>深度学习的应用领域在计算机视觉、语音识别、自然语言处理和人机博弈方面比基于数理统计的机器学习会有更高的准确度。这里主要是做深度学习方面的学习笔记。</p>
-<h2 id="深度学习的发展历程"><a href="#深度学习的发展历程" class="headerlink" title="深度学习的发展历程"></a>深度学习的发展历程</h2><p>深度发学习是深度神经网络的代名词，其起源于上世纪，只是在这几年开始火起来。</p>
-<p>早期的神经网络模型类似于放生机器学习，由人类大脑的神经元演化出的神经元模型，见下图（图摘自《TensorFlow 实战Google深度学习框架》）：<br><img src="/resource/img/deep_learning/neuron.jpg" alt="对比图"></p>
-<p>后面出现了感知机模型、分布式知识表达和神经网络反向传播算法，再到后来的卷积神经网络、循环神经网络和 LSTM 模型。</p>
-<p>在神经网络发展的同时，传统机器学习算法的研究也在不断发展，上世纪 90 年代末逐步超越了神经网络，在当时相比之下传统机器学习算法有更好的识别准确率，而神经网络由于数据量和计算能力的限制发展比较困难。到了最近几年，由于云计算、GPU、大数据等的出现，为神经网络的发展做好了铺垫，AI 开始了一个新的时代。从自身出发，高中设立的一个比较模糊的梦想是参与到人工智能的研发当中去，所以大学学了计算机，当梦想与时代的发展有了一个交点，梦想的实现变得更加触手可及。</p>
-<p>下面一张图表是对比主流深度学习开源工具（图摘自《TensorFlow 实战Google深度学习框架》）<br><img src="/resource/img/deep_learning/deeplearning_1.jpg" alt="d1"><br><img src="/resource/img/deep_learning/deeplearning_2.jpg" alt="d2"></p>
-<p>目前我听说的比较多的两个开源工具是 Caffe 和 TensorFlow，然后去看了下 Github 关注量，前者 20.1k 后者 69.3k，TensorFlow 应该是目前最火的一个深度学习框架了吧。这篇文章包括后面的文章都会去记录 TensorFlow 的学习过程，下面的内容是介绍 TensorFlow 的基础概念，介绍中我尽量避免加入代码，因为目前 TensorFlow 更新比较快，发现好多写法在新的版本中不再被支持。</p>
-<h2 id="TensorFlow-学起来"><a href="#TensorFlow-学起来" class="headerlink" title="TensorFlow 学起来"></a>TensorFlow 学起来</h2><p>TensorFlow 有两个重要概念 Tensor （张量）和 Flow（流），Tensor 表名的是数据结构，Flow 提现的是计算模型。</p>
-<p><strong>PS:以下将 TensorFlow 简称为 tf</strong></p>
-<h3 id="tf-计算模型-—-计算图"><a href="#tf-计算模型-—-计算图" class="headerlink" title="tf 计算模型 — 计算图"></a>tf 计算模型 — 计算图</h3><p>tf 通过计算图来表述计算的编程系统，其中的每个节点表示一个计算，不同点之间的连接表达依赖关系。下面几行代码表达一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">a = tf.constant([1.0, 2.0], name=&#x27;a&#x27;)</span><br><span class="line">b = tf.constant([2.0, 3.0], name=&#x27;b&#x27;)</span><br><span class="line">result = a + b</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码在计算图中会有 a、b、a + b三个节点。tf 默认会有一个全局的计算图，也可以生成新的计算图，<strong>不同计算图之间不会共享张量和运算</strong>。</p>
-<p>计算图中可以通过<strong>集合</strong>的方式管理不同的资源，这些资源可以是张量、变量或者队列资源等。</p>
-<h3 id="tf-数据模型-—-张量"><a href="#tf-数据模型-—-张量" class="headerlink" title="tf 数据模型 — 张量"></a>tf 数据模型 — 张量</h3><p>张量是 tf 管理和表示数据的形式，可以简单理解为多维数组。零阶张量表示标量，就是一个数；一阶张量是一个一维数组；n 阶张量是一个 n 维数组。 <code>tf.add(a, b, name=&#39;add&#39;)</code> 这行代码在运行时并不会得到结果，而是一个结果的引用，是一个张量的结构，包含三个属性 name、shape、dtype，name 仅仅是一个节点的名称；shape 是张量的维度，这个是一维的，长度为 2，这个属性比较重要；dtype 是数据类型，每个张量有唯一的数据类型，不同张量之间的计算需要保证类型统一。</p>
-<p>上面的例子就是对两个常量做加法，然后生成计算结果的引用。</p>
-<h3 id="tf-运行模型-—-会话"><a href="#tf-运行模型-—-会话" class="headerlink" title="tf 运行模型 — 会话"></a>tf 运行模型 — 会话</h3><p>tf 的会话用来执行定义好的运算，会话用来管理运行过程中的所有资源，计算完成后会帮助回收资源，通过 <code>with tf.Session() as sess:</code> 这种方式会在 with 结束时自动关闭回收资源。</p>
-<p>通过 <code>tf.ConfigProto</code> 可以配置类似并行线程数、GPU分配策略、运算超时时间等参数，将配置添加到 <code>tf.Session</code> 中创建会话。</p>
-<h3 id="向前传播算法"><a href="#向前传播算法" class="headerlink" title="向前传播算法"></a>向前传播算法</h3><p>通过全连接网络结构介绍，一个神经元有多个输入和一个输出，输出是不同输入的加权和，不同的输入权重就是神经网络的参数，神经网络的优化就是优化参数取值的过程。全连接网络结构是指相邻两层之间任意两个节点之间都有连接。</p>
-<p>向前传播算法需要的三部分信息：</p>
-<ul>
-<li>第一部分从实体中取出特征向量作为输入。</li>
-<li>第二部分是神经网络的连接结构，不同神经元之间的输入输出的连接关系。</li>
-<li>第三部分是每个神经元中的参数。</li>
-</ul>
-<p>在 tf 中通过变量（<code>tf.Variable</code>）来保存和更新神经网络中的参数。</p>
-<p><img src="/resource/img/deep_learning/xiangqianchuanbo.png" alt="xiangqianchuanbo"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># w1 是第一层，通过随机数生成一个 （2,3） 的矩阵</span></span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"><span class="comment"># w2 是第二层，通过随机石生成一个 （3,1） 的矩阵</span></span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">3</span>, <span class="number">1</span>], stddev=<span class="number">1</span>, seed=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># x 是输入层，为一个 （1,2） 的矩阵</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">1</span>, <span class="number">2</span>), name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 tensorflow 提供的矩阵相乘算法计算</span></span><br><span class="line">a = tf.matmul(x, w1)</span><br><span class="line">y = tf.matmul(a, w2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># 这里初始化所有变量</span></span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 通过 输入值 x 与 第一层的参数进行矩阵相乘，再与 第二层的参数进行矩阵相乘，实现神经网络的向前传播算法。</span></span><br><span class="line">    <span class="built_in">print</span> sess.run(y, feed_dict=&#123;x: [[<span class="number">0.7</span>, <span class="number">0.9</span>]]&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<pre><code>[[ 3.95757794]]
+<pre><code>/usr/lib/python2.7/dist-packages/matplotlib/figure.py:397: UserWarning: matplotlib is currently using a non-GUI backend, so cannot show the figure
+  &quot;matplotlib is currently using a non-GUI backend, &quot;
 </code></pre>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/08/17/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/08/17/1.html" class="post-title-link" itemprop="url">AlfredWorkflow</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-08-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-17T00:00:00+00:00">2017-08-17</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>开发工程师常用工具箱</p>
-<h2 id="全局预览"><a href="#全局预览" class="headerlink" title="全局预览"></a>全局预览</h2><p><img src="/resource/img/Jietu20170817-204623.jpg" alt="1"></p>
-<h2 id="支持的命令"><a href="#支持的命令" class="headerlink" title="支持的命令"></a>支持的命令</h2><p><img src="/resource/img/Jietu20170817-204906.jpg" alt="2"></p>
-<ul>
-<li><code>ntime</code> 时间戳转换，支持标准时间格式与时间戳自动检测转换，回车复制结果到剪贴板</li>
-<li><code>nb64d</code> Base64 解码</li>
-<li><code>nb64e</code> Base64 编码</li>
-<li><code>nmd5</code> MD5 生成</li>
-<li><code>ncny</code> 数字转人民币大写</li>
-<li><code>nu2c</code> Unicode 码转中文</li>
-<li><code>nc2u</code> 中文转 Unicode 码</li>
-<li><code>nip</code> IP 地址查询</li>
-<li><code>nrdm</code> 随机字符串生成，输入长度</li>
-<li><code>nhelp</code> 列出所有支持的命令</li>
-</ul>
-<h4 id="欢迎大家补充。"><a href="#欢迎大家补充。" class="headerlink" title="欢迎大家补充。"></a>欢迎大家补充。</h4><h2 id="个人博客"><a href="#个人博客" class="headerlink" title="个人博客"></a>个人博客</h2><p><a target="_blank" rel="noopener" href="http://noogel.xyz/">知一的指纹</a></p>
-<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2><p><a target="_blank" rel="noopener" href="https://github.com/noogel/Alfred-Workflow">Noogel’s github Alfred-Workflow</a></p>
+<p><img src="/resource/img/matplotlib/output_21_1.png" alt="png"></p>
 <blockquote>
-<p>Update at 2017-08-17</p>
+<p><a target="_blank" rel="noopener" href="http://old.sebug.net/paper/books/scipydoc/index.html">http://old.sebug.net/paper/books/scipydoc/index.html</a></p>
 </blockquote>
 
       
@@ -1027,7 +789,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/07/25/1.html">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/31/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1040,7 +802,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/07/25/1.html" class="post-title-link" itemprop="url">主流PRC框架对比</a>
+          <a href="/2017/01/31/1.html" class="post-title-link" itemprop="url">Xpath总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1051,7 +813,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-07-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+00:00">2017-07-25</time>
+      <time title="创建时间：2017-01-31 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-31T00:00:00+00:00">2017-01-31</time>
     </span>
 
   
@@ -1064,20 +826,32 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>PRC 是指远程过程调用。即不同服务之间通过网络来表达调用的语义和传达数据。</p>
-<h4 id="PRC-解决的问题"><a href="#PRC-解决的问题" class="headerlink" title="PRC 解决的问题"></a>PRC 解决的问题</h4><ul>
-<li>解决通讯问题，一般通过 TCP 、 HTTP 连接来实现传输。</li>
-<li>解决寻址问题。</li>
-<li>实现技术异构。</li>
-</ul>
-<h4 id="RPC-的调用过程"><a href="#RPC-的调用过程" class="headerlink" title="RPC 的调用过程"></a>RPC 的调用过程</h4><p><img src="/resource/img/rpc_call_process.png" alt="RPC调用过程"></p>
-<h4 id="PRC-框架有哪些？"><a href="#PRC-框架有哪些？" class="headerlink" title="PRC 框架有哪些？"></a>PRC 框架有哪些？</h4><ul>
-<li>Thrift (Fackbook开源)</li>
-<li>gRPC (Google开源)</li>
-<li>hsf&#x2F;dubbo (阿里开源)</li>
-<li>finagle (Twitter开源)</li>
-</ul>
-<p>我们如何选择一款合适的 RPC 框架。从实现技术异构的角度要支持夸语言的调用，并且在高并发的请求下能有很好的性能表现。</p>
+          <ol>
+<li>Firefox + Firepath、Chrome + XPath Helper</li>
+<li>常用xpath例子</li>
+<li>Python 使用XPath匹配页面数据</li>
+<li>参考</li>
+</ol>
+<hr>
+<h2 id="Firefox-Firepath、Chrome-XPath-Helper"><a href="#Firefox-Firepath、Chrome-XPath-Helper" class="headerlink" title="Firefox + Firepath、Chrome + XPath Helper"></a>Firefox + Firepath、Chrome + XPath Helper</h2><p>如下图 Firefox下，XPath需要通过Firebug + Firepath来方便的获取。<br><img src="/resource/img/firefox_xpath.png" alt="firefox xpath"></p>
+<p>Chrome下，通过XPath Helper插件实现，开启和关闭快捷键<code>Ctrl + Shift + X</code>,按住<code>Shift</code>键获取。<br><img src="/resource/img/chrome_xpathhelper.png" alt="chrome xpath heloer"></p>
+<p>以上两种方式还是Firefox下使用比较方便，更多用法自行发掘。</p>
+<h2 id="常用xpath例子"><a href="#常用xpath例子" class="headerlink" title="常用xpath例子"></a>常用xpath例子</h2><p>根据字符串匹配节点，通过<code>contains()</code>、<code>text()</code>匹配<br><code>.//*[@id=&#39;detail_all&#39;]/div[1]/ul/li[contains(text(), &#39;字 数：&#39;)]/text()</code></p>
+<p>节点属性不包含**字符串，通过<code>not()</code>、<code>contains()</code>匹配<br><code>.//*[@id=&#39;con_ListStyleTab4A_1&#39;]/p[not(contains(@class, &#39;title&#39;))]/a[@class=&#39;Author&#39;]/text()</code></p>
+<p>截取字符串匹配<br><code>substring-before(//div[@class=&#39;content&#39;]/ul/li[6],&#39;,&#39;)</code><br><code>substring(.//h2/../p/span[contains(text(), &#39;字数：&#39;)]/text(), &#39;4&#39;)</code></p>
+<p>索引匹配末尾节点，通过<code>last()</code>匹配<br><code>.//div[last()]/div[@class=&#39;show_info_right max_width&#39;]/text()</code></p>
+<p>通过<code>..</code>向上级查找匹配<br><code>.//h1/../div[@class=&#39;booksub&#39;]/span/span/text()</code></p>
+<p>获取过个节点下的内容，通过<code>//node()/text()</code>可以获取当前节点及其子节点的内容。<br><code>.//*[@id=&#39;job_detail&#39;]/dd[@class=&#39;job-advantage&#39;]//node()/text()</code></p>
+<p>有的时候页面中一系列数据下面并不一定包含某些字段，这时我们通过<code>contains()</code>来匹配包含某些关键字的节点来寻找对应的另一个节点。<br><code>.//div[@class=&#39;infobox&#39;]//node()[contains(text(), &#39;户型&#39;)]/../node()/text()</code></p>
+<p>这里总结一点使用技巧，更多的关于XPath的方法可以看参考中的链接，足以解决大部分问题。</p>
+<h2 id="Python-使用XPath匹配页面数据"><a href="#Python-使用XPath匹配页面数据" class="headerlink" title="Python 使用XPath匹配页面数据"></a>Python 使用XPath匹配页面数据</h2><p>对于爬虫抓取中XPath是一种比较高效的获取数据的方式，在各个爬虫框架中也很多的使用到，具体的用法大致相同，细微之处可自行摸索。以下是最简单的一种方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: abc</span></span><br><span class="line"><span class="string">@file: xpath_demo.py</span></span><br><span class="line"><span class="string">@date: 2017-02-04</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lxml.html</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&quot;http://noogel.xyz&quot;</span></span><br><span class="line">    res = requests.get(url)</span><br><span class="line">    doc = lxml.html.document_fromstring(res.content)</span><br><span class="line">    title_xpath = <span class="string">&quot;.//header[@id=&#x27;header&#x27;]//a[@class=&#x27;brand&#x27;]/span[@class=&#x27;site-title&#x27;]&quot;</span></span><br><span class="line">    <span class="built_in">print</span> doc.xpath(title_xpath)[<span class="number">0</span>].text</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>XPath是我在做爬虫任务时接触的，这只是整个环节中的一小部分，关于爬虫的一些抓取技巧（动态页面抓取、数据清洗、任务调度等）请关注博客后续更新的文章。</p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/barney/archive/2009/04/17/1438062.html">http://www.cnblogs.com/barney/archive/2009/04/17/1438062.html</a><br><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/xpath/xpath_functions.asp">http://www.w3school.com.cn/xpath/xpath_functions.asp</a></p>
+</blockquote>
 
       
     </div>
@@ -1104,7 +878,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/07/19/1.html">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/29/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1117,7 +891,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/07/19/1.html" class="post-title-link" itemprop="url">读书计划 2017.07.17 ～ 2016.09.24</a>
+          <a href="/2017/01/29/1.html" class="post-title-link" itemprop="url">SVM学习总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1128,7 +902,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-19T00:00:00+00:00">2017-07-19</time>
+      <time title="创建时间：2017-01-29 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-29T00:00:00+00:00">2017-01-29</time>
     </span>
 
   
@@ -1141,47 +915,255 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="微服务设计"><a href="#微服务设计" class="headerlink" title="微服务设计"></a>微服务设计</h2><p>共 12 章， 209 页。</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>微服务的优点和缺点？</p>
-<p>如何衡量服务的划分？</p>
-<p>服务测试如何全面覆盖，保障系统的稳定迭代？</p>
-<p>如何有效监控系统指标，及时发现定位问题？</p>
-<p>微服务的横向和纵向扩展策略，如何在钱包中扩展？</p>
-<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>7.17 ～ 7.23</p>
-<ul>
-<li>微服务</li>
-<li>演化式架构师</li>
-<li>如何建模服务</li>
-<li>集成</li>
-</ul>
-<p>7.24 ～ 7.30</p>
-<ul>
-<li>分解单块系统</li>
-<li>部署</li>
-</ul>
-<p>7.31 ～ 8.6</p>
-<ul>
-<li>测试</li>
-<li>监控</li>
-<li>安全</li>
-</ul>
-<p>8.7 ～ 8.13</p>
-<ul>
-<li>康威定律和系统设计</li>
-<li>规模化微服务</li>
-<li>总结</li>
-</ul>
-<h2 id="MySQL技术内幕"><a href="#MySQL技术内幕" class="headerlink" title="MySQL技术内幕"></a>MySQL技术内幕</h2><h4 id="要解决的问题"><a href="#要解决的问题" class="headerlink" title="要解决的问题"></a>要解决的问题</h4><p>慢查询优化</p>
-<p>索引优化</p>
-<p>对B+树的了解</p>
-<p>锁的产生与如何防止死锁</p>
-<h4 id="共五周"><a href="#共五周" class="headerlink" title="共五周"></a>共五周</h4><ol>
-<li>第 一、二、三（日志文件） 章</li>
-<li>表</li>
-<li>索引与优化</li>
-<li>锁</li>
-<li>事务</li>
+          <p>参考链接：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/szlcw1/article/details/52259668">http://blog.csdn.net/szlcw1/article/details/52259668</a></p>
+</blockquote>
+<h3 id="SVM"><a href="#SVM" class="headerlink" title="SVM"></a>SVM</h3><p>SVM(support vector machine)支持向量机，一种二类分类模型，基本模型是在特征空间中寻找间隔最大化的分离超平面的线性分类器。</p>
+<h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><h3 id="多项式核"><a href="#多项式核" class="headerlink" title="多项式核"></a>多项式核</h3><h3 id="高斯核"><a href="#高斯核" class="headerlink" title="高斯核"></a>高斯核</h3><h3 id="线性核"><a href="#线性核" class="headerlink" title="线性核"></a>线性核</h3>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/26/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/01/26/1.html" class="post-title-link" itemprop="url">堆排序</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-01-26 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-26T00:00:00+00:00">2017-01-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>（二叉）堆是一个数组，它可以被看成一个近似完全二叉树。二叉堆可以分为两种形式：最大堆和最小堆。在最大堆中所有节点的值都大于等于子节点。在最小堆中所有节点的值都小于等于子节点。<br>其中<code>max_heapify</code>是一个维护最大堆的方法，时间复杂度为O(lgn)，<code>max_heapify</code>是一个建立最大堆的方法。</p>
+<p>我们从列表的一半位置开始，如果节点比子节点小则交换位置，如果交换后的子节点比其子节点小继续交换。一直遍历到根节点，这样就建立好了一个最大堆。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">parrent_node</span>(<span class="params">index</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;父节点&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">abs</span>(index / <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">left_node</span>(<span class="params">index</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;左子节点&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * index</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">right_node</span>(<span class="params">index</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;右子节点&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * index + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">max_heapify</span>(<span class="params">array, index</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;维护最大堆&quot;&quot;&quot;</span></span><br><span class="line">    left = left_node(index)</span><br><span class="line">    right = right_node(index)</span><br><span class="line">    <span class="keyword">if</span> left &lt;= <span class="built_in">len</span>(array) <span class="keyword">and</span> array[left - <span class="number">1</span>] &gt; array[index - <span class="number">1</span>]:</span><br><span class="line">        largest = left</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        largest = index</span><br><span class="line">    <span class="keyword">if</span> right &lt;= <span class="built_in">len</span>(array) <span class="keyword">and</span> array[right - <span class="number">1</span>] &gt; array[largest - <span class="number">1</span>]:</span><br><span class="line">        largest = right</span><br><span class="line">    <span class="keyword">if</span> largest != index:</span><br><span class="line">        array[index - <span class="number">1</span>], array[largest - <span class="number">1</span>] = array[largest - <span class="number">1</span>], array[index - <span class="number">1</span>]</span><br><span class="line">        max_heapify(array, largest)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_max_heap</span>(<span class="params">array</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;建最大堆&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(array) / <span class="number">2</span>, <span class="number">0</span>, -<span class="number">1</span>):</span><br><span class="line">        max_heapify(array, index)</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array = [<span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">16</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">14</span>, <span class="number">8</span>, <span class="number">7</span>]</span><br><span class="line"><span class="built_in">print</span> array</span><br><span class="line">build_max_heap(array)</span><br><span class="line"><span class="built_in">print</span> array</span><br></pre></td></tr></table></figure>
+
+<p>结果<br>[4, 1, 3, 2, 16, 9, 10, 14, 8, 7]<br>[16, 14, 10, 8, 7, 9, 3, 2, 4, 1]</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/24/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/01/24/1.html" class="post-title-link" itemprop="url">Hexo用法汇总</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-24T00:00:00+00:00">2017-01-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="Hexo-简单、快速、强大的Node-js静态博客框架"><a href="#Hexo-简单、快速、强大的Node-js静态博客框架" class="headerlink" title="Hexo:简单、快速、强大的Node.js静态博客框架"></a>Hexo:简单、快速、强大的Node.js静态博客框架</h3><h3 id="NPM：NodeJS包管理工具"><a href="#NPM：NodeJS包管理工具" class="headerlink" title="NPM：NodeJS包管理工具"></a>NPM：NodeJS包管理工具</h3><h3 id="淘宝NPM镜像"><a href="#淘宝NPM镜像" class="headerlink" title="淘宝NPM镜像"></a>淘宝NPM镜像</h3><p><a target="_blank" rel="noopener" href="https://npm.taobao.org/">https://npm.taobao.org/</a></p>
+<p>直接使用：<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
+<p>alias使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">alias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \</span><br><span class="line">--cache=$HOME/.npm/.cache/cnpm \</span><br><span class="line">--disturl=https://npm.taobao.org/dist \</span><br><span class="line">--userconfig=$HOME/.cnpmrc&quot;</span><br><span class="line"></span><br><span class="line"># Or alias it in .bashrc or .zshrc</span><br><span class="line">$ echo &#x27;\n#alias for cnpm\nalias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \</span><br><span class="line">  --cache=$HOME/.npm/.cache/cnpm \</span><br><span class="line">  --disturl=https://npm.taobao.org/dist \</span><br><span class="line">  --userconfig=$HOME/.cnpmrc&quot;&#x27; &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>Hexo安装，<code>-g</code>全局安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="博客创建"><a href="#博客创建" class="headerlink" title="博客创建"></a>博客创建</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init noogel</span><br></pre></td></tr></table></figure>
+
+<h3 id="扩展插件安装"><a href="#扩展插件安装" class="headerlink" title="扩展插件安装"></a>扩展插件安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-server --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-admin --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-generator-archive --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-generator-feed --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-generator-search --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-generator-tag --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-deployer-git --save --registry=https://registry.npm.taobao.org</span><br><span class="line">sudo npm install hexo-generator-sitemap --save --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>之后新的机器部署环境可以直接 <code>sudo npm install --registry=https://registry.npm.taobao.org</code><br>会自动读取 package.json 文件进行安装</p>
+<h3 id="服务启动，两种命令"><a href="#服务启动，两种命令" class="headerlink" title="服务启动，两种命令"></a>服务启动，两种命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br><span class="line">hexo s -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="一键发布到git"><a href="#一键发布到git" class="headerlink" title="一键发布到git"></a>一键发布到git</h3><ol>
+<li>修改<code>_config.yml</code>配置<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  # 类型</span><br><span class="line">  type: git</span><br><span class="line">  # 仓库</span><br><span class="line">  repo: git@github.com:noogel/noogel.github.io.git</span><br><span class="line">  # 分支</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></li>
+<li>发布命令<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></li>
+<li>清除发布结果<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure></li>
 </ol>
+<p>组合命令：<code>alias hexod=&quot;hexo d -g &amp;&amp; hexo clean&quot;</code></p>
+<h3 id="添加tags"><a href="#添加tags" class="headerlink" title="添加tags"></a>添加tags</h3><p>执行<code>hexo new page &quot;tags&quot;</code>，然后编辑<code>source/tags/index.md</code></p>
+<h3 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h3><p>博客配置修改<code>_config.yml</code>，主题配置修改<code>themes/&lt;themes&gt;/_config.yml</code></p>
+<h3 id="hexo自动提交命令"><a href="#hexo自动提交命令" class="headerlink" title="hexo自动提交命令"></a>hexo自动提交命令</h3><p>这里设置了一个自动提交的命令，源码自动提交到 sources 分支</p>
+<p><code>alias hexodp=&quot;hexo d -g &amp;&amp; git add --all &amp;&amp; git commit -am &#39;auto commit&#39; &amp;&amp; git push origin sources&quot;</code></p>
+<h3 id="hexo-admin-管理文章"><a href="#hexo-admin-管理文章" class="headerlink" title="hexo-admin 管理文章"></a>hexo-admin 管理文章</h3><p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>打开 <a target="_blank" rel="noopener" href="http://localhost:4000/admin/">http://localhost:4000/admin/</a></p>
+<p>然后可以在里面配置登录账号密码，并添加到 _config.yml 文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># hexo-admin authentification</span><br><span class="line">admin:</span><br><span class="line">  username: noogel</span><br><span class="line">  password_hash: $2a$10$CMR/GX.e6TuoGGOYOF7ks.R.WmSUC8RvelPPXIH5wV3S6hPLYPnx6</span><br><span class="line">  secret: a33x8sd83ndfus82jrfi8sj28djk438ds</span><br></pre></td></tr></table></figure>
+
+<p>预览界面如下：<br><img src="/resource/img/hexo-admin.png" alt="hexo-admin"></p>
+<h3 id="hexo常见问题解决办法"><a href="#hexo常见问题解决办法" class="headerlink" title="hexo常见问题解决办法"></a>hexo常见问题解决办法</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">https://hexo.io/docs/troubleshooting.html</a><br><a target="_blank" rel="noopener" href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html">http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html</a><br><a target="_blank" rel="noopener" href="https://donlex.cn/archives/55e73569.html">https://donlex.cn/archives/55e73569.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/01/11/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/01/11/1.html" class="post-title-link" itemprop="url">Kaggle Titanic问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-01-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-11T00:00:00+00:00">2017-01-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Kaggle-Titanic问题"><a href="#Kaggle-Titanic问题" class="headerlink" title="Kaggle Titanic问题"></a>Kaggle Titanic问题</h1><h4 id="技能get点"><a href="#技能get点" class="headerlink" title="[技能get点]"></a>[技能get点]</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> Pandas基本操作</li>
+<li>[√] 随机森林算法 ——&gt; 数学原理、算法思想</li>
+<li>[√] kaggle竞赛的一个项目完成参与流程</li>
+<li>[√] 特征功能 ——&gt; 特征提取</li>
+</ul>
+<h4 id="随机森林算法"><a href="#随机森林算法" class="headerlink" title="随机森林算法"></a>随机森林算法</h4><h4 id="kaggle竞赛参与流程"><a href="#kaggle竞赛参与流程" class="headerlink" title="kaggle竞赛参与流程"></a>kaggle竞赛参与流程</h4><h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: abc</span></span><br><span class="line"><span class="string">@file: xyzforest.py</span></span><br><span class="line"><span class="string">@date: 2017-01-06</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Titanic</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Titanic</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        __init__</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.train_path = <span class="string">&quot;/home/abc/Projects/kaggle/Titanic/train.csv&quot;</span></span><br><span class="line">        self.test_path = <span class="string">&quot;/home/abc/Projects/kaggle/Titanic/test.csv&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_data</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        加载数据</span></span><br><span class="line"><span class="string">        :param path:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> pd.read_csv(path, header=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wash_train_data</span>(<span class="params">self, train_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        清洗训练数据</span></span><br><span class="line"><span class="string">        :param train_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked</span></span><br><span class="line">        <span class="comment"># 性别数值化</span></span><br><span class="line">        train_data.Sex = train_data.Sex.<span class="built_in">map</span>(&#123;<span class="string">&#x27;female&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;male&#x27;</span>: <span class="number">1</span>&#125;).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Embarked 数值化, 补充众数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(train_data.Embarked[train_data.Embarked.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            train_data.Embarked[train_data.Embarked.isnull()] = train_data.Embarked.dropna().mode().values</span><br><span class="line">        ports_dict = &#123;name: index <span class="keyword">for</span> index, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">set</span>(train_data.Embarked))&#125;</span><br><span class="line">        train_data.Embarked = train_data.Embarked.<span class="built_in">map</span>(ports_dict).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 年龄补充平均数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(train_data.Age[train_data.Age.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            train_data.Age[train_data.Age.isnull()] = train_data.Age.dropna().median()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 删除多余字段</span></span><br><span class="line">        train_data = train_data.drop(self.drop_label(), axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.data_concat(train_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> train_data.values</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wash_test_data</span>(<span class="params">self, test_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        清洗测试数据</span></span><br><span class="line"><span class="string">        :param test_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># PassengerId,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked</span></span><br><span class="line">        test_data.Sex = test_data.Sex.<span class="built_in">map</span>(&#123;<span class="string">&#x27;female&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;male&#x27;</span>: <span class="number">1</span>&#125;).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Embarked[test_data.Embarked.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            test_data.Embarked[test_data.Embarked.isnull()] = test_data.Embarked.dropna().mode().values</span><br><span class="line">        ports_dict = &#123;name: index <span class="keyword">for</span> index, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(np.unique(test_data.Embarked))&#125;</span><br><span class="line">        test_data.Embarked = test_data.Embarked.<span class="built_in">map</span>(ports_dict).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Age[test_data.Age.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            test_data.Age[test_data.Age.isnull()] = test_data.Age.dropna().median()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_data.Fare[test_data.Fare.isnull()]) &gt; <span class="number">0</span>:</span><br><span class="line">            median_fare = np.zeros(<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):  <span class="comment"># loop 0 to 2</span></span><br><span class="line">                median_fare[f] = test_data[test_data.Pclass == f + <span class="number">1</span>][<span class="string">&#x27;Fare&#x27;</span>].dropna().median()</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3</span>):  <span class="comment"># loop 0 to 2</span></span><br><span class="line">                test_data.loc[(test_data.Fare.isnull()) &amp; (test_data.Pclass == f + <span class="number">1</span>), <span class="string">&#x27;Fare&#x27;</span>] = median_fare[f]</span><br><span class="line"></span><br><span class="line">        test_data = test_data.drop(self.drop_label(), axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.data_concat(test_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> test_data.values</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">drop_label</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        drop_label</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;PassengerId&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">data_concat</span>(<span class="params">self, raw_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        data_concat</span></span><br><span class="line"><span class="string">        :param raw_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 根据年龄优化</span></span><br><span class="line">        raw_data.loc[raw_data.Age &lt; <span class="number">18</span>, <span class="string">&quot;Age&quot;</span>] = <span class="number">0</span></span><br><span class="line">        raw_data.loc[raw_data.Age &gt;= <span class="number">18</span>, <span class="string">&quot;Age&quot;</span>][raw_data.Age &lt; <span class="number">45</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Age &gt;= <span class="number">45</span>, <span class="string">&quot;Age&quot;</span>] = <span class="number">2</span></span><br><span class="line">        <span class="comment"># 根据父母孩子数量优化</span></span><br><span class="line">        raw_data.loc[raw_data.Parch &gt; <span class="number">0</span>, <span class="string">&quot;Parch&quot;</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Cabin.isnull(), <span class="string">&quot;Cabin&quot;</span>] = <span class="number">1</span></span><br><span class="line">        raw_data.loc[raw_data.Cabin.notnull(), <span class="string">&quot;Cabin&quot;</span>] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rediction_model</span>(<span class="params">self, train_data, label_data, test_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        预测模型</span></span><br><span class="line"><span class="string">        :param train_data:</span></span><br><span class="line"><span class="string">        :param test_data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        forest = RandomForestClassifier(n_estimators=<span class="number">2000</span>)</span><br><span class="line">        forest = forest.fit(train_data, label_data)</span><br><span class="line">        <span class="keyword">return</span> forest.predict(test_data).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_result</span>(<span class="params">self, path, head, data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        save_result</span></span><br><span class="line"><span class="string">        :param path:</span></span><br><span class="line"><span class="string">        :param head:</span></span><br><span class="line"><span class="string">        :param data:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> wbf:</span><br><span class="line">            csv_obj = csv.writer(wbf)</span><br><span class="line">            csv_obj.writerow(head)</span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">                csv_obj.writerow(<span class="built_in">list</span>(item))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        运行</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 加载数据</span></span><br><span class="line">        train_data = self.load_data(self.train_path)</span><br><span class="line">        test_data = self.load_data(self.test_path)</span><br><span class="line">        passenger_id = test_data.PassengerId.values</span><br><span class="line">        <span class="comment"># 清洗数据</span></span><br><span class="line">        train_data = self.wash_train_data(train_data)</span><br><span class="line">        test_data = self.wash_test_data(test_data)</span><br><span class="line">        train_data, label_data = train_data[<span class="number">0</span>::, <span class="number">1</span>::], [val <span class="keyword">for</span> val <span class="keyword">in</span> train_data[<span class="number">0</span>::, <span class="number">0</span>]]</span><br><span class="line">        head = [<span class="string">&quot;PassengerId&quot;</span>, <span class="string">&quot;Survived&quot;</span>]</span><br><span class="line">        data = <span class="built_in">zip</span>(passenger_id, self.rediction_model(train_data, label_data, test_data))</span><br><span class="line">        self.save_result(<span class="string">&quot;xyzforest.csv&quot;</span>, head, data)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    tt = Titanic()</span><br><span class="line">    <span class="built_in">print</span> tt.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/index.html">pandas documentation</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/chaosimple/p/4153083.html">【原】十分钟搞定pandas</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhizhan/p/5238908.html">机器学习系列(3)_逻辑回归应用之Kaggle泰坦尼克之灾</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/yobobobo/article/details/48194021">Kaggle系列——Titanic 80%＋精确度纪录</a></p>
 
       
     </div>
@@ -1201,7 +1183,7 @@ Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
