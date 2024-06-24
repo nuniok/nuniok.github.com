@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -178,234 +178,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2016/12/28/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/28/1.html" class="post-title-link" itemprop="url">k近邻法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-28 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-28T00:00:00+00:00">2016-12-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>简单解释：采用测量不同特征值之间距离的方法进行分类的算法。<br>主要优点是精度高，缺点是计算和空间负责度高，适用于数值型和标称型。<br>已下是通过Python实现的k-近邻算法，大致思路是计算样本数据<code>data_set</code>中的点与待分类点的距离，按距离递增排序，然后取出前K个点，计算这些点所属标签的数量，计数最高的标签为分类结果。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /data/server/python/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">k-近邻算法</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">knn</span>(<span class="params">position, data_set, labels, k</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    k-近邻算法</span></span><br><span class="line"><span class="string">    :param position: 待分类点</span></span><br><span class="line"><span class="string">    :param data_set: 数据样本</span></span><br><span class="line"><span class="string">    :param labels: 标签集合</span></span><br><span class="line"><span class="string">    :param k: 取值</span></span><br><span class="line"><span class="string">    :return: 所属标签</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    distance_list = []</span><br><span class="line">    <span class="keyword">for</span> index, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_set):</span><br><span class="line">        distance_list.append((</span><br><span class="line">            labels[index],</span><br><span class="line">            math.sqrt(reduce(operator.add, [(v - position[i]) ** <span class="number">2</span> <span class="keyword">for</span> i, v <span class="keyword">in</span> <span class="built_in">enumerate</span>(item)]))</span><br><span class="line">        ))</span><br><span class="line">    distance_list = <span class="built_in">sorted</span>(distance_list, key=<span class="keyword">lambda</span> x: x, reverse=<span class="literal">True</span>)</span><br><span class="line">    result = Counter([val[<span class="number">0</span>] <span class="keyword">for</span> val <span class="keyword">in</span> distance_list[:k]])</span><br><span class="line">    result_labels = <span class="built_in">sorted</span>(result.items(), <span class="keyword">lambda</span> x, y: cmp(x[<span class="number">1</span>], y[<span class="number">1</span>]), reverse=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> result_labels[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    point = [<span class="number">0.2</span>, <span class="number">0.3</span>]</span><br><span class="line">    data_set = [[<span class="number">1</span>, <span class="number">1.1</span>], [<span class="number">1</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.1</span>]]</span><br><span class="line">    labels = [<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;B&#x27;</span>]</span><br><span class="line">    k = <span class="number">3</span></span><br><span class="line">    <span class="built_in">print</span> knn(point, data_set, labels, k)</span><br></pre></td></tr></table></figure>
-
-<h3 id="k-d-tree算法"><a href="#k-d-tree算法" class="headerlink" title="k-d tree算法"></a>k-d tree算法</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/eyeszjwang/articles/2429382.html">http://www.cnblogs.com/eyeszjwang/articles/2429382.html</a></p>
-</blockquote>
-<hr>
-<p><strong>k近邻法</strong> 给定一个训练数据集，对新输入的实例，在训练的数据集中找到与该实例最近邻的k个实例，这k个实例的多数属于某个类，就把该输入实例分为这个类。</p>
-<p><strong>kd树</strong> 是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。</p>
-<h5 id="算法：（构造平衡kd树）"><a href="#算法：（构造平衡kd树）" class="headerlink" title="算法：（构造平衡kd树）"></a>算法：（构造平衡kd树）</h5><p>输入：k维空间数据集<br>$$ T&#x3D;{x_1,x_2,…,x_N} $$,<br>$$ x_i&#x3D;(x_i^{(1)},x_i^{(2)},…,x_i^{(k)})^T, i&#x3D;1,2,…,N; $$</p>
-<p>输出：kd树。</p>
-<h5 id="生成："><a href="#生成：" class="headerlink" title="生成："></a>生成：</h5><p>从深度为0的结点开始。重复对深度为j的结点，选择<code>x(l)</code>为切分的坐标轴，<code>l=j(mode k) + 1</code>，以该结点的区域中所有实例的<code>x(l)</code>坐标的中位数为切分点，将该结点对应的超矩形区域切分为两个子区域。切分由通过切分点并与坐标轴<code>x(l)</code>垂直的超平面实现。由该结点生成深度为j+1的左、右子结点：左子节点对应坐标<code>x(l)</code>小于切分点的子区域，右子节点对应坐标<code>x(l)</code>大于切分点的子区域。</p>
-<h5 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h5><p>对以下给定二维数据集构造一个平衡kd树<br>$$ T&#x3D; {(2,3)^T, (5,4)^T, (9,6)^T, (4,7)^T, (8,1)^T, (7,2)^T } $$</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2016/12/15/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/15/1.html" class="post-title-link" itemprop="url">余弦相似度分类</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-15 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-15T00:00:00+00:00">2016-12-15</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>计算余弦值公式<br>$$cos\theta &#x3D; \frac{x_1y_1+x_2y_2+…+x_ny_n}{\sqrt{x_1^2+x_2^2+…+x_n^2}\sqrt{y_1^2+y_2^2+…+y_n^2}}$$</p>
-<p>样本和待分类图像</p>
-<p><img src="/resource/img/9ce24513b3daf2d8.png" alt="样本和待分类图像"></p>
-<p>执行结果</p>
-<p><img src="/resource/img/e1c67f947d03a7db.png" alt="执行结果"></p>
-<p>完整代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: abc</span></span><br><span class="line"><span class="string">@file: euclidean_distance.py</span></span><br><span class="line"><span class="string">@date: 2016-12-09</span></span><br><span class="line"><span class="string">@desc: 余弦相似度</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">w_fg = <span class="number">20</span></span><br><span class="line">h_fg = <span class="number">15</span></span><br><span class="line">pic_flag = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_pic</span>(<span class="params">fn</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    read_pic</span></span><br><span class="line"><span class="string">    :param fn:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    fnimg = cv2.imread(fn)</span><br><span class="line">    img = cv2.resize(fnimg, (<span class="number">800</span>, <span class="number">600</span>), interpolation=cv2.INTER_AREA)</span><br><span class="line">    w = img.shape[<span class="number">1</span>]</span><br><span class="line">    h = img.shape[<span class="number">0</span>]</span><br><span class="line">    w_interval = w / w_fg</span><br><span class="line">    h_interval = h / h_fg</span><br><span class="line"></span><br><span class="line">    alltz = []</span><br><span class="line">    alltz.append([])</span><br><span class="line">    alltz.append([])</span><br><span class="line">    alltz.append([])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> now_h <span class="keyword">in</span> xrange(<span class="number">0</span>, h, h_interval):</span><br><span class="line">        <span class="keyword">for</span> now_w <span class="keyword">in</span> xrange(<span class="number">0</span>, w, w_interval):</span><br><span class="line">            b = img[now_h:now_h + h_interval, now_w:now_w + w_interval, <span class="number">0</span>]</span><br><span class="line">            g = img[now_h:now_h + h_interval, now_w:now_w + w_interval, <span class="number">1</span>]</span><br><span class="line">            r = img[now_h:now_h + h_interval, now_w:now_w + w_interval, <span class="number">2</span>]</span><br><span class="line">            btz = np.mean(b)</span><br><span class="line">            gtz = np.mean(g)</span><br><span class="line">            rtz = np.mean(r)</span><br><span class="line"></span><br><span class="line">            alltz[<span class="number">0</span>].append(btz)</span><br><span class="line">            alltz[<span class="number">1</span>].append(gtz)</span><br><span class="line">            alltz[<span class="number">2</span>].append(rtz)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> alltz</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_cossimi</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    get_cossimi</span></span><br><span class="line"><span class="string">    :param x:</span></span><br><span class="line"><span class="string">    :param y:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    myx = np.array(x)</span><br><span class="line">    myy = np.array(y)</span><br><span class="line">    cos1 = np.<span class="built_in">sum</span>(myx * myy)</span><br><span class="line">    cos21 = np.sqrt(<span class="built_in">sum</span>(myx * myx))</span><br><span class="line">    cos22 = np.sqrt(<span class="built_in">sum</span>(myy * myy))</span><br><span class="line">    <span class="keyword">return</span> cos1 / <span class="built_in">float</span>(cos21 * cos22)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 提取特征</span></span><br><span class="line">    train_x = []</span><br><span class="line">    d = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ii <span class="keyword">in</span> xrange(<span class="number">1</span>, pic_flag + <span class="number">1</span>):</span><br><span class="line">        smp_x = []</span><br><span class="line">        b_tz = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">        g_tz = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">        r_tz = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">        mytz = np.zeros((<span class="number">3</span>, w_fg * h_fg))</span><br><span class="line">        <span class="keyword">for</span> jj <span class="keyword">in</span> xrange(<span class="number">1</span>, <span class="number">3</span>):</span><br><span class="line">            fn = <span class="string">&#x27;/home/abc/Projects/machine_learning/img/base/p&#x27;</span> + <span class="built_in">str</span>(ii) + <span class="string">&#x27;-&#x27;</span> + <span class="built_in">str</span>(jj) + <span class="string">&#x27;.jpg&#x27;</span></span><br><span class="line">            <span class="built_in">print</span> fn</span><br><span class="line">            tmptz = read_pic(fn)</span><br><span class="line">            mytz += np.array(tmptz)</span><br><span class="line">        mytz /= <span class="number">3</span></span><br><span class="line">        train_x.append(mytz[<span class="number">0</span>].tolist() + mytz[<span class="number">1</span>].tolist() + mytz[<span class="number">2</span>].tolist())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> xrange(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">        fn = <span class="string">&#x27;/home/abc/Projects/machine_learning/img/base/test&#123;&#125;.jpg&#x27;</span>.<span class="built_in">format</span>(index)</span><br><span class="line">        testtz = np.array(read_pic(fn))</span><br><span class="line">        simtz = testtz[<span class="number">0</span>].tolist() + testtz[<span class="number">1</span>].tolist() + testtz[<span class="number">2</span>].tolist()</span><br><span class="line">        maxtz = <span class="number">0</span></span><br><span class="line">        nowi = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(pic_flag):</span><br><span class="line">            nowsim = get_cossimi(train_x[i], simtz)</span><br><span class="line">            <span class="keyword">if</span> nowsim &gt; maxtz:</span><br><span class="line">                maxtz = nowsim</span><br><span class="line">                nowi = i</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;%s属于第%d类&#x27;</span> % (fn, nowi + <span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/chaosimple/archive/2013/06/28/3160839.html">http://www.cnblogs.com/chaosimple/archive/2013/06/28/3160839.html</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2016/12/10/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/10/1.html" class="post-title-link" itemprop="url">图像边缘算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-10 10:00:01" itemprop="dateCreated datePublished" datetime="2016-12-10T10:00:01+00:00">2016-12-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>算法描述：将当前像素与邻接的下边和右边像素进行比较，如果相似设置为白色，否则设置为黑色。</p>
-<p>欧氏距离算法，如果两个像素的欧氏距离小于某个常数的阀值则认定为相似。</p>
-<p>两个n维向量<code>a(x11, x12, ..., x1n)</code>与<code>b(x21, x22, ..., x2n)</code>间的欧氏距离如下公式：</p>
-<p>$$d&#x3D;\sqrt{\sum_{k&#x3D;1}^n(x_{1k}-x_{2k})^2}$$</p>
-<p>Python代码实现</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_euclidean_distance</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算欧氏距离</span></span><br><span class="line"><span class="string">    :param x:</span></span><br><span class="line"><span class="string">    :param y:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    myx = np.array(x)</span><br><span class="line">    myy = np.array(y)</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.<span class="built_in">sum</span>((myx - myy) * (myx - myy)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>阀值设置为16</p>
-<p><strong>原始图片</strong><br><img src="/resource/img/dd4d3f8b54124d4c.png" alt="原始图片"></p>
-<p><strong>描边图片</strong><br><img src="/resource/img/d6e4f48caabdd0da.png" alt="描边图片"></p>
-<p><strong>完整代码如下</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: abc</span></span><br><span class="line"><span class="string">@file: euclidean_distance.py</span></span><br><span class="line"><span class="string">@date: 2016-12-09</span></span><br><span class="line"><span class="string">@desc: 欧氏距离</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_euclidean_distance</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算欧氏距离</span></span><br><span class="line"><span class="string">    :param x:</span></span><br><span class="line"><span class="string">    :param y:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    myx = np.array(x)</span><br><span class="line">    myy = np.array(y)</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.<span class="built_in">sum</span>((myx - myy) * (myx - myy)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_img</span>(<span class="params">imgpath</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    handle_img</span></span><br><span class="line"><span class="string">    :param imgpath:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    myimg1 = cv2.imread(imgpath)</span><br><span class="line"></span><br><span class="line">    cv2.namedWindow(<span class="string">&#x27;img1&#x27;</span>)</span><br><span class="line">    cv2.imshow(<span class="string">&#x27;img1&#x27;</span>, myimg1)</span><br><span class="line">    cv2.waitKey()</span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">    w = myimg1.shape[<span class="number">1</span>]</span><br><span class="line">    h = myimg1.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    sz1 = w</span><br><span class="line">    sz0 = h</span><br><span class="line"></span><br><span class="line">    flag = <span class="number">16</span></span><br><span class="line"></span><br><span class="line">    myimg2 = np.zeros((sz0, sz1, <span class="number">3</span>), np.uint8)</span><br><span class="line">    black = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">    white = np.array([<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">    centercolor = np.array([<span class="number">125</span>, <span class="number">125</span>, <span class="number">125</span>])</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> xrange(sz0 - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> xrange(sz1 - <span class="number">1</span>):</span><br><span class="line">            myhere = myimg1[y, x, :]</span><br><span class="line">            mydown = myimg1[y + <span class="number">1</span>, x, :]</span><br><span class="line">            myright = myimg1[y, x + <span class="number">1</span>, :]</span><br><span class="line"></span><br><span class="line">            lmyhere = myhere</span><br><span class="line">            lmyright = myright</span><br><span class="line">            lmydown = mydown</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> get_euclidean_distance(lmyhere, lmydown) &gt; flag <span class="keyword">and</span> get_euclidean_distance(lmyhere, lmyright) &gt; flag:</span><br><span class="line">                myimg2[y, x, :] = black</span><br><span class="line">            <span class="keyword">elif</span> get_euclidean_distance(lmyhere, lmydown) &lt;= flag <span class="keyword">and</span> get_euclidean_distance(lmyhere, lmyright) &lt;= flag:</span><br><span class="line">                myimg2[y, x, :] = white</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                myimg2[y, x, :] = centercolor</span><br><span class="line"></span><br><span class="line">    cv2.namedWindow(<span class="string">&#x27;img2&#x27;</span>)</span><br><span class="line">    cv2.imshow(<span class="string">&#x27;img2&#x27;</span>, myimg2)</span><br><span class="line">    cv2.waitKey()</span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    imgpath = <span class="string">&quot;/home/abc/Projects/machine_learning/img/test4.png&quot;</span></span><br><span class="line">    handle_img(imgpath)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_52510b1d01015nrg.html">http://blog.sina.com.cn/s/blog_52510b1d01015nrg.html</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -768,71 +540,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2016/09/19/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/09/19/1.html" class="post-title-link" itemprop="url">《自品牌》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-19T00:00:00+00:00">2016-09-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/resource/img/self_brand.png" alt="self_brand"></p>
-<p><a href="/resource/file/self_brand.xmind">xmind文件</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://noge.top/2016/08/04/1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -992,6 +699,444 @@
 <h3 id="匹配四位数的年份"><a href="#匹配四位数的年份" class="headerlink" title="匹配四位数的年份"></a>匹配四位数的年份</h3><p><img src="/resource/img/zzbds/64ddb1d1-bb13-476b-9fc4-ae4dc93e1c08.png" alt="原始图片"></p>
 <h3 id="嵌入查找、向后查找组合应用"><a href="#嵌入查找、向后查找组合应用" class="headerlink" title="嵌入查找、向后查找组合应用"></a>嵌入查找、向后查找组合应用</h3><p><img src="/resource/img/zzbds/9bb21719-d586-4f77-98f7-8b0c37f16a0a.png" alt="原始图片"></p>
 
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/09/19/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/09/19/1.html" class="post-title-link" itemprop="url">Python 包管理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2015-09-19T00:00:00+00:00">2015-09-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h2><p>pip更新<code>python -m pip install -U pip</code></p>
+<h3 id="pipy国内镜像目前有："><a href="#pipy国内镜像目前有：" class="headerlink" title="pipy国内镜像目前有："></a>pipy国内镜像目前有：</h3><p><a target="_blank" rel="noopener" href="https://pypi.douban.com/">https://pypi.douban.com/</a>  豆瓣</p>
+<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/pypi/web/">https://mirrors.tuna.tsinghua.edu.cn/pypi/web/</a> 清华大学</p>
+<h3 id="指定源安装"><a href="#指定源安装" class="headerlink" title="指定源安装"></a>指定源安装</h3><p>pip可以通过指定源的方式安装 <code>pip install web.py -i https://pypi.douban.com/simple</code></p>
+<p>也可以通过修改配置文件，Linux的文件在<code>~/.pip/pip.conf</code>，Windows在<code>%HOMEPATH%\pip\pip.ini</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.douban.com/simple</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="easy-install"><a href="#easy-install" class="headerlink" title="easy_install"></a>easy_install</h2><p>easy_install指定源安装 <code>easy_install -i https://pypi.douban.com/simple</code></p>
+<p>或者修改配置文件 <code>~/.pydistutils.cfg</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[easy_install]</span><br><span class="line">index_url = http://e.pypi.python.org/simple</span><br></pre></td></tr></table></figure>
+
+<p>easy_install查看包的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@xyz-pc:~# easy_install tornado -v</span><br><span class="line">Searching for tornado</span><br><span class="line">Best match: tornado 4.0.2</span><br><span class="line">tornado 4.0.2 is already the active version in easy-install.pth</span><br><span class="line"></span><br><span class="line">Using /usr/lib/python2.7/dist-packages</span><br><span class="line">Processing dependencies for tornado</span><br><span class="line">Finished processing dependencies for tornado</span><br><span class="line">Searching for -v</span><br><span class="line">Reading https://pypi.python.org/simple/-v/</span><br><span class="line">Couldn&#x27;t find index page for &#x27;-v&#x27; (maybe misspelled?)</span><br><span class="line">Scanning index of all packages (this may take a while)</span><br><span class="line">Reading https://pypi.python.org/simple/</span><br><span class="line">No local packages or download links found for -v</span><br><span class="line">error: Could not find suitable distribution for Requirement.parse(&#x27;-v&#x27;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="安装Python安装包管理工具相关命令"><a href="#安装Python安装包管理工具相关命令" class="headerlink" title="安装Python安装包管理工具相关命令"></a>安装Python安装包管理工具相关命令</h2><p>安装easy_install：<code>apt-get install python-setuptools</code></p>
+<p><code>sudo yum install python-setuptools-devel</code></p>
+<p><code>esay_install pip</code></p>
+<p>pip指定版本：<code>pip install &#39;pymongo&lt;2.8&#39;</code></p>
+<p>升级版本：<code>pip install --upgrade pymongo</code></p>
+<p>查看已安装包：<code>pip show --files SomePackage</code></p>
+<p>查看需要更新的包：<code>pip list --outdated</code></p>
+<p>卸载包：<code>pip uninstall SomePackage</code></p>
+<p>帮助：<code>pip --help</code></p>
+<p>指定豆瓣源安装：<code>pip install -i https://pypi.douban.com/simple/ functools32</code></p>
+<p>查看已安装包：<code>pip list</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/taosim/articles/3288821.html">http://www.cnblogs.com/taosim/articles/3288821.html</a></p>
+</blockquote>
+<h2 id="pipenv"><a href="#pipenv" class="headerlink" title="pipenv"></a>pipenv</h2><p>安装 <code>pip3 install pipenv</code></p>
+<p>安装虚拟环境 <code>pipenv install</code></p>
+<p>启动虚拟环境 <code>pipenv shell</code></p>
+<p>查看当前环境依赖 <code>pip3 list</code></p>
+<p>退出虚拟环境 <code>exit</code></p>
+<p>安装 <code>pipenv install ……</code></p>
+<p>卸载 <code>pipenv uninstall ……</code></p>
+<p>查看依赖关系 <code>pipenv graph</code></p>
+<p>查看虚拟环境路径 <code>pipenv --venv</code></p>
+<p>删除环境 <code>pipenv --rm</code></p>
+<p>创建 Python3 环境 <code>pipenv --three</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/08/14/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/14/1.html" class="post-title-link" itemprop="url">Git使用一年总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-08-14 00:00:00" itemprop="dateCreated datePublished" datetime="2015-08-14T00:00:00+00:00">2015-08-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h5 id="git-fetch-merge"><a href="#git-fetch-merge" class="headerlink" title="git fetch merge"></a>git fetch merge</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -vv</span><br><span class="line">git remote add base git@git.in.xxx.com:sss/xxx.git</span><br><span class="line">git fetch base</span><br><span class="line">git merge base/master</span><br></pre></td></tr></table></figure>
+
+<h5 id="git切换远程仓库地址"><a href="#git切换远程仓库地址" class="headerlink" title="git切换远程仓库地址"></a>git切换远程仓库地址</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin [url]</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用git在本地创建一个项目的过程"><a href="#使用git在本地创建一个项目的过程" class="headerlink" title="使用git在本地创建一个项目的过程"></a>使用git在本地创建一个项目的过程</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ makdir ~/hello-world    //创建一个项目hello-world</span><br><span class="line">$ cd ~/hello-world       //打开这个项目</span><br><span class="line">$ git init             //初始化</span><br><span class="line">$ touch README</span><br><span class="line">$ git add README        //更新README文件</span><br><span class="line">$ git commit -m &#x27;first commit&#x27;     //提交更新，并注释信息“first commit”</span><br><span class="line">$ git remote add origin git@github.test/hellotest.git     //连接远程github项目</span><br><span class="line">$ git push -u origin master     //将本地项目更新到github项目上去</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="git设置关闭自动换行"><a href="#git设置关闭自动换行" class="headerlink" title="git设置关闭自动换行"></a>git设置关闭自动换行</h5><p><code>git config --global core.autocrlf false</code><br>为了保证文件的换行符是以安全的方法，避免windows与unix的换行符混用的情况，最好也加上这么一句<br><code>git config --global core.safecrlf true</code></p>
+<hr>
+<h5 id="git-tag-使用"><a href="#git-tag-使用" class="headerlink" title="git tag 使用"></a>git tag 使用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git tag  # 列出当前仓库的所有标签</span><br><span class="line">git tag -l &#x27;v0.1.*&#x27;  # 搜索符合当前模式的标签</span><br><span class="line"></span><br><span class="line">git tag v0.2.1-light  # 创建轻量标签</span><br><span class="line">git tag -a v0.2.1 -m &#x27;0.2.1版本&#x27;  # 创建附注标签</span><br><span class="line"></span><br><span class="line">git checkout [tagname]  # 切换到标签</span><br><span class="line">git show v0.2.1  # 查看标签版本信息</span><br><span class="line"></span><br><span class="line">git tag -d v0.2.1  # 删除标签</span><br><span class="line">git tag -a v0.2.1 9fbc3d0  # 补打标签</span><br><span class="line"></span><br><span class="line">git push origin v0.1.2  # 将v0.1.2标签提交到git服务器</span><br><span class="line">git push origin –tags  # 将本地所有标签一次性提交到git服务器</span><br><span class="line">git tag  # 查看当前分支下的标签</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h5 id="git-pull问题"><a href="#git-pull问题" class="headerlink" title="git pull问题"></a>git pull问题</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">You asked me to pull without telling me which branch you</span><br><span class="line">want to merge with, and &#x27;branch.content_api_zhangxu.merge&#x27; in</span><br><span class="line">your configuration file does not tell me, either. Please</span><br><span class="line">specify which branch you want to use on the command line and</span><br><span class="line">try again (e.g. &#x27;git pull &lt;repository&gt; &lt;refspec&gt;&#x27;).</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">If you often merge with the same branch, you may want to</span><br><span class="line">use something like the following in your configuration file:</span><br><span class="line"></span><br><span class="line">    [branch &quot;content_api_zhangxu&quot;]</span><br><span class="line">    remote = &lt;nickname&gt;</span><br><span class="line">    merge = &lt;remote-ref&gt;</span><br><span class="line"></span><br><span class="line">    [remote &quot;&lt;nickname&gt;&quot;]</span><br><span class="line">    url = &lt;url&gt;</span><br><span class="line">    fetch = &lt;refspec&gt;</span><br><span class="line"></span><br><span class="line">See git-config(1) for details.</span><br></pre></td></tr></table></figure>
+<p><code>git pull origin new_branch</code></p>
+<hr>
+<h5 id="怎样遍历移除项目中的所有-pyc-文件"><a href="#怎样遍历移除项目中的所有-pyc-文件" class="headerlink" title="怎样遍历移除项目中的所有 .pyc 文件"></a>怎样遍历移除项目中的所有 .pyc 文件</h5><p><code>sudo find /tmp -name &quot;*.pyc&quot; | xargs rm -rf</code>替换<code>/tmp</code>目录为工作目录<br><code>git rm *.pyc</code>这个用着也可以</p>
+<p>避免再次误提交，在项目新建<code>.gitignore</code>文件，输入<code>*.pyc</code>过滤文件</p>
+<hr>
+<h5 id="git变更项目地址"><a href="#git变更项目地址" class="headerlink" title="git变更项目地址"></a>git变更项目地址</h5><p><code>git remote set-url origin git@192.168.6.70:res_dev_group/test.git</code><br><code>git remote -v</code></p>
+<hr>
+<h5 id="查看某个文件的修改历史"><a href="#查看某个文件的修改历史" class="headerlink" title="查看某个文件的修改历史"></a>查看某个文件的修改历史</h5><p><code>git log --pretty=oneline 文件名   # 显示修改历史</code><br><code>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e  # 查看更改</code></p>
+<hr>
+<h5 id="git-push-时报错-warning-push-default-is-unset"><a href="#git-push-时报错-warning-push-default-is-unset" class="headerlink" title="git push 时报错 warning: push.default is unset"></a>git push 时报错 warning: push.default is unset</h5><p>git_push.jpg<br>‘matching’ 参数是 Git 1.x 的默认行为，其意是如果你执行 git push 但没有指定分支，它将 push 所有你本地的分支到远程仓库中对应匹配的分支。而 Git 2.x 默认的是 simple，意味着执行 git push 没有指定分支时，只有当前分支会被 push 到你使用 git pull 获取的代码。<br>根据提示，修改git push的行为:<br>git config –global push.default matching<br>再次执行git push 得到解决。</p>
+<hr>
+<h5 id="git-submodule的使用拉子项目代码"><a href="#git-submodule的使用拉子项目代码" class="headerlink" title="git submodule的使用拉子项目代码"></a>git submodule的使用拉子项目代码</h5><p>开发过程中，经常会有一些通用的部分希望抽取出来做成一个公共库来提供给别的工程来使用，而公共代码库的版本管理是个麻烦的事情。今天无意中发现了git的<code>git submodule</code>命令，之前的问题迎刃而解了。<br>添加</p>
+<p>为当前工程添加submodule，命令如下：</p>
+<p><code>git submodule add 仓库地址 路径</code></p>
+<p>其中，仓库地址是指子模块仓库地址，路径指将子模块放置在当前工程下的路径。<br>注意：路径不能以 &#x2F; 结尾（会造成修改不生效）、不能是现有工程已有的目录（不能順利 Clone）</p>
+<p>命令执行完成，会在当前工程根路径下生成一个名为“.gitmodules”的文件，其中记录了子模块的信息。添加完成以后，再将子模块所在的文件夹添加到工程中即可。<br>删除</p>
+<p>submodule的删除稍微麻烦点：首先，要在“.gitmodules”文件中删除相应配置信息。然后，执行<code>git rm –cached</code>命令将子模块所在的文件从git中删除。<br>下载的工程带有submodule</p>
+<p>当使用<code>git clone</code>下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
+<p><code>git submodule update --init --recursive</code></p>
+<p>即可将子模块内容下载下来后工程才不会缺少相应的文件。</p>
+<hr>
+<h5 id="一些错误"><a href="#一些错误" class="headerlink" title="一些错误"></a>一些错误</h5><h6 id="“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误"><a href="#“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误" class="headerlink" title="“pathspec ‘branch’ did not match any file(s) known to git.”错误"></a>“pathspec ‘branch’ did not match any file(s) known to git.”错误</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
+
+<h6 id="使用git提交比较大的文件的时候可能会出现这个错误"><a href="#使用git提交比较大的文件的时候可能会出现这个错误" class="headerlink" title="使用git提交比较大的文件的时候可能会出现这个错误"></a>使用git提交比较大的文件的时候可能会出现这个错误</h6><p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 411<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
+<p>这样的话首先改一下git的传输字节限制</p>
+<p>git config http.postBuffer  524288000<br>然后这时候在传输或许会出现另一个错误</p>
+<p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 413<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
+<p>这两个错误看上去相似，一个是411，一个是413</p>
+<p>下面这个错误添加一下密钥就可以了</p>
+<p>首先key-keygen 生成密钥</p>
+<p>然后把生成的密钥复制到git中自己的账号下的相应位置</p>
+<p>git push ssh:&#x2F;&#x2F;192.168.64.250&#x2F;eccp.git  branch</p>
+<blockquote>
+<p>等待收集</p>
+</blockquote>
+<hr>
+<h5 id="git-add文件取消"><a href="#git-add文件取消" class="headerlink" title="git add文件取消"></a>git add文件取消</h5><p>在git的一般使用中，如果发现错误的将不想提交的文件add进入index之后，想回退取消，则可以使用命令：<code>git reset HEAD &lt;file&gt;...</code>，同时git add完毕之后，git也会做相应的提示。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/yaoming168/article/details/38777763">http://blog.csdn.net/yaoming168/article/details/38777763</a></p>
+</blockquote>
+<hr>
+<h5 id="git删除文件："><a href="#git删除文件：" class="headerlink" title="git删除文件："></a>git删除文件：</h5><p>删除文件跟踪并且删除文件系统中的文件file1<code>git rm file1</code><br>提交刚才的删除动作，之后git不再管理该文件<code>git commit</code></p>
+<p>删除文件跟踪但不删除文件系统中的文件file1<code>git rm --cached file1</code><br>提交刚才的删除动作，之后git不再管理该文件。但是文件系统中还是有file1。<code>git commit</code></p>
+<hr>
+<h5 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h5><p>版本回退用于线上系统出现问题后恢复旧版本的操作。<br>回退到的版本<code>git reset --hard 248cba8e77231601d1189e3576dc096c8986ae51</code><br>回退的是所有文件，如果后悔回退可以git pull就可以了。</p>
+<hr>
+<h5 id="历史版本对比"><a href="#历史版本对比" class="headerlink" title="历史版本对比"></a>历史版本对比</h5><p>查看日志<code>git log</code><br>查看某一历史版本的提交内容<code>git show  4ebd4bbc3ed321d01484a4ed206f18ce2ebde5ca</code>，这里能看到版本的详细修改代码。<br>对比不同版本<code>git diff c0f28a2ec490236caa13dec0e8ea826583b49b7a  2e476412c34a63b213b735e5a6d90cd05b014c33</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/lxlzhn/article/details/9356473">http://blog.csdn.net/lxlzhn/article/details/9356473</a></p>
+</blockquote>
+<hr>
+<h5 id="分支的意义与管理"><a href="#分支的意义与管理" class="headerlink" title="分支的意义与管理"></a>分支的意义与管理</h5><p>创建分支可以避免提交代码后对主分支的影响，同时也使你有了相对独立的开发环境。分支具有很重要的意义。<br>创建并切换分支，提交代码后才能在其它机器拉分支代码<code>git checkout -b new_branch</code><br>查看当前分支<code>git branch</code><br>切换到master分支<code>git checkout master</code><br>合并分支到当前分支<code>git merge new_branch</code>，合并分支的操作是从new_branch合并到master分支，当前环境在master分支。<br>删除分支<code>git branch -d new_branch</code></p>
+<hr>
+<h5 id="git冲突文件编辑"><a href="#git冲突文件编辑" class="headerlink" title="git冲突文件编辑"></a>git冲突文件编辑</h5><p>冲突文件冲突的地方如下面这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a123</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">b789</span><br><span class="line">=======</span><br><span class="line">b45678910</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<p>冲突标记&lt;&lt;&lt;&lt;&lt;&lt;&lt; （7个&lt;）与&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;之间的内容是我的修改，&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;与&gt;&gt;&gt;&gt;&gt;&gt;&gt;之间的内容是别人的修改。<br>此时，还没有任何其它垃圾文件产生。<br>你需要把代码合并好后重新走一遍代码提交流程就好了。</p>
+<hr>
+<h5 id="不顺利的代码提交流程"><a href="#不顺利的代码提交流程" class="headerlink" title="不顺利的代码提交流程"></a>不顺利的代码提交流程</h5><p>在<code>git push</code>后出现错误可能是因为其他人提交了代码，而使你的本地代码库版本不是最新。<br>这时你需要先<code>git pull</code>代码后，检查是否有文件冲突。<br>没有文件冲突的话需要重新走一遍代码提交流程<code>add —&gt; commit —&gt; push</code>。<br>解决文件冲突在后面说。</p>
+<hr>
+<h5 id="git顺利的提交代码流程"><a href="#git顺利的提交代码流程" class="headerlink" title="git顺利的提交代码流程"></a>git顺利的提交代码流程</h5><p>查看修改的文件<code>git status</code>；<br>为了谨慎检查一下代码<code>git diff</code>；<br>添加修改的文件<code>git add dirname1/filename1.py dirname2/filenam2.py</code>，新加的文件也是直接add就好了；<br>添加修改的日志<code>git commit -m &quot;fixed:修改了上传文件的逻辑&quot;</code>；<br>提交代码<code>git push</code>，如果提交失败的可能原因是本地代码库版本不是最新。</p>
+<hr>
+<h5 id="理解github的pull-request"><a href="#理解github的pull-request" class="headerlink" title="理解github的pull request"></a>理解github的pull request</h5><h6 id="有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"><a href="#有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。" class="headerlink" title="有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"></a>有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。</h6><blockquote>
+<p><a target="_blank" rel="noopener" href="http://zhidao.baidu.com/question/1669154493305991627.html">http://zhidao.baidu.com/question/1669154493305991627.html</a></p>
+</blockquote>
+<hr>
+<h5 id="创建和使用git-ssh-key"><a href="#创建和使用git-ssh-key" class="headerlink" title="创建和使用git ssh key"></a>创建和使用git ssh key</h5><p>首先设置git的user name和email：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxx&quot;</span><br><span class="line">git config --global user.email &quot;xxx@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+<p>查看git配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<h6 id="然后生成SHH密匙："><a href="#然后生成SHH密匙：" class="headerlink" title="然后生成SHH密匙："></a>然后生成SHH密匙：</h6><p>查看是否已经有了ssh密钥：<code>cd ~/.ssh</code><br>如果没有密钥则不会有此文件夹，有则备份删除<br>生存密钥：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;gudujianjsk@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+<p>按3个回车，密码为空这里一般不使用密钥。<br>最后得到了两个文件：id_rsa和id_rsa.pub<br>注意：密匙生成就不要改了，如果已经生成到<code>~/.ssh</code>文件夹下去找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 暂时无用</span><br><span class="line">添加 私密钥 到ssh：ssh-add id_rsa</span><br><span class="line">需要之前输入密码（如果有）。</span><br><span class="line"></span><br><span class="line">在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。</span><br><span class="line">打开 http://github.com,登陆xushichao，然后添加ssh。</span><br><span class="line">注意在这里由于直接复制粘帖公钥，可能会导致增加一些字符或者减少些字符，最好用系统工具xclip来做这些事情。</span><br><span class="line">xclip -selection c  id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>应用流程未整理</p>
+</blockquote>
+<hr>
+<h6 id="网络上收集"><a href="#网络上收集" class="headerlink" title="网络上收集"></a>网络上收集</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">master : 默认开发分支； origin : 默认远程版本库</span><br><span class="line"></span><br><span class="line">初始化操作</span><br><span class="line">    $ git config -global user.name &lt;name&gt;  #设置提交者名字</span><br><span class="line">    $ git config -global user.email &lt;email&gt;  #设置提交者邮箱</span><br><span class="line">    $ git config -global core.editor &lt;editor&gt;  #设置默认文本编辑器</span><br><span class="line">    $ git config -global merge.tool &lt;tool&gt;  #设置解决合并冲突时差异分析工具</span><br><span class="line">    $ git config -list  #检查已有的配置信息</span><br><span class="line"></span><br><span class="line">创建新版本库</span><br><span class="line">    $ git clone &lt;url&gt;  #克隆远程版本库</span><br><span class="line">    $ git init  #初始化本地版本库</span><br><span class="line"></span><br><span class="line">修改和提交</span><br><span class="line">    $ git add .  #添加所有改动过的文件</span><br><span class="line">    $ git add &lt;file&gt;  #添加指定的文件</span><br><span class="line">    $ git mv &lt;old&gt; &lt;new&gt; #文件重命名</span><br><span class="line">    $ git rm &lt;file&gt;  #删除文件</span><br><span class="line">    $ git rm -cached &lt;file&gt;  #停止跟踪文件但不删除</span><br><span class="line">    $ git commit -m &lt;file&gt; #提交指定文件</span><br><span class="line">    $ git commit -m “commit message”  #提交所有更新过的文件</span><br><span class="line">    $ git commit -amend  #修改最后一次提交</span><br><span class="line">    $ git commit -C HEAD -a -amend  #增补提交（不会产生新的提交历史纪录）</span><br><span class="line"></span><br><span class="line">查看提交历史</span><br><span class="line">    $ git log  #查看提交历史</span><br><span class="line">    $ git log -p &lt;file&gt;  #查看指定文件的提交历史</span><br><span class="line">    $ git blame &lt;file&gt;  #以列表方式查看指定文件的提交历史</span><br><span class="line">    $ gitk  #查看当前分支历史纪录</span><br><span class="line">    $ gitk &lt;branch&gt; #查看某分支历史纪录</span><br><span class="line">    $ gitk --all  #查看所有分支历史纪录</span><br><span class="line">    $ git branch -v  #每个分支最后的提交</span><br><span class="line">    $ git status  #查看当前状态</span><br><span class="line">    $ git diff  #查看变更内容</span><br><span class="line"></span><br><span class="line">撤消操作</span><br><span class="line">    $ git reset -hard HEAD  #撤消工作目录中所有未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD &lt;file1&gt; &lt;file2&gt;  #撤消指定的未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD. #撤消所有文件</span><br><span class="line">    $ git revert &lt;commit&gt;  #撤消指定的提交</span><br><span class="line"></span><br><span class="line">分支与标签</span><br><span class="line">    $ git branch  #显示所有本地分支</span><br><span class="line">    $ git checkout &lt;branch/tagname&gt;  #切换到指定分支或标签</span><br><span class="line">    $ git branch &lt;new-branch&gt;  #创建新分支</span><br><span class="line">    $ git branch -d &lt;branch&gt;  #删除本地分支</span><br><span class="line">    $ git tag  #列出所有本地标签</span><br><span class="line">    $ git tag &lt;tagname&gt;  #基于最新提交创建标签</span><br><span class="line">    $ git tag -d &lt;tagname&gt;  #删除标签</span><br><span class="line"></span><br><span class="line">合并与衍合</span><br><span class="line">    $ git merge &lt;branch&gt;  #合并指定分支到当前分支</span><br><span class="line">    $ git rebase &lt;branch&gt;  #衍合指定分支到当前分支</span><br><span class="line"></span><br><span class="line">远程操作</span><br><span class="line">    $ git remote -v  #查看远程版本库信息</span><br><span class="line">    $ git remote show &lt;remote&gt;  #查看指定远程版本库信息</span><br><span class="line">    $ git remote add &lt;remote&gt; &lt;url&gt;  #添加远程版本库</span><br><span class="line">    $ git fetch &lt;remote&gt;  #从远程库获取代码</span><br><span class="line">    $ git pull &lt;remote&gt; &lt;branch&gt;  #下载代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; &lt;branch&gt;  #上传代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; : &lt;branch&gt;/&lt;tagname&gt;  #删除远程分支或标签</span><br><span class="line">    $ git push -tags  #上传所有标签</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/08/07/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/08/07/1.html" class="post-title-link" itemprop="url">Supervisord总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2015-08-07T00:00:00+00:00">2015-08-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>一、添加好配置文件后<br>二、更新新的配置到supervisord<br><code>supervisorctl update</code><br>三、重新启动配置中的所有程序<br><code>supervisorctl reload</code><br>四、启动某个进程(program_name&#x3D;你配置中写的程序名称)<br><code>supervisorctl start program_name</code><br>五、查看正在守候的进程<br><code>supervisorctl</code><br>六、停止某一进程 (program_name&#x3D;你配置中写的程序名称)<br><code>pervisorctl stop program_name</code><br>七、重启某一进程 (program_name&#x3D;你配置中写的程序名称)<br><code>supervisorctl restart program_name</code><br>八、停止全部进程<br><code>supervisorctl stop all</code><br>注意：显示用stop停止掉的进程，用reload或者update都不会自动重启。</p>
+<p>supervisord : supervisor的服务器端部分，启动supervisor就是运行这个命令。<br>supervisorctl：启动supervisor的命令行窗口。</p>
+<hr>
+<p>需求：redis-server这个进程是运行redis的服务。我们要求这个服务能在意外停止后自动重启。</p>
+<h2 id="安装（Centos）"><a href="#安装（Centos）" class="headerlink" title="安装（Centos）"></a>安装（Centos）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install python-setuptools</span><br><span class="line">easy_install supervisor</span><br></pre></td></tr></table></figure>
+
+<p>测试是否安装成功：<br><code>echo_supervisord_conf</code></p>
+<p>创建配置文件：<br><code>echo_supervisord_conf &gt; /etc/supervisord.conf</code></p>
+<p>修改配置文件，在supervisord.conf最后增加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:redis]</span><br><span class="line">command = redis-server   //需要执行的命令</span><br><span class="line">autostart=true    //supervisor启动的时候是否随着同时启动</span><br><span class="line">autorestart=true   //当程序跑出exit的时候，这个program会自动重启</span><br><span class="line">startsecs=3  //程序重启时候停留在runing状态的秒数</span><br></pre></td></tr></table></figure>
+
+<p>环境变量配置：</p>
+<p><code>environment=PATH=&quot;/usr/local/cuda-8.0/bin:/usr/local/cuda-8.0/lib64&quot;,LD_LIBRARY_PATH=&quot;/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH&quot;</code></p>
+<blockquote>
+<p>更多配置说明请参考：<a target="_blank" rel="noopener" href="http://supervisord.org/configuration.html">http://supervisord.org/configuration.html</a></p>
+</blockquote>
+<p>运行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">supervisord    //启动supervisor</span><br><span class="line">supervisorctl   //打开命令行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm14211 ~]# supervisorctl</span><br><span class="line">redis                            RUNNING    pid 24068, uptime 3:41:55</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctl中： help   //查看命令 </span><br><span class="line">ctl中： status  //查看状态</span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li><p>redis出现的不是running而是FATAL 状态<br>应该要去查看log<br>log在&#x2F;tmp&#x2F;supervisord.log</p>
+</li>
+<li><p>日志中显示：<br>gave up: redis entered FATAL state, too many start retries too quickly<br>修改redis.conf的daemonize为no</p>
+<blockquote>
+<p>具体说明：<a target="_blank" rel="noopener" href="http://xingqiba.sinaapp.com/?p=240">http://xingqiba.sinaapp.com/?p=240</a></p>
+</blockquote>
+</li>
+</ol>
+<p>事实证明webdis也有这个问题，webdis要修改的是webdis.json这个配置文件</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/yjf512/archive/2012/03/05/2380496.html">http://www.cnblogs.com/yjf512/archive/2012/03/05/2380496.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/07/18/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2015/07/18/1.html" class="post-title-link" itemprop="url">分布式系统常用指标</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2015-07-18T00:00:00+00:00">2015-07-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><ol>
+<li>吞度量</li>
+<li>响应延迟 P95 P999</li>
+<li>并发量</li>
+</ol>
+<h2 id="可用性指标"><a href="#可用性指标" class="headerlink" title="可用性指标"></a>可用性指标</h2><ol>
+<li>可提供的服务时间 &#x2F; (可提供的服务时间 + 不可提供的服务时间)</li>
+<li>请求成功次数 &#x2F; 总请求次数</li>
+</ol>
+<h2 id="可扩展性指标"><a href="#可扩展性指标" class="headerlink" title="可扩展性指标"></a>可扩展性指标</h2><p>是否能实现水平扩展，通过增加服务器数量增加计算能力、存储容量等。</p>
+<p>存储系统中有两种扩展方式：<br>Scale Out（也就是Scale horizontally）横向扩展，比如在原有系统中新增一台服务器。<br>Scale Up（也就是Scale vertically）纵向扩展，在原有机器上增加 CPU 、内存。</p>
+<h2 id="一致性指标"><a href="#一致性指标" class="headerlink" title="一致性指标"></a>一致性指标</h2><p>实现多副本之间一致性的能力。不同的应用场景对于数据一致性指标要求不同，需要根据场景做具体的评估。</p>
+<h2 id="水平拆分和垂直拆分"><a href="#水平拆分和垂直拆分" class="headerlink" title="水平拆分和垂直拆分"></a>水平拆分和垂直拆分</h2><h2 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h2><p>原子性（Atomicity）<br>一致性（Atomicity）<br>隔离性（Isolation）<br>持久性（Durability）</p>
+<h2 id="CAP（帽子理论）"><a href="#CAP（帽子理论）" class="headerlink" title="CAP（帽子理论）"></a>CAP（帽子理论）</h2><p>一致性（Consistency）<br>可用性（Availability）<br>可靠性（Partition tolerance 分区容错性）</p>
+<h2 id="BASE"><a href="#BASE" class="headerlink" title="BASE"></a>BASE</h2><p>基本可用（Basically Available）<br>软状态（Soft State）<br>最终一致（Eventually Consistent）</p>
+<h2 id="分布式一致性协议"><a href="#分布式一致性协议" class="headerlink" title="分布式一致性协议"></a>分布式一致性协议</h2><p>TX协议<br>XA协议</p>
+<h2 id="两阶段提交协议"><a href="#两阶段提交协议" class="headerlink" title="两阶段提交协议"></a>两阶段提交协议</h2><h2 id="三阶段提交协议"><a href="#三阶段提交协议" class="headerlink" title="三阶段提交协议"></a>三阶段提交协议</h2><h2 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h2><h2 id="最终一致性模式"><a href="#最终一致性模式" class="headerlink" title="最终一致性模式"></a>最终一致性模式</h2>
       
     </div>
 

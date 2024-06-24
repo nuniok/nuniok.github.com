@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -178,444 +178,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/09/19/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/09/19/1.html" class="post-title-link" itemprop="url">Python 包管理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2015-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2015-09-19T00:00:00+00:00">2015-09-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h2><p>pip更新<code>python -m pip install -U pip</code></p>
-<h3 id="pipy国内镜像目前有："><a href="#pipy国内镜像目前有：" class="headerlink" title="pipy国内镜像目前有："></a>pipy国内镜像目前有：</h3><p><a target="_blank" rel="noopener" href="https://pypi.douban.com/">https://pypi.douban.com/</a>  豆瓣</p>
-<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/pypi/web/">https://mirrors.tuna.tsinghua.edu.cn/pypi/web/</a> 清华大学</p>
-<h3 id="指定源安装"><a href="#指定源安装" class="headerlink" title="指定源安装"></a>指定源安装</h3><p>pip可以通过指定源的方式安装 <code>pip install web.py -i https://pypi.douban.com/simple</code></p>
-<p>也可以通过修改配置文件，Linux的文件在<code>~/.pip/pip.conf</code>，Windows在<code>%HOMEPATH%\pip\pip.ini</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.douban.com/simple</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="easy-install"><a href="#easy-install" class="headerlink" title="easy_install"></a>easy_install</h2><p>easy_install指定源安装 <code>easy_install -i https://pypi.douban.com/simple</code></p>
-<p>或者修改配置文件 <code>~/.pydistutils.cfg</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[easy_install]</span><br><span class="line">index_url = http://e.pypi.python.org/simple</span><br></pre></td></tr></table></figure>
-
-<p>easy_install查看包的版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@xyz-pc:~# easy_install tornado -v</span><br><span class="line">Searching for tornado</span><br><span class="line">Best match: tornado 4.0.2</span><br><span class="line">tornado 4.0.2 is already the active version in easy-install.pth</span><br><span class="line"></span><br><span class="line">Using /usr/lib/python2.7/dist-packages</span><br><span class="line">Processing dependencies for tornado</span><br><span class="line">Finished processing dependencies for tornado</span><br><span class="line">Searching for -v</span><br><span class="line">Reading https://pypi.python.org/simple/-v/</span><br><span class="line">Couldn&#x27;t find index page for &#x27;-v&#x27; (maybe misspelled?)</span><br><span class="line">Scanning index of all packages (this may take a while)</span><br><span class="line">Reading https://pypi.python.org/simple/</span><br><span class="line">No local packages or download links found for -v</span><br><span class="line">error: Could not find suitable distribution for Requirement.parse(&#x27;-v&#x27;)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="安装Python安装包管理工具相关命令"><a href="#安装Python安装包管理工具相关命令" class="headerlink" title="安装Python安装包管理工具相关命令"></a>安装Python安装包管理工具相关命令</h2><p>安装easy_install：<code>apt-get install python-setuptools</code></p>
-<p><code>sudo yum install python-setuptools-devel</code></p>
-<p><code>esay_install pip</code></p>
-<p>pip指定版本：<code>pip install &#39;pymongo&lt;2.8&#39;</code></p>
-<p>升级版本：<code>pip install --upgrade pymongo</code></p>
-<p>查看已安装包：<code>pip show --files SomePackage</code></p>
-<p>查看需要更新的包：<code>pip list --outdated</code></p>
-<p>卸载包：<code>pip uninstall SomePackage</code></p>
-<p>帮助：<code>pip --help</code></p>
-<p>指定豆瓣源安装：<code>pip install -i https://pypi.douban.com/simple/ functools32</code></p>
-<p>查看已安装包：<code>pip list</code></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/taosim/articles/3288821.html">http://www.cnblogs.com/taosim/articles/3288821.html</a></p>
-</blockquote>
-<h2 id="pipenv"><a href="#pipenv" class="headerlink" title="pipenv"></a>pipenv</h2><p>安装 <code>pip3 install pipenv</code></p>
-<p>安装虚拟环境 <code>pipenv install</code></p>
-<p>启动虚拟环境 <code>pipenv shell</code></p>
-<p>查看当前环境依赖 <code>pip3 list</code></p>
-<p>退出虚拟环境 <code>exit</code></p>
-<p>安装 <code>pipenv install ……</code></p>
-<p>卸载 <code>pipenv uninstall ……</code></p>
-<p>查看依赖关系 <code>pipenv graph</code></p>
-<p>查看虚拟环境路径 <code>pipenv --venv</code></p>
-<p>删除环境 <code>pipenv --rm</code></p>
-<p>创建 Python3 环境 <code>pipenv --three</code></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/08/14/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/14/1.html" class="post-title-link" itemprop="url">Git使用一年总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2015-08-14 00:00:00" itemprop="dateCreated datePublished" datetime="2015-08-14T00:00:00+00:00">2015-08-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h5 id="git-fetch-merge"><a href="#git-fetch-merge" class="headerlink" title="git fetch merge"></a>git fetch merge</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -vv</span><br><span class="line">git remote add base git@git.in.xxx.com:sss/xxx.git</span><br><span class="line">git fetch base</span><br><span class="line">git merge base/master</span><br></pre></td></tr></table></figure>
-
-<h5 id="git切换远程仓库地址"><a href="#git切换远程仓库地址" class="headerlink" title="git切换远程仓库地址"></a>git切换远程仓库地址</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin [url]</span><br></pre></td></tr></table></figure>
-
-<h5 id="使用git在本地创建一个项目的过程"><a href="#使用git在本地创建一个项目的过程" class="headerlink" title="使用git在本地创建一个项目的过程"></a>使用git在本地创建一个项目的过程</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ makdir ~/hello-world    //创建一个项目hello-world</span><br><span class="line">$ cd ~/hello-world       //打开这个项目</span><br><span class="line">$ git init             //初始化</span><br><span class="line">$ touch README</span><br><span class="line">$ git add README        //更新README文件</span><br><span class="line">$ git commit -m &#x27;first commit&#x27;     //提交更新，并注释信息“first commit”</span><br><span class="line">$ git remote add origin git@github.test/hellotest.git     //连接远程github项目</span><br><span class="line">$ git push -u origin master     //将本地项目更新到github项目上去</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="git设置关闭自动换行"><a href="#git设置关闭自动换行" class="headerlink" title="git设置关闭自动换行"></a>git设置关闭自动换行</h5><p><code>git config --global core.autocrlf false</code><br>为了保证文件的换行符是以安全的方法，避免windows与unix的换行符混用的情况，最好也加上这么一句<br><code>git config --global core.safecrlf true</code></p>
-<hr>
-<h5 id="git-tag-使用"><a href="#git-tag-使用" class="headerlink" title="git tag 使用"></a>git tag 使用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git tag  # 列出当前仓库的所有标签</span><br><span class="line">git tag -l &#x27;v0.1.*&#x27;  # 搜索符合当前模式的标签</span><br><span class="line"></span><br><span class="line">git tag v0.2.1-light  # 创建轻量标签</span><br><span class="line">git tag -a v0.2.1 -m &#x27;0.2.1版本&#x27;  # 创建附注标签</span><br><span class="line"></span><br><span class="line">git checkout [tagname]  # 切换到标签</span><br><span class="line">git show v0.2.1  # 查看标签版本信息</span><br><span class="line"></span><br><span class="line">git tag -d v0.2.1  # 删除标签</span><br><span class="line">git tag -a v0.2.1 9fbc3d0  # 补打标签</span><br><span class="line"></span><br><span class="line">git push origin v0.1.2  # 将v0.1.2标签提交到git服务器</span><br><span class="line">git push origin –tags  # 将本地所有标签一次性提交到git服务器</span><br><span class="line">git tag  # 查看当前分支下的标签</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h5 id="git-pull问题"><a href="#git-pull问题" class="headerlink" title="git pull问题"></a>git pull问题</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">You asked me to pull without telling me which branch you</span><br><span class="line">want to merge with, and &#x27;branch.content_api_zhangxu.merge&#x27; in</span><br><span class="line">your configuration file does not tell me, either. Please</span><br><span class="line">specify which branch you want to use on the command line and</span><br><span class="line">try again (e.g. &#x27;git pull &lt;repository&gt; &lt;refspec&gt;&#x27;).</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">If you often merge with the same branch, you may want to</span><br><span class="line">use something like the following in your configuration file:</span><br><span class="line"></span><br><span class="line">    [branch &quot;content_api_zhangxu&quot;]</span><br><span class="line">    remote = &lt;nickname&gt;</span><br><span class="line">    merge = &lt;remote-ref&gt;</span><br><span class="line"></span><br><span class="line">    [remote &quot;&lt;nickname&gt;&quot;]</span><br><span class="line">    url = &lt;url&gt;</span><br><span class="line">    fetch = &lt;refspec&gt;</span><br><span class="line"></span><br><span class="line">See git-config(1) for details.</span><br></pre></td></tr></table></figure>
-<p><code>git pull origin new_branch</code></p>
-<hr>
-<h5 id="怎样遍历移除项目中的所有-pyc-文件"><a href="#怎样遍历移除项目中的所有-pyc-文件" class="headerlink" title="怎样遍历移除项目中的所有 .pyc 文件"></a>怎样遍历移除项目中的所有 .pyc 文件</h5><p><code>sudo find /tmp -name &quot;*.pyc&quot; | xargs rm -rf</code>替换<code>/tmp</code>目录为工作目录<br><code>git rm *.pyc</code>这个用着也可以</p>
-<p>避免再次误提交，在项目新建<code>.gitignore</code>文件，输入<code>*.pyc</code>过滤文件</p>
-<hr>
-<h5 id="git变更项目地址"><a href="#git变更项目地址" class="headerlink" title="git变更项目地址"></a>git变更项目地址</h5><p><code>git remote set-url origin git@192.168.6.70:res_dev_group/test.git</code><br><code>git remote -v</code></p>
-<hr>
-<h5 id="查看某个文件的修改历史"><a href="#查看某个文件的修改历史" class="headerlink" title="查看某个文件的修改历史"></a>查看某个文件的修改历史</h5><p><code>git log --pretty=oneline 文件名   # 显示修改历史</code><br><code>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e  # 查看更改</code></p>
-<hr>
-<h5 id="git-push-时报错-warning-push-default-is-unset"><a href="#git-push-时报错-warning-push-default-is-unset" class="headerlink" title="git push 时报错 warning: push.default is unset"></a>git push 时报错 warning: push.default is unset</h5><p>git_push.jpg<br>‘matching’ 参数是 Git 1.x 的默认行为，其意是如果你执行 git push 但没有指定分支，它将 push 所有你本地的分支到远程仓库中对应匹配的分支。而 Git 2.x 默认的是 simple，意味着执行 git push 没有指定分支时，只有当前分支会被 push 到你使用 git pull 获取的代码。<br>根据提示，修改git push的行为:<br>git config –global push.default matching<br>再次执行git push 得到解决。</p>
-<hr>
-<h5 id="git-submodule的使用拉子项目代码"><a href="#git-submodule的使用拉子项目代码" class="headerlink" title="git submodule的使用拉子项目代码"></a>git submodule的使用拉子项目代码</h5><p>开发过程中，经常会有一些通用的部分希望抽取出来做成一个公共库来提供给别的工程来使用，而公共代码库的版本管理是个麻烦的事情。今天无意中发现了git的<code>git submodule</code>命令，之前的问题迎刃而解了。<br>添加</p>
-<p>为当前工程添加submodule，命令如下：</p>
-<p><code>git submodule add 仓库地址 路径</code></p>
-<p>其中，仓库地址是指子模块仓库地址，路径指将子模块放置在当前工程下的路径。<br>注意：路径不能以 &#x2F; 结尾（会造成修改不生效）、不能是现有工程已有的目录（不能順利 Clone）</p>
-<p>命令执行完成，会在当前工程根路径下生成一个名为“.gitmodules”的文件，其中记录了子模块的信息。添加完成以后，再将子模块所在的文件夹添加到工程中即可。<br>删除</p>
-<p>submodule的删除稍微麻烦点：首先，要在“.gitmodules”文件中删除相应配置信息。然后，执行<code>git rm –cached</code>命令将子模块所在的文件从git中删除。<br>下载的工程带有submodule</p>
-<p>当使用<code>git clone</code>下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
-<p><code>git submodule update --init --recursive</code></p>
-<p>即可将子模块内容下载下来后工程才不会缺少相应的文件。</p>
-<hr>
-<h5 id="一些错误"><a href="#一些错误" class="headerlink" title="一些错误"></a>一些错误</h5><h6 id="“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误"><a href="#“pathspec-‘branch’-did-not-match-any-file-s-known-to-git-”错误" class="headerlink" title="“pathspec ‘branch’ did not match any file(s) known to git.”错误"></a>“pathspec ‘branch’ did not match any file(s) known to git.”错误</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
-
-<h6 id="使用git提交比较大的文件的时候可能会出现这个错误"><a href="#使用git提交比较大的文件的时候可能会出现这个错误" class="headerlink" title="使用git提交比较大的文件的时候可能会出现这个错误"></a>使用git提交比较大的文件的时候可能会出现这个错误</h6><p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 411<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
-<p>这样的话首先改一下git的传输字节限制</p>
-<p>git config http.postBuffer  524288000<br>然后这时候在传输或许会出现另一个错误</p>
-<p>error: RPC failed; result&#x3D;22, HTTP code &#x3D; 413<br>fatal: The remote end hung up unexpectedly<br>fatal: The remote end hung up unexpectedly<br>Everything up-to-date</p>
-<p>这两个错误看上去相似，一个是411，一个是413</p>
-<p>下面这个错误添加一下密钥就可以了</p>
-<p>首先key-keygen 生成密钥</p>
-<p>然后把生成的密钥复制到git中自己的账号下的相应位置</p>
-<p>git push ssh:&#x2F;&#x2F;192.168.64.250&#x2F;eccp.git  branch</p>
-<blockquote>
-<p>等待收集</p>
-</blockquote>
-<hr>
-<h5 id="git-add文件取消"><a href="#git-add文件取消" class="headerlink" title="git add文件取消"></a>git add文件取消</h5><p>在git的一般使用中，如果发现错误的将不想提交的文件add进入index之后，想回退取消，则可以使用命令：<code>git reset HEAD &lt;file&gt;...</code>，同时git add完毕之后，git也会做相应的提示。</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/yaoming168/article/details/38777763">http://blog.csdn.net/yaoming168/article/details/38777763</a></p>
-</blockquote>
-<hr>
-<h5 id="git删除文件："><a href="#git删除文件：" class="headerlink" title="git删除文件："></a>git删除文件：</h5><p>删除文件跟踪并且删除文件系统中的文件file1<code>git rm file1</code><br>提交刚才的删除动作，之后git不再管理该文件<code>git commit</code></p>
-<p>删除文件跟踪但不删除文件系统中的文件file1<code>git rm --cached file1</code><br>提交刚才的删除动作，之后git不再管理该文件。但是文件系统中还是有file1。<code>git commit</code></p>
-<hr>
-<h5 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h5><p>版本回退用于线上系统出现问题后恢复旧版本的操作。<br>回退到的版本<code>git reset --hard 248cba8e77231601d1189e3576dc096c8986ae51</code><br>回退的是所有文件，如果后悔回退可以git pull就可以了。</p>
-<hr>
-<h5 id="历史版本对比"><a href="#历史版本对比" class="headerlink" title="历史版本对比"></a>历史版本对比</h5><p>查看日志<code>git log</code><br>查看某一历史版本的提交内容<code>git show  4ebd4bbc3ed321d01484a4ed206f18ce2ebde5ca</code>，这里能看到版本的详细修改代码。<br>对比不同版本<code>git diff c0f28a2ec490236caa13dec0e8ea826583b49b7a  2e476412c34a63b213b735e5a6d90cd05b014c33</code></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/lxlzhn/article/details/9356473">http://blog.csdn.net/lxlzhn/article/details/9356473</a></p>
-</blockquote>
-<hr>
-<h5 id="分支的意义与管理"><a href="#分支的意义与管理" class="headerlink" title="分支的意义与管理"></a>分支的意义与管理</h5><p>创建分支可以避免提交代码后对主分支的影响，同时也使你有了相对独立的开发环境。分支具有很重要的意义。<br>创建并切换分支，提交代码后才能在其它机器拉分支代码<code>git checkout -b new_branch</code><br>查看当前分支<code>git branch</code><br>切换到master分支<code>git checkout master</code><br>合并分支到当前分支<code>git merge new_branch</code>，合并分支的操作是从new_branch合并到master分支，当前环境在master分支。<br>删除分支<code>git branch -d new_branch</code></p>
-<hr>
-<h5 id="git冲突文件编辑"><a href="#git冲突文件编辑" class="headerlink" title="git冲突文件编辑"></a>git冲突文件编辑</h5><p>冲突文件冲突的地方如下面这样</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a123</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">b789</span><br><span class="line">=======</span><br><span class="line">b45678910</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
-<p>冲突标记&lt;&lt;&lt;&lt;&lt;&lt;&lt; （7个&lt;）与&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;之间的内容是我的修改，&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;与&gt;&gt;&gt;&gt;&gt;&gt;&gt;之间的内容是别人的修改。<br>此时，还没有任何其它垃圾文件产生。<br>你需要把代码合并好后重新走一遍代码提交流程就好了。</p>
-<hr>
-<h5 id="不顺利的代码提交流程"><a href="#不顺利的代码提交流程" class="headerlink" title="不顺利的代码提交流程"></a>不顺利的代码提交流程</h5><p>在<code>git push</code>后出现错误可能是因为其他人提交了代码，而使你的本地代码库版本不是最新。<br>这时你需要先<code>git pull</code>代码后，检查是否有文件冲突。<br>没有文件冲突的话需要重新走一遍代码提交流程<code>add —&gt; commit —&gt; push</code>。<br>解决文件冲突在后面说。</p>
-<hr>
-<h5 id="git顺利的提交代码流程"><a href="#git顺利的提交代码流程" class="headerlink" title="git顺利的提交代码流程"></a>git顺利的提交代码流程</h5><p>查看修改的文件<code>git status</code>；<br>为了谨慎检查一下代码<code>git diff</code>；<br>添加修改的文件<code>git add dirname1/filename1.py dirname2/filenam2.py</code>，新加的文件也是直接add就好了；<br>添加修改的日志<code>git commit -m &quot;fixed:修改了上传文件的逻辑&quot;</code>；<br>提交代码<code>git push</code>，如果提交失败的可能原因是本地代码库版本不是最新。</p>
-<hr>
-<h5 id="理解github的pull-request"><a href="#理解github的pull-request" class="headerlink" title="理解github的pull request"></a>理解github的pull request</h5><h6 id="有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"><a href="#有一个仓库，叫Repo-A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo-A2-。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo-A合并你的工作，你可以在Github上发起一个Pull-Request，意思是请求Repo-A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。" class="headerlink" title="有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。"></a>有一个仓库，叫Repo A。你如果要往里贡献代码，首先要Fork这个Repo，于是在你的Github账号下有了一个Repo A2,。然后你在这个A2下工作，Commit，push等。然后你希望原始仓库Repo A合并你的工作，你可以在Github上发起一个Pull Request，意思是请求Repo A的所有者从你的A2合并分支。如果被审核通过并正式合并，这样你就为项目A做贡献了。</h6><blockquote>
-<p><a target="_blank" rel="noopener" href="http://zhidao.baidu.com/question/1669154493305991627.html">http://zhidao.baidu.com/question/1669154493305991627.html</a></p>
-</blockquote>
-<hr>
-<h5 id="创建和使用git-ssh-key"><a href="#创建和使用git-ssh-key" class="headerlink" title="创建和使用git ssh key"></a>创建和使用git ssh key</h5><p>首先设置git的user name和email：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxx&quot;</span><br><span class="line">git config --global user.email &quot;xxx@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>查看git配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-<h6 id="然后生成SHH密匙："><a href="#然后生成SHH密匙：" class="headerlink" title="然后生成SHH密匙："></a>然后生成SHH密匙：</h6><p>查看是否已经有了ssh密钥：<code>cd ~/.ssh</code><br>如果没有密钥则不会有此文件夹，有则备份删除<br>生存密钥：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;gudujianjsk@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-<p>按3个回车，密码为空这里一般不使用密钥。<br>最后得到了两个文件：id_rsa和id_rsa.pub<br>注意：密匙生成就不要改了，如果已经生成到<code>~/.ssh</code>文件夹下去找。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 暂时无用</span><br><span class="line">添加 私密钥 到ssh：ssh-add id_rsa</span><br><span class="line">需要之前输入密码（如果有）。</span><br><span class="line"></span><br><span class="line">在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。</span><br><span class="line">打开 http://github.com,登陆xushichao，然后添加ssh。</span><br><span class="line">注意在这里由于直接复制粘帖公钥，可能会导致增加一些字符或者减少些字符，最好用系统工具xclip来做这些事情。</span><br><span class="line">xclip -selection c  id_rsa.pub</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>应用流程未整理</p>
-</blockquote>
-<hr>
-<h6 id="网络上收集"><a href="#网络上收集" class="headerlink" title="网络上收集"></a>网络上收集</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">master : 默认开发分支； origin : 默认远程版本库</span><br><span class="line"></span><br><span class="line">初始化操作</span><br><span class="line">    $ git config -global user.name &lt;name&gt;  #设置提交者名字</span><br><span class="line">    $ git config -global user.email &lt;email&gt;  #设置提交者邮箱</span><br><span class="line">    $ git config -global core.editor &lt;editor&gt;  #设置默认文本编辑器</span><br><span class="line">    $ git config -global merge.tool &lt;tool&gt;  #设置解决合并冲突时差异分析工具</span><br><span class="line">    $ git config -list  #检查已有的配置信息</span><br><span class="line"></span><br><span class="line">创建新版本库</span><br><span class="line">    $ git clone &lt;url&gt;  #克隆远程版本库</span><br><span class="line">    $ git init  #初始化本地版本库</span><br><span class="line"></span><br><span class="line">修改和提交</span><br><span class="line">    $ git add .  #添加所有改动过的文件</span><br><span class="line">    $ git add &lt;file&gt;  #添加指定的文件</span><br><span class="line">    $ git mv &lt;old&gt; &lt;new&gt; #文件重命名</span><br><span class="line">    $ git rm &lt;file&gt;  #删除文件</span><br><span class="line">    $ git rm -cached &lt;file&gt;  #停止跟踪文件但不删除</span><br><span class="line">    $ git commit -m &lt;file&gt; #提交指定文件</span><br><span class="line">    $ git commit -m “commit message”  #提交所有更新过的文件</span><br><span class="line">    $ git commit -amend  #修改最后一次提交</span><br><span class="line">    $ git commit -C HEAD -a -amend  #增补提交（不会产生新的提交历史纪录）</span><br><span class="line"></span><br><span class="line">查看提交历史</span><br><span class="line">    $ git log  #查看提交历史</span><br><span class="line">    $ git log -p &lt;file&gt;  #查看指定文件的提交历史</span><br><span class="line">    $ git blame &lt;file&gt;  #以列表方式查看指定文件的提交历史</span><br><span class="line">    $ gitk  #查看当前分支历史纪录</span><br><span class="line">    $ gitk &lt;branch&gt; #查看某分支历史纪录</span><br><span class="line">    $ gitk --all  #查看所有分支历史纪录</span><br><span class="line">    $ git branch -v  #每个分支最后的提交</span><br><span class="line">    $ git status  #查看当前状态</span><br><span class="line">    $ git diff  #查看变更内容</span><br><span class="line"></span><br><span class="line">撤消操作</span><br><span class="line">    $ git reset -hard HEAD  #撤消工作目录中所有未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD &lt;file1&gt; &lt;file2&gt;  #撤消指定的未提交文件的修改内容</span><br><span class="line">    $ git checkout HEAD. #撤消所有文件</span><br><span class="line">    $ git revert &lt;commit&gt;  #撤消指定的提交</span><br><span class="line"></span><br><span class="line">分支与标签</span><br><span class="line">    $ git branch  #显示所有本地分支</span><br><span class="line">    $ git checkout &lt;branch/tagname&gt;  #切换到指定分支或标签</span><br><span class="line">    $ git branch &lt;new-branch&gt;  #创建新分支</span><br><span class="line">    $ git branch -d &lt;branch&gt;  #删除本地分支</span><br><span class="line">    $ git tag  #列出所有本地标签</span><br><span class="line">    $ git tag &lt;tagname&gt;  #基于最新提交创建标签</span><br><span class="line">    $ git tag -d &lt;tagname&gt;  #删除标签</span><br><span class="line"></span><br><span class="line">合并与衍合</span><br><span class="line">    $ git merge &lt;branch&gt;  #合并指定分支到当前分支</span><br><span class="line">    $ git rebase &lt;branch&gt;  #衍合指定分支到当前分支</span><br><span class="line"></span><br><span class="line">远程操作</span><br><span class="line">    $ git remote -v  #查看远程版本库信息</span><br><span class="line">    $ git remote show &lt;remote&gt;  #查看指定远程版本库信息</span><br><span class="line">    $ git remote add &lt;remote&gt; &lt;url&gt;  #添加远程版本库</span><br><span class="line">    $ git fetch &lt;remote&gt;  #从远程库获取代码</span><br><span class="line">    $ git pull &lt;remote&gt; &lt;branch&gt;  #下载代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; &lt;branch&gt;  #上传代码及快速合并</span><br><span class="line">    $ git push &lt;remote&gt; : &lt;branch&gt;/&lt;tagname&gt;  #删除远程分支或标签</span><br><span class="line">    $ git push -tags  #上传所有标签</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/08/07/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/08/07/1.html" class="post-title-link" itemprop="url">Supervisord总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2015-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2015-08-07T00:00:00+00:00">2015-08-07</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>一、添加好配置文件后<br>二、更新新的配置到supervisord<br><code>supervisorctl update</code><br>三、重新启动配置中的所有程序<br><code>supervisorctl reload</code><br>四、启动某个进程(program_name&#x3D;你配置中写的程序名称)<br><code>supervisorctl start program_name</code><br>五、查看正在守候的进程<br><code>supervisorctl</code><br>六、停止某一进程 (program_name&#x3D;你配置中写的程序名称)<br><code>pervisorctl stop program_name</code><br>七、重启某一进程 (program_name&#x3D;你配置中写的程序名称)<br><code>supervisorctl restart program_name</code><br>八、停止全部进程<br><code>supervisorctl stop all</code><br>注意：显示用stop停止掉的进程，用reload或者update都不会自动重启。</p>
-<p>supervisord : supervisor的服务器端部分，启动supervisor就是运行这个命令。<br>supervisorctl：启动supervisor的命令行窗口。</p>
-<hr>
-<p>需求：redis-server这个进程是运行redis的服务。我们要求这个服务能在意外停止后自动重启。</p>
-<h2 id="安装（Centos）"><a href="#安装（Centos）" class="headerlink" title="安装（Centos）"></a>安装（Centos）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install python-setuptools</span><br><span class="line">easy_install supervisor</span><br></pre></td></tr></table></figure>
-
-<p>测试是否安装成功：<br><code>echo_supervisord_conf</code></p>
-<p>创建配置文件：<br><code>echo_supervisord_conf &gt; /etc/supervisord.conf</code></p>
-<p>修改配置文件，在supervisord.conf最后增加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:redis]</span><br><span class="line">command = redis-server   //需要执行的命令</span><br><span class="line">autostart=true    //supervisor启动的时候是否随着同时启动</span><br><span class="line">autorestart=true   //当程序跑出exit的时候，这个program会自动重启</span><br><span class="line">startsecs=3  //程序重启时候停留在runing状态的秒数</span><br></pre></td></tr></table></figure>
-
-<p>环境变量配置：</p>
-<p><code>environment=PATH=&quot;/usr/local/cuda-8.0/bin:/usr/local/cuda-8.0/lib64&quot;,LD_LIBRARY_PATH=&quot;/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH&quot;</code></p>
-<blockquote>
-<p>更多配置说明请参考：<a target="_blank" rel="noopener" href="http://supervisord.org/configuration.html">http://supervisord.org/configuration.html</a></p>
-</blockquote>
-<p>运行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">supervisord    //启动supervisor</span><br><span class="line">supervisorctl   //打开命令行</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm14211 ~]# supervisorctl</span><br><span class="line">redis                            RUNNING    pid 24068, uptime 3:41:55</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctl中： help   //查看命令 </span><br><span class="line">ctl中： status  //查看状态</span><br></pre></td></tr></table></figure>
-
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
-<li><p>redis出现的不是running而是FATAL 状态<br>应该要去查看log<br>log在&#x2F;tmp&#x2F;supervisord.log</p>
-</li>
-<li><p>日志中显示：<br>gave up: redis entered FATAL state, too many start retries too quickly<br>修改redis.conf的daemonize为no</p>
-<blockquote>
-<p>具体说明：<a target="_blank" rel="noopener" href="http://xingqiba.sinaapp.com/?p=240">http://xingqiba.sinaapp.com/?p=240</a></p>
-</blockquote>
-</li>
-</ol>
-<p>事实证明webdis也有这个问题，webdis要修改的是webdis.json这个配置文件</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/yjf512/archive/2012/03/05/2380496.html">http://www.cnblogs.com/yjf512/archive/2012/03/05/2380496.html</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2015/07/18/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2015/07/18/1.html" class="post-title-link" itemprop="url">分布式系统常用指标</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2015-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2015-07-18T00:00:00+00:00">2015-07-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><ol>
-<li>吞度量</li>
-<li>响应延迟 P95 P999</li>
-<li>并发量</li>
-</ol>
-<h2 id="可用性指标"><a href="#可用性指标" class="headerlink" title="可用性指标"></a>可用性指标</h2><ol>
-<li>可提供的服务时间 &#x2F; (可提供的服务时间 + 不可提供的服务时间)</li>
-<li>请求成功次数 &#x2F; 总请求次数</li>
-</ol>
-<h2 id="可扩展性指标"><a href="#可扩展性指标" class="headerlink" title="可扩展性指标"></a>可扩展性指标</h2><p>是否能实现水平扩展，通过增加服务器数量增加计算能力、存储容量等。</p>
-<p>存储系统中有两种扩展方式：<br>Scale Out（也就是Scale horizontally）横向扩展，比如在原有系统中新增一台服务器。<br>Scale Up（也就是Scale vertically）纵向扩展，在原有机器上增加 CPU 、内存。</p>
-<h2 id="一致性指标"><a href="#一致性指标" class="headerlink" title="一致性指标"></a>一致性指标</h2><p>实现多副本之间一致性的能力。不同的应用场景对于数据一致性指标要求不同，需要根据场景做具体的评估。</p>
-<h2 id="水平拆分和垂直拆分"><a href="#水平拆分和垂直拆分" class="headerlink" title="水平拆分和垂直拆分"></a>水平拆分和垂直拆分</h2><h2 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h2><p>原子性（Atomicity）<br>一致性（Atomicity）<br>隔离性（Isolation）<br>持久性（Durability）</p>
-<h2 id="CAP（帽子理论）"><a href="#CAP（帽子理论）" class="headerlink" title="CAP（帽子理论）"></a>CAP（帽子理论）</h2><p>一致性（Consistency）<br>可用性（Availability）<br>可靠性（Partition tolerance 分区容错性）</p>
-<h2 id="BASE"><a href="#BASE" class="headerlink" title="BASE"></a>BASE</h2><p>基本可用（Basically Available）<br>软状态（Soft State）<br>最终一致（Eventually Consistent）</p>
-<h2 id="分布式一致性协议"><a href="#分布式一致性协议" class="headerlink" title="分布式一致性协议"></a>分布式一致性协议</h2><p>TX协议<br>XA协议</p>
-<h2 id="两阶段提交协议"><a href="#两阶段提交协议" class="headerlink" title="两阶段提交协议"></a>两阶段提交协议</h2><h2 id="三阶段提交协议"><a href="#三阶段提交协议" class="headerlink" title="三阶段提交协议"></a>三阶段提交协议</h2><h2 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h2><h2 id="最终一致性模式"><a href="#最终一致性模式" class="headerlink" title="最终一致性模式"></a>最终一致性模式</h2>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -1087,6 +649,307 @@
 
 <p>装饰器类</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">decorator</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, count</span>):</span><br><span class="line">        self._count = count</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, fun</span>):</span><br><span class="line">        self.fun = fun</span><br><span class="line">        <span class="keyword">return</span> self.call_fun</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">call_fun</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self._count):</span><br><span class="line">            self.fun(*args, **kwargs)</span><br><span class="line">        runtime = time.time() - start</span><br><span class="line">        <span class="built_in">print</span> runtime</span><br><span class="line"></span><br><span class="line"><span class="meta">@decorator(<span class="params"><span class="number">2</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">do_something</span>():</span><br><span class="line">    time.sleep(<span class="number">0.1</span>)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;play game&quot;</span></span><br><span class="line"></span><br><span class="line">do_something()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2014/10/16/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/10/16/1.html" class="post-title-link" itemprop="url">SQL的几种连接：内连接、左联接、右连接、全连接、交叉连接</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-10-16 00:00:00" itemprop="dateCreated datePublished" datetime="2014-10-16T00:00:00+00:00">2014-10-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>SQL连接可以分为内连接、外连接、交叉连接。</p>
+<p>数据库数据：<br><img src="/resource/img/sql/SQL01.png" alt="book表"><br><img src="/resource/img/sql/SQL02.png" alt="stu表"></p>
+<h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><ul>
+<li>等值连接：在连接条件中使用等于号(&#x3D;)运算符比较被连接列的列值，其查询结果中列出被连接表中的所有列，包括其中的重复列。</li>
+<li>不等值连接：在连接条件使用除等于运算符以外的其它比较运算符比较被连接的列的列值。这些运算符包括&gt;、&gt;&#x3D;、&lt;&#x3D;、&lt;、!&gt;、!&lt;和&lt;&gt;。</li>
+<li>自然连接：在连接条件中使用等于(&#x3D;)运算符比较被连接列的列值，但它使用选择列表指出查询结果集合中所包括的列，并删除连接表中的重复列。</li>
+</ul>
+<p>内连接：内连接查询操作列出与连接条件匹配的数据行，它使用比较运算符比较被连接列的列值。<br><code>select * from book as a,stu as b where a.sutid = b.stuidselect * from book as a inner join stu as b on a.sutid = b.stuid</code></p>
+<p>内连接可以使用上面两种方式，其中第二种方式的inner可以省略。</p>
+<p><img src="/resource/img/sql/SQL03.png" alt="stu表"></p>
+<p>其连接结果如上图，是按照a.stuid &#x3D; b.stuid进行连接。</p>
+<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><ul>
+<li>左联接：是以左表为基准，将a.stuid &#x3D; b.stuid的数据进行连接，然后将左表没有的对应项显示，右表的列为NULL<br><code>select * from book as a left join stu as b on a.sutid = b.stuid</code></li>
+</ul>
+<p><img src="/resource/img/sql/SQL04.png" alt="stu表"></p>
+<ul>
+<li>右连接：是以右表为基准，将a.stuid &#x3D; b.stuid的数据进行连接，然以将右表没有的对应项显示，左表的列为NULL<br><code>select * from book as a right join stu as b on a.sutid = b.stuid</code></li>
+</ul>
+<p><img src="/resource/img/sql/SQL05.png" alt="stu表"></p>
+<ul>
+<li>全连接：完整外部联接返回左表和右表中的所有行。当某行在另一个表中没有匹配行时，则另一个表的选择列表列包含空值。如果表之间有匹配行，则整个结果集行包含基表的数据值。<br><code>select * from book as a full outer join stu as b on a.sutid = b.stuid</code></li>
+</ul>
+<p><img src="/resource/img/sql/SQL06.png" alt="stu表"></p>
+<h2 id="交叉连接"><a href="#交叉连接" class="headerlink" title="交叉连接"></a>交叉连接</h2><p>交叉连接：交叉联接返回左表中的所有行，左表中的每一行与右表中的所有行组合。交叉联接也称作笛卡尔积。<br><code>select * from book as a cross join stu as b order by a.id</code></p>
+<p><img src="/resource/img/sql/SQL07.png" alt="stu表"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2014/04/22/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014/04/22/1.html" class="post-title-link" itemprop="url">伪彩色处理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-04-22 00:00:00" itemprop="dateCreated datePublished" datetime="2014-04-22T00:00:00+00:00">2014-04-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>伪彩色处理是指将灰度图像转换成彩色图象。因为人眼对于彩色的分辨能力远高于对灰度图像的分辨能力，所以将灰度图像转换成彩色可以提高人眼对图像细节的辨别能力。伪彩色并不能真实的反映图像像的彩色情况。</p>
+<p>效果图：<br><img src="/resource/img/15455544332499.jpg"></p>
+<p>强度分层法和灰度级-彩色变换法：<br>（1）强度分层法是伪彩色处理技术中最简单的一种。<br>在某个灰度级Li上设置一个平行于x-y平面的切割平面，切割平面下面的，即灰度级小于Li的像素分配给一种颜色，相应的切割平面上大于灰度级Li的像素分配给另一种颜色。这样切割结果可以分成两层的伪彩色。可以使用M个平面去切割，就会得到M个不同灰度级的区域，这样就是具有M种颜色的为彩色图像。这种方法虽然简单，但是视觉效果不理想。<br>（2）灰度级-彩色变换法可以将灰度图像变为具有多种颜色渐变的连续彩色图像。<br>主要就是将图像通过不同变换特性的红、绿、蓝3个变换器，然后将三个颜色通道的输出合成某种颜色。由于三种颜色变换的不同，使得不同大小灰度级可以合成不同的颜色。一组典型的变换传递函数如下图。<br><img src="/resource/img/15455544967422.jpg"></p>
+<p>这里面需要注意的地方，代码只能是处理JPG格式的灰度图像，因为JPG图像的颜色深度是24位表示（R,G,B），每像素由3个字节表示即可，然而PNG图像的颜色深度是32位表示（R,G,B,A）。</p>
+<p>下面的代码是测试代码，以处理24位深度的图像为例，同像素不同通道的颜色值要相同，组合表示出是具有一定灰度的颜色。在实际应用中需要修改下面的代码依据要处理的图像格式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">#region 伪彩色图像处理</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 伪彩色图像处理</span><br><span class="line">/// 博客园-初行 http://www.cnblogs.com/zxlovenet</span><br><span class="line">/// 日期：2014.2.14</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;bmp&quot;&gt;传入的灰度图像&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;method&quot;&gt;使用何种方法，false强度分层法,true灰度级-彩色变换法&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;seg&quot;&gt;强度分层中的分层数&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;返回伪彩色图像&lt;/returns&gt;</span><br><span class="line">private Bitmap gcTrans(Bitmap bmp, bool method, byte seg)</span><br><span class="line">&#123;</span><br><span class="line">    if (bmp != null)</span><br><span class="line">    &#123;</span><br><span class="line">        if (System.Drawing.Imaging.PixelFormat.Format24bppRgb == bmp.PixelFormat)</span><br><span class="line">        &#123;</span><br><span class="line">            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);</span><br><span class="line">            System.Drawing.Imaging.BitmapData bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);</span><br><span class="line">            IntPtr ptr = bmpData.Scan0;</span><br><span class="line">            int bytes = bmp.Width * bmp.Height * 3;</span><br><span class="line">            byte[] grayValues = new byte[bytes];</span><br><span class="line">            System.Runtime.InteropServices.Marshal.Copy(ptr, grayValues, 0, bytes);</span><br><span class="line">            bmp.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">            byte[] rgbValues = new byte[bytes];</span><br><span class="line">            //清零</span><br><span class="line">            Array.Clear(rgbValues, 0, bytes);</span><br><span class="line">            byte tempB;</span><br><span class="line"></span><br><span class="line">            if (method == false)</span><br><span class="line">            &#123;</span><br><span class="line">                //强度分层法</span><br><span class="line">                for (int i = 0; i &lt; bytes; i += 3)</span><br><span class="line">                &#123;</span><br><span class="line">                    byte ser = (byte)(256 / seg);</span><br><span class="line">                    tempB = (byte)(grayValues[i] / ser);</span><br><span class="line">                    //分配任意一种颜色</span><br><span class="line">                    rgbValues[i + 1] = (byte)(tempB * ser);</span><br><span class="line">                    rgbValues[i] = (byte)((seg - 1 - tempB) * ser);</span><br><span class="line">                    rgbValues[i + 2] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //灰度级-彩色变换法</span><br><span class="line">                for (int i = 0; i &lt; bytes; i += 3)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (grayValues[i] &lt; 64)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 0;</span><br><span class="line">                        rgbValues[i + 1] = (byte)(4 * grayValues[i]);</span><br><span class="line">                        rgbValues[i] = 255;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (grayValues[i] &lt; 128)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 0;</span><br><span class="line">                        rgbValues[i + 1] = 255;</span><br><span class="line">                        rgbValues[i] = (byte)(-4 * grayValues[i] + 2 * 255);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (grayValues[i] &lt; 192)</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = (byte)(4 * grayValues[i] - 2 * 255);</span><br><span class="line">                        rgbValues[i + 1] = 255;</span><br><span class="line">                        rgbValues[i] = 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        rgbValues[i + 2] = 255;</span><br><span class="line">                        rgbValues[i + 1] = (byte)(-4 * grayValues[i] + 4 * 255);</span><br><span class="line">                        rgbValues[i] = 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            bmp = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);</span><br><span class="line">            bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);</span><br><span class="line">            ptr = bmpData.Scan0;</span><br><span class="line"></span><br><span class="line">            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);</span><br><span class="line">            bmp.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">            return bmp;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+<p>颜色映射：<br><img src="/resource/img/15455545098350.jpg"></p>
+<p>颜色映射的方法需要做一个颜色映射表，不同灰度级都会有对应的颜色。这个跟强度分层法相似，可以分成不同的层次，对应的颜色可以根据实际情况做映射。<br>在实际应用中，热成像测温系统所产生的红外图像为黑白灰度级图像，灰度值动态范围不大，人眼很难从这些灰度级中获得丰富的信息。为了更直观地增强显示图像的层次，提高人眼分辨能力，对系统所摄取的图像进行伪彩色处理，从而达到图像增强的效果，使图像信息更加丰富。例如对受热物体所成的像进行伪彩色时，将灰度低的区域设置在蓝色附近(或蓝灰、黑等)，而灰度级高的区域设置在红色附近(或棕红、白等)，以方便人们对物体的观察。</p>
+<p>下面几张图片是在实际应用中的情况（图片来源网络，侵删）：<br><img src="/resource/img/15455545220346.jpg"><br><img src="/resource/img/15455545275803.jpg"><br><img src="/resource/img/15455545323031.jpg"></p>
+<p><a href="/resource/file/GreyColor-Convert.rar">xmind文件</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2010/06/24/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2010/06/24/2.html" class="post-title-link" itemprop="url">Python开发工具箱</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2010-06-24 00:00:00" itemprop="dateCreated datePublished" datetime="2010-06-24T00:00:00+00:00">2010-06-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>ipython：<br><code>sudo pip install ipython</code></p>
+<p>ipython notebook：<br><code>sudo pip install notebook</code></p>
+<p>Pycharm</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2010/01/01/12.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2010/01/01/12.html" class="post-title-link" itemprop="url">支付交易系统架构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2010-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2010-01-01T00:00:00+00:00">2010-01-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <hr>
+<p>交易过程：<br>1.	客户下单<br>2.	客户完成支付<br>3.	商家接单<br>4.	商家发货</p>
+<p>从软件开发角度， 还有一些非功能性需求需要实现：<br>1.	性能： 特别是秒杀的时候，如何满足高频率的支付需求？<br>2.	可靠性：不用说，系统能达到几个9，是衡量软件设计功力的重要指标。 99%是基础， 99.999%是目标，更多的9哪就是神了。<br>3.	易用性：支付中多一个步骤，就会流失至少2%的用户。 产品经理都在削尖脑袋想想怎么让用户赶紧掏钱。<br>4.	可扩展性： 近年来支付业务创新产品多，一元购、红包、打赏等，还有各种的支付场景。 怎么能够快速满足产品经理的需求，尽快上线来抢占市场，可扩展性对支付系统设计也是一个挑战。<br>5.	可伸缩性：为了支持公司业务，搞一些促销活动是必须的。 那促销带来的爆发流量，最佳应对方法就是加机器了。 平时流量低，用不了那么多机器，该释放的就释放掉了， 给公司省点钱。</p>
+<p>典型支付系统架构：<br><img src="/resource/img/15135039006989.jpg"></p>
+<p>某旅游公司：<br><img src="/resource/img/15135039141413.jpg"></p>
+<p>京东金融：<br><img src="/resource/img/15135039244991.jpg"></p>
+<p>支付系统一般会提供如下子系统：<br>    1.	支付应用和产品.(应用层)： 这是针对各端（PC Web端、android、IOS)的应用和产品。 为各个业务系统提供收银台支持，同时支付作为一个独立的模块，可以提供诸如银行卡管理、理财、零钱、虚拟币管理、交易记录查阅、卡券等功能；<br>    2.	支付运营系统(应用层)： 支付系统从安全的角度来说，有一个重要的要求是，懂代码的不碰线上，管运营的不碰代码。这对运营系统的要求就很高，要求基本上所有线上的问题，都可以通过运营系统来解决。<br>    3.	支付BI系统(应用层): 支付中产生大量的数据，对这些数据进行分析， 有助于公司老板们了解运营状况，进行决策支持。<br>    4.	风控系统(应用层)：这是合规要求的风险控制、反洗钱合规等。<br>    5.	信用信息管理系统(应用层)：用来支持对信用算法做配置，对用户的信用信息做管理。<br>支付系统一般会提供如下子系统：<br>    1.	支付应用和产品.(应用层)： 这是针对各端（PC Web端、android、IOS)的应用和产品。 为各个业务系统提供收银台支持，同时支付作为一个独立的模块，可以提供诸如银行卡管理、理财、零钱、虚拟币管理、交易记录查阅、卡券等功能；<br>    2.	支付运营系统(应用层)： 支付系统从安全的角度来说，有一个重要的要求是，懂代码的不碰线上，管运营的不碰代码。这对运营系统的要求就很高，要求基本上所有线上的问题，都可以通过运营系统来解决。<br>    3.	支付BI系统(应用层): 支付中产生大量的数据，对这些数据进行分析， 有助于公司老板们了解运营状况，进行决策支持。<br>    4.	风控系统(应用层)：这是合规要求的风险控制、反洗钱合规等。<br>    5.	信用信息管理系统(应用层)：用来支持对信用算法做配置，对用户的信用信息做管理。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.bijishequ.com/detail/95641">http://www.bijishequ.com/detail/95641</a></p>
+</blockquote>
+
       
     </div>
 

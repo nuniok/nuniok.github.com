@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -178,177 +178,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/21/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/02/21/1.html" class="post-title-link" itemprop="url">Java 零散知识</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-21T00:00:00+00:00">2018-02-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>零散整理，复习知识点。</p>
-<h2 id="HashMap-实现原理"><a href="#HashMap-实现原理" class="headerlink" title="HashMap 实现原理"></a>HashMap 实现原理</h2><p><img src="/resource/img/15618701610818.jpg"></p>
-<p>Java 8 中，HashMap 是由哈希数组+链表+红黑树组成的，也就是哈希数组、哈希表、链表散列，意思就是数组不是紧密排列的。每个数组元素对应一种不同的hash值，但是不同的hash值可能会映射到数组的同一下标（即哈希冲突）。因为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = tab.length</span><br><span class="line">tab[i = (n - 1) &amp; hash]</span><br></pre></td></tr></table></figure>
-<p>put(K key,V value)方法：添加键值对key-value，如果存在键key，则value覆盖oldValue，并返回oldValue。先通过键key，利用哈希函数hashCode()等操作，获取hash值，然后根据hash值得到映射到数组的下标，再判断key键是不是存在此下标中。<br>两个对象的hashCode相同，equals不一定相同;两个对象equals相同，hashCode一定相同。所以，重写equals()方法，一定要重写hashCode()方法。</p>
-<p>get(Object key)方法：返回键key对应的value值，如果不存在键key，返回null。<br>以上两个方法都是找key，然后就直接获得附加的value值了。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/laoxingyao/article/details/81252977">https://blog.csdn.net/laoxingyao/article/details/81252977</a></p>
-<h2 id="Java-clone"><a href="#Java-clone" class="headerlink" title="Java clone"></a>Java clone</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangjg_blog/article/details/18369201">https://blog.csdn.net/zhangjg_blog/article/details/18369201</a></p>
-<h2 id="抽象类-抽象方法"><a href="#抽象类-抽象方法" class="headerlink" title="抽象类\抽象方法"></a>抽象类\抽象方法</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33567641/article/details/80986235">https://blog.csdn.net/qq_33567641/article/details/80986235</a></p>
-<h2 id="Optional-使用"><a href="#Optional-使用" class="headerlink" title="Optional 使用"></a>Optional 使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(entities)</span><br><span class="line">                .orElse(Collections.emptyList())</span><br><span class="line">                .stream()</span><br><span class="line">                .map(this::copyValueFromEntity2Dto)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>##IntStream迭代索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Boolean&gt; retMap = IntStream.range(0, skuList.size())</span><br><span class="line">               .mapToObj(i -&gt; Pair.of(skuList.get(i).getSkuId(), purchased.get(i)))</span><br><span class="line">               .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));</span><br></pre></td></tr></table></figure>
-
-<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><p>POJO（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。使用POJO名称是为了避免和EJB混淆起来, 而且简称比较直接. 其中有一些属性及其getter setter方法的类,没有业务逻辑，有时可以作为VO(value -object)或dto(Data Transform Object)来使用.当然,如果你有一个简单的运算属性也是可以的,但不允许有业务方法,也不能携带有connection之类的方法。</p>
-<h2 id="函数接口"><a href="#函数接口" class="headerlink" title="函数接口"></a>函数接口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.util.function.*;</span><br><span class="line">BiConsumer&lt;T, U&gt;</span><br><span class="line">Function&lt;T, R&gt;</span><br><span class="line">BiFunctionM&lt;T, R, U&gt;</span><br><span class="line">@FunctionalInterface</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html">https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html</a></p>
-<p>Supplier<T> 接收一个函数，返回值类型为 T</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void abc(Supplier&lt;T&gt; fun)&#123;</span><br><span class="line">    fun.get();</span><br><span class="line">&#125;</span><br><span class="line">abc(Class1::func1);</span><br></pre></td></tr></table></figure>
-
-<p>##Jackson - Annotations</p>
-<p>@JsonIgnore 注解用来忽略某些字段，可以用在Field或者Getter方法上，用在Setter方法时，和Filed效果一样。这个注解只能用在POJO存在的字段要忽略的情况，不能满足现在需要的情况。<br>@JsonIgnoreProperties(ignoreUnknown &#x3D; true)，将这个注解写在类上之后，就会忽略类中不存在的字段，可以满足当前的需要。这个注解还可以指定要忽略的字段。<br>@JsonInclude 该注解也是放在类名上面，作用是忽略类中字段值为null的当接收的时候。</p>
-<h2 id="Mock-Stub"><a href="#Mock-Stub" class="headerlink" title="Mock\Stub"></a>Mock\Stub</h2><p>Mock 测试就是在测试过程中，对于某些不容易构造或者不容易获取比较复杂的对象，用一个虚拟的对象来创建以便测试的测试方法。<br>Mock 与 Stub 的区别?<br><a target="_blank" rel="noopener" href="https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748">https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748</a></p>
-<h2 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h2><p>EventBus 是Google.Guava提供的消息发布-订阅类库，它实现了观察者设计模式，消息通知负责人通过EventBus去注册&#x2F;注销观察者，最后由消息通知负责人给观察者发布消息。由于EventBus是将消息队列放入到内存中的，listener消费这个消息队列，故系统重启之后，保存或者堆积在队列中的消息丢失。</p>
-<h2 id="lombok"><a href="#lombok" class="headerlink" title="lombok"></a>lombok</h2><p>@Data ：注解在类上；提供类所有属性的 getting 和 setting 方法，此外还提供了equals、canEqual、hashCode、toString 方法。<br>@Setter：注解在属性上；为属性提供 setting 方法。<br>@Getter：注解在属性上；为属性提供 getting 方法。<br>@Builder：构造一个实例，属性不需要单独 Set。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Data;</span><br><span class="line">import lombok.Builder;</span><br><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">public class ReportReqDto &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    private Integer age;</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br><span class="line">ReportReqDto.builder().id(&quot;1234312312313&quot;).age(12).name(&quot;test&quot;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class AbelDeliveryRequestDto &#123;</span><br><span class="line">    private long memberId;</span><br><span class="line">    private String skuId;</span><br><span class="line">    private int quantity;</span><br><span class="line">    private String extra;</span><br><span class="line">    private boolean anonymous;</span><br><span class="line">    private Map&lt;String, String&gt; params = new HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Maven 配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.16.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/06/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/02/06/2.html" class="post-title-link" itemprop="url">Python时间处理函数</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+00:00">2018-02-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="常用时间表示方法"><a href="#常用时间表示方法" class="headerlink" title="常用时间表示方法"></a>常用时间表示方法</h2><p>时间处理看似简单，不熟悉的话实则也有很多坑在里面，下面先介绍一下常用的时间系统。</p>
-<h3 id="格林尼治时间-GMT"><a href="#格林尼治时间-GMT" class="headerlink" title="格林尼治时间 GMT"></a>格林尼治时间 GMT</h3><p>格林尼治时间是指位于英国伦敦郊区的皇家格林尼治天文台当地的标准时间，因为本初子午线被定义为通过那里的经线。由于地球每天的自转是有些不规则的，而且正在缓慢减速，因此格林尼治时间基于天文观测本身的缺陷，已经不再被作为标准时间使用。现在的标准时间，是由原子钟报时的协调世界时（UTC）来决定。</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93">格林尼治标准时间-维基百科</a></p>
-</blockquote>
-<h3 id="协调世界时-UTC"><a href="#协调世界时-UTC" class="headerlink" title="协调世界时 UTC"></a>协调世界时 UTC</h3><p>协调世界时是最主要的世界时间标准，其以原子时秒长为基础。它与0度经线的平太阳时相差不超过1秒，并不遵守夏令时。协调世界时是最接近格林威治标准时间的几个替代时间系统之一，也是我们系统中主要使用的一个时间系统。<br>理论时区上以被15整除的子午线为中心，向东西两侧延伸7.5°，每15°为一个时区，这是理论时区。所以每差一个时区理论相差一个小时。东边的时区比西边的时区早，所以引入了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E6%97%A5%E6%9C%9F%E5%8F%98%E6%9B%B4%E7%BA%BF">国际日期变更线</a>的概念。实际上为了避开国界线，时区的形状并不规则，又会以国家内部行政分界线划分，这是实际时区。在我国横跨四个理论时区，实际统一使用东八区（UTC+8）为实际时区。<br><img src="/resource/img/15143912170273.jpg"><br>时区的具体表示方式请移步 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA">时区-维基百科</a></p>
-<h3 id="UNIX时间"><a href="#UNIX时间" class="headerlink" title="UNIX时间"></a>UNIX时间</h3><p>UNIX时间或称POSIX时间，是UNIX或类UNIX系统使用的时间表示方式：从协调世界时1970年1月1日0时0分0秒起至现在的总秒数，不考虑闰秒。<br>UNIX时间也就是我们常说的时间戳，也是系统中常用的一种时间表示方式。它全球唯一，当我们将时间戳转换成协调世界时的时候是零时区的时间加上对应时区的时差得出的协调世界时。</p>
-<h3 id="夏令时"><a href="#夏令时" class="headerlink" title="夏令时"></a>夏令时</h3><p>先放维基百科解释 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E6%97%B6%E5%88%B6">夏时制-维基百科</a><br>是一种为了节约能源而认为规定的地方时间制度。</p>
-<h2 id="Python-处理时间"><a href="#Python-处理时间" class="headerlink" title="Python 处理时间"></a>Python 处理时间</h2><p>说完了时间的一些表示方法，下面来说说 Python 有哪些处理时间的模块，以及整理了一些各异的时间处理函数。</p>
-<h3 id="time-模块"><a href="#time-模块" class="headerlink" title="time 模块"></a>time 模块</h3><h3 id="datetime-模块"><a href="#datetime-模块" class="headerlink" title="datetime 模块"></a>datetime 模块</h3><h3 id="calendar-模块"><a href="#calendar-模块" class="headerlink" title="calendar 模块"></a>calendar 模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"></span><br><span class="line">#返回指定年的某月</span><br><span class="line">def get_month(year, month):</span><br><span class="line">    return calendar.month(year, month)</span><br><span class="line"></span><br><span class="line">#返回指定年的日历</span><br><span class="line">def get_calendar(year):</span><br><span class="line">    return calendar.calendar(year)</span><br><span class="line"></span><br><span class="line">#判断某一年是否为闰年，如果是，返回True，如果不是，则返回False</span><br><span class="line">def is_leap(year):</span><br><span class="line">    return calendar.isleap(year)</span><br><span class="line"></span><br><span class="line">#返回某个月的weekday的第一天和这个月的所有天数</span><br><span class="line">def get_month_range(year, month):</span><br><span class="line">    return calendar.monthrange(year, month)</span><br><span class="line"></span><br><span class="line">#返回某个月以每一周为元素的序列</span><br><span class="line">def get_month_calendar(year, month):</span><br><span class="line">    return calendar.monthcalendar(year, month)</span><br></pre></td></tr></table></figure>
-
-<h3 id="arrow-库"><a href="#arrow-库" class="headerlink" title="arrow 库"></a>arrow 库</h3><p>pip 安装就好了，Python中最好用的时间处理库了。</p>
-<p><a target="_blank" rel="noopener" href="http://arrow.readthedocs.io/en/latest/">官方文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/crsmithdev/arrow/">crsmithdev_arrow_ Better dates &amp; times for Python - github</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -404,77 +233,6 @@
 <h2 id="测试的可读性"><a href="#测试的可读性" class="headerlink" title="测试的可读性"></a>测试的可读性</h2><p>封装不重要的细节，使测试的重要细节更突出。<br>让错误消息具有可读性，将错误的输出打印出来。<br>合理的测试函数命名。<br>不要着迷于100％的测试覆盖率，参考2／8法则。<br>不要让测试成为产品开发的障碍。</p>
 <p><img src="/resource/img/15178474543035.jpg"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>大概看了两周左右，将一些觉得比较好的内容总结了一下，并在实际工作中应用起来，之前一些不好的习惯在慢慢的刻意改正。书是本好书，经验与实例相结合，更容易读懂其中含义，让人品味到了坏代码的味道。这本书的内容还需要不断思考并实践。借用前辈告诫的一句话结尾『不要放任自己，要时刻保持严谨的态度，对代码负责，也是对自己负责。』</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/01/28/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/28/1.html" class="post-title-link" itemprop="url">谈谈工作这三年</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-28T00:00:00+00:00">2018-01-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/resource/img/tantan1.jpeg" alt="tantan1"></p>
-<p>一不留神工作就三年了，准确的说是八个月的实习加两年七个月的正式。是该找个时间跟自己谈谈，也是在反思，这三年的得与失。就通过并不咋样的表达能力，列出以下几点去总结和反思一下吧。</p>
-<h2 id="毕业找工作"><a href="#毕业找工作" class="headerlink" title="毕业找工作"></a>毕业找工作</h2><p>在帝都的第一家公司是我在大四上学期通过一个学长推荐进去的。也是有一些幸运的成分，之前在大学所在城市一家公司和几个同学一起实习，没几个月就发现工作环境并不是我想要的，就想着要去帝都闯一闯，也是为了躲避前女友母亲逼迫她毕业就回家的要求。当时自学了两个月的 Python ，和同学业余时间搞了一个项目，面向学校学生，大概有一两万用户吧。正想着去北京找找工作看，发现学长的公司在校招，就找他内推了一把，笔试比较惨，但还是被录取了。</p>
-<h2 id="在帝都第一家公司"><a href="#在帝都第一家公司" class="headerlink" title="在帝都第一家公司"></a>在帝都第一家公司</h2><p>录取后很快我就从上一家公司离职奔来北京入职了，从实习到试用再到正式，一切都比较顺顺利利的，还两次评到了优秀员工。带我的那个师傅比较认真给我不少帮助，而我平时和学长混的也不错。强制的代码规范，不断评审的代码设计给我成长不小帮助，渐渐在组内任务越来越重，主要是公司内部的管理系统开发。说起学长，给我的感觉是做技术的有两种人，一种是为了技术做技术的人，另一种是为了生活做技术的人，学长走了我身边就只剩下另一种人了，而我渐渐的成了两者之间的一种人，最终还是会趋于其中一种。</p>
-<h2 id="为什么从上一家离职"><a href="#为什么从上一家离职" class="headerlink" title="为什么从上一家离职"></a>为什么从上一家离职</h2><p>离职的原因无非两种，待得不爽和给的钱少。之于我也是这两点吧，这两年从无知到渐渐确定了自己的方向，路不同便只好挥挥手告别。</p>
-<h2 id="今后有什么规划"><a href="#今后有什么规划" class="headerlink" title="今后有什么规划"></a>今后有什么规划</h2><p>目前在一家明星公司，在这个环境里还有很大的成长空间，方向也不错，踏实学习成长，后面的路还是比较长的。就现在的状况来说，更主要的是注重技术的成长，从做内部系统到结算系统到现在的支付系统，更专注与业务方向，对语言的选择并不那么重要了。</p>
-<p>两个方面，一方面是后端技术栈的经验积累，另一方面是产品层面的业务划分与设计能力。</p>
-<p>2018继续加油，做一个为技术做技术的人。</p>
 
       
     </div>
@@ -1038,6 +796,217 @@
 <ol start="4">
 <li>设置自动上传<br><img src="/resource/img/15143880744831.jpg"></li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/17/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/17/2.html" class="post-title-link" itemprop="url">佳软分享</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-17T00:00:00+00:00">2017-12-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这篇文章主要记录可以提高效率和网络使用体验的优秀软件服务。</p>
+<h2 id="IFTTT"><a href="#IFTTT" class="headerlink" title="IFTTT"></a>IFTTT</h2><p><img src="/resource/img/15135045482853.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://ifttt.com/">IFTTT</a> 是一个网络自动化神器，目前是免费的，全称为 if this then that 。可以将你各种互联网服务之间的数据同步打通，例如社交、相册、云存储、笔记等等，一个例子是如果你印象笔记保存了一篇文章那么自动发送消息到你的邮箱，或者自动发送短信到指定号码；下雨天提醒你带伞；将你邮件中的附件自动备份到 Dropbox 上等等。</p>
+<h2 id="Dropbox"><a href="#Dropbox" class="headerlink" title="Dropbox"></a>Dropbox</h2><p><img src="/resource/img/15135048869688.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://www.dropbox.com/">Dropbox</a> 是一个云存储服务，通过云计算实现因特网上的文件同步，用户可以存储并共享文件和文件夹。它的有点主要感觉安全性上做的比较完善，可以和做内的一些企业云盘比肩，还有提供开放 API 可以给开发人员自由的发挥空间。缺点是在大陆被河蟹，你需要提个优质的 VPN 服务去使用。</p>
+<h2 id="MWeb"><a href="#MWeb" class="headerlink" title="MWeb"></a>MWeb</h2><p><img src="/resource/img/15135055881404.jpg"><br><a target="_blank" rel="noopener" href="http://zh.mweb.im/">MWeb</a> 是一款专业的 Markdown 写作、记笔记、静态博客生成软件。是一个个人开发者开发维护的，是 Apple 产品线上的 APP。主要特点是操作界面简单；功能强大，对于静态博客 Hexo、Jekyll 等的支持；方便导出各种格式；静态博客生成。功能比较强大，是目前博主遇到的支持的最好的 Markdown 编辑器。在 APP Store 收费 ￥98，值得这个价格。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/17/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/17/1.html" class="post-title-link" itemprop="url">MySQL一些零散记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-17T00:00:00+00:00">2017-12-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="MySQL-大小写区分问题"><a href="#MySQL-大小写区分问题" class="headerlink" title="MySQL 大小写区分问题"></a>MySQL 大小写区分问题</h2><p><img src="/resource/img/15135036470309.jpg"></p>
+<h2 id="sql-mode-配置"><a href="#sql-mode-配置" class="headerlink" title="sql_mode 配置"></a>sql_mode 配置</h2><p>Modes affect the SQL syntax MySQL supports and the data validation checks it performs. This makes it easier to use MySQL in different environments and to use MySQL together with other database servers.</p>
+<h3 id="查看当前sql-mode"><a href="#查看当前sql-mode" class="headerlink" title="查看当前sql_mode"></a>查看当前sql_mode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@GLOBAL.sql_mode;</span><br><span class="line">SELECT @@SESSION.sql_mode;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置当前sql-mode"><a href="#设置当前sql-mode" class="headerlink" title="设置当前sql_mode"></a>设置当前sql_mode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL sql_mode = &#x27;modes...&#x27;;</span><br><span class="line">SET SESSION sql_mode = &#x27;modes...&#x27;;</span><br></pre></td></tr></table></figure>
+<h3 id="Full-list-of-SQL-Models"><a href="#Full-list-of-SQL-Models" class="headerlink" title="Full list of SQL Models"></a>Full list of SQL Models</h3><p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html">https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html</a></p>
+<h2 id="40001-SQL-NO-CACHE"><a href="#40001-SQL-NO-CACHE" class="headerlink" title="&#x2F;*!40001 SQL_NO_CACHE *&#x2F;"></a>&#x2F;*!40001 SQL_NO_CACHE *&#x2F;</h2><p><code>/*!  */</code> 这是 mysql 里的语法，并非注释，<code>!</code> 后面是版本号，如果本数据库等于或大于此版本号，那么注释内的代码也会执行。</p>
+<p>关于这个条件的问答： <a target="_blank" rel="noopener" href="https://lists.mysql.com/mysql/203373">https://lists.mysql.com/mysql/203373</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2017/12/14/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/14/2.html" class="post-title-link" itemprop="url">常用工具命令记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-14 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-14T00:00:00+00:00">2017-12-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="iTerm"><a href="#iTerm" class="headerlink" title="iTerm"></a>iTerm</h2><p>重置配置命令：<br><code>defaults delete com.googlecode.iterm2</code><br>水平分屏：<br><code>command + d</code><br>垂直分屏：<br><code>command + shift + d</code></p>
+<h2 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h2><p><a target="_blank" rel="noopener" href="https://github.com/gpakosz/.tmux">https://github.com/gpakosz/.tmux</a></p>
+<p>新建会话：<code>tmux new -s dev</code><br>连接会话：<code>tmux a -t dev</code><br>列出所有会话：<code>tmux ls</code><br>新建窗口：<code>tmux new -n abc</code><br>prex ： <code>ctrl + b</code><br>切换 pane ： <code>prex + o</code><br>关闭 pane ： <code>prex + x</code><br>新建水平 pane ： <code>prex + &quot;</code><br>新建垂直 pane ： <code>prex + %</code><br>copy-mode ： <code>prex + [</code></p>
+<h2 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h2><p>刷新页面 ： <code>command + r</code><br>打开关闭控制台 ： <code>command + option + j</code><br>打开最近关闭的页面 ： <code>shift + command + t</code><br>MacOS 局域截屏 ： <code>command + shift + 4</code>
+ </p>
+<h2 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h2><p>格式化 ： <code>command + option + L</code><br>光标向前 ： <code>command + [</code><br>光标向后 ： <code>command + ]</code><br>上下文对象命名修改 ： <code>Shift + F6</code></p>
+<h2 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h2><p>选中所有 Command + Ctrl + G</p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>随机采样命令： <code>shuf -n 100 file.txt</code></p>
 
       
     </div>

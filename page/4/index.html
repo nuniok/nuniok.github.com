@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">86</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -327,161 +327,6 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">class BaseMetaClass(type):</span><br><span class="line">    ___sub_class = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def __iter__(self):</span><br><span class="line">        for item in BaseMetaClass.___sub_class.itervalues():</span><br><span class="line">            yield item</span><br><span class="line"></span><br><span class="line">    def __repr__(cls):</span><br><span class="line">        return cls.__name__</span><br><span class="line"></span><br><span class="line">    def __new__(mcs, name, bases, attrs):</span><br><span class="line">        new_cls = super(BaseMetaClass, mcs).__new__(mcs, name, bases, attrs)</span><br><span class="line">        if object not in bases:</span><br><span class="line">            BaseMetaClass.___sub_class[new_cls.__name__] = new_cls</span><br><span class="line">        print mcs, name, bases, attrs, new_cls</span><br><span class="line">        return new_cls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class NotifyManager(object):</span><br><span class="line">    __metaclass__ = BaseMetaClass</span><br><span class="line"></span><br><span class="line">    def __iter__(self):</span><br><span class="line">        yield self.__metaclass__</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class TestA(NotifyManager):</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def notify(cls):</span><br><span class="line">        return cls.__name__</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class TestB(NotifyManager):</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def notify(cls):</span><br><span class="line">        return cls.__name__</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/09/18/1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/09/18/1.html" class="post-title-link" itemprop="url">有关音乐带给我的成长</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-09-18 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-18T00:00:00+00:00">2018-09-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/resource/img/15372870819419.jpg"></p>
-<p>找到一份歌单，正如它的名字那样 <a target="_blank" rel="noopener" href="https://music.163.com/#/playlist?id=9942717&userid=53710549">看书学习必备轻音乐</a> ，调到适合的音量，一边放着音乐一遍学习，可以整个人专注到学习当中，减少学习带来的焦虑感。进而引发了一个理科生对于音乐的好奇心。</p>
-<p><strong>为什么平时难以持续的专注力在音乐的作用下却得到了提高呢？</strong></p>
-<p>好奇心的驱使下，看到知乎对于音乐的定义：</p>
-<p><img src="/resource/img/15372872128394.jpg"></p>
-<p>人们用音乐来抒发情感释放情绪，那么同时音乐也会影响我们的情绪。而当我把这些音乐分享给周边的朋友，他们听了却有不同的感受，基本觉得并没有效果，看来音乐带给每个人的感受都是不同的，音乐也有适合它的人吧。</p>
-<p>今天边听音乐边学习，一边是新的技术知识，一边是熬人的英文教程，同时还琢磨出一套边看边学的方式，希望能养成习惯带给我英语的提升。先写到这里，如下是学习过程中的截图，仅此记录今天的感受。<br><img src="/resource/img/15372867062974.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/09/02/2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nuniok">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码力欧">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/09/02/2.html" class="post-title-link" itemprop="url">高度自律：为了高度自由</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-02T00:00:00+00:00">2018-09-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="情绪管理是自律的基础"><a href="#情绪管理是自律的基础" class="headerlink" title="情绪管理是自律的基础"></a>情绪管理是自律的基础</h2><p>每一件让你痛苦的人或事背后，都有不理性的『活该（沉溺其中）』<br>气质冷静，不要在该动脑子的时候动感情<br>减少依赖性，接受多样性，独立有主见</p>
-<h2 id="正确三观是自律之本"><a href="#正确三观是自律之本" class="headerlink" title="正确三观是自律之本"></a>正确三观是自律之本</h2><p>真诚坦荡（坚持一些正确的三观）<br>不要太在乎外在的评价（容易失去主见）<br>时间换金钱，专业（专业能力）换尊重<br>靠谱是最低成本的社交方式<br>mark：我觉得这里靠谱的前提是需要能客观的对待自己的能力，能力之内的事要努力做好，能力之外的事要方圆的处理掉。</p>
-<h2 id="新闻人眼中的『不自律』概念"><a href="#新闻人眼中的『不自律』概念" class="headerlink" title="新闻人眼中的『不自律』概念"></a>新闻人眼中的『不自律』概念</h2><p>研究自律需要知道什么是『不自律』，通过以下几点去分析：<br><img src="/resource/img/15360769264083.jpg"></p>
-<h2 id="『不自律』的恶性循环"><a href="#『不自律』的恶性循环" class="headerlink" title="『不自律』的恶性循环"></a>『不自律』的恶性循环</h2><p><img src="/resource/img/15360769337843.jpg"></p>
-<h2 id="励志鸡汤不要听"><a href="#励志鸡汤不要听" class="headerlink" title="励志鸡汤不要听"></a>励志鸡汤不要听</h2><p>&#x3D;&#x3D;</p>
-<h2 id="普通人怎样寻求进步"><a href="#普通人怎样寻求进步" class="headerlink" title="普通人怎样寻求进步"></a>普通人怎样寻求进步</h2><p><strong>『观摩活法、研究自己、发现意义、踏上征程、循环往复 』</strong><br>经历不可复制，但能受到启发<br>『与其艳羡那个人，不如成为那个人，自己发光，美丽。具备价值，才是正事』</p>
-<h2 id="自律先要接受平淡现实"><a href="#自律先要接受平淡现实" class="headerlink" title="自律先要接受平淡现实"></a>自律先要接受平淡现实</h2><p>没什么惊心动魄，多是平凡琐碎<strong>（保持良好的精神状态，保持比较好的体态，保持一项运动，实时看起来都是比较爽朗的状态）</strong><br>『精良并非朝夕，而是长久坚持』<br>『终身学习』不是口号而是行动<br>恒毅力——持续的热情和付出</p>
-<h2 id="自律恒动力是自我选择"><a href="#自律恒动力是自我选择" class="headerlink" title="自律恒动力是自我选择"></a>自律恒动力是自我选择</h2><p>不被强迫，纯属自愿（需要从主观意愿上想坚持这件事）<br>自己选择的路，能够考虑到其中困难要坚持住。</p>
-<h2 id="自律必有优先级分类计划"><a href="#自律必有优先级分类计划" class="headerlink" title="自律必有优先级分类计划"></a>自律必有优先级分类计划</h2><p>重要紧急四象限</p>
-<ul>
-<li>重要且紧急</li>
-<li>紧急不重要（时间上的要求）</li>
-<li>重要不紧急（长线过程）</li>
-<li>不重要不紧急</li>
-</ul>
-<h2 id="时间管理摒弃死板、学会变通"><a href="#时间管理摒弃死板、学会变通" class="headerlink" title="时间管理摒弃死板、学会变通"></a>时间管理摒弃死板、学会变通</h2><p>为不确定性的事件预留时间<br>建立及时调整计划的意识<br><strong>保持工作生活社交各方的平衡（计划交叉）</strong></p>
-<h2 id="擅于使用工具记录计划"><a href="#擅于使用工具记录计划" class="headerlink" title="擅于使用工具记录计划"></a>擅于使用工具记录计划</h2><p>日记本——记录的仪式感<br>手机备忘录、印象笔记——备忘、提高效率<br>使用APP——倒数日、小米运动、咕咚、趁早、好轻</p>
-<h2 id="避免干扰自律因素出现"><a href="#避免干扰自律因素出现" class="headerlink" title="避免干扰自律因素出现"></a>避免干扰自律因素出现</h2><p>关闭手机不必要推送通知——保留电话、微信、权威新闻APP推送（新闻BBC、中文凤凰）<br>固定时间消遣——打游戏、刷社交、看直播<br>精简关注同类微博账号、微信公众号——内容分类，选取最优，劣质产品取关<br>屏蔽无聊无脑信息——不看他（她）的朋友圈、知乎关注话题分类</p>
-<h2 id="拒绝缺乏思考的拼命勤奋"><a href="#拒绝缺乏思考的拼命勤奋" class="headerlink" title="拒绝缺乏思考的拼命勤奋"></a>拒绝缺乏思考的拼命勤奋</h2><p>从根本避免在错误规划的道路上越走越远<br>精力守恒，避免三分钟热度、虎头蛇尾<br>更改碎片化阅读习惯，随身携带书纸笔<br>（iPad蓝牙键盘）</p>
-<h2 id="金钱自律法则"><a href="#金钱自律法则" class="headerlink" title="金钱自律法则"></a>金钱自律法则</h2><p>钱是赚出来的，不是省出来的<br>努力赚钱不俗，打工攒钱不low<br>将知识与爱好变现是绝对快乐<br>不是买不起贵的，而是只买对的</p>
-<h2 id="用自律培养真正爱好"><a href="#用自律培养真正爱好" class="headerlink" title="用自律培养真正爱好"></a>用自律培养真正爱好</h2><p>休闲消遣不是爱好<br>爱好不能浅尝辄止<br>get任何技能都需要付出时间和坚持</p>
-<h2 id="自律的体现"><a href="#自律的体现" class="headerlink" title="自律的体现"></a>自律的体现</h2><p><img src="/resource/img/15360769444243.jpg"></p>
 
       
     </div>
@@ -1047,6 +892,177 @@
 <li>新建一个分支 <code>git checkout -b newbranch</code></li>
 <li>将一个commit 复制到新分支提交一个新 commit。<code>git cherry-pick 38361a55138140827b31b72f8bbfd88b3705d77a</code></li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/21/1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/02/21/1.html" class="post-title-link" itemprop="url">Java 零散知识</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-21T00:00:00+00:00">2018-02-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>零散整理，复习知识点。</p>
+<h2 id="HashMap-实现原理"><a href="#HashMap-实现原理" class="headerlink" title="HashMap 实现原理"></a>HashMap 实现原理</h2><p><img src="/resource/img/15618701610818.jpg"></p>
+<p>Java 8 中，HashMap 是由哈希数组+链表+红黑树组成的，也就是哈希数组、哈希表、链表散列，意思就是数组不是紧密排列的。每个数组元素对应一种不同的hash值，但是不同的hash值可能会映射到数组的同一下标（即哈希冲突）。因为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = tab.length</span><br><span class="line">tab[i = (n - 1) &amp; hash]</span><br></pre></td></tr></table></figure>
+<p>put(K key,V value)方法：添加键值对key-value，如果存在键key，则value覆盖oldValue，并返回oldValue。先通过键key，利用哈希函数hashCode()等操作，获取hash值，然后根据hash值得到映射到数组的下标，再判断key键是不是存在此下标中。<br>两个对象的hashCode相同，equals不一定相同;两个对象equals相同，hashCode一定相同。所以，重写equals()方法，一定要重写hashCode()方法。</p>
+<p>get(Object key)方法：返回键key对应的value值，如果不存在键key，返回null。<br>以上两个方法都是找key，然后就直接获得附加的value值了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/laoxingyao/article/details/81252977">https://blog.csdn.net/laoxingyao/article/details/81252977</a></p>
+<h2 id="Java-clone"><a href="#Java-clone" class="headerlink" title="Java clone"></a>Java clone</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangjg_blog/article/details/18369201">https://blog.csdn.net/zhangjg_blog/article/details/18369201</a></p>
+<h2 id="抽象类-抽象方法"><a href="#抽象类-抽象方法" class="headerlink" title="抽象类\抽象方法"></a>抽象类\抽象方法</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33567641/article/details/80986235">https://blog.csdn.net/qq_33567641/article/details/80986235</a></p>
+<h2 id="Optional-使用"><a href="#Optional-使用" class="headerlink" title="Optional 使用"></a>Optional 使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(entities)</span><br><span class="line">                .orElse(Collections.emptyList())</span><br><span class="line">                .stream()</span><br><span class="line">                .map(this::copyValueFromEntity2Dto)</span><br><span class="line">                .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>##IntStream迭代索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Boolean&gt; retMap = IntStream.range(0, skuList.size())</span><br><span class="line">               .mapToObj(i -&gt; Pair.of(skuList.get(i).getSkuId(), purchased.get(i)))</span><br><span class="line">               .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));</span><br></pre></td></tr></table></figure>
+
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><p>POJO（Plain Ordinary Java Object）简单的Java对象，实际就是普通JavaBeans，是为了避免和EJB混淆所创造的简称。使用POJO名称是为了避免和EJB混淆起来, 而且简称比较直接. 其中有一些属性及其getter setter方法的类,没有业务逻辑，有时可以作为VO(value -object)或dto(Data Transform Object)来使用.当然,如果你有一个简单的运算属性也是可以的,但不允许有业务方法,也不能携带有connection之类的方法。</p>
+<h2 id="函数接口"><a href="#函数接口" class="headerlink" title="函数接口"></a>函数接口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.util.function.*;</span><br><span class="line">BiConsumer&lt;T, U&gt;</span><br><span class="line">Function&lt;T, R&gt;</span><br><span class="line">BiFunctionM&lt;T, R, U&gt;</span><br><span class="line">@FunctionalInterface</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html">https://www.ibm.com/developerworks/cn/java/j-java8idioms7/index.html</a></p>
+<p>Supplier<T> 接收一个函数，返回值类型为 T</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void abc(Supplier&lt;T&gt; fun)&#123;</span><br><span class="line">    fun.get();</span><br><span class="line">&#125;</span><br><span class="line">abc(Class1::func1);</span><br></pre></td></tr></table></figure>
+
+<p>##Jackson - Annotations</p>
+<p>@JsonIgnore 注解用来忽略某些字段，可以用在Field或者Getter方法上，用在Setter方法时，和Filed效果一样。这个注解只能用在POJO存在的字段要忽略的情况，不能满足现在需要的情况。<br>@JsonIgnoreProperties(ignoreUnknown &#x3D; true)，将这个注解写在类上之后，就会忽略类中不存在的字段，可以满足当前的需要。这个注解还可以指定要忽略的字段。<br>@JsonInclude 该注解也是放在类名上面，作用是忽略类中字段值为null的当接收的时候。</p>
+<h2 id="Mock-Stub"><a href="#Mock-Stub" class="headerlink" title="Mock\Stub"></a>Mock\Stub</h2><p>Mock 测试就是在测试过程中，对于某些不容易构造或者不容易获取比较复杂的对象，用一个虚拟的对象来创建以便测试的测试方法。<br>Mock 与 Stub 的区别?<br><a target="_blank" rel="noopener" href="https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748">https://yanbin.blog/mockito-how-to-mock-void-method/#more-7748</a></p>
+<h2 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h2><p>EventBus 是Google.Guava提供的消息发布-订阅类库，它实现了观察者设计模式，消息通知负责人通过EventBus去注册&#x2F;注销观察者，最后由消息通知负责人给观察者发布消息。由于EventBus是将消息队列放入到内存中的，listener消费这个消息队列，故系统重启之后，保存或者堆积在队列中的消息丢失。</p>
+<h2 id="lombok"><a href="#lombok" class="headerlink" title="lombok"></a>lombok</h2><p>@Data ：注解在类上；提供类所有属性的 getting 和 setting 方法，此外还提供了equals、canEqual、hashCode、toString 方法。<br>@Setter：注解在属性上；为属性提供 setting 方法。<br>@Getter：注解在属性上；为属性提供 getting 方法。<br>@Builder：构造一个实例，属性不需要单独 Set。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Data;</span><br><span class="line">import lombok.Builder;</span><br><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">public class ReportReqDto &#123;</span><br><span class="line">    private String id;</span><br><span class="line">    private Integer age;</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br><span class="line">ReportReqDto.builder().id(&quot;1234312312313&quot;).age(12).name(&quot;test&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Builder</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class AbelDeliveryRequestDto &#123;</span><br><span class="line">    private long memberId;</span><br><span class="line">    private String skuId;</span><br><span class="line">    private int quantity;</span><br><span class="line">    private String extra;</span><br><span class="line">    private boolean anonymous;</span><br><span class="line">    private Map&lt;String, String&gt; params = new HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Maven 配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.16.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://noge.top/2018/02/06/2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nuniok">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="码力欧">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/02/06/2.html" class="post-title-link" itemprop="url">Python时间处理函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+00:00">2018-02-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="常用时间表示方法"><a href="#常用时间表示方法" class="headerlink" title="常用时间表示方法"></a>常用时间表示方法</h2><p>时间处理看似简单，不熟悉的话实则也有很多坑在里面，下面先介绍一下常用的时间系统。</p>
+<h3 id="格林尼治时间-GMT"><a href="#格林尼治时间-GMT" class="headerlink" title="格林尼治时间 GMT"></a>格林尼治时间 GMT</h3><p>格林尼治时间是指位于英国伦敦郊区的皇家格林尼治天文台当地的标准时间，因为本初子午线被定义为通过那里的经线。由于地球每天的自转是有些不规则的，而且正在缓慢减速，因此格林尼治时间基于天文观测本身的缺陷，已经不再被作为标准时间使用。现在的标准时间，是由原子钟报时的协调世界时（UTC）来决定。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93">格林尼治标准时间-维基百科</a></p>
+</blockquote>
+<h3 id="协调世界时-UTC"><a href="#协调世界时-UTC" class="headerlink" title="协调世界时 UTC"></a>协调世界时 UTC</h3><p>协调世界时是最主要的世界时间标准，其以原子时秒长为基础。它与0度经线的平太阳时相差不超过1秒，并不遵守夏令时。协调世界时是最接近格林威治标准时间的几个替代时间系统之一，也是我们系统中主要使用的一个时间系统。<br>理论时区上以被15整除的子午线为中心，向东西两侧延伸7.5°，每15°为一个时区，这是理论时区。所以每差一个时区理论相差一个小时。东边的时区比西边的时区早，所以引入了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E6%97%A5%E6%9C%9F%E5%8F%98%E6%9B%B4%E7%BA%BF">国际日期变更线</a>的概念。实际上为了避开国界线，时区的形状并不规则，又会以国家内部行政分界线划分，这是实际时区。在我国横跨四个理论时区，实际统一使用东八区（UTC+8）为实际时区。<br><img src="/resource/img/15143912170273.jpg"><br>时区的具体表示方式请移步 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA">时区-维基百科</a></p>
+<h3 id="UNIX时间"><a href="#UNIX时间" class="headerlink" title="UNIX时间"></a>UNIX时间</h3><p>UNIX时间或称POSIX时间，是UNIX或类UNIX系统使用的时间表示方式：从协调世界时1970年1月1日0时0分0秒起至现在的总秒数，不考虑闰秒。<br>UNIX时间也就是我们常说的时间戳，也是系统中常用的一种时间表示方式。它全球唯一，当我们将时间戳转换成协调世界时的时候是零时区的时间加上对应时区的时差得出的协调世界时。</p>
+<h3 id="夏令时"><a href="#夏令时" class="headerlink" title="夏令时"></a>夏令时</h3><p>先放维基百科解释 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E6%97%B6%E5%88%B6">夏时制-维基百科</a><br>是一种为了节约能源而认为规定的地方时间制度。</p>
+<h2 id="Python-处理时间"><a href="#Python-处理时间" class="headerlink" title="Python 处理时间"></a>Python 处理时间</h2><p>说完了时间的一些表示方法，下面来说说 Python 有哪些处理时间的模块，以及整理了一些各异的时间处理函数。</p>
+<h3 id="time-模块"><a href="#time-模块" class="headerlink" title="time 模块"></a>time 模块</h3><h3 id="datetime-模块"><a href="#datetime-模块" class="headerlink" title="datetime 模块"></a>datetime 模块</h3><h3 id="calendar-模块"><a href="#calendar-模块" class="headerlink" title="calendar 模块"></a>calendar 模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"></span><br><span class="line">#返回指定年的某月</span><br><span class="line">def get_month(year, month):</span><br><span class="line">    return calendar.month(year, month)</span><br><span class="line"></span><br><span class="line">#返回指定年的日历</span><br><span class="line">def get_calendar(year):</span><br><span class="line">    return calendar.calendar(year)</span><br><span class="line"></span><br><span class="line">#判断某一年是否为闰年，如果是，返回True，如果不是，则返回False</span><br><span class="line">def is_leap(year):</span><br><span class="line">    return calendar.isleap(year)</span><br><span class="line"></span><br><span class="line">#返回某个月的weekday的第一天和这个月的所有天数</span><br><span class="line">def get_month_range(year, month):</span><br><span class="line">    return calendar.monthrange(year, month)</span><br><span class="line"></span><br><span class="line">#返回某个月以每一周为元素的序列</span><br><span class="line">def get_month_calendar(year, month):</span><br><span class="line">    return calendar.monthcalendar(year, month)</span><br></pre></td></tr></table></figure>
+
+<h3 id="arrow-库"><a href="#arrow-库" class="headerlink" title="arrow 库"></a>arrow 库</h3><p>pip 安装就好了，Python中最好用的时间处理库了。</p>
+<p><a target="_blank" rel="noopener" href="http://arrow.readthedocs.io/en/latest/">官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/crsmithdev/arrow/">crsmithdev_arrow_ Better dates &amp; times for Python - github</a></p>
 
       
     </div>
