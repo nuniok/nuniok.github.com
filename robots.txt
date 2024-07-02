@@ -5,6 +5,9 @@ Allow: /archives/
 Allow: /tags/
 Allow: /stack/
 Allow: /about/
+Allow: /future/
+Allow: /nas/
+Allow: /career/
 Disallow: /vendors/
 Disallow: /js/
 Disallow: /css/
